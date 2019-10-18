@@ -1,0 +1,51 @@
+.creditor-tooltip {
+  z-index: $tooltip-zindex;
+
+  .tooltip-container {
+    position: absolute;
+    background: #fff;
+    border: 1px solid $gray-6;
+    border-radius: 3px;
+    padding: 5px;
+    min-width: 314px;
+    right: -100%;
+    top: 130%;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,.16);
+    z-index: $tooltip-header-zindex;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+
+    .tooltip-header {
+      border-radius: 3px;
+      background: $gray-9;
+      padding: 8px 8px 8px 10px;
+      font-size: 16px;
+      font-weight: 700;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.19;
+      letter-spacing: normal;
+      text-align: left;
+      color: $blue-gray-7;
+    }
+
+    .tooltip-description {
+      padding: 8px;
+      font-size: 14px;
+      font-weight: 400;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.43;
+      letter-spacing: normal;
+      text-align: left;
+    }
+  }
+
+  &:hover {
+    .tooltip-container {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}

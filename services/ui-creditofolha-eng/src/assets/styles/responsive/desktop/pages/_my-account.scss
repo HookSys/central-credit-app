@@ -1,0 +1,24 @@
+.my-account {
+  background: $gray-9;
+  border: 1px solid $gray-7;
+  border-radius: 5px;
+
+  .header {
+    padding: 1rem 1.5rem;
+    color: $blue-gray-5;
+    @include create-font($size: 20px, $weight: bold);
+  }
+
+  .password {
+    width: 9px;
+    height: 9px;
+    border: solid 1px $blue-gray-3;
+    background-color: $blue-gray-3;
+    border-radius: 10px;
+    margin: 0 0.25rem;
+
+    &:nth-child(1) {
+      margin-right: 0.25rem;
+    }
+  }
+}

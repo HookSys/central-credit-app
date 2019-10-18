@@ -1,0 +1,49 @@
+// ---------------------------------------------------------------------------------------------------------------------
+//
+// Sizing utilities
+//
+// Basicamente, adiciona classes funcionais para os breakpoints para altura e largura. Bootstrap, até este momento, não
+// oferece classes que definem tamanho baseado na resolução atual da tela.
+// ---------------------------------------------------------------------------------------------------------------------
+
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @each $prop, $abbrev in (width: w, height: h) {
+      @each $size, $length in $sizes {
+        .#{$abbrev}#{$infix}-#{$size} { #{$prop}: $length !important; }
+      }
+    }
+
+    @each $size in $font-sizes {
+      .font#{$infix}-#{$size} {
+        font-size: #{$size}px !important;
+      }
+    }
+    
+
+    .mw#{$infix}-100 { max-width: 100% !important; }
+    .mh#{$infix}-100 { max-height: 100% !important; }
+    .mw#{$infix}-none { max-width: none !important; }
+    .mh#{$infix}-none { max-height: none !important; }
+
+    .min#{$infix}-w-100 { min-width: 100% !important; }
+    .min#{$infix}-h-100 { min-height: 100% !important; }
+    .min#{$infix}-w-0 { min-width: 0 !important; }
+    .min#{$infix}-h-0 { min-height: 0 !important; }
+
+    @each $size, $length in $sizes {
+      .vw#{$infix}-#{$size} { width: #{$size}vw !important; }
+      .vh#{$infix}-#{$size} { height: #{$size}vh !important; }
+      .min-vw#{$infix}-#{$size} { min-width: #{$size}vw !important; }
+      .min-vh#{$infix}-#{$size} { min-height: #{$size}vh !important; }
+    }
+
+  }
+}
+
+.w-content {
+  width: max-content;
+}

@@ -1,0 +1,36 @@
+.unauthenticated-layout {
+  height: 100vh;
+
+  .title h1 {
+    margin-top: 35px;
+    margin-bottom: 35px;
+    color: white;
+    font-weight: lighter;
+  }
+
+  header {
+    height: 60px;
+    background: $blue-gray-8;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+
+    svg {
+      width: 100px;
+      height: 60px;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  .white-background {
+    border: 1px solid $gray-7;
+  }
+}
+
+.token {
+  background: $gray-11;
+  padding: 50px 60px 120px;
+}
+
+.token-link {
+  color: $blue;
+}

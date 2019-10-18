@@ -1,0 +1,65 @@
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-default {
+  cursor: default !important;
+}
+
+.min-width-xs {
+  min-width: 650px;
+}
+
+.min-width-sm {
+  min-width: 900px;
+}
+
+.min-width-md {
+  min-width: 1250px;
+}
+
+.min-width-lg {
+  min-width: 1800px;
+}
+
+.left-ellipsi {
+  position: relative;
+  padding-left: 25px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 3px solid $white;
+    background-color: transparent;
+    border-radius: 10px;
+    left: 0px;
+    top: 4px;
+  }
+}
+
+.module-icon {
+  min-width: 37px;
+  min-height: 37px;
+  width: 37px;
+  height: 37px;
+}
+
+.action-icon {
+  opacity: 0.5;
+  cursor: pointer;
+  color: $blue-gray-4;
+  transition: opacity 0.1s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+    color: $blue-gray-4;
+    text-decoration: none;
+  }
+
+}
+
+.blue-background {
+  background: rgba(theme-color('secondary'), 0.1)
+}

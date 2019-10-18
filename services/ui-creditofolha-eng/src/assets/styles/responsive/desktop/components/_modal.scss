@@ -1,0 +1,19 @@
+@include media-breakpoint-only(md) {
+  .modal-dialog {
+      max-width: 720px;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .max-modal-height {
+    max-height: 500px;
+    overflow-y: auto;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .max-modal-height {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+}

@@ -1,0 +1,16 @@
+@include media-breakpoint-down(md) {
+  h1, .h1 {
+    color: $blue-gray-5;
+    @include create-font($size: 25px, $weight: normal);
+  }
+
+  h2, .h2 {
+    color: $blue-gray-5;
+    @include create-font($size: 18px, $weight: bold);
+  }
+
+  h5, .h5 {
+    color: $blue-gray-4;
+    @include create-font($size: 15px, $weight: lighter);
+  }
+}

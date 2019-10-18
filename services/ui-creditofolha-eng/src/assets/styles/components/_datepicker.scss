@@ -1,0 +1,134 @@
+
+.CalendarDay__selected_span {
+  background: theme-color("primary") !important;;
+  border: 1px double theme-color("primary") !important;;
+  color: $white !important;
+  opacity: 0.6;
+}
+
+.CalendarDay__selected_span:active,
+.CalendarDay__selected_span:hover {
+  background: theme-color("primary") !important;;
+  border: 1px double theme-color("primary") !important;;
+  color: $white !important;
+  opacity: 1;
+}
+
+.CalendarDay__selected,
+.CalendarDay__selected:active,
+.CalendarDay__selected:hover {
+  background: theme-color("primary") !important;
+  border: 1px double theme-color("primary") !important;
+  color: $white !important;
+}
+
+.CalendarDay__hovered_span,
+.CalendarDay__hovered_span:hover {
+  background: theme-color("primary") !important;
+  opacity: 0.4 !important;
+  border: 1px double theme-color("primary") !important;
+  color: $white !important;
+}
+
+.CalendarDay__hovered_span:active {
+  background: theme-color("primary") !important;
+  opacity: 0.4 !important;
+  border: 1px double theme-color("primary") !important;
+  color: $white !important;
+}
+
+.DayPickerNavigation_button__default {
+  border: none !important;
+}
+
+.DayPickerNavigation_button__default:focus,
+.DayPickerNavigation_button__default:hover {
+  border: none !important;
+}
+
+.DayPickerNavigation_svg__horizontal {
+  fill: theme-color("primary") !important;
+}
+
+.SingleDatePicker {
+  width: 100%;
+
+  .SingleDatePickerInput {
+    padding: 3px 14px 3px 0px;
+    border-color: $blue-gray-1;
+    border-radius: 3px;
+    @include flexbox($align: center);
+
+    .SingleDatePickerInput_calendarIcon {
+      padding: 1px 10px 4px !important;
+      svg {
+        fill: $blue-gray-1;
+        height: 20px;
+        width: 20px;
+      }
+    }
+
+    .DateInput {
+      width: 85% !important;
+      .DateInput_input {
+        @include create-font($size: 14px);
+        padding: 0px 0px 3px !important;
+
+        &.DateInput_input__focused {
+          border-color: theme-color("primary") !important;
+        }
+      }
+
+      .DateInput_fang {
+        top: 41px !important;
+      }
+    }
+
+    .SingleDatePicker_picker {
+      top: 57px !important;
+    }
+  }
+}
+
+.DateRangePickerInput {
+  padding: 3px 14px 3px 0px;
+  border-color: $blue-gray-1;
+  border-radius: 3px;
+
+  .DateRangePickerInput_calendarIcon {
+    padding: 1px 10px 4px !important;
+    svg {
+      fill: $blue-gray-1;
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  .DateInput {
+    width: 75px !important;
+    .DateInput_input {
+      @include create-font($size: 14px);
+      padding: 0px 0px 3px !important;
+      text-align: center;
+
+      &.DateInput_input__focused {
+        border-color: theme-color("primary") !important;
+      }
+    }
+
+    .DateInput_fang {
+      top: 41px !important;
+    }
+  }
+
+  .DateRangePicker_picker {
+    top: 57px !important;
+  }
+
+  .DateRangePickerInput_arrow {
+    margin: 0px 10px 3px;
+    span {
+      @include create-font($size: 14px);
+    }
+  }
+}

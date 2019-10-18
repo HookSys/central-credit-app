@@ -1,0 +1,66 @@
+@include media-breakpoint-down(sm) {
+  .select-screen {
+
+    div {
+      max-width: none;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      background-color: $blue-gray-4 !important;
+      color: $white !important;
+      z-index: 10;
+
+      .avatar svg {
+        fill: $white;
+        font-size: 38px;
+      }
+
+      .logout {
+        a {
+          color: $blue-gray-1 !important;
+          font-size: 17px;
+        }
+  
+        svg {
+          fill: $blue-gray-1;
+        }
+      }
+    }
+
+    .selected-financial {
+      background: $gray-9;
+      border: 1px solid $gray-7;
+
+      .title-sticky {
+        position: sticky;
+        top: 60px;
+      }
+    }
+
+    .select-row {
+      &.title {
+        position: sticky;
+        top: 60px;
+      }
+    }
+
+    .select-screen-options {
+      max-height: none;
+    }
+
+    ::-webkit-scrollbar {
+      width:0;
+    }  
+    ::-webkit-scrollbar-track {
+      background: none; 
+    }   
+    ::-webkit-scrollbar-thumb {
+      background: none; 
+    }  
+    ::-webkit-scrollbar-thumb:hover {
+      background: none; 
+    }
+  }
+}

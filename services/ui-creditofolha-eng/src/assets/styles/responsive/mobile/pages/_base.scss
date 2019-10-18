@@ -1,0 +1,7 @@
+@include media-breakpoint-down(md) {
+  main {
+    &.has-mobile-action-bar {
+      padding-bottom: 85px;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@include media-breakpoint-down(sm) {
+  .dashboard {
+    &.container {
+      padding: 0;
+    }
+
+    .bg-container-light {
+      margin: 0 -15px;
+    }
+  }
+}

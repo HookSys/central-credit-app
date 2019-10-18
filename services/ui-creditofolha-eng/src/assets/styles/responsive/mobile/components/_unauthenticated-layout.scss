@@ -1,0 +1,16 @@
+@include media-breakpoint-down(sm) {
+  .unauthenticated-layout{
+    .white-background {
+      height: 100%;
+    }
+  
+    .token {
+      @include flexbox($align: center);
+      padding: 0;
+    }
+
+    .row {
+      margin: 0;
+    }
+  }
+}

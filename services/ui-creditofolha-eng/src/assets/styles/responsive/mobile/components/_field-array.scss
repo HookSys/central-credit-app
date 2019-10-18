@@ -1,0 +1,17 @@
+@include media-breakpoint-down(md) {
+  .field-array-list {
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    .field-array-form {
+      width: 100%;
+      border-right: none;
+      border-bottom: 3px solid $white;
+    }
+
+    .field-array-actions {
+      width: 100%;
+      padding: 10px 0px;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+@media screen and (min-width: 992px) {
+  .sidebar {
+    width: $sidebar-width;
+
+    .modality {
+      display: flex;
+    }
+
+    &.on-collapse {
+      width: 50px;
+    }
+  }
+}
+
+@media screen and (max-height: 690px) and (min-width: 992px) {
+  .sidebar {
+    .sidebar-links {
+      height: 100vh;
+      padding-bottom: 160px;
+    }
+  }
+}
+

@@ -1,0 +1,46 @@
+.dashboard {
+  .dashboard-card {
+    padding: 10px;
+    min-height: 160px;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    background: $white;
+
+    &.with-background {
+      background: theme-color('primary');
+      color: $white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .dashboard-icon {
+      padding: 15px;
+      border: 2px solid $white;
+      border-radius: 50px;
+      
+      svg {
+        width: 48px;
+        height: 45px;
+      }
+    }
+
+    .dashboard-title {
+      overflow: hidden;
+
+      span {
+        line-height: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .dashboard-header {
+      margin-bottom: 20px;
+      svg {
+        color: theme-color("primary");
+        font-size: 24px;
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+$sizes: (
+  10: 10%,
+  20: 20%,
+  25: 25%,
+  30: 30%,
+  33: calc(100% / 3),
+  40: 40%,
+  50: 50%,
+  60: 60%,
+  67: calc(2 * 100% / 3),
+  80: 80%,
+  auto: auto,
+);
+
+$text-sizes: (
+  "2xs": .70rem,
+  "xs": .75rem,
+  "sm": .875rem,
+  "base": 1rem,
+  "lg": 1.125rem,
+  "xl": 1.25rem,
+  "2xl": 1.5rem,
+  "3xl": 1.875rem,
+  "4xl": 2.25rem,
+  "5xl": 3rem,
+);
+
+$line-heights: (
+  none: 0,
+  font: 1,
+  base: $line-height-base,
+  tight: 1.25,
+  normal: 1.5,
+  loose: 2,
+);
+
+$vertical-aligns: (
+  baseline: baseline,
+  bottom: bottom,
+  middle: middle,
+  top: top,
+);

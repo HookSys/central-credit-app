@@ -1,0 +1,58 @@
+main {
+  min-height: calc(100vh - 50px);
+  background-color: $white-1;
+}
+
+.blue-gray-background {
+  background-color: $background-sub-container-color;
+}
+
+.white-background {
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
+  background-color: $white;
+  padding: 20px;
+}
+
+body.modal-open {
+  padding-right: 0 !important;
+}
+
+.modal {
+  z-index: $modal-zindex;
+}
+
+div.uncompatible-navigator {
+  nav.navbar, div.sidebar, div.sidepanel {
+    top: 40px !important;
+  }
+
+  main {
+    margin-top: 90px !important;
+  }
+
+  .uncompatible-navigator-alert {
+    background: $red;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 40px;
+    line-height: 40px;
+    z-index: $uncompatible-navigator-zindex;
+    color: $white;
+    text-align: center;
+    vertical-align: middle;
+
+    a {
+      color: $white !important;
+    }
+  }
+}
+
+.h1 {
+  @include create-font(32px)
+}
+
+.h2 {
+  @include create-font(20px, bold)
+}

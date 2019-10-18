@@ -1,0 +1,12 @@
+.collapsed-row {
+  padding: 1rem;
+  border-top: 1px solid $gray-7;
+
+  &.collapsed {
+    background: $white-2;
+  }
+
+  .uncollapsed {
+    @include flexbox($justify: space-between, $align: center)
+  }
+}

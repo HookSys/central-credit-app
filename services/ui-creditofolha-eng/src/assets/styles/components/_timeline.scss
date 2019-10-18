@@ -1,0 +1,41 @@
+.timeline {
+  margin-top: 10px;
+
+  .timeline-item {
+    list-style: none;
+    margin-left: 40px;
+
+    &::before {
+      position: absolute;
+      content: '';
+      top: 5px;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 15px;
+      background: theme-color("primary");
+    }
+
+    &.expired{
+      &::before{
+        background: $red;
+      }
+      .text-primary {
+        color: $red !important;
+      }
+    }
+    
+
+    
+
+    &::after {
+      position: absolute;
+      content: '';
+      top: 23px;
+      left: 3px;
+      width: 3px;
+      height: calc(100% - 15px);
+      background-position: 0 0;
+    }
+  }
+}

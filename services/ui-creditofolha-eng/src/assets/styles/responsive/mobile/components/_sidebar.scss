@@ -1,0 +1,25 @@
+@include media-breakpoint-down(md) {
+  .sidebar {
+    width: 0%;
+    border: unset !important;
+
+    .dropdown-container {
+      .dropdown {
+        left: -160px;
+      }
+    }
+
+    &.active {
+      display: block;
+      width: 80%;
+
+      .modality {
+        display: flex;
+      }
+      
+      &.on-collapse {
+        width: 15%;
+      }
+    }
+  }
+}

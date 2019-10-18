@@ -1,0 +1,138 @@
+.form-checkbox {
+  position: relative;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  text-align: left;
+
+  input[type="checkbox"] + label::after {
+    content: none;
+  }
+
+  input[type="checkbox"]:checked + label::after{
+    content: "";
+  }
+
+  input[type="checkbox"]:checked + label::before{
+    border: none;
+    background: theme-color("primary");
+  }
+
+  label::before,
+  label::after{
+    position: absolute;
+  }
+
+  label::after {
+    content: none;
+    display: inline-block;
+    height: 6px;
+    width: 9px;
+    color: white;
+    border-left: 2px solid;
+    border-bottom: 2px solid;    
+    transform: rotate(-45deg);
+    left: 3px;
+    top: 8px;
+  }
+
+  label::before {
+    content: "";
+    display: inline-block;    
+    height: 15px;
+    width: 15px;    
+    background: white;
+    border-radius: 3px;
+    top: 5px;
+    left: 0px;
+    border: 1px solid $gray-6;
+  }
+
+  label {
+    padding-left:10px;
+  }
+
+  input[type="checkbox"]{
+    opacity: 0;
+    z-index: $checkbox-zindex;
+  }
+}
+
+.report-form-checkbox{
+  position: relative;
+  font-size: 16px;
+
+  .report-form-check-input {
+    position: absolute;
+    top: 0;
+  }
+
+  input[type="checkbox"]:checked + label::before{
+    border: none;
+    background: $blue-gray-4;
+  }
+  
+  input[type="checkbox"] + label::after {
+    content: none;
+  }
+
+  input[type="checkbox"]:checked + label::after{
+    content: "";
+  }
+  
+  label::before {
+    content: "";
+    vertical-align: -50%;
+    display: inline-block;    
+    height: 20px;
+    width: 20px;   
+    background: white;
+    border-radius: 3px;
+    top: 0;
+    left: 0;
+    border: 3px solid $gray-6;
+  }
+
+  label::after {
+    content: none;
+    position: absolute;
+    vertical-align: -50%;
+    display: inline-block;
+    height: 6px;
+    width: 12px;
+    color: white;
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    left: 4px;
+    bottom: 0.5rem;
+  }
+
+  label:hover, input:hover {
+    cursor: pointer;
+  }
+
+  label {
+    position: relative;
+  }
+
+  input[type="checkbox"]{
+    opacity: 0;
+    z-index: $checkbox-zindex;
+  }
+}
+
+.div-checkbox {
+  width: 57px;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px dashed $blue-gray-4;
+
+  .checkbox-content {
+    width: 20px;
+    height: 20px;
+  }
+}

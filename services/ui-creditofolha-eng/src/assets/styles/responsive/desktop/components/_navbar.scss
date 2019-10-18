@@ -1,0 +1,16 @@
+@media screen and (min-width: 992px) {
+  .navbar {
+    padding-left: $sidebar-width !important;
+
+    .navbar-toggler {
+      display: none;
+    }
+
+    .desktop {
+      display: flex;
+    }
+    .mobile {
+      display: none;
+    }
+  }
+}

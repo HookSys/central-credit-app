@@ -1,0 +1,77 @@
+.covenants {
+  margin-bottom: 20px;
+
+  .bg-gray-convenants {
+    background-color: rgba($blue-gray-1, 0.08);
+  }
+
+  .message-button {
+    color: $blue-gray-4;
+    display: inline-flex;
+    align-items: center;
+    .icon {
+      position: relative;
+      svg {
+        opacity: 0.3;
+        margin-right: 10px;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: $teal;
+        right: 8px;
+        top: 1px;
+        border-radius: 10px;
+        border: 1px solid $white;
+      }
+    }
+  }
+
+  .animation-payroll {
+    max-height: 0;
+    transition: max-height 0.2s ease-out;
+    overflow: hidden;
+ 
+    &.opened {
+      max-height: 500px;
+      transition: max-height 1s ease-in;
+    }
+  }
+
+  .worked-payroll {
+    margin-top: 5px;
+    padding: 20px;
+    background-color: rgba($blue-gray-1, 0.08);
+
+    .x-input {
+      max-width: 80px !important;
+    }
+
+    .bt-remove {
+      opacity: 0.6;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .add-another {
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: -5px;
+      margin-bottom: 15px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      svg {
+        font-size: 19px;
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+@import "../variables";
+@import "../fonts/fonts";
+@import "../mixins/mixins";
+
+$theme-colors: (
+  "primary": $blue,
+  "secondary": $blue-gray-4,
+  "light": $white-1,
+  "dark": $blue-gray-5,
+  "success": $green,
+  "blue-light": $blue-gray-1,
+  "gray-9": $gray-9,
+  "warning": $yellow,
+  "gray-7": $gray-7,
+);
+
+@import "~bootstrap/scss/bootstrap";
+@import "../utilities/utilities";
+@import "../components/components";
+@import "../pages/pages";
+@import "../responsive/responsive";

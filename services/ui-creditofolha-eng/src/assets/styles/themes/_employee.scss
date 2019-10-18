@@ -1,0 +1,29 @@
+@import "../variables";
+@import "../fonts/fonts";
+@import "../mixins/mixins";
+
+$theme-colors: (
+  "primary": $teal,
+  "secondary": $blue-gray-4,
+  "light": $white-1,
+  "dark": $blue-gray-5,
+  "success": $green,
+  "danger": $red,
+  "warning": $yellow,
+  "blue-light": $blue-gray-1,
+  "gray": $gray-5,
+  "white": $white,
+  "orange": $orange,
+  "blue-gray": $blue-gray-7,
+  "gray-7": $gray-7,
+  "slate": $blue-gray-3,
+  "gray-11": $gray-11,
+  "disabled-gray": $disabled-gray,
+  "transparent": transparent,
+);
+
+@import "~bootstrap/scss/bootstrap";
+@import "../utilities/utilities";
+@import "../components/components";
+@import "../pages/pages";
+@import "../responsive/responsive";

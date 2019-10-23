@@ -1,7 +1,0 @@
-@include media-breakpoint-up(lg) {
-  .sticky-wrapper {
-    &.active {
-      padding: 5px 15px 5px calc(#{$sidebar-width} + 15px) !important;
-    }
-  }
-}

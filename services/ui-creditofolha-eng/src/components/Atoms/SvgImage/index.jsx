@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import EmployeeLogo from 'assets/svg/employee-logo.svg'
-import EmployeeIcon from 'assets/svg/employee-icon.svg'
+import Images from 'assets/svg'
 
 const SvgShape = PropTypes.shape({
   id: PropTypes.string,
@@ -11,19 +9,17 @@ const SvgShape = PropTypes.shape({
   toString: PropTypes.func,
 })
 
-export const AVAILABLE_IMAGES = {
-  EMPLOYEE_LOGO: EmployeeLogo,
-  EMPLOYEE_ICON: EmployeeIcon,
+const AVAILABLE_IMAGES = {
+  ...Images,
 }
 
 const SvgImage = ((props) => {
-  const { icon, className } = props
+  const { icon, className, maxHeight, maxWidth } = props
   return (
     <svg
-      width={ icon.width }
-      height={ icon.height }
       viewBox={ icon.viewBox }
       className={ className }
+      style={ { width: '100%', height: '100%', maxWidth, maxHeight } }
     >
       <use xlinkHref={ icon.url } />
     </svg>
@@ -33,9 +29,14 @@ const SvgImage = ((props) => {
 SvgImage.propTypes = {
   icon: SvgShape.isRequired,
   className: PropTypes.string,
+  maxWidth: PropTypes.string,
+  maxHeight: PropTypes.string,
 }
 SvgImage.defaultProps = {
   className: '',
+  maxWidth: 'auto',
+  maxHeight: 'auto',
 }
+SvgImage.AVAILABLE_IMAGES = AVAILABLE_IMAGES
 
 export default SvgImage

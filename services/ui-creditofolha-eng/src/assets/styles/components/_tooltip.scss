@@ -1,51 +1,55 @@
-.creditor-tooltip {
-  z-index: $tooltip-zindex;
+.custom-tooltip {
+  position: absolute;
+  background: white;
+  border: 1px solid #95989a;
+  border-radius: 3px;
+  padding: 5px;
+  right: 0px;
+  top: 130%;
+  max-width: 300px;
+  z-index: 6;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  display: none;
 
-  .tooltip-container {
-    position: absolute;
-    background: #fff;
-    border: 1px solid $gray-6;
-    border-radius: 3px;
-    padding: 5px;
-    min-width: 314px;
-    right: -100%;
-    top: 130%;
-    box-shadow: 0 3px 6px 0 rgba(0,0,0,.16);
-    z-index: $tooltip-header-zindex;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-
-    .tooltip-header {
-      border-radius: 3px;
-      background: $gray-9;
-      padding: 8px 8px 8px 10px;
-      font-size: 16px;
-      font-weight: 700;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: 1.19;
-      letter-spacing: normal;
-      text-align: left;
-      color: $blue-gray-7;
-    }
-
-    .tooltip-description {
-      padding: 8px;
-      font-size: 14px;
-      font-weight: 400;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: 1.43;
-      letter-spacing: normal;
-      text-align: left;
-    }
+  p {
+    margin-bottom:2px;
   }
 
-  &:hover {
-    .tooltip-container {
-      visibility: visible;
-      opacity: 1;
-    }
+  .tooltip-header {
+    border-radius:3px;
+    background: #eceeef;
+    padding:8px;
+    padding-left:10px;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.19;
+    letter-spacing: normal;
+    text-align: left;
+    color: #373a3c;
   }
+
+  .tooltip-description {
+    padding:8px;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    text-align: left;
+  }
+}
+
+.input-icon:hover .tooltip-icon {
+  display: block;
+}
+
+.tooltip-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

@@ -1,41 +1,36 @@
-
-input, input.form-control, select.form-control, span.input-group-text {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-
-  &.is-invalid {
-    background-image: unset;
-    padding: 0.375rem 0.75rem;
+.form-group {
+  .form-control {
+    &:not([value=""]):not(:focus):not(.is-invalid):not(.is-warning) {
+        border-color: $gray-800;
+    }
   }
-}
-
-input.DateInput_input {
-  border: none;
- }
-
- .select-without-label {
-  margin-top: 1.7rem;
-} 
-
-.search-input {
-  :placeholder-shown {
-    //background: url('../svg/icon-search.svg');
-  }
-}
-
-@include media-breakpoint-up(lg) {
-  .input-without-label {
-    margin-top: 2rem;
+  &:focus-within {
+    label {
+      color: theme-color('primary');
+    }
   }
 
-  .range-input-max {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
+  .input-group {
+    position: relative !important;
 
-  .range-input-min, .range-input-min + .input-group-append .input-group-text {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    .icon-right-addon {
+      position: absolute;
+      right: 12px;
+      top: 0px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      z-index: 5;
+      svg {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        opacity: 0.4;
+  
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+    }
   }
 }

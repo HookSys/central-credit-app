@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
-import withAppEngine from 'engine/withAppEngine'
+import withEngine from 'engine/withEngine'
 
 const getRobotsValue = (shouldBeIndexed) => {
   return shouldBeIndexed ? 'index,follow' : 'noindex,follow'
@@ -15,18 +15,20 @@ const MetaTags = ({
   canonicalPath,
   shouldBeIndexed,
   theme,
-  appThemes,
+  appThemes: { themes },
   appConfigs: { baseUrl },
-}) => (
-  <Helmet>
-    <title>{ `${ metaTitle } | ${ metaTitleSuffix } | ONIDATA` }</title>
-    <meta name='description' content={ metaDescription } />
-    <meta name='keywords' content={ metaKeywords } />
-    <link rel='canonical' href={ `${ baseUrl }${ canonicalPath }` } />
-    <link rel='stylesheet' href={ appThemes[theme] } />
-    <meta name='robots' content={ getRobotsValue(shouldBeIndexed) } />
-  </Helmet>
-)
+}) => {
+  return (
+    <Helmet>
+      <title>{ `${ metaTitle } | ${ metaTitleSuffix } | ONIDATA` }</title>
+      <meta name='description' content={ metaDescription } />
+      <meta name='keywords' content={ metaKeywords } />
+      <link rel='canonical' href={ `${ baseUrl }${ canonicalPath }` } />
+      <link rel='stylesheet' href={ themes[theme] } />
+      <meta name='robots' content={ getRobotsValue(shouldBeIndexed) } />
+    </Helmet>
+  )
+}
 
 MetaTags.propTypes = {
   metaTitle: PropTypes.string,
@@ -46,8 +48,8 @@ MetaTags.defaultProps = {
   metaDescription: '',
   metaKeywords: '',
   canonicalPath: '',
-  theme: 'default',
+  theme: 'creditor',
   shouldBeIndexed: true,
 }
 
-export default withAppEngine(MetaTags)
+export default withEngine(MetaTags)

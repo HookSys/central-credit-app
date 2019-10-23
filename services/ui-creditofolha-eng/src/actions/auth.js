@@ -1,5 +1,4 @@
 import { appLoadSpinner, appUnloadSpinner } from 'actions/app'
-import ApiEngine from 'engine'
 
 export const AUTH_ASYNC_FAIL = 'AUTH_ASYNC_FAIL'
 export const AUTH_ASYNC_SUCCESS = 'AUTH_ASYNC_SUCCESS'
@@ -43,10 +42,10 @@ export function deAuthSuccess() {
 }
 
 export function authRequest(email, password) {
-  return async (dispatch) => {
+  return async (dispatch, getState, request) => {
     dispatch(appLoadSpinner())
     try {
-      const response = await asyncRequest({
+      const response = await request({
         path: 'auth/login/',
         method: 'POST',
         body: {
@@ -66,11 +65,11 @@ export function authRequest(email, password) {
   }
 }
 
-export function authRefresh(dispatch, getState) {
+export function authRefresh(dispatch, getState, request) {
   const refresh = getState().auth.get('refresh')
   dispatch(appLoadSpinner())
 
-  const refreshTokenPromise = asyncRequest({
+  const refreshTokenPromise = request({
     path: 'auth/refresh-login/',
     method: 'POST',
     body: {

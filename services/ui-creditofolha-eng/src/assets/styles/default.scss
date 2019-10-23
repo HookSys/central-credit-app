@@ -1,0 +1,22 @@
+@import 'palettes/onidata';
+@import 'fonts/roboto';
+
+$theme-colors: (
+  'primary':    $green,
+  "secondary":  $gray-600,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $gray-100,
+  "dark":       $gray-800
+);
+
+@import '~bootstrap/scss/functions';
+@import 'variables/variables';
+@import '~bootstrap/scss/bootstrap';
+@import 'utilities/utilities';
+@import 'components/components';
+@import 'templates/templates';
+@import 'pages/pages';
+@import 'responsive/responsive';

@@ -1,16 +1,18 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { StructureRoutesBuilder } from 'components'
+import { StructureRoutesBuilder, Permissions } from 'components'
 
 const StructureBuilder = (structure) => {
-  const { CONTAINER: Container } = structure
+  const { CONTAINER: Container, VALIDATION } = structure
   return (
     <Route path={ structure.ENTRY }>
-      <Container>
-        <Switch>
-          { StructureRoutesBuilder(structure) }
-        </Switch>
-      </Container>
+      <Permissions permissions={ VALIDATION }>
+        <Container structure={ structure }>
+          <Switch>
+            { StructureRoutesBuilder(structure) }
+          </Switch>
+        </Container>
+      </Permissions>
     </Route>
   )
 }

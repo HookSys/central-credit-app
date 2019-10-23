@@ -5,8 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const paths = require('./paths');
 
-const ignoredThemes = ['']
-const themeFileNames = fs.readdirSync(paths.appThemes).filter(file => ignoredThemes.indexOf(file) < 0);
+const themeFileNames = fs.readdirSync(paths.appThemes).filter((fileName) => fileName.endsWith('.scss'))
 
 function getThemeName(fileName) {
   return `${path.basename(fileName, path.extname(fileName))}`.replace('_', '');
@@ -30,14 +29,19 @@ const entryPoints = themeFileNames.reduce((entry, theme) => {
   }
 }, {});
 
-
 const cacheGroups = themeFileNames.reduce((cg, theme) => {
   const name = getThemeName(theme)
   return {
     ...cg,
-    [name]: {
+    [`${ name }Theme`]: {
       name: name,
-      test: (m,c,entry = name) => m.constructor.name === 'CssModule' && recursiveIssuer(m) === name,
+      test: (m,c,entry = name) => {
+        const tst = m.constructor.name === 'CssModule' && recursiveIssuer(m) === name
+        if (tst) {
+          debugger
+        }
+        return tst
+      },
       chunks: 'all',
       enforce: true
     },

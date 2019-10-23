@@ -1,25 +1,32 @@
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import moment from 'moment'
-import AppEngine from 'engine'
-import StructureBuilder from 'components/Atoms/StructureBuilder'
+import { StructureBuilder, Spy } from 'components'
+import withEngine from 'engine/withEngine'
 
-const { structures } = AppEngine
-const { MODULES } = structures
-const DEFAUL_STRUCTURE = StructureBuilder(structures[MODULES.DEFAULT])
-
-const Pages = () => {
+const Pages = ({ appStructures }) => {
+  const [structure, setStructure] = useState(null)
   useEffect(() => {
+    const { MODULES } = appStructures
+    setStructure(StructureBuilder(appStructures[MODULES.DEFAULT]))
     moment.locale('pt-br')
   }, [])
 
   return (
     <Router>
-      <Switch>
-        { DEFAUL_STRUCTURE }
-      </Switch>
+      <Fragment>
+        <Spy />
+        <Switch>
+          { structure }
+        </Switch>
+      </Fragment>
     </Router>
   )
 }
 
-export default Pages
+Pages.propTypes = {
+  appStructures: PropTypes.object.isRequired,
+}
+
+export default withEngine(Pages)

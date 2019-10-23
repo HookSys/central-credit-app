@@ -89,10 +89,16 @@ module.exports = function(webpackEnv) {
   const env = getClientEnvironment(publicUrl);
 
   // common function to get style loaders
-  const getStyleLoaders = (cssOptions, preProcessor) => {
+  const getStyleLoaders = (cssOptions, preProcessor, isSass = false) => {
     const loaders = [
-      require.resolve('style-loader'),
-      MiniCssExtractPlugin.loader,
+      isSass && {
+        loader: require.resolve(MiniCssExtractPlugin.loader),
+        options: {
+          publicPath: publicPath,
+          hmr: isEnvDevelopment,
+          reloadAll: true,
+        }
+      },
       {
         loader: require.resolve('css-loader'),
         options: cssOptions,
@@ -139,6 +145,7 @@ module.exports = function(webpackEnv) {
         }
       );
     }
+
     return loaders;
   };
 
@@ -263,11 +270,16 @@ module.exports = function(webpackEnv) {
       // https://twitter.com/wSokra/status/969633336732905474
       // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
       splitChunks: {
-        cacheGroups: themes.cacheGroups,
+        chunks (chunk) {
+          // exclude `my-excluded-chunk`
+          return chunk.name === 'main';
+        },
+        name: false,
       },
       // Keep the runtime chunk separated to enable long term caching
       // https://twitter.com/wSokra/status/969679223278505985
       // https://github.com/facebook/create-react-app/issues/5358
+      runtimeChunk: true,
     },
     resolve: {
       // This allows you to set a fallback for where Webpack should look for modules.
@@ -379,12 +391,9 @@ module.exports = function(webpackEnv) {
             // Process any SVG outside of the Icon-Sprite.
             {
               test: /\.svg$/,
-              include: [
-                path.resolve(paths.appSrc, "assets/svg")
-              ],
               use: [
                 {
-                  loader: "svg-sprite-loader",
+                  loader: 'svg-sprite-loader',
                   options: {
                     extract: true,
                     spriteFilename: "static/media/app-sprite.[hash].svg",
@@ -462,7 +471,8 @@ module.exports = function(webpackEnv) {
                   importLoaders: 2,
                   sourceMap: isEnvProduction && shouldUseSourceMap,
                 },
-                'sass-loader'
+                'sass-loader',
+                true
               ),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
@@ -499,7 +509,7 @@ module.exports = function(webpackEnv) {
                 /\.(js|mjs|jsx|ts|tsx)$/,
                 /\.html$/,
                 /\.json$/,
-                path.resolve(paths.appSrc, "assets/svg"),
+                /\.svg$/,
               ],
               options: {
                 name: 'static/media/[name].[hash:8].[ext]',
@@ -578,6 +588,7 @@ module.exports = function(webpackEnv) {
         // Options similar to the same options in webpackOptions.output
         // both options are optional
         filename: 'static/css/[name].[hash:8].css',
+        chunkFilename: 'static/css/[id].[hash:8].chunk.css',
       }),
       // Generate an asset manifest file with the following content:
       // - "files" key: Mapping of all asset filenames to their corresponding
@@ -656,7 +667,6 @@ module.exports = function(webpackEnv) {
           formatter: isEnvProduction ? typescriptFormatter : undefined,
         }),
         new SpriteLoaderPlugin({
-          plainSprite: true,
         }),
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.

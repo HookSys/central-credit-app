@@ -1,0 +1,12 @@
+@include media-breakpoint-down(sm) {
+  .clean-template {
+    .content {
+      min-width: unset;
+      min-height: unset;
+
+      .footer-logo {
+        bottom: 20px;
+      }
+    }
+  }
+}

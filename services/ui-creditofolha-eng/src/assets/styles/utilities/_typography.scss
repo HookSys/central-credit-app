@@ -1,21 +1,9 @@
-// ---------------------------------------------------------------------------------------------------------------------
-//
-// Typography utilities
-//
-// Classes funcionais para controlar a aparência do texto. Bootstrap não oferece variações para tamanhos e line heights,
-// e apenas oferece classes responsivas para alinhamento.
-// ---------------------------------------------------------------------------------------------------------------------
-
 @each $breakpoint in map-keys($grid-breakpoints) {
   @include media-breakpoint-up($breakpoint) {
     $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
     @each $size, $fontSize in $text-sizes {
       .font-size#{$infix}-#{$size} { font-size: $fontSize; }
-    }
-
-    @each $size, $lineHeight in $line-heights {
-      .line-height#{$infix}-#{$size} { line-height: $lineHeight; };
     }
 
     @each $size, $verticalAlign in $vertical-aligns {

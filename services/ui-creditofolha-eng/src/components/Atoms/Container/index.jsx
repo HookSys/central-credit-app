@@ -2,16 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-const Container = ({ children, className, container, withMargin, title }) => {
+const Container = ({ children, className }) => {
   return (
-    <div className={ classNames(className, {
-      'mb-4': withMargin,
-      'container': container,
-    }) }
-    >
-      <h1 className='d-none'>
-        { title }
-      </h1>
+    <div className={ classNames('container', className) }>
       { children }
     </div>
   )
@@ -19,16 +12,11 @@ const Container = ({ children, className, container, withMargin, title }) => {
 
 Container.propTypes = {
   children: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
   className: PropTypes.string,
-  container: PropTypes.bool,
-  withMargin: PropTypes.bool,
 }
 
 Container.defaultProps = {
   className: '',
-  container: false,
-  withMargin: true,
 }
 
 export default Container

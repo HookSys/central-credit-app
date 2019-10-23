@@ -51,7 +51,6 @@ const moduleFileExtensions = [
   'json',
   'web.jsx',
   'jsx',
-  'scss',
 ];
 
 // Resolve file paths in the same order as webpack
@@ -74,7 +73,7 @@ module.exports = {
   appBuild: resolveApp('build'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
-  appThemes: resolveApp('src/assets/styles/themes'),
+  appThemes: resolveApp('src/assets/styles'),
   appIndexJs: resolveModule(resolveApp, 'src/index'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),

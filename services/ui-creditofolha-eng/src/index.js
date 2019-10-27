@@ -2,7 +2,8 @@ import React, { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
-import EngineProvider from 'engine'
+import { Provider as EngineProvider } from 'engine'
+import { ThemeRender } from 'components'
 
 import 'moment/locale/pt-br'
 
@@ -16,6 +17,7 @@ ReactDOM.render(
         <Provider store={ store }>
           <PersistGate loading={ null } persistor={ persistor }>
             <Suspense fallback={ <div> Loading </div> }>
+              <ThemeRender />
               <Pages />
             </Suspense>
           </PersistGate>

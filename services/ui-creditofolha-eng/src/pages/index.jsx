@@ -3,13 +3,15 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { StructureBuilder, Spy } from 'components'
-import withEngine from 'engine/withEngine'
+import { useEngine } from 'engine'
 
-const Pages = ({ appStructures }) => {
+const Pages = () => {
+  const structures = useEngine((engine) => engine.structures)
   const [structure, setStructure] = useState(null)
+  
   useEffect(() => {
-    const { MODULES } = appStructures
-    setStructure(StructureBuilder(appStructures[MODULES.DEFAULT]))
+    const { MODULES } = structures
+    setStructure(StructureBuilder(structures[MODULES.DEFAULT]))
     moment.locale('pt-br')
   }, [])
 
@@ -25,8 +27,4 @@ const Pages = ({ appStructures }) => {
   )
 }
 
-Pages.propTypes = {
-  appStructures: PropTypes.object.isRequired,
-}
-
-export default withEngine(Pages)
+export default Pages

@@ -1,6 +1,23 @@
 .app-loading {
   z-index: $overlay-z-index;
   position: relative;
+
+  &.no-overlay {
+    margin-left: -15px;
+    margin-right: -15px;
+
+    .app-loading-overlay {
+      display: none;
+    }
+
+    .app-loading-circular {
+      display: none;
+    }
+
+    .app-loading-line {
+      position: relative !important;
+    }
+  }
   
   .app-loading-overlay {
     position: fixed;

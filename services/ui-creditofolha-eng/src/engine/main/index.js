@@ -1,21 +1,21 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 import methods from 'engine/methods'
-import properties from 'engine/creditofolha'
+import properties from 'engine/properties'
 
 class Engine {
   constructor() {
     this.isEnvProduction = process.env.NODE_ENV === 'production'
-    this.methods()
+    this.createMethods()
   }
 
-  methods() {
+  createMethods() {
     Object.keys(methods).forEach((method) => {
       this[method] = methods[method].bind(this)
     })
   }
 
-  start = async () => {
+  async start() {
     const props = properties()
     const propNames = Object.keys(props)
     const propValues = await Promise.all(Object.values(props))

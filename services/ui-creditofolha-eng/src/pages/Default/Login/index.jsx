@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form/immutable'
 import { CleanTemplate, SvgImage, ReduxFormInput } from 'components'
-import withEngine from 'engine/withEngine'
+import { useEngine } from 'engine'
 import { authRequest } from 'actions/auth'
 
 import ReduxFormInputBuilder from 'components/Molecules/ReduxFormInput/Builder'
@@ -14,8 +14,9 @@ import { RemoveRedEyeOutlined } from '@material-ui/icons'
 const { AVAILABLE_IMAGES } = SvgImage
 const { Layout, Logo, Container, Content, Title } = CleanTemplate
 
-const Login = ({ handleSubmit, appForm, structure: { ROUTES } }) => {
+const Login = ({ handleSubmit, structure: { ROUTES } }) => {
   const dispatch = useDispatch()
+  const appForm = useEngine(engine => engine.form)
   const [isPasswordEyeActive, togglePasswordEyeActive] = useState(false)
 
   const onSubmit = (values) => {
@@ -94,10 +95,9 @@ const Login = ({ handleSubmit, appForm, structure: { ROUTES } }) => {
 
 Login.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  appForm: PropTypes.object.isRequired,
   structure: PropTypes.object.isRequired,
 }
 
 export default reduxForm({
   form: 'loginForm',
-})(withEngine(Login))
+})(Login)

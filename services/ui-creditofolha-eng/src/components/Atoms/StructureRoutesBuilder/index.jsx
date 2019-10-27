@@ -33,7 +33,6 @@ const StructureRoutesBuilder = (structure) => {
           <MetaTags
             metaTitle={ ROUTES[key].NAME }
             metaTitleSuffix={ ContainerName }
-            theme={ THEME }
           />
           <Page structure={ structure } />
         </Permissions>

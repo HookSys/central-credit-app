@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form/immutable'
 import { CleanTemplate, SvgImage, ReduxFormInput } from 'components'
-import withEngine from 'engine/withEngine'
+import { withEngine } from 'engine'
 import { authRequest } from 'actions/auth'
 
 const { AVAILABLE_IMAGES } = SvgImage

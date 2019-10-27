@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Field, reduxForm, formValueSelector } from 'redux-form/immutable'
 import zxcvbn from 'zxcvbn'
 import { CleanTemplate, ReduxFormInput, Button, PasswordStrength, PasswordTips } from 'components'
-import withEngine from 'engine/withEngine'
+import { withEngine } from 'engine'
 import { RemoveRedEyeOutlined } from '@material-ui/icons'
 import { registerAsyncRequest } from 'actions/register'
 

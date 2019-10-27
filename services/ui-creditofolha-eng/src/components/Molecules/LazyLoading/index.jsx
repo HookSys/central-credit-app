@@ -4,7 +4,7 @@ import { Spinner } from 'components'
 
 const LazyLoading = (loader) => {
   return Loadable(loader, {
-    fallback: <Spinner />,
+    fallback: <Spinner noOverlay={ true } />,
   })
 }
 

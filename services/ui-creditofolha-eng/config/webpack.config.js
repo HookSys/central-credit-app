@@ -394,7 +394,7 @@ module.exports = function(webpackEnv) {
               test: /\.svg$/,
               use: [
                 {
-                  loader: 'svg-sprite-loader',
+                  loader: require.resolve('svg-sprite-loader'),
                   options: {
                     extract: true,
                     spriteFilename: "static/media/app-sprite.[hash].svg",

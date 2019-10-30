@@ -14,12 +14,17 @@ const AVAILABLE_IMAGES = {
 }
 
 const SvgImage = ((props) => {
-  const { icon, className, maxHeight, maxWidth } = props
+  const { icon, className, maxHeight, maxWidth, isOverflowHideen } = props
   if (!icon || !icon.viewBox) {
     return null
   }
 
   const [,, maxOriginalWidth, maxOriginalHeight] = String(icon.viewBox).split(' ')
+  const overflowStyle = isOverflowHideen ? {
+    minHeight: maxHeight || maxOriginalHeight,
+    minWidth: maxWidth || maxOriginalWidth,
+    overflowX: 'hidden',
+  } : {}
   return (
     <svg
       viewBox={ icon.viewBox }
@@ -28,7 +33,8 @@ const SvgImage = ((props) => {
         width: '100%',
         height: '100%',
         maxWidth: maxWidth || maxOriginalWidth,
-        maxHeight: maxHeight || maxOriginalHeight
+        maxHeight: maxHeight || maxOriginalHeight,
+        ...overflowStyle,
       } }
     >
       <use xlinkHref={ icon.url } />
@@ -41,11 +47,13 @@ SvgImage.propTypes = {
   className: PropTypes.string,
   maxWidth: PropTypes.string,
   maxHeight: PropTypes.string,
+  isOverflowHideen: PropTypes.bool,
 }
 SvgImage.defaultProps = {
   className: '',
   maxWidth: null,
   maxHeight: null,
+  isOverflowHideen: false,
 }
 SvgImage.AVAILABLE_IMAGES = AVAILABLE_IMAGES
 

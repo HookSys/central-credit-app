@@ -4,8 +4,7 @@
       width: 0px;
       min-width: 0px;
       max-width: $sidebar-width;
-      transition: min-width 1s ease-in-out;
-      overflow: hidden;
+      transition: min-width 0.5s ease-in-out;
 
       &.active {
         min-width: $sidebar-sm-width
@@ -15,14 +14,7 @@
         min-height: unset;
         max-height: $navbar-sm-height;
         height: $navbar-sm-height;
-
-        svg {
-          min-width: calc(#{$sidebar-sm-width} - 30px) !important;
-          max-width: calc(#{$sidebar-sm-width} - 30px) !important;
-          min-height: calc(#{$navbar-sm-height} - 10px) !important;
-          max-height: calc(#{$navbar-sm-height} - 10px) !important;
-          overflow-x: hidden;
-        }
+        overflow: hidden;
       }
 
       .sidebar-content {
@@ -42,6 +34,14 @@
         left: 0px;
         width: 100%;
         height: 100%;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        background-color: $black;
+
+        &.active {
+          opacity: 0.4;
+          z-index: 2000;
+        }
       }
   
       .navbar {

@@ -1,26 +1,34 @@
 import React, { useRef, useLayoutEffect, useState, useContext, useMemo } from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
 import { SideBarContext } from './SideBar'
 
 const Content = ({ children }) => {
   const startPos = useRef()
-  const { toggleSideBar } = useContext(SideBarContext)
+  const { toggleSideBar, isSideBarVisible } = useContext(SideBarContext)
 
   const onTouchEnd = (event) => {
     window.removeEventListener('touchend', onTouchEnd);
-    const { clientX } = event.changedTouches[0];
-    if (startPos.current > clientX) {
-      toggleSideBar(false)
-    } else {
-      toggleSideBar(true)
+    const { clientX, clientY } = event.changedTouches[0];
+    const { clientX: startClientX, clientY: startClientY } = startPos.current
+
+    if (Math.abs(clientY-startClientY) < 20 && startClientX !== clientX) {
+      if (startClientX > clientX) {
+        toggleSideBar(false)
+      } else {
+        toggleSideBar(true)
+      }
+      startPos.current = 0
     }
-    startPos.current = 0
   }
 
   const onTouchStart = (event) => {
-    const { clientX } = event.targetTouches[0];
-    startPos.current = clientX
+    const { clientX, clientY } = event.targetTouches[0];
+    startPos.current = {
+      clientX,
+      clientY,
+    }
     window.addEventListener('touchend', onTouchEnd);
   }
 
@@ -35,7 +43,9 @@ const Content = ({ children }) => {
     <div className='d-flex flex-column content'>
       { children }
       <div
-        className='sidebar-overlay'
+        className={ classNames('sidebar-overlay', {
+          'active': isSideBarVisible,
+        }) }
         onClick={ () => toggleSideBar(false) }
       />
     </div>

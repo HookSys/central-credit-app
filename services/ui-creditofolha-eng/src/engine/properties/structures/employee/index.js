@@ -16,7 +16,9 @@ export default {
   CONTAINER: EmployeeContainer,
   LOGO: {
     CLASSNAME: 'bg-primary',
-    ICON: AVAILABLE_IMAGES.EMPLOYEE_LOGO,
+    ICON: AVAILABLE_IMAGES.LOGO_WHITE_FULL,
+    SMALL_CLASSNAME: 'bg-primary',
+    SMALL_ICON: AVAILABLE_IMAGES.LOGO_WHITE_FULL,
   },
   VALIDATION: [
     PERMISSIONS.AUTH_REQUIRED({ redirectTo: '/login' }),

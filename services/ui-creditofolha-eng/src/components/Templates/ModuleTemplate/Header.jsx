@@ -22,7 +22,7 @@ const Header = () => {
               <Menu className='font-size-3xl' onClick={ () => toggleSideBar(!isSideBarVisible) } />
             </button>
             <div className={ classNames('navbar-small-logo ml-2', LOGO.SMALL_CLASSNAME) }>
-              <SvgImage icon={ LOGO.SMALL_ICON } />
+              <SvgImage icon={ LOGO.SMALL_ICON } isOverflowHideen={ true } />
             </div>
           </div>
           <div className='d-flex align-items-center ml-auto mr-2 text-white text-md-dark'>

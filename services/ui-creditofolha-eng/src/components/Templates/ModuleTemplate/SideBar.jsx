@@ -9,23 +9,17 @@ import { Menu, Search, AccountCircle, Notifications, KeyboardArrowDown } from '@
 const SideBarContext = React.createContext({
   isSideBarVisible: false,
   toggleSideBar: () => {},
-
-  widthSideBar: 0,
-  updateWidthSideBar: () => {},
 })
 
 const SideBarProvider = ({ children }) => {
   const [isSideBarVisible, toggleSideBar] = useState(false)
-  const [widthSideBar, updateWidthSideBar] = useState(0)
 
   return (
     <SideBarContext.Provider
-      value={{
+      value={ {
         isSideBarVisible,
         toggleSideBar,
-        widthSideBar,
-        updateWidthSideBar
-      }}
+      } }
     >
       { children }
     </SideBarContext.Provider>
@@ -37,16 +31,14 @@ const SideBar = () => {
   const { isSideBarVisible, widthSideBar } = useContext(SideBarContext)
 
   const { LOGO } = structure
-  const style = !isSideBarVisible ? { minWidth: `${ widthSideBar }px` } : {}
   return (
     <nav
       className={ classNames('sidebar', {
         'active': isSideBarVisible,
       }) }
-      style={ style }
     >
-      <div className={ classNames('sidebar-logo px-2', LOGO.CLASSNAME) }>
-        <SvgImage icon={ LOGO.ICON } maxWidth='310px' maxHeight='40px' />
+      <div className={ classNames('sidebar-logo', LOGO.CLASSNAME) }>
+        <SvgImage icon={ LOGO.ICON } isOverflowHideen={ true }/>
       </div>
       <div className='sidebar-content'>
       </div>

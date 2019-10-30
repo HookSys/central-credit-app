@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { useSelector } from 'react-redux'
@@ -6,8 +6,11 @@ import { SvgImage } from 'components'
 import { useStructure } from 'engine'
 import { Menu, Search, AccountCircle, Notifications, KeyboardArrowDown } from '@material-ui/icons'
 
+import { SideBarContext } from './SideBar'
+
 const Header = () => {
   const structure = useStructure()
+  const { toggleSideBar, isSideBarVisible } = useContext(SideBarContext)
 
   const { LOGO } = structure
   return (
@@ -16,7 +19,7 @@ const Header = () => {
         <div className='row w-100 no-gutters'>
           <div className='d-flex d-md-none'>
             <button className='navbar-toggler p-0 border-0 text-white' type='button'>
-              <Menu className='font-size-3xl' />
+              <Menu className='font-size-3xl' onClick={ () => toggleSideBar(!isSideBarVisible) } />
             </button>
             <div className={ classNames('navbar-small-logo ml-2', LOGO.SMALL_CLASSNAME) }>
               <SvgImage icon={ LOGO.SMALL_ICON } />
@@ -57,12 +60,6 @@ const Header = () => {
       </div>
     </header>
   )
-}
-
-Header.propTypes = {
-}
-
-Header.defaultProps = {
 }
 
 export default Header

@@ -1,32 +1,57 @@
 @include media-breakpoint-down(sm) {
   .module-template {
     .sidebar {
-      max-width: 0px;
-      min-width: unset;
-      width: $sidebar-sm-width;
-      transition: max-width 1s ease-in-out;
+      width: 0px;
+      min-width: 0px;
+      max-width: $sidebar-width;
+      transition: min-width 1s ease-in-out;
       overflow: hidden;
 
       &.active {
-        max-width: $sidebar-sm-width
+        min-width: $sidebar-sm-width
       }
 
       .sidebar-logo {
         min-height: unset;
         max-height: $navbar-sm-height;
         height: $navbar-sm-height;
+
+        svg {
+          min-width: calc(#{$sidebar-sm-width} - 30px) !important;
+          max-width: calc(#{$sidebar-sm-width} - 30px) !important;
+          min-height: calc(#{$navbar-sm-height} - 10px) !important;
+          max-height: calc(#{$navbar-sm-height} - 10px) !important;
+          overflow-x: hidden;
+        }
+      }
+
+      .sidebar-content {
+        height: calc(100vh - #{$navbar-sm-height});
       }
     }
 
     .content {
-      width: 100vw;
+      min-width: 100vw;
+      will-change: transform;
+      position: relative;
+
+      .sidebar-overlay {
+        position: absolute;
+        display: block;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+      }
   
       .navbar {
         min-height: $navbar-sm-height;
+        position: sticky;
+        top: 0px;
       }
   
       main {
-        padding-top: $navbar-sm-height;
+        padding-top: 0px;
       }
     }
   }

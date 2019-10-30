@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import MainHeader from './Header'
 import MainContent from './Content'
 import MainSideBar from './SideBar'
+import Providers from './Providers';
 
 const Layout = ({ children, isHorizontal }) => {
   useEffect(() => {
@@ -12,7 +13,7 @@ const Layout = ({ children, isHorizontal }) => {
   })
   return (
     <Fragment>
-      <div className='module-template'>
+      <Providers>
         <MainSideBar />
         <MainContent>
           <MainHeader />
@@ -20,7 +21,7 @@ const Layout = ({ children, isHorizontal }) => {
             { children }
           </main>
         </MainContent>
-      </div>
+      </Providers>
     </Fragment>
   )
 }

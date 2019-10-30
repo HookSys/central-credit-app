@@ -1,12 +1,6 @@
-import { useRef, useLayoutEffect, useEffect, useContext } from 'react'
-import Context from 'engine/context';
-
-const useIsomorphicLayoutEffect =
-  typeof window !== 'undefined' &&
-  typeof window.document !== 'undefined' &&
-  typeof window.document.createElement !== 'undefined'
-    ? useLayoutEffect
-    : useEffect
+import { useRef, useContext } from 'react'
+import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect'
+import Context from 'engine/context'
 
 function useEngine(selector) {
   const engine = useContext(Context)

@@ -1,0 +1,33 @@
+@include media-breakpoint-down(sm) {
+  .module-template {
+    .sidebar {
+      max-width: 0px;
+      min-width: unset;
+      width: $sidebar-sm-width;
+      transition: max-width 1s ease-in-out;
+      overflow: hidden;
+
+      &.active {
+        max-width: $sidebar-sm-width
+      }
+
+      .sidebar-logo {
+        min-height: unset;
+        max-height: $navbar-sm-height;
+        height: $navbar-sm-height;
+      }
+    }
+
+    .content {
+      width: 100vw;
+  
+      .navbar {
+        min-height: $navbar-sm-height;
+      }
+  
+      main {
+        padding-top: $navbar-sm-height;
+      }
+    }
+  }
+}

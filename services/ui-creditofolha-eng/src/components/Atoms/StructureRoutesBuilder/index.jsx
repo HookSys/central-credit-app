@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { DEFAULT } from 'engine/constants/types'
 import { MetaTags, Permissions } from 'components'
@@ -12,16 +12,14 @@ const StructureRoutesBuilder = (structure) => {
     const permissions = ROUTES[key].VALIDATION
     const hasChilds = typeof ROUTES[key].ROUTES === 'object'
     const Page = ROUTES[key].COMPONENT
-
+          
     if (hasChilds) {
       return (
         <Route path={ path } key={ ENTRY + key }>
           <Permissions permissions={ permissions }>
-            <Page structure={ structure }>
-              <Switch>
-                { StructureChildBuilder(structure, ROUTES[key], path) }
-              </Switch>
-            </Page>
+            <Switch>
+              { StructureChildBuilder(structure, ROUTES[key], path) }
+            </Switch>
           </Permissions>
         </Route>
       )

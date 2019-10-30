@@ -17,3 +17,12 @@ $vertical-aligns: (
   middle: middle,
   top: top,
 );
+
+$font-weights: (
+  "thin": 100,
+  "light": $font-weight-light,
+  "normal": $font-weight-normal,
+  "medium": 500,
+  "bold": $font-weight-bold,
+  "black": 900
+);

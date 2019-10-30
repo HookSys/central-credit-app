@@ -8,6 +8,7 @@ const RegistrationPage = LazyLoading(() => import('pages/Default/Registration'))
 const RegistrationRegisterPage = LazyLoading(() => import('pages/Default/Registration/Register'))
 const RegistrationEmployeePage = LazyLoading(() => import('pages/Default/Registration/Employee'))
 const RegistrationCompanyPage = LazyLoading(() => import('pages/Default/Registration/Company'))
+const RegistrationFeedbackPage = LazyLoading(() => import('pages/Default/Registration/Feedback'))
 
 export default {
   LOGIN: {
@@ -20,7 +21,10 @@ export default {
     URL: '/profiles',
     NAME: 'Perfil',
     COMPONENT: ProfilesPage,
-    VALIDATION: [PERMISSIONS.AUTH_REQUIRED({ redirectTo: '/login' })],
+    VALIDATION: [
+      PERMISSIONS.AUTH_REQUIRED({ redirectTo: '/login' }),
+      PERMISSIONS.NO_SELECTED_PROFILE(),
+    ],
   },
   REGISTRATION: {
     URL: '/registration',
@@ -42,6 +46,13 @@ export default {
         URL: '/company',
         NAME: 'Cadastro de Empresa',
         COMPONENT: RegistrationCompanyPage,
+      },
+      SUCCESS: {
+        URL: '/success',
+        NAME: 'Cadastrado com Sucesso',
+        COMPONENT: RegistrationFeedbackPage,
+        VALIDATION: [PERMISSIONS.RECENTLY_CREATED({ redirectTo: '/login' })],
+        IS_FEEDBACK: true,
       },
     },
   },

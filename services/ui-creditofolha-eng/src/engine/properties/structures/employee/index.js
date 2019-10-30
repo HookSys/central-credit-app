@@ -1,5 +1,7 @@
 import { MODULE } from 'engine/constants/types'
 import { SvgImage, LazyLoading } from 'components'
+import PERMISSIONS from 'engine/constants/permissions'
+import MODULES from 'engine/constants/modules'
 
 import ROUTES from './routes'
 
@@ -11,8 +13,14 @@ export default {
   THEME: 'employee',
   ENTRY: '/employee',
   TYPE: MODULE,
-  ICON: AVAILABLE_IMAGES.EMPLOYEE_ICON,
-  FULL: AVAILABLE_IMAGES.EMPLOYEE_LOGO,
   CONTAINER: EmployeeContainer,
+  LOGO: {
+    CLASSNAME: 'bg-primary',
+    ICON: AVAILABLE_IMAGES.EMPLOYEE_LOGO,
+  },
+  VALIDATION: [
+    PERMISSIONS.AUTH_REQUIRED({ redirectTo: '/login' }),
+    PERMISSIONS.SELECTED_PROFILE({ profile: MODULES.EMPLOYEE, redirectTo: '/profiles' })
+  ],
   ROUTES,
 }

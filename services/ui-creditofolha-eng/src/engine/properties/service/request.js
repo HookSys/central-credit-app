@@ -18,7 +18,7 @@ export default async function (payload) {
     externalPath,
     v3,
     queryParams,
-    removeToken,
+    noToken,
     pathParams,
   } = payload
   const isV3 = v3 ? 'v3/' : 'v2/'
@@ -58,7 +58,7 @@ export default async function (payload) {
     transformedBody = JSON.stringify(body)
   }
 
-  if (!externalPath && !removeToken) {
+  if (!externalPath && !noToken) {
     headers.Authorization = `Bearer ${ access }`
   }
 

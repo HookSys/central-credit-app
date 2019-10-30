@@ -11,6 +11,10 @@ import CleanBanner from './Banner'
 import CleanHeaderTitle from './HeaderTitle'
 import CleanTitle from './Title'
 import CleanFooter from './Footer'
+import CleanListContainer from './ListContainer'
+import CleanList from './List'
+import CleanListHeader from './ListHeader'
+import CleanListItem from './ListItem'
 
 const Layout = ({ children, className }) => {
   useEffect(() => {
@@ -35,6 +39,10 @@ Layout.defaultProps = {
 export default {
   Layout,
   Logo: CleanLogo,
+  List: CleanList,
+  ListItem: CleanListItem,
+  ListHeader: CleanListHeader,
+  ListContainer: CleanListContainer,
   Title: CleanTitle,
   Footer: CleanFooter,
   Banner: CleanBanner,

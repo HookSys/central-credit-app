@@ -1,14 +1,16 @@
+import { appLoadSpinner, appUnloadSpinner } from 'actions/app'
+
 export const REGISTER_ASYNC_SUCCESS = 'REGISTER_ASYNC_SUCCESS'
 export const REGISTER_ASYNC_FAIL = 'REGISTER_ASYNC_FAIL'
 export const REGISTER_FINISHED = 'REGISTER_FINISHED'
 
-function registerAsyncSuccess(cpf, email, senha) {
+function registerAsyncSuccess(cpf, email, password) {
   return {
     type: REGISTER_ASYNC_SUCCESS,
     data: {
       cpf,
       email,
-      senha,
+      password,
     },
   }
 }
@@ -20,24 +22,29 @@ function registerAsyncFail(error) {
   }
 }
 
-export function registerAsyncRequest(cpf, email, senha) {
+export function registerAsyncRequest(cpf, email, password) {
   return async (dispatch, getState, request) => {
+    dispatch(appLoadSpinner())
     try {
       const response = await request({
         path: 'signup',
         method: 'POST',
+        noToken: true,
         body: {
           cpf,
           email,
-          senha,
+          senha: password,
         },
       })
 
-      dispatch(registerAsyncSuccess(response))
+      await dispatch(registerAsyncSuccess(response))
+      await dispatch(authRequest(email, password))
       return response
     } catch (error) {
       dispatch(registerAsyncFail(error))
       return null
+    } finally {
+      dispatch(appUnloadSpinner())
     }
   }
 }

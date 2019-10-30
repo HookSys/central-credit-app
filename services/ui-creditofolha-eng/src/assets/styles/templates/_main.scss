@@ -1,0 +1,94 @@
+.module-template {
+  overflow-x: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+
+  .sidebar {
+    min-width: $sidebar-width;
+    width: $sidebar-width;
+    min-height: 100vh;
+    height: 100%;
+    z-index: 1090;
+
+    .sidebar-logo {
+      min-height: $navbar-height;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: -3px 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+      
+    }
+
+    .sidebar-content {
+      height: calc(100vh - #{$navbar-height});
+      background-color: theme-color('secondary');
+    }
+  }
+
+  .content {
+    width: calc(100vw - #{$sidebar-width});
+
+    .navbar {
+      min-height: $navbar-height;
+      padding: 0px;
+
+      .navbar-small-logo {
+        width: 36.8px;
+        height: 36.8px;
+        max-width: 36.8px;
+        max-height: 36.8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+      }
+
+      .navbar-notifications {
+        svg {
+          transition: color 0.08s ease-in-out;
+          cursor: pointer;
+          &:hover {
+            color: theme-color('dark') !important
+          }
+        }
+      }
+
+      .navbar-actions {
+        cursor: pointer;
+        transition: all 0.08s ease-in-out;
+
+        .navbar-user-avatar {
+          width: 40px;
+          height: 40px;
+          min-width: 40px;
+          min-height: 40px;
+          border: 2px solid theme-color('primary');
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+        }
+
+        &:hover {
+          text-shadow: 0.1px 0.1px;
+
+          .navbar-user-avatar {
+            box-shadow: 0px 0px 0px 1px rgba(theme-color('primary'), 0.4)
+          }
+
+          .navbar-actions-arrow {
+            svg {
+              filter: drop-shadow( 1px 0px 0px rgba(theme-color('low-dark'), 0.8));
+            }
+          }
+        }
+      }
+    }
+
+    main {
+      padding-top: $navbar-height;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+}

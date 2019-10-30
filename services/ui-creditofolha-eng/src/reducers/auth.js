@@ -1,7 +1,7 @@
 import Auth from 'models/Auth'
 
 import {
-  DE_AUTH_SUCCESS,
+  AUTH_LOGOUT,
   AUTH_ASYNC_SUCCESS,
   AUTH_REFRESH_ASYNC_START,
   AUTH_REFRESH_SUCCESS,
@@ -32,7 +32,7 @@ const actionsMap = {
       refreshTokenPromise: null,
     })
   },
-  [DE_AUTH_SUCCESS]: () => {
+  [AUTH_LOGOUT]: () => {
     return initialState
   },
   [REHYDRATE]: (state, action) => {

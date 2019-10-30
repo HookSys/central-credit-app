@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Field, reduxForm, formValueSelector } from 'redux-form/immutable'
 import zxcvbn from 'zxcvbn'
 import { CleanTemplate, ReduxFormInput, Button, PasswordStrength, PasswordTips } from 'components'
-import { withEngine } from 'engine'
+import { useValidators, useNormalizers } from 'engine'
 import { RemoveRedEyeOutlined } from '@material-ui/icons'
 import { registerAsyncRequest } from 'actions/register'
 
@@ -15,7 +15,23 @@ const formName = 'registerForm'
 const selector = formValueSelector(formName)
 const { Content, HeaderTitle, Footer } = CleanTemplate
 
-const EmployeeRegistration = ({ handleSubmit, structure, appForm, invalid }) => {
+const InputAddon = InputAddonBuilder()
+  .rightPosition()
+  .renderMethod(() => (
+    <div className='icon-right-addon'>
+      <RemoveRedEyeOutlined />
+    </div>
+  ))
+  .build()
+
+const ReduxFormInputWithAddon = ReduxFormInputBuilder()
+  .rightAddon(InputAddon)
+  .build()
+
+const EmployeeRegistration = ({ handleSubmit, structure, invalid }) => {
+  const { required, cpfValidator, weakPassword, passwordsMatch } = useValidators()
+  const { cpfNormalizer } = useNormalizers()
+  
   const [scoreDescription, setScoreDescription] = useState([])
   const [isPasswordEyeActive, togglePasswordEyeActive] = useState()
 
@@ -35,25 +51,12 @@ const EmployeeRegistration = ({ handleSubmit, structure, appForm, invalid }) => 
     }
   }, [password])
 
-  const ReduxFormInputWithAddon = useMemo(() => {
-    const InputAddon = InputAddonBuilder()
-      .rightPosition()
-      .renderMethod(() => (
-        <div className='icon-right-addon'>
-          <RemoveRedEyeOutlined />
-        </div>
-      )).build()
-    return ReduxFormInputBuilder().rightAddon(InputAddon).build()
-  }, [])
-
   const dispatch = useDispatch()
   const onSubmit = (values) => {
     dispatch(registerAsyncRequest(values.get('cpf'), values.get('email'), values.get('password')))
   }
 
   const { ROUTES } = structure
-  const { validators: { required, cpfValidator, weakPassword, passwordsMatch } } = appForm
-  const { normalizers: { cpfNormalizer } } = appForm
   return (
     <Content>
       <HeaderTitle linkTo={ ROUTES.REGISTRATION.URL }>
@@ -130,10 +133,9 @@ const EmployeeRegistration = ({ handleSubmit, structure, appForm, invalid }) => 
 EmployeeRegistration.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   structure: PropTypes.object.isRequired,
-  appForm: PropTypes.object.isRequired,
   invalid: PropTypes.bool.isRequired,
 }
 
 export default reduxForm({
   form: formName,
-})(withEngine(EmployeeRegistration))
+})(EmployeeRegistration)

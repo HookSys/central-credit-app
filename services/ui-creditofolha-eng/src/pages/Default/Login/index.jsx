@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form/immutable'
 import { CleanTemplate, SvgImage, ReduxFormInput } from 'components'
-import { useEngine } from 'engine'
+import { useValidators } from 'engine'
 import { authRequest } from 'actions/auth'
 
 import ReduxFormInputBuilder from 'components/Molecules/ReduxFormInput/Builder'
@@ -14,28 +14,32 @@ import { RemoveRedEyeOutlined } from '@material-ui/icons'
 const { AVAILABLE_IMAGES } = SvgImage
 const { Layout, Logo, Container, Content, Title } = CleanTemplate
 
+const InputAddon = InputAddonBuilder()
+  .rightPosition()
+  .renderMethod(() => (
+    <div className='icon-right-addon'>
+      <RemoveRedEyeOutlined />
+    </div>
+  ))
+  .build()
+
+const ReduxFormInputWithAddon = ReduxFormInputBuilder()
+  .rightAddon(InputAddon)
+  .build()
+
 const Login = ({ handleSubmit, structure: { ROUTES } }) => {
   const dispatch = useDispatch()
-  const appForm = useEngine(engine => engine.form)
+  const history = useHistory()
+  const { required } = useValidators()
   const [isPasswordEyeActive, togglePasswordEyeActive] = useState(false)
 
-  const onSubmit = (values) => {
-    dispatch(authRequest(values.get('email'), values.get('password')))
+  const onSubmit = async (values) => {
+    const response = await dispatch(authRequest(values.get('email'), values.get('password')))
+    if (response) {
+      setTimeout(() => history.push(ROUTES.PROFILES.URL))
+    }
   }
 
-  const ReduxFormInputWithAddon = useMemo(() => {
-    const InputAddon = InputAddonBuilder()
-      .rightPosition()
-      .renderMethod(() => (
-        <div className='icon-right-addon'>
-          <RemoveRedEyeOutlined />
-        </div>
-      )).build()
-    return ReduxFormInputBuilder().rightAddon(InputAddon).build()
-  }, [])
-
-
-  const { validators: { required } } = appForm
   return (
     <Layout className='login'>
       <Container>

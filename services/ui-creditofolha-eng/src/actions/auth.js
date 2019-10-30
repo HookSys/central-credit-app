@@ -1,10 +1,11 @@
 import { appLoadSpinner, appUnloadSpinner } from 'actions/app'
+import { userAsyncRequest } from 'actions/user';
 
 export const AUTH_ASYNC_FAIL = 'AUTH_ASYNC_FAIL'
 export const AUTH_ASYNC_SUCCESS = 'AUTH_ASYNC_SUCCESS'
 export const AUTH_REFRESH_SUCCESS = 'AUTH_REFRESH_SUCCESS'
 export const AUTH_REFRESH_ASYNC_START = 'AUTH_REFRESH_ASYNC_START'
-export const DE_AUTH_SUCCESS = 'DE_AUTH_SUCCESS'
+export const AUTH_LOGOUT = 'AUTH_LOGOUT'
 
 
 function authAsyncSuccess(response) {
@@ -35,9 +36,9 @@ function authRefreshStart(refreshTokenPromise) {
   }
 }
 
-export function deAuthSuccess() {
+export function authLogout() {
   return {
-    type: DE_AUTH_SUCCESS,
+    type: AUTH_LOGOUT,
   }
 }
 
@@ -55,6 +56,7 @@ export function authRequest(email, password) {
       })
 
       await dispatch(authAsyncSuccess(response))
+      await dispatch(userAsyncRequest())
       return response
     } catch (error) {
       dispatch(authAsyncFail(error))

@@ -1,15 +1,17 @@
-@import 'palettes/onidata';
+@import 'palettes/alfa';
 @import 'fonts/roboto';
 
 $theme-colors: (
-  'primary':    $blue,
-  "secondary":  $gray-600,
+  'primary':    $primary-company,
+  "secondary":  $secondary-company,
   "success":    $success,
   "info":       $info,
   "warning":    $warning,
   "danger":     $danger,
   "light":      $gray-100,
-  "dark":       $gray-800
+  "dark":       $gray-500,
+  "company":    $blue,
+  "low-dark":   $gray-300
 );
 
 @import '~bootstrap/scss/functions';

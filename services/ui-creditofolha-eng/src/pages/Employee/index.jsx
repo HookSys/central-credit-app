@@ -1,11 +1,14 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import { ModuleTemplate } from 'components'
+
+const { Layout } = ModuleTemplate
 
 const EmployeeContainer = ({ children }) => {
   return (
-    <Fragment>
+    <Layout>
       { children }
-    </Fragment>
+    </Layout>
   )
 }
 

@@ -15,11 +15,21 @@ const AVAILABLE_IMAGES = {
 
 const SvgImage = ((props) => {
   const { icon, className, maxHeight, maxWidth } = props
+  if (!icon || !icon.viewBox) {
+    return null
+  }
+
+  const [,, maxOriginalWidth, maxOriginalHeight] = String(icon.viewBox).split(' ')
   return (
     <svg
       viewBox={ icon.viewBox }
       className={ className }
-      style={ { width: '100%', height: '100%', maxWidth, maxHeight } }
+      style={ {
+        width: '100%',
+        height: '100%',
+        maxWidth: maxWidth || maxOriginalWidth,
+        maxHeight: maxHeight || maxOriginalHeight
+      } }
     >
       <use xlinkHref={ icon.url } />
     </svg>
@@ -34,8 +44,8 @@ SvgImage.propTypes = {
 }
 SvgImage.defaultProps = {
   className: '',
-  maxWidth: 'auto',
-  maxHeight: 'auto',
+  maxWidth: null,
+  maxHeight: null,
 }
 SvgImage.AVAILABLE_IMAGES = AVAILABLE_IMAGES
 

@@ -23,6 +23,54 @@
       height: calc(100vh - #{$navbar-height});
       background-color: theme-color('secondary');
       box-shadow: 5px 0 10px 0 rgba(0, 0, 0, 0.1);
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      a {
+        position: relative;
+        height: 55px;
+        padding-left: 20px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        color: $white;
+
+        svg {
+          margin-right: 10px;
+          font-size: 25px;
+        }
+  
+        @include hover() {
+          text-decoration: none;
+          background-color: $gray-600;
+          transition: all .1s ease;
+  
+          svg {
+            fill: theme-color("primary");
+          }
+        }
+  
+        &.active {
+          background-color: $gray-600;
+    
+          svg {
+            fill: theme-color("primary");
+          }
+    
+          &:after {
+            content: '';
+            right: -1px;
+            top: 0px;
+            height: 100%;
+            width: 5px;
+            background-color: theme-color("primary");
+            position: absolute;
+            z-index: 9;
+          }
+        }
+      }
     }
   }
 

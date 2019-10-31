@@ -388,7 +388,6 @@ module.exports = function(webpackEnv) {
                 compact: isEnvProduction,
               },
             },
-            // Process any SVG outside of the Icon-Sprite.
             {
               test: /\.svg$/,
               use: [
@@ -523,6 +522,9 @@ module.exports = function(webpackEnv) {
     },
     plugins: [
       // Generates an `index.html` file with the <script> injected.
+      new SpriteLoaderPlugin({
+        plainSprite: true,
+      }),
       new HtmlWebpackPlugin(
         Object.assign(
           {},
@@ -665,8 +667,6 @@ module.exports = function(webpackEnv) {
           silent: true,
           // The formatter is invoked directly in WebpackDevServerUtils during development
           formatter: isEnvProduction ? typescriptFormatter : undefined,
-        }),
-        new SpriteLoaderPlugin({
         }),
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.

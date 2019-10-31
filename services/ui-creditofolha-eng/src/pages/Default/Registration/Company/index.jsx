@@ -4,10 +4,10 @@ import { CleanTemplate } from 'components'
 
 const { Content, HeaderTitle } = CleanTemplate
 
-const CompanyRegistration = ({ structure: { ROUTES } }) => {
+const CompanyRegistration = ({ rootPath }) => {
   return (
     <Content>
-      <HeaderTitle linkTo={ ROUTES.REGISTRATION.URL }>
+      <HeaderTitle linkTo={ rootPath }>
         Cadastro de Empresa
       </HeaderTitle>
         Test
@@ -16,7 +16,7 @@ const CompanyRegistration = ({ structure: { ROUTES } }) => {
 }
 
 CompanyRegistration.propTypes = {
-  structure: PropTypes.object.isRequired,
+  rootPath: PropTypes.string.isRequired,
 }
 
 export default CompanyRegistration

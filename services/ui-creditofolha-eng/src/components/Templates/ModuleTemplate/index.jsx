@@ -1,26 +1,30 @@
 import React, { Fragment, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
 
-import MainHeader from './Header'
-import MainContent from './Content'
-import MainSideBar from './SideBar'
-import Providers from './Providers';
+import Header from './Header'
+import Content from './Content'
+import SideBar from './SideBar'
+import SidePanel from './SidePanel'
+import Providers from './Providers'
+import SideNavigation from './SideNavigation'
 
-const Layout = ({ children, isHorizontal }) => {
+const Layout = ({ children }) => {
   useEffect(() => {
     document.body.style.backgroundColor = '#f0f1f4'
   })
   return (
     <Fragment>
       <Providers>
-        <MainSideBar />
-        <MainContent>
-          <MainHeader />
+        <SideNavigation>
+          <SideBar />
+          <SidePanel />
+        </SideNavigation>
+        <Content>
+          <Header />
           <main role='main'>
             { children }
           </main>
-        </MainContent>
+        </Content>
       </Providers>
     </Fragment>
   )
@@ -28,11 +32,6 @@ const Layout = ({ children, isHorizontal }) => {
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-  isHorizontal: PropTypes.bool,
-}
-
-Layout.defaultProps = {
-  isHorizontal: false,
 }
 
 export default {

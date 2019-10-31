@@ -7,7 +7,8 @@ function useStructure() {
   const selectedEntity = useSelector(({ user }) => user.get('data').getSelectedEntity())
 
   if (!selectedEntity) {
-    throw new Error('Non entity was selected yet')
+    const { MODULES } = structures
+    return structures[MODULES.DEFAULT]
   }
 
   return structures[selectedEntity.get('entidade_tipo')]

@@ -1,12 +1,12 @@
-import React, { useRef, useLayoutEffect, useState, useContext, useMemo } from 'react'
+import React, { useRef, useLayoutEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-import { SideBarContext } from './SideBar'
+import { SideNavigationContext } from './SideNavigation'
 
 const Content = ({ children }) => {
   const startPos = useRef()
-  const { toggleSideBar, isSideBarVisible } = useContext(SideBarContext)
+  const { toggleSideNavigation, isSideNavigationVisible } = useContext(SideNavigationContext)
 
   const onTouchEnd = (event) => {
     window.removeEventListener('touchend', onTouchEnd);
@@ -14,10 +14,12 @@ const Content = ({ children }) => {
     const { clientX: startClientX, clientY: startClientY } = startPos.current
 
     if (Math.abs(clientY-startClientY) < 20 && startClientX !== clientX) {
+      event.preventDefault()
+      event.stopPropagation()
       if (startClientX > clientX) {
-        toggleSideBar(false)
+        toggleSideNavigation(false)
       } else {
-        toggleSideBar(true)
+        toggleSideNavigation(true)
       }
       startPos.current = 0
     }
@@ -44,9 +46,9 @@ const Content = ({ children }) => {
       { children }
       <div
         className={ classNames('sidebar-overlay', {
-          'active': isSideBarVisible,
+          'active': isSideNavigationVisible,
         }) }
-        onClick={ () => toggleSideBar(false) }
+        onClick={ () => toggleSideNavigation(false) }
       />
     </div>
   )

@@ -1,14 +1,17 @@
-import React, { useRef, useLayoutEffect, useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import { SideBarProvider } from './SideBar'
+import { SideNavigationProvider } from './SideNavigation'
 
 const Providers = ({ children }) => {
   return (
     <div className='module-template'>
-      <SideBarProvider>
-        { children }
-      </SideBarProvider>
+      <SideNavigationProvider>
+        <SideBarProvider>
+          { children }
+        </SideBarProvider>
+      </SideNavigationProvider>
     </div>
   )
 }

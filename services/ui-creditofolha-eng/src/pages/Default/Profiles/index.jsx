@@ -9,7 +9,7 @@ import { useEngine } from 'engine'
 
 const { Layout, List, ListContainer, ListItem, ListHeader } = CleanTemplate
 
-const Profiles = ({ structure: { ROUTES } }) => {
+const Profiles = ({ parentStructure: { ROUTES } }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const user = useSelector(state => state.user.get('data'))
@@ -76,7 +76,7 @@ const Profiles = ({ structure: { ROUTES } }) => {
 }
 
 Profiles.propTypes = {
-  structure: PropTypes.object.isRequired,
+  parentStructure: PropTypes.object.isRequired,
 }
 
 export default Profiles

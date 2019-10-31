@@ -6,6 +6,8 @@ import { HomeOutlined, SupervisorAccount, Receipt, CompareArrows, PermContactCal
 const DashboardPage = LazyLoading(() => import('pages/Company/Dashboard'))
 const EmployeesPage = LazyLoading(() => import('pages/Company/Employees'))
 const ContractsPage = LazyLoading(() => import('pages/Company/Contracts'))
+const ContractsIndexPage = LazyLoading(() => import('pages/Company/Contracts/Contracts'))
+const ContractsListPage = LazyLoading(() => import('pages/Company/Contracts/List'))
 const RepassPage = LazyLoading(() => import('pages/Company/Repass'))
 const UsersPage = LazyLoading(() => import('pages/Company/Users'))
 const CovenantPage = LazyLoading(() => import('pages/Company/Covenant'))
@@ -28,6 +30,18 @@ export default {
     NAME: 'Contratos',
     COMPONENT: ContractsPage,
     ICON: () => Receipt,
+    SIDEPANEL_ROUTES: {
+      INDEX: {
+        URL: '',
+        NAME: 'Index',
+        COMPONENT: ContractsIndexPage,
+      },
+      LIST: {
+        URL: '/list',
+        NAME: 'List',
+        COMPONENT: ContractsListPage,
+      }
+    }
   },
   DISCOUNT_TRANSFER: {
     URL: '/discount-transfer',

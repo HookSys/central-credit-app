@@ -28,7 +28,7 @@ const ReduxFormInputWithAddon = ReduxFormInputBuilder()
   .rightAddon(InputAddon)
   .build()
 
-const EmployeeRegistration = ({ handleSubmit, structure, invalid }) => {
+const EmployeeRegistration = ({ handleSubmit, rootPath, invalid }) => {
   const { required, cpfValidator, weakPassword, passwordsMatch } = useValidators()
   const { cpfNormalizer } = useNormalizers()
   
@@ -56,10 +56,10 @@ const EmployeeRegistration = ({ handleSubmit, structure, invalid }) => {
     dispatch(registerAsyncRequest(values.get('cpf'), values.get('email'), values.get('password')))
   }
 
-  const { ROUTES } = structure
+  debugger
   return (
     <Content>
-      <HeaderTitle linkTo={ ROUTES.REGISTRATION.URL }>
+      <HeaderTitle linkTo={ rootPath }>
         Cadastro de Conta
       </HeaderTitle>
       <form onSubmit={ handleSubmit(onSubmit) }>
@@ -72,6 +72,7 @@ const EmployeeRegistration = ({ handleSubmit, structure, invalid }) => {
               id='email'
               validate={ [required] }
               component={ ReduxFormInput }
+              inputMode='email'
             />
           </div>
         </div>
@@ -85,6 +86,7 @@ const EmployeeRegistration = ({ handleSubmit, structure, invalid }) => {
               validate={ [required, cpfValidator] }
               component={ ReduxFormInput }
               normalize={ cpfNormalizer }
+              inputMode='tel'
             />
           </div>
         </div>
@@ -132,7 +134,7 @@ const EmployeeRegistration = ({ handleSubmit, structure, invalid }) => {
 
 EmployeeRegistration.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  structure: PropTypes.object.isRequired,
+  rootPath: PropTypes.string.isRequired,
   invalid: PropTypes.bool.isRequired,
 }
 

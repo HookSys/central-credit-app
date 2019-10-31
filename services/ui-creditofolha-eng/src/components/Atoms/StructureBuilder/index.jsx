@@ -4,6 +4,7 @@ import { StructureRoutesBuilder, Permissions, ThemeRender, StructureFeedbacksBui
 
 const StructureBuilder = (structure) => {
   const { CONTAINER: Container, VALIDATION, THEME } = structure
+
   return (
     <Route path={ structure.ENTRY }>
       <Permissions permissions={ VALIDATION }>

@@ -1,6 +1,6 @@
-export default (location, route, entry) => {
-  if (!route) {
-    return location && location.pathname === entry
+export default (location, route, key) => {
+  if (key === 'INDEX') {
+    return location && location.pathname === route
   }
-  return location.pathname.indexOf(`${ entry }${ route }`) > -1 || false
+  return location.pathname.indexOf(route) > -1 || false
 }

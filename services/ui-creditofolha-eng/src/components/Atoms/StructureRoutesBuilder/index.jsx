@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import { DEFAULT } from 'engine/constants/types'
 import { MetaTags, Permissions } from 'components'
 import StructureChildBuilder from '../StructureChildBuilder'
+import StructureSidePanelBuilder from '../StructureSidePanelBuilder'
 
 const StructureRoutesBuilder = (structure) => {
   const { TYPE, ENTRY, ROUTES, NAME: ContainerName, THEME } = structure
@@ -11,6 +12,7 @@ const StructureRoutesBuilder = (structure) => {
     const path = key === 'INDEX' ? '' : `${ rootPath }${ ROUTES[key].URL }`
     const permissions = ROUTES[key].VALIDATION
     const hasChilds = typeof ROUTES[key].ROUTES === 'object'
+    const hasSidePanelRoutes = typeof ROUTES[key].SIDEPANEL_ROUTES === 'object'
     const Page = ROUTES[key].COMPONENT
           
     if (hasChilds) {
@@ -25,6 +27,18 @@ const StructureRoutesBuilder = (structure) => {
       )
     }
 
+    if (hasSidePanelRoutes) {
+      return (
+        <Route path={ path } key={ ENTRY + key }>
+          <Permissions permissions={ permissions }>
+            <Switch>
+              { StructureSidePanelBuilder(structure, ROUTES[key], path) }
+            </Switch>
+          </Permissions>
+        </Route>
+      )
+    }
+
     return (
       <Route exact path={ path } key={ ENTRY + key }>
         <Permissions permissions={ permissions }>
@@ -32,7 +46,7 @@ const StructureRoutesBuilder = (structure) => {
             metaTitle={ ROUTES[key].NAME }
             metaTitleSuffix={ ContainerName }
           />
-          <Page structure={ structure } />
+          <Page structure={ ROUTES[key] } rootPath={ rootPath } parentStructure={ structure } />
         </Permissions>
       </Route>
     )

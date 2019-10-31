@@ -10,6 +10,7 @@ const StructureChildBuilder = (structure, route, rootPath) => {
     const Page = ROUTES[key].COMPONENT
     const permissions = ROUTES[key].VALIDATION
     const isFeedback = ROUTES[key].IS_FEEDBACK
+    const hasChilds = typeof ROUTES[key].ROUTES === 'object'
 
     if (isFeedback) {
       return (
@@ -19,7 +20,19 @@ const StructureChildBuilder = (structure, route, rootPath) => {
               metaTitle={ ROUTES[key].NAME }
               metaTitleSuffix={ ChildName }
             />
-            <Page structure={ structure } />
+            <Page structure={ ROUTES[key] } rootPath={ rootPath } parentStructure={ route } />
+          </Permissions>
+        </Route>
+      )
+    }
+
+    if (hasChilds) {
+      return (
+        <Route path={ path } key={ ChildName + key }>
+          <Permissions permissions={ permissions }>
+            <Switch>
+              { StructureChildBuilder(structure, ROUTES[key], path) }
+            </Switch>
           </Permissions>
         </Route>
       )
@@ -28,12 +41,12 @@ const StructureChildBuilder = (structure, route, rootPath) => {
     return (
       <Route exact path={ path } key={ ChildName + key }>
         <Permissions permissions={ permissions }>
-          <Container structure={ structure }>
+          <Container structure={ route } rootPath={ rootPath } parentStructure={ structure }>
             <MetaTags
               metaTitle={ ROUTES[key].NAME }
               metaTitleSuffix={ ChildName }
             />
-            <Page structure={ structure } />
+            <Page structure={ ROUTES[key] } rootPath={ rootPath } parentStructure={ route } />
           </Container>
         </Permissions>
       </Route>

@@ -2,23 +2,24 @@ import React, { useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Link, useLocation } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import { SvgImage } from 'components'
 import { useStructure, useEngine } from 'engine'
-import { Menu, Search, AccountCircle, Notifications, KeyboardArrowDown } from '@material-ui/icons'
+import { Menu } from '@material-ui/icons'
+
+import { SideNavigationContext } from './SideNavigation'
 
 const SideBarContext = React.createContext({
-  isSideBarVisible: false,
+  isSideBarCollapsed: false,
   toggleSideBar: () => {},
 })
 
 const SideBarProvider = ({ children }) => {
-  const [isSideBarVisible, toggleSideBar] = useState(false)
+  const [isSideBarCollapsed, toggleSideBar] = useState(false)
 
   return (
     <SideBarContext.Provider
       value={ {
-        isSideBarVisible,
+        isSideBarCollapsed,
         toggleSideBar,
       } }
     >
@@ -31,17 +32,24 @@ const SideBar = () => {
   const structure = useStructure()
   const location = useLocation()
   const { isRouteActive } = useEngine(engine => engine.helpers)
-  const { isSideBarVisible, widthSideBar } = useContext(SideBarContext)
+  const { isSideBarCollapsed, toggleSideBar } = useContext(SideBarContext)
+  const { hasSidePanel } = useContext(SideNavigationContext)
 
   const { LOGO, ROUTES, ENTRY } = structure
   return (
     <nav
       className={ classNames('sidebar', {
-        'active': isSideBarVisible,
+        'collapsed': isSideBarCollapsed,
       }) }
     >
       <div className={ classNames('sidebar-logo', LOGO.CLASSNAME) }>
-        <SvgImage icon={ LOGO.ICON } isOverflowHideen={ true }/>
+        <SvgImage icon={ LOGO.ICON } isOverflowHideen={ true } className='sidebar-logo-svg' />
+        <Menu
+          onClick={ () => toggleSideBar(!isSideBarCollapsed) }
+          className={ classNames('sidebar-menu-collapse', {
+            'has-sidepanel': hasSidePanel,
+          }) }
+        />
       </div>
       <div className='sidebar-content'>
         { Object.keys(ROUTES).map((route) => {
@@ -52,7 +60,7 @@ const SideBar = () => {
               to={ url }
               key={ url }
               className={ classNames({
-                'active': isRouteActive(location, ROUTES[route].URL, ENTRY),
+                'active': isRouteActive(location, url, route),
               }) }
             >
               <Icon />

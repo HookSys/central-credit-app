@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form/immutable'
 import { CleanTemplate, SvgImage, ReduxFormInput } from 'components'
-import { useValidators } from 'engine'
+import { useValidators, useStructure } from 'engine'
 import { authRequest } from 'actions/auth'
 
 import ReduxFormInputBuilder from 'components/Molecules/ReduxFormInput/Builder'
@@ -27,12 +27,13 @@ const ReduxFormInputWithAddon = ReduxFormInputBuilder()
   .rightAddon(InputAddon)
   .build()
 
-const Login = ({ handleSubmit, structure: { ROUTES } }) => {
+const Login = ({ handleSubmit, parentStructure }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { required } = useValidators()
   const [isPasswordEyeActive, togglePasswordEyeActive] = useState(false)
 
+  const { ROUTES } = parentStructure
   const onSubmit = async (values) => {
     const response = await dispatch(authRequest(values.get('email'), values.get('password')))
     if (response) {
@@ -59,6 +60,7 @@ const Login = ({ handleSubmit, structure: { ROUTES } }) => {
               component={ ReduxFormInput }
               className='form-control-lg'
               validate={ required }
+              inputMode='email'
             />
             <Field
               type={ isPasswordEyeActive ? 'text' : 'password' }
@@ -99,7 +101,7 @@ const Login = ({ handleSubmit, structure: { ROUTES } }) => {
 
 Login.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  structure: PropTypes.object.isRequired,
+  parentStructure: PropTypes.object.isRequired,
 }
 
 export default reduxForm({

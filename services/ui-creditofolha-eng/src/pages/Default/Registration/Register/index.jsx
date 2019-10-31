@@ -3,25 +3,26 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { CleanTemplate, SvgImage } from 'components'
 import { ArrowForward } from '@material-ui/icons'
+import { useStructure } from 'engine';
 
 const { AVAILABLE_IMAGES } = SvgImage
 const { Content, HeaderTitle, Banner } = CleanTemplate
 
-const Register = ({ structure: { ROUTES } }) => {
-  const { REGISTRATION } = ROUTES
-  const { EMPLOYEE, COMPANY } = REGISTRATION.ROUTES
+const Register = ({ structure, rootPath, parentStructure }) => {
+  const { ROUTES: { LOGIN } } = useStructure()
+  const { EMPLOYEE, COMPANY } = parentStructure.ROUTES
   return (
     <Fragment>
       <Content>
-        <HeaderTitle linkTo={ ROUTES.LOGIN.URL }>
+        <HeaderTitle linkTo={ LOGIN.URL }>
           Cadastre-se
         </HeaderTitle>
         <div className='action-items'>
-          <Link to={ `${ REGISTRATION.URL }${ EMPLOYEE.URL }` }>
+          <Link to={ `${ rootPath }${ EMPLOYEE.URL }` }>
             Sou funcionário e quero um empréstimo
             <ArrowForward />
           </Link>
-          <Link to={ `${ REGISTRATION.URL }${ COMPANY.URL }` }>
+          <Link to={ `${ rootPath }${ COMPANY.URL }` }>
             Sou o gestor dos contratos realizados
             <ArrowForward />
           </Link>
@@ -40,6 +41,7 @@ const Register = ({ structure: { ROUTES } }) => {
 
 Register.propTypes = {
   structure: PropTypes.object.isRequired,
+  rootPath: PropTypes.string.isRequired,
 }
 
 export default Register

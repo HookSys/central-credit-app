@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { Input } from 'components'
+import { Input, InputError } from 'components'
+import { useSelector } from 'react-redux'
 
 import InputAddonBuilder from './builders/InputAddonBuilder'
 
@@ -21,6 +22,10 @@ const ReduxFormInputBuilder = (displayName = 'ReduxFormInputBuilder') => {
     group: ['input-group'],
   }
 
+  // Properties
+  let _isDetailError = false
+  let _hideError = false
+
   const builder = {
     leftAddon: leftAddon => {
       _leftAddon = leftAddon
@@ -32,6 +37,14 @@ const ReduxFormInputBuilder = (displayName = 'ReduxFormInputBuilder') => {
     },
     classNames: classNamesFn => {
       _classNames = classNamesFn
+      return builder
+    },
+    isDetailError: isDetailError => {
+      _isDetailError = true
+      return builder
+    },
+    hideError: hideError => {
+      _hideError = true
       return builder
     },
     build: () => {
@@ -59,12 +72,15 @@ const ReduxFormInputBuilder = (displayName = 'ReduxFormInputBuilder') => {
           meta: { touched, error },
         } = props
 
+        const errors = useSelector(state => state.errors)
+        const fieldError = errors.getFieldError(input.name, _isDetailError) || error
+
         return (
           <div className={ classNames(...formClassNames) }>
             <label
               htmlFor={ input.name }
               className={ classNames(...labelClassNames, {
-                'text-danger': (touched && error),
+                'text-danger': (touched && fieldError),
                 'sr-only': !label,
               }) }
             >
@@ -85,12 +101,18 @@ const ReduxFormInputBuilder = (displayName = 'ReduxFormInputBuilder') => {
                 placeholder={ placeholder }
                 inputMode={ inputMode }
                 className={ classNames(...inputClassNames, className, {
-                  'is-invalid': (touched && error),
+                  'is-invalid': (touched && fieldError),
                 }) }
               />
               { _rightAddon && _rightAddon(props) }
             </div>
 
+            {!_hideError && (
+              <InputError
+                touched={ touched }
+                error={ error || fieldError }
+              />
+            )}
           </div>
         )
       }

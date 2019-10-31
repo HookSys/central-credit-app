@@ -92,8 +92,9 @@ export default async function (payload) {
   }
 
   if (response.status === 401) {
-    const { error_description: errorDescription, message } = await response.json()
-    throw (errorDescription || message)
+    const error = await response.json()
+    dispatch(setError(401, error, false, null, params))
+    throw error
   }
 
   if (response.status === 404) {

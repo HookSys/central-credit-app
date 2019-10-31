@@ -1,4 +1,6 @@
 import { appLoadSpinner, appUnloadSpinner } from 'actions/app'
+import { userSetRecentlyCreated } from 'actions/user'
+import { authRequest } from 'actions/auth'
 
 export const REGISTER_ASYNC_SUCCESS = 'REGISTER_ASYNC_SUCCESS'
 export const REGISTER_ASYNC_FAIL = 'REGISTER_ASYNC_FAIL'
@@ -39,6 +41,7 @@ export function registerAsyncRequest(cpf, email, password) {
 
       await dispatch(registerAsyncSuccess(response))
       await dispatch(authRequest(email, password))
+      await dispatch(userSetRecentlyCreated(true))
       return response
     } catch (error) {
       dispatch(registerAsyncFail(error))

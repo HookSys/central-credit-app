@@ -30,22 +30,24 @@ export default {
     URL: '/registration',
     NAME: 'Quero me cadastrar',
     COMPONENT: RegistrationPage,
-    VALIDATION: [PERMISSIONS.NOAUTH_REQUIRED({ redirectTo: '/profiles' })],
     ROUTES: {
       INDEX: {
         URL: '',
         NAME: 'Quero me Cadastrar',
         COMPONENT: RegistrationRegisterPage,
+        VALIDATION: [PERMISSIONS.NOAUTH_REQUIRED({ redirectTo: '/profiles' })],
       },
       EMPLOYEE: {
         URL: '/employee',
         NAME: 'Cadastro de Conta',
         COMPONENT: RegistrationEmployeePage,
+        VALIDATION: [PERMISSIONS.NOAUTH_REQUIRED({ redirectTo: '/profiles' })],
       },
       COMPANY: {
         URL: '/company',
         NAME: 'Cadastro de Empresa',
         COMPONENT: RegistrationCompanyPage,
+        VALIDATION: [PERMISSIONS.NOAUTH_REQUIRED({ redirectTo: '/profiles' })],
       },
       SUCCESS: {
         URL: '/success',

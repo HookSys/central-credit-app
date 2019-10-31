@@ -36,11 +36,7 @@ const cacheGroups = themeFileNames.reduce((cg, theme) => {
     [`${ name }Theme`]: {
       name: name,
       test: (m,c,entry = name) => {
-        const tst = m.constructor.name === 'CssModule' && recursiveIssuer(m) === name
-        if (tst) {
-          debugger
-        }
-        return tst
+        return m.constructor.name === 'CssModule' && recursiveIssuer(m) === name
       },
       chunks: 'all',
       enforce: true

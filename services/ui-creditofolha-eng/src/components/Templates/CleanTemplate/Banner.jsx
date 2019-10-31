@@ -6,7 +6,7 @@ const Banner = ({ children, className }) => {
   return (
     <div className='row'>
       <div className='col-12 px-0'>
-        <div className={ classNames('px-4 mt-4 mb-5', className) }>
+        <div className={ classNames('d-flex justify-content-center px-3 px-md-4 mt-4', className) }>
           { children }
         </div>
       </div>

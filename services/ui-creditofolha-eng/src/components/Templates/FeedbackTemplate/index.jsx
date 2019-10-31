@@ -18,7 +18,7 @@ const Layout = ({ children, isHorizontal }) => {
       <div className='row h-100 justify-content-md-center align-items-md-center mt-md-n5'>
         <div
           className={ classNames('p-0 p-md-5', {
-            'col-12 col-md-9': !isHorizontal,
+            'col-12 col-lg-9': !isHorizontal,
             'col-12': isHorizontal,
           }) }
         >

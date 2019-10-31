@@ -8,7 +8,7 @@ const FeedbackHeader = ({ desktopIconName, mobileIconName, children, bgClassName
     <div className='d-block d-md-none mobile-icon'>
       <SvgImage icon={ mobileIconName } />
     </div>
-    <h2 className='d-block font-weight-bold font-md-weight-light'>{ children }</h2>
+    <h2 className='d-block font-weight-normal'>{ children }</h2>
     <div className='d-none d-md-block desktop-icon'>
       <SvgImage icon={ desktopIconName } />
     </div>
@@ -16,8 +16,8 @@ const FeedbackHeader = ({ desktopIconName, mobileIconName, children, bgClassName
 )
 
 FeedbackHeader.propTypes = {
-  desktopIconName: PropTypes.string.isRequired,
-  mobileIconName: PropTypes.string.isRequired,
+  desktopIconName: PropTypes.object.isRequired,
+  mobileIconName: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   bgClassName: PropTypes.string,
 }

@@ -13,7 +13,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 40px;
+    padding: 0px 40px;
+    min-height: 190px;
 
     h2 {
       margin: 0px;
@@ -82,43 +83,6 @@
           border-bottom: 1px solid $gray-200;
         }
       }
-    }
-  }
-
-  @include media-breakpoint-down(sm) {
-    .feedback-header {
-      height: 100px;
-      justify-content: center;
-
-      .mobile-icon {
-        margin-right: 20px;
-
-        svg {
-          height: 29px;
-          width: 29px;
-        }
-      }
-    }
-
-    .feedback-content {
-      padding: 20px 15px 30px;
-      font-size: 18px;
-      height: calc(100vh - 100px);
-
-      .links {
-        border-radius: 0px;
-        margin: 40px -15px;
-
-        .link {
-          a, button {
-            font-size: 16px;
-          }
-        }
-      }
-    }
-
-    .logo-footer {
-      bottom: 20px;
     }
   }
 }

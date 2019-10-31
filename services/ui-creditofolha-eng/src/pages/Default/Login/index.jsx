@@ -25,6 +25,8 @@ const InputAddon = InputAddonBuilder()
 
 const ReduxFormInputWithAddon = ReduxFormInputBuilder()
   .rightAddon(InputAddon)
+  .isDetailError()
+  .hideError()
   .build()
 
 const Login = ({ handleSubmit, parentStructure }) => {
@@ -61,6 +63,8 @@ const Login = ({ handleSubmit, parentStructure }) => {
               className='form-control-lg'
               validate={ required }
               inputMode='email'
+              hideError={ true }
+              isDetailError={ true }
             />
             <Field
               type={ isPasswordEyeActive ? 'text' : 'password' }

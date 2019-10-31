@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { Field, reduxForm, formValueSelector } from 'redux-form/immutable'
 import zxcvbn from 'zxcvbn'
 import { CleanTemplate, ReduxFormInput, Button, PasswordStrength, PasswordTips } from 'components'
@@ -28,7 +29,7 @@ const ReduxFormInputWithAddon = ReduxFormInputBuilder()
   .rightAddon(InputAddon)
   .build()
 
-const EmployeeRegistration = ({ handleSubmit, rootPath, invalid }) => {
+const EmployeeRegistration = ({ handleSubmit, parentStructure, rootPath, invalid }) => {
   const { required, cpfValidator, weakPassword, passwordsMatch } = useValidators()
   const { cpfNormalizer } = useNormalizers()
   
@@ -52,11 +53,14 @@ const EmployeeRegistration = ({ handleSubmit, rootPath, invalid }) => {
   }, [password])
 
   const dispatch = useDispatch()
-  const onSubmit = (values) => {
-    dispatch(registerAsyncRequest(values.get('cpf'), values.get('email'), values.get('password')))
+  const history = useHistory()
+  const onSubmit = async (values) => {
+    const response = await dispatch(registerAsyncRequest(values.get('cpf'), values.get('email'), values.get('password')))
+    if (response) {
+      history.push(`${ rootPath }${ parentStructure.ROUTES.SUCCESS.URL }`)
+    }
   }
 
-  debugger
   return (
     <Content>
       <HeaderTitle linkTo={ rootPath }>

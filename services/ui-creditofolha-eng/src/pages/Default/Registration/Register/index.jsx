@@ -33,7 +33,7 @@ const Register = ({ structure, rootPath, parentStructure }) => {
         </div>
       </Content>
       <Banner>
-        <SvgImage icon={ AVAILABLE_IMAGES.REGISTRATION_BANNER } maxWidth='900px' maxHeight='363px' />
+        <SvgImage icon={ AVAILABLE_IMAGES.REGISTRATION_BANNER } maxWidth='540px' maxHeight='218px' />
       </Banner>
     </Fragment>
   )

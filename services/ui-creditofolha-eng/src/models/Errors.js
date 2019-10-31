@@ -12,6 +12,7 @@ const defaultValues = {
   invalidIds: new List(),
   sentry: null,
   body: {},
+  formName: null,
   formRegisteredFields: new Map(),
 }
 
@@ -40,6 +41,18 @@ export default class Errors extends BaseRecord(defaultValues, Errors) {
       body,
       formRegisteredFields,
     })
+  }
+
+  updateFormFieldErrors(fieldName, formName) {
+    const errors = this.get('errors')
+    const form = this.get('formName')
+    const newErrors = errors.filter((error) => {
+      if (formName === form && error.path === 'detail') {
+        return false
+      }
+      return error.path !== fieldName || form !== formName
+    })
+    return this.set('errors', newErrors)
   }
 
   getFieldError(fieldName, isDetailError = false) {

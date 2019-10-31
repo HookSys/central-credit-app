@@ -2,12 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { FeedbackTemplate, SvgImage } from 'components'
+import { useSelector } from 'react-redux'
+import { useStructure } from 'engine'
 
 const { AVAILABLE_IMAGES } = SvgImage
 const { Layout, Header, Content, Links, Link } = FeedbackTemplate
 
-const Feedback = ({ children, structure: { ROUTES } }) => {
+const Feedback = () => {
   const history = useHistory()
+  const { ROUTES } = useStructure()
+  const user = useSelector(state => state.user.get('data'))
+
   return (
     <Layout>
       <Header
@@ -18,7 +23,7 @@ const Feedback = ({ children, structure: { ROUTES } }) => {
       </Header>
       <Content>
         Enviamos um email de autenticação para
-        <strong> dann.c@live.com </strong>,
+        <strong> { user.getHiddenEmail() } </strong>,
         somente com o email autenticado você consegue solicitar crédito.
         <Links>
           <Link onClick={ () => history.push(ROUTES.LOGIN.URL) } hasArrow={ true }>
@@ -31,10 +36,6 @@ const Feedback = ({ children, structure: { ROUTES } }) => {
       </Content>
     </Layout>
   )
-}
-
-Feedback.propTypes = {
-  children: PropTypes.node.isRequired,
 }
 
 export default Feedback

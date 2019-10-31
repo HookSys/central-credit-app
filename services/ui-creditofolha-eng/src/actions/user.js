@@ -4,6 +4,7 @@ import { authLogout } from './auth'
 export const USER_ASYNC_SUCCESS = 'USER_ASYNC_SUCCESS'
 export const USER_ASYNC_FAIL = 'USER_ASYNC_FAIL'
 export const USER_SELECT_ENTITY = 'USER_SELECT_ENTITY'
+export const USER_SET_RECENTLY_CREATED = 'USER_SET_RECENTLY_CREATED'
 export const USER_LOGOUT = 'USER_LOGOUT'
 
 function userAsyncSuccess(user) {
@@ -23,6 +24,13 @@ function userAsyncFail(errorMessage) {
 function userLogoutRequest() {
   return {
     type: USER_LOGOUT,
+  }
+}
+
+export function userSetRecentlyCreated(wasRecentlyCreated) {
+  return {
+    type: USER_SET_RECENTLY_CREATED,
+    wasRecentlyCreated,
   }
 }
 

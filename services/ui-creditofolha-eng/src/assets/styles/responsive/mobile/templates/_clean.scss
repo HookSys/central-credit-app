@@ -10,3 +10,14 @@
     }
   }
 }
+
+@include media-breakpoint-down(xs) {
+  .clean-template {
+    min-height: 100vh;
+    height: 100%;
+
+    .content {
+      padding-bottom: 50px;
+    }
+  }
+}

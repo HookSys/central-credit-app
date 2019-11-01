@@ -4,7 +4,7 @@
       width: 0px;
       max-width: $sidebar-width;
       min-width: 0px;
-      transition: min-width 0.5s ease-in-out;
+      transition: min-width 0.3s ease-in-out;
       overflow-x: hidden;
 
       &.visible {
@@ -59,7 +59,7 @@
 
         .navbar-small-logo {
           opacity: 1;
-          transition: opacity 0.5s ease-in-out;
+          transition: opacity 0.3s ease-in-out;
 
           &.is-hided {
             opacity: 0;

@@ -6,6 +6,7 @@ import { SideNavigationContext } from './SideNavigation'
 
 const Content = ({ children }) => {
   const startPos = useRef()
+  const contentRef = useRef()
   const { toggleSideNavigation, isSideNavigationVisible } = useContext(SideNavigationContext)
 
   const onTouchEnd = (event) => {
@@ -35,14 +36,17 @@ const Content = ({ children }) => {
   }
 
   useLayoutEffect(() => {
-    window.addEventListener('touchstart', onTouchStart);
+    contentRef.current.addEventListener('touchstart', onTouchStart);
     return () => {
-      window.removeEventListener('touchstart', onTouchStart);
+      contentRef.current.removeEventListener('touchstart', onTouchStart);
     }
   }, [])
 
   return (
-    <div className='d-flex flex-column content'>
+    <div
+      className='d-flex flex-column content'
+      ref={ contentRef }
+    >
       { children }
       <div
         className={ classNames('sidebar-overlay', {

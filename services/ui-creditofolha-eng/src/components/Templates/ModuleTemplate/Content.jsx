@@ -10,11 +10,11 @@ const Content = ({ children }) => {
   const { toggleSideNavigation, isSideNavigationVisible } = useContext(SideNavigationContext)
 
   const onTouchEnd = (event) => {
-    window.removeEventListener('touchend', onTouchEnd);
-    const { clientX, clientY } = event.changedTouches[0];
+    window.removeEventListener('touchend', onTouchEnd)
+    const { clientX, clientY } = event.changedTouches[0]
     const { clientX: startClientX, clientY: startClientY } = startPos.current
 
-    if (Math.abs(clientY-startClientY) < 20 && startClientX !== clientX) {
+    if (Math.abs(clientY - startClientY) < 20 && startClientX !== clientX) {
       event.preventDefault()
       event.stopPropagation()
       if (startClientX > clientX) {
@@ -27,18 +27,18 @@ const Content = ({ children }) => {
   }
 
   const onTouchStart = (event) => {
-    const { clientX, clientY } = event.targetTouches[0];
+    const { clientX, clientY } = event.targetTouches[0]
     startPos.current = {
       clientX,
       clientY,
     }
-    window.addEventListener('touchend', onTouchEnd);
+    window.addEventListener('touchend', onTouchEnd)
   }
 
   useLayoutEffect(() => {
-    contentRef.current.addEventListener('touchstart', onTouchStart);
+    contentRef.current.addEventListener('touchstart', onTouchStart)
     return () => {
-      contentRef.current.removeEventListener('touchstart', onTouchStart);
+      contentRef.current.removeEventListener('touchstart', onTouchStart)
     }
   }, [])
 

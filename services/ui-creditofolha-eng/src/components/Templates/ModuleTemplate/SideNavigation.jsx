@@ -44,6 +44,10 @@ SideNavigation.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
+SideNavigationProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
 export {
   SideNavigationProvider,
   SideNavigationContext,

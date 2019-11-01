@@ -18,7 +18,7 @@ const Layout = ({ children }) => {
   }, [])
 
   if (structure.TYPE !== MODULE) {
-    return null;
+    return null
   }
 
   return (
@@ -44,5 +44,5 @@ Layout.propTypes = {
 }
 
 export default {
-  Layout
+  Layout,
 }

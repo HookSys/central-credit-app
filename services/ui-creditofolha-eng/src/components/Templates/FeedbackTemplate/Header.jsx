@@ -8,7 +8,7 @@ const FeedbackHeader = ({ desktopIconName, mobileIconName, children, bgClassName
     <div className='d-block d-md-none mobile-icon'>
       <SvgImage icon={ mobileIconName } />
     </div>
-    <h2 className='d-block font-weight-normal'>{ children }</h2>
+    <h2 className='d-block font-weight-regular'>{ children }</h2>
     <div className='d-none d-md-block desktop-icon'>
       <SvgImage icon={ desktopIconName } />
     </div>

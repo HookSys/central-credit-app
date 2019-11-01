@@ -51,7 +51,7 @@ const SideBar = () => {
           }) }
         />
       </div>
-      <div className='sidebar-content'>
+      <div className='sidebar-content pt-1'>
         { Object.keys(ROUTES).map((route) => {
           const Icon = ROUTES[route].ICON()
           const url = `${ ENTRY }${ ROUTES[route].URL }`

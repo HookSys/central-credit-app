@@ -10,7 +10,7 @@ const FeedbackLeft = ({ desktopIconName, mobileIconName, children, renderIcon, b
         <SvgImage icon={ mobileIconName } />
       )}
     </div>
-    <h2 className='d-flex font-weight-normal justify-content-center'>{ children }</h2>
+    <h2 className='d-flex font-weight-regular justify-content-center'>{ children }</h2>
     <div className='d-none d-md-block desktop-icon'>
       {renderIcon ? renderIcon() : (
         <SvgImage icon={ desktopIconName } />

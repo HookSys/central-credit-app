@@ -2,21 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-const Title = ({ children, className }) => {
+const Header = ({ children, className, icon: Icon }) => {
   return (
-    <h5 className={ classNames('text-center font-weight-regular mt-3 mb-4 pb-3', className) }>
+    <div className={ classNames('dropdown-header', className) }>
       { children }
-    </h5>
+    </div>
   )
 }
 
-Title.propTypes = {
+Header.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 }
 
-Title.defaultProps = {
+Header.defaultProps = {
   className: '',
 }
 
-export default Title
+export default Header

@@ -11,11 +11,14 @@ const defaultValues = {
 
 export default class UserEntity extends BaseRecord(defaultValues, UserEntity) {
   constructor(values) {
-    const entityType = get(values, 'entidade_tipo', '') === MODULES.EMPLOYEE
+    const isEmployee = get(values, 'entidade_tipo', '') === MODULES.EMPLOYEE
+    const entityName = isEmployee && get(values, 'entidade_nome', '').match(/(\[\w*\])/g)
 
     super({
       ...values,
-      entidade_nome: entityType ? get(values, 'entidade_nome', '').replace(/((\((\w)*\))|(\[(\w)*\]))*/g, '') : values.entidade_nome,
+      entidade_nome: isEmployee && entityName && entityName.length > 0
+        ? entityName[0].replace(/(\[|\])/g, '')
+        : values.entidade_nome,
     })
   }
 }

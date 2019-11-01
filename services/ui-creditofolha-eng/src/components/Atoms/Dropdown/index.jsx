@@ -12,6 +12,8 @@ import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 
+import { useWindowSize } from 'engine'
+
 import Action from './Action'
 import Header from './Header'
 
@@ -22,6 +24,7 @@ const Dropdown = forwardRef(({ children, className }, ref) => {
   const [isVisible, toggleDropdown] = useState(false)
   const [parent, setParent] = useState(null)
   const dropdownRef = useRef()
+  const size = useWindowSize()
 
   useEffect(() => {
     if (parent) {
@@ -72,6 +75,7 @@ const Dropdown = forwardRef(({ children, className }, ref) => {
   const hide = useCallback(() => {
     if (isVisible) {
       toggleDropdown(false)
+      setParent(null)
     }
   }, [isVisible, toggleDropdown])
 
@@ -90,22 +94,43 @@ const Dropdown = forwardRef(({ children, className }, ref) => {
     hide,
   }))
 
+  useEffect(() => hide(), [size])
+
+  const isModal = ['XS'].includes(size)
   const style = {
     left: ((position.x + window.scrollX) + 'px'),
     top: ((position.y + window.scrollY) + 'px'),
-    visibility: isVisible ? 'visible' : 'hidden',
   }
 
   const dropdown = (
     <Fragment>
       <div
-        className={ classNames('dropdown', className) }
-        style={ style }
+        className={ classNames('dropdown', className, {
+          'is-visible': isVisible,
+          'is-modal': isModal,
+        }) }
+        style={ !isModal ? style : {} }
         ref={ dropdownRef }
       >
-        { children }
+        <div className='dropdown-content'>
+          { children }
+        </div>
+        { isModal && (
+          <div
+            onClick={ () => hide() }
+            className='dropdown-modal-close'
+          >
+            Cancelar
+          </div>
+        )}
       </div>
-      { isVisible && (<div className='dropdown-overlay' onClick={ () => hide() } />) }
+      <div
+        className={ classNames('dropdown-overlay', {
+          'is-visible': isVisible,
+          'is-modal': isModal,
+        }) }
+        onClick={ () => hide() }
+      />
     </Fragment>
   )
 

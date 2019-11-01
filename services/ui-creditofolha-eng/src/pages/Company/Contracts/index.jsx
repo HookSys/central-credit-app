@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import ContractsSidePanel from './SidePanel'
 
 const Contracts = ({ children, structure, rootPath }) => {
-  debugger
   return (
     <div className='row'>
       <div className='col-5'>

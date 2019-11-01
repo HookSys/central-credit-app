@@ -51,7 +51,10 @@ const Header = () => {
           <div className='d-flex align-items-center ml-auto mr-2 text-white text-md-dark'>
             <div className='d-flex flex-row-reverse align-items-center'>
               <div className='d-md-none border-left border-white pl-2'>
-                <AccountCircle className='font-size-3xl' />
+                <AccountCircle
+                  className='font-size-3xl'
+                  onClick={ (ev) => dropdown.current.show(ev) }
+                />
               </div>
               <div className='d-md-none border-left border-white px-2'>
                 <Search className='font-size-3xl' />
@@ -89,7 +92,7 @@ const Header = () => {
         <Dropdown.Header className='flex-column pl-5'>
           <div className='pl-2'>
             <span className='d-block'>Victor Lima</span>
-            <span className='d-block font-weight-thin small-line-height'>Onidata</span>
+            <span className='d-block opacity-05 small-line-height'>Onidata</span>
           </div>
         </Dropdown.Header>
         <Dropdown.Action

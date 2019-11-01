@@ -33,6 +33,7 @@ const Header = () => {
 
   const dispatch = useDispatch()
   const user = useSelector(state => state.user.get('data'))
+  const entity = user.getSelectedEntity()
 
   const { ROUTES } = defaultStructure
   const { LOGO } = structure
@@ -75,10 +76,10 @@ const Header = () => {
                   </div>
                   <div className='d-flex flex-column justify-content-center text-right mr-3 pl-3'>
                     <span className='d-block font-weight-bold small-line-height'>
-                      Victor Lima
+                      { user.get('fullName') }
                     </span>
                     <span className='d-block small-line-height'>
-                      Onidata
+                      { entity.get('entidade_nome') }
                     </span>
                   </div>
                 </div>
@@ -93,8 +94,12 @@ const Header = () => {
       <Dropdown ref={ dropdown }>
         <Dropdown.Header className='flex-column pl-5'>
           <div className='pl-2'>
-            <span className='d-block'>Victor Lima</span>
-            <span className='d-block opacity-05 small-line-height'>Onidata</span>
+            <span className='d-block'>
+              { user.get('fullName') }
+            </span>
+            <span className='d-block opacity-05 small-line-height'>
+              { structure.NAME }
+            </span>
           </div>
         </Dropdown.Header>
         <Dropdown.Action

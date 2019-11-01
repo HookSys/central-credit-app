@@ -1,15 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Covenant extends Component {
-  render() {
-    return (
-      <div className='row'>
-        <div className='col-5'>
-          Covenant
-        </div>
-      </div>
-    )
-  }
+const Covenant = () => {
+  return (
+    <div className='row'>
+      <div className='col-12'>
+        Covenant
+      </div>    
+    </div>
+  )
 }
 
 export default Covenant

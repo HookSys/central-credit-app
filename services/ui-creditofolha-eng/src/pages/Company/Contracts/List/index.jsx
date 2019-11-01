@@ -1,15 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Contracts extends Component {
-  render() {
-    return (
-      <div className='row'>
-        <div className='col-5'>
-          Contracts List
-        </div>
-      </div>
-    )
-  }
+const ContractsList = () => {
+  return (
+    <div className='row'>
+      <div className='col-12'>
+        Contracts List
+      </div>    
+    </div>
+  )
 }
 
-export default Contracts
+export default ContractsList

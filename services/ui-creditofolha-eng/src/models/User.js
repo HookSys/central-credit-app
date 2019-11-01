@@ -19,6 +19,7 @@ const defaultValues = {
   selectedEntityId: null,
   wasRecentlyCreated: false,
   useTermsAccepted: false,
+  fullName: '',
 }
 
 export default class User extends BaseRecord(defaultValues, User) {
@@ -29,6 +30,7 @@ export default class User extends BaseRecord(defaultValues, User) {
         ? toEntityList(values.funcoes, UserEntity) : defaultValues.funcoes,
       termos_de_uso: values && values.termos_de_uso
         ? toEntityList(values.termos_de_uso, UserTerms) : defaultValues.termos_de_uso,
+      fullName: values ? `${ values.nome } ${ values.sobrenome }` : defaultValues.fullName,
     })
   }
 

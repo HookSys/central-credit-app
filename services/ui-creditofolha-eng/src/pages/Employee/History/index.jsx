@@ -1,15 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class History extends Component {
-  render() {
-    return (
-      <div className='row'>
-        <div className='col-5'>
-          History
-        </div>
-      </div>
-    )
-  }
+const History = () => {
+  return (
+    <div className='row'>
+      <div className='col-12'>
+        History
+      </div>    
+    </div>
+  )
 }
 
 export default History

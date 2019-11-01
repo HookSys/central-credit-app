@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Contracts extends Component {
-  render() {
-    return (
-      <div className='row'>
+const ContractsIndex = () => {
+  return (
+    <div className='row'>
+      <div className='col-12'>
         Contracts Test
-      </div>
-    )
-  }
+      </div>    
+    </div>
+  )
 }
 
-export default Contracts
+export default ContractsIndex

@@ -1,15 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Repass extends Component {
-  render() {
-    return (
-      <div className='row'>
-        <div className='col-5'>
-          Repass
-        </div>
-      </div>
-    )
-  }
+const Repass = () => {
+  return (
+    <div className='row'>
+      <div className='col-12'>
+        Repass
+      </div>    
+    </div>
+  )
 }
 
 export default Repass

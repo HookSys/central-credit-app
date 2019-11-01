@@ -1,15 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Employees extends Component {
-  render() {
-    return (
-      <div className='row'>
-        <div className='col-5'>
-          Employees
-        </div>
-      </div>
-    )
-  }
+const Employees = () => {
+  return (
+    <div className='row'>
+      <div className='col-12'>
+        Employees
+      </div>    
+    </div>
+  )
 }
 
 export default Employees

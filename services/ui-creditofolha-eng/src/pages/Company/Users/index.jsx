@@ -1,15 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Users extends Component {
-  render() {
-    return (
-      <div className='row'>
-        <div className='col-5'>
-          Users
-        </div>
-      </div>
-    )
-  }
+const Users = () => {
+  return (
+    <div className='row'>
+      <div className='col-12'>
+        Users
+      </div>    
+    </div>
+  )
 }
 
 export default Users

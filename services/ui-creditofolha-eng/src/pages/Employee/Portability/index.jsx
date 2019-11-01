@@ -1,15 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Portability extends Component {
-  render() {
-    return (
-      <div className='row'>
-        <div className='col-5'>
-          Portability
-        </div>
-      </div>
-    )
-  }
+const Portability = () => {
+  return (
+    <div className='row'>
+      <div className='col-12'>
+        Portability
+      </div>    
+    </div>
+  )
 }
 
 export default Portability

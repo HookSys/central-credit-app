@@ -8,7 +8,7 @@ const { AVAILABLE_IMAGES } = SvgImage
 const Container = ({ children, className, isCentered, size }) => {
   return (
     <div
-      className={ classNames('row h-100', className, {
+      className={ classNames('row h-md-100', className, {
         'justify-content-md-center align-items-md-center': isCentered,
       }) }
     >

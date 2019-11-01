@@ -1,23 +1,16 @@
 @include media-breakpoint-down(sm) {
   .clean-template {
+    min-height: 100vh;
+
     .content {
       min-width: unset;
-      min-height: unset;
+      min-height: 100vh !important;
+      height: 100%;
+      padding-bottom: 50px;
 
       .footer-logo {
         bottom: 20px;
       }
-    }
-  }
-}
-
-@include media-breakpoint-down(xs) {
-  .clean-template {
-    min-height: 100vh;
-    height: 100%;
-
-    .content {
-      padding-bottom: 50px;
     }
   }
 }

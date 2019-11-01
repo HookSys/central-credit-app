@@ -56,6 +56,15 @@
         min-height: $navbar-sm-height;
         position: sticky;
         top: 0px;
+
+        .navbar-small-logo {
+          opacity: 1;
+          transition: opacity 0.5s ease-in-out;
+
+          &.is-hided {
+            opacity: 0;
+          }
+        }
       }
   
       main {

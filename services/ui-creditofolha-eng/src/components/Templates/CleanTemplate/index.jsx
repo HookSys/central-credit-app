@@ -19,7 +19,7 @@ import CleanListItem from './ListItem'
 const Layout = ({ children, className }) => {
   useEffect(() => {
     document.body.style.backgroundColor = '#f0f1f4'
-  })
+  }, [])
   return (
     <Container className={ classNames('clean-template', className) }>
       { children }

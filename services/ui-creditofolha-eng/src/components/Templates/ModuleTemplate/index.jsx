@@ -1,5 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { useStructure } from 'engine'
+import { MODULE } from 'engine/constants/types'
 
 import Header from './Header'
 import Content from './Content'
@@ -9,9 +11,16 @@ import Providers from './Providers'
 import SideNavigation from './SideNavigation'
 
 const Layout = ({ children }) => {
+  const structure = useStructure()
+
   useEffect(() => {
     document.body.style.backgroundColor = '#f0f1f4'
-  })
+  }, [])
+
+  if (structure.TYPE !== MODULE) {
+    return null;
+  }
+
   return (
     <Fragment>
       <Providers>

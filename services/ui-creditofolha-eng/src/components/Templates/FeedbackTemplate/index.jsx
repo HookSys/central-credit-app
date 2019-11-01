@@ -12,7 +12,7 @@ import FeedbackRight from './Right'
 const Layout = ({ children, isHorizontal }) => {
   useEffect(() => {
     document.body.style.backgroundColor = '#f0f1f4'
-  })
+  }, [])
   return (
     <div className='container feedback'>
       <div className='row h-100 justify-content-md-center align-items-md-center mt-md-n5'>

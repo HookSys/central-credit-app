@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import { AppLoader } from 'components'
 import Engine from 'engine/main'
 import Context from 'engine/context'
 
@@ -17,7 +18,7 @@ const Provider = ({ children }) => {
     )
   }
 
-  return <div> Loading </div>
+  return <AppLoader />
 }
 
 Provider.propTypes = {

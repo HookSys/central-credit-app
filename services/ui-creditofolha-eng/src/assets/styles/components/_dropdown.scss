@@ -2,13 +2,12 @@
   position: absolute;
   min-width: 250px;
   z-index: $dropdown-z-index;
-  top: 0px;
-  left: 0px;
+  top: -100px;
   background-color: transparent;
   visibility: hidden;
 
   &.is-modal {
-    transition: top 0.1s ease-in-out;
+    transition: top 0.5s ease-in-out;
   }
 
   &.is-visible {
@@ -25,7 +24,7 @@
     background-color: $white;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
     border: 1px solid $gray-200;
-    border-radius: 3px;
+    border-radius: 5px;
 
     .dropdown-header {
       background-color: rgba($gray-900, 0.05);
@@ -101,7 +100,7 @@
     background-color: $white;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
     border: 1px solid $gray-200;
-    border-radius: 3px;
+    border-radius: 5px;
   }
 }
 

@@ -1,0 +1,9 @@
+.route-wrapper {
+  position: relative;
+}
+
+.route-wrapper > div {
+  position: absolute;
+  min-width: 100vw;
+  min-height: 100vh;
+}

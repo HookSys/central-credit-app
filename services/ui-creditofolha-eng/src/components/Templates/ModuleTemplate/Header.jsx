@@ -44,7 +44,9 @@ const Header = () => {
             <button className='navbar-toggler p-0 border-0 text-white' type='button'>
               <Menu className='font-size-3xl' onClick={ () => toggleSideNavigation(!isSideNavigationVisible) } />
             </button>
-            <div className={ classNames('navbar-small-logo ml-2', LOGO.SMALL_CLASSNAME) }>
+            <div className={ classNames('navbar-small-logo ml-2', LOGO.SMALL_CLASSNAME, {
+              'is-hided': isSideNavigationVisible,
+            }) }>
               <SvgImage icon={ LOGO.SMALL_ICON } isOverflowHideen={ true } />
             </div>
           </div>

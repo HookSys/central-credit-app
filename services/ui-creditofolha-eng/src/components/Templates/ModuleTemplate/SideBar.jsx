@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useRef, useLayoutEffect } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Link, useLocation } from 'react-router-dom'
@@ -33,11 +33,50 @@ const SideBar = () => {
   const location = useLocation()
   const { isRouteActive } = useEngine(engine => engine.helpers)
   const { isSideBarCollapsed, toggleSideBar } = useContext(SideBarContext)
-  const { hasSidePanel } = useContext(SideNavigationContext)
+  const { hasSidePanel, toggleSideNavigation } = useContext(SideNavigationContext)
+
+  const sidebarRef = useRef()
+  const startPos = useRef()
+
+  const onTouchEnd = (event) => {
+    window.removeEventListener('touchend', onTouchEnd);
+    const { clientX, clientY } = event.changedTouches[0];
+    const { clientX: startClientX, clientY: startClientY } = startPos.current
+
+    if (Math.abs(clientY-startClientY) < 20 && startClientX !== clientX) {
+      event.preventDefault()
+      event.stopPropagation()
+      if (startClientX > clientX) {
+        if (hasSidePanel) {
+          toggleSideBar(true)
+        } else {
+          toggleSideNavigation(false)
+        }
+      }
+      startPos.current = 0
+    }
+  }
+
+  const onTouchStart = (event) => {
+    const { clientX, clientY } = event.targetTouches[0];
+    startPos.current = {
+      clientX,
+      clientY,
+    }
+    window.addEventListener('touchend', onTouchEnd);
+  }
+
+  useLayoutEffect(() => {
+    sidebarRef.current.addEventListener('touchstart', onTouchStart);
+    return () => {
+      sidebarRef.current.removeEventListener('touchstart', onTouchStart);
+    }
+  }, [hasSidePanel])
 
   const { LOGO, ROUTES, ENTRY } = structure
   return (
     <nav
+      ref={ sidebarRef }
       className={ classNames('sidebar', {
         'collapsed': isSideBarCollapsed,
       }) }

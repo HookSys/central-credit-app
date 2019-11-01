@@ -27,6 +27,7 @@ const Header = () => {
   const { toggleSideNavigation, isSideNavigationVisible } = useContext(SideNavigationContext)
   
   const structure = useStructure()
+  const getInitials = useEngine(({ helpers }) => helpers.getInitials)
   const defaultStructure = useEngine(
     ({ structures: { MODULES: { DEFAULT }, ...STRUCTURES } }) => STRUCTURES[DEFAULT]
   )
@@ -35,6 +36,7 @@ const Header = () => {
   const user = useSelector(state => state.user.get('data'))
   const entity = user.getSelectedEntity()
 
+  const userFullName = user.get('fullName')
   const { ROUTES } = defaultStructure
   const { LOGO } = structure
   return (
@@ -72,11 +74,13 @@ const Header = () => {
                     <KeyboardArrowDown className='text-low-dark' />
                   </div>
                   <div className='navbar-user-avatar'>
-                    <h6 className='text-primary p-0 m-0'>V</h6>
+                    <h6 className='text-primary p-0 m-0'>
+                      { getInitials(user.get('nome'), user.get('sobrenome')) }
+                    </h6>
                   </div>
                   <div className='d-flex flex-column justify-content-center text-right mr-3 pl-3'>
                     <span className='d-block font-weight-bold small-line-height'>
-                      { user.get('fullName') }
+                      { userFullName }
                     </span>
                     <span className='d-block small-line-height'>
                       { entity.get('entidade_nome') }
@@ -95,7 +99,7 @@ const Header = () => {
         <Dropdown.Header className='flex-column pl-5'>
           <div className='pl-2'>
             <span className='d-block'>
-              { user.get('fullName') }
+              { userFullName }
             </span>
             <span className='d-block opacity-05 small-line-height'>
               { structure.NAME }

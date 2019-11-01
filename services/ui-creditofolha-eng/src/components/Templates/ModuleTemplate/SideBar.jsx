@@ -1,9 +1,9 @@
-import React, { useContext, useState, useRef, useLayoutEffect } from 'react'
+import React, { useContext, useState, useRef, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Link, useLocation } from 'react-router-dom'
 import { SvgImage } from 'components'
-import { useStructure, useEngine } from 'engine'
+import { useStructure, useEngine, useLeftSwipe } from 'engine'
 import { Menu } from '@material-ui/icons'
 
 import { SideNavigationContext } from './SideNavigation'
@@ -36,42 +36,13 @@ const SideBar = () => {
   const { hasSidePanel, toggleSideNavigation } = useContext(SideNavigationContext)
 
   const sidebarRef = useRef()
-  const startPos = useRef()
-
-  const onTouchEnd = (event) => {
-    window.removeEventListener('touchend', onTouchEnd);
-    const { clientX, clientY } = event.changedTouches[0];
-    const { clientX: startClientX, clientY: startClientY } = startPos.current
-
-    if (Math.abs(clientY-startClientY) < 20 && startClientX !== clientX) {
-      event.preventDefault()
-      event.stopPropagation()
-      if (startClientX > clientX) {
-        if (hasSidePanel) {
-          toggleSideBar(true)
-        } else {
-          toggleSideNavigation(false)
-        }
-      }
-      startPos.current = 0
+  useLeftSwipe(useCallback(() => {
+    if (hasSidePanel) {
+      toggleSideBar(true)
+    } else {
+      toggleSideNavigation(false)
     }
-  }
-
-  const onTouchStart = (event) => {
-    const { clientX, clientY } = event.targetTouches[0];
-    startPos.current = {
-      clientX,
-      clientY,
-    }
-    window.addEventListener('touchend', onTouchEnd);
-  }
-
-  useLayoutEffect(() => {
-    sidebarRef.current.addEventListener('touchstart', onTouchStart);
-    return () => {
-      sidebarRef.current.removeEventListener('touchstart', onTouchStart);
-    }
-  }, [hasSidePanel])
+  }, [hasSidePanel]), sidebarRef)
 
   const { LOGO, ROUTES, ENTRY } = structure
   return (

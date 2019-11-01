@@ -1,46 +1,21 @@
 import React, { useRef, useLayoutEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import { useRightSwipe, useLeftSwipe } from 'engine'
 
 import { SideNavigationContext } from './SideNavigation'
 
 const Content = ({ children }) => {
-  const startPos = useRef()
   const contentRef = useRef()
   const { toggleSideNavigation, isSideNavigationVisible } = useContext(SideNavigationContext)
 
-  const onTouchEnd = (event) => {
-    window.removeEventListener('touchend', onTouchEnd)
-    const { clientX, clientY } = event.changedTouches[0]
-    const { clientX: startClientX, clientY: startClientY } = startPos.current
+  useRightSwipe(() => {
+    toggleSideNavigation(true)
+  }, contentRef)
 
-    if (Math.abs(clientY - startClientY) < 20 && startClientX !== clientX) {
-      event.preventDefault()
-      event.stopPropagation()
-      if (startClientX > clientX) {
-        toggleSideNavigation(false)
-      } else {
-        toggleSideNavigation(true)
-      }
-      startPos.current = 0
-    }
-  }
-
-  const onTouchStart = (event) => {
-    const { clientX, clientY } = event.targetTouches[0]
-    startPos.current = {
-      clientX,
-      clientY,
-    }
-    window.addEventListener('touchend', onTouchEnd)
-  }
-
-  useLayoutEffect(() => {
-    contentRef.current.addEventListener('touchstart', onTouchStart)
-    return () => {
-      contentRef.current.removeEventListener('touchstart', onTouchStart)
-    }
-  }, [])
+  useLeftSwipe(() => {
+    toggleSideNavigation(false)
+  }, contentRef)
 
   return (
     <div

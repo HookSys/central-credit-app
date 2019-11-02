@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
 import { ArrowBack } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 
@@ -13,7 +12,7 @@ const HeaderTitle = ({ children, className, linkTo }) => {
           Voltar
         </Link>
       )}
-      <h2 className={ classNames('mt-0 mb-4', className) }>
+      <h2 className={ className }>
         { children }
       </h2>
     </Fragment>
@@ -27,7 +26,7 @@ HeaderTitle.propTypes = {
 }
 
 HeaderTitle.defaultProps = {
-  className: '',
+  className: 'mt-0 mb-4',
   linkTo: null,
 }
 

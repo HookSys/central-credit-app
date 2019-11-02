@@ -1,7 +1,7 @@
 .clean-template {
   height: 100vh;
 
-  &:not(.login) {
+  &:not(.login):not(.use-terms) {
     .content {
       min-height: 620px;
     }

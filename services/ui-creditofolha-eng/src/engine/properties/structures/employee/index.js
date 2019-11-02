@@ -22,6 +22,7 @@ export default {
   },
   VALIDATION: [
     PERMISSIONS.AUTH_REQUIRED({ redirectTo: '/login' }),
+    PERMISSIONS.USE_TERMS_ACCEPTED({ redirectTo: '/use-terms' }),
     PERMISSIONS.SELECTED_PROFILE({ profile: MODULES.EMPLOYEE, redirectTo: '/profiles' })
   ],
   ROUTES,

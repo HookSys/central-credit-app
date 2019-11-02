@@ -6,6 +6,7 @@ export const USER_ASYNC_FAIL = 'USER_ASYNC_FAIL'
 export const USER_SELECT_ENTITY = 'USER_SELECT_ENTITY'
 export const USER_SET_RECENTLY_CREATED = 'USER_SET_RECENTLY_CREATED'
 export const USER_LOGOUT = 'USER_LOGOUT'
+export const USER_ACCEPT_TERMS_SUCCESS = 'USER_ACCEPT_TERMS_SUCCESS'
 
 function userAsyncSuccess(user) {
   return {
@@ -18,6 +19,13 @@ function userAsyncFail(errorMessage) {
   return {
     type: USER_ASYNC_SUCCESS,
     errorMessage,
+  }
+}
+
+function userAcceptTermsSuccess(response) {
+  return {
+    type: USER_ACCEPT_TERMS_SUCCESS,
+    response,
   }
 }
 
@@ -45,6 +53,29 @@ export function userSelectEntity(entityId) {
   return {
     type: USER_SELECT_ENTITY,
     entityId,
+  }
+}
+
+export function userAcceptTermsRequest() {
+  return async (dispatch, getState, request) => {
+    dispatch(appLoadSpinner())
+    const access = getState().auth.get('access')
+    try {
+      const response = await request({
+        path: 'funcionario-termo-de-uso/',
+        method: 'POST',
+        token: access,
+        body: null,
+      })
+
+      await dispatch(userAcceptTermsSuccess(response))
+      return response
+    } catch (errorMessage) {
+      dispatch(userAsyncFail(errorMessage))
+      return null
+    } finally {
+      dispatch(appUnloadSpinner())
+    }
   }
 }
 

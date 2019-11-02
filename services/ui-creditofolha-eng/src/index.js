@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider as EngineProvider } from 'engine'
-import { ThemeRender, AppLoader } from 'components'
+import { ThemeRender, AppLoader, ToastProvider } from 'components'
 
 import 'moment/locale/pt-br'
 
@@ -17,8 +17,10 @@ ReactDOM.render(
         <Provider store={ store }>
           <PersistGate loading={ null } persistor={ persistor }>
             <Suspense fallback={ <AppLoader /> }>
-              <ThemeRender />
-              <Pages />
+              <ToastProvider>
+                <ThemeRender />
+                <Pages />
+              </ToastProvider>
             </Suspense>
           </PersistGate>
         </Provider>

@@ -4,6 +4,7 @@ import PERMISSIONS from 'engine/constants/permissions'
 // Pages
 const LoginPage = LazyLoading(() => import('pages/Default/Login'))
 const ProfilesPage = LazyLoading(() => import('pages/Default/Profiles'))
+const UseTermsPage = LazyLoading(() => import('pages/Default/UseTerms'))
 const RegistrationPage = LazyLoading(() => import('pages/Default/Registration'))
 const RegistrationRegisterPage = LazyLoading(() => import('pages/Default/Registration/Register'))
 const RegistrationEmployeePage = LazyLoading(() => import('pages/Default/Registration/Employee'))
@@ -23,7 +24,17 @@ export default {
     COMPONENT: ProfilesPage,
     VALIDATION: [
       PERMISSIONS.AUTH_REQUIRED({ redirectTo: '/login' }),
+      PERMISSIONS.USE_TERMS_ACCEPTED({ redirectTo: '/use-terms' }),
       PERMISSIONS.NO_SELECTED_PROFILE(),
+    ],
+  },
+  USE_TERMS: {
+    URL: '/use-terms',
+    NAME: 'Termos de Uso',
+    COMPONENT: UseTermsPage,
+    VALIDATION: [
+      PERMISSIONS.AUTH_REQUIRED({ redirectTo: '/login' }),
+      PERMISSIONS.NO_USE_TERMS_ACCEPTED({ redirectTo: '/profiles' }),
     ],
   },
   REGISTRATION: {

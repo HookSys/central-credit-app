@@ -16,6 +16,7 @@ $theme-colors: (
 
 @import '~bootstrap/scss/functions';
 @import 'variables/variables';
+@import "~react-toastify/scss/main.scss";
 @import '~bootstrap/scss/bootstrap';
 @import 'functions/functions';
 @import 'utilities/utilities';

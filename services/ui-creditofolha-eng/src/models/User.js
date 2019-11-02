@@ -31,6 +31,7 @@ export default class User extends BaseRecord(defaultValues, User) {
       termos_de_uso: values && values.termos_de_uso
         ? toEntityList(values.termos_de_uso, UserTerms) : defaultValues.termos_de_uso,
       fullName: values ? `${ values.nome } ${ values.sobrenome }` : defaultValues.fullName,
+      useTermsAccepted: values && values.termos_de_uso && values.termos_de_uso.length > 0,
     })
   }
 

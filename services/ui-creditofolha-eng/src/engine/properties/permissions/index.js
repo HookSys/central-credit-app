@@ -6,6 +6,7 @@ import noSelectedProfile from './noSelectedProfile'
 import selectedProfile from './selectedProfile'
 import useTermsAccepted from './useTermsAccepted'
 import noUseTermsAccepted from './noUseTermsAccepted'
+import autoSelectProfile from './autoSelectProfile'
 
 export default async function () {
   return {
@@ -16,5 +17,6 @@ export default async function () {
     [PERMISSIONS.SELECTED_PROFILE]: selectedProfile.bind(this),
     [PERMISSIONS.USE_TERMS_ACCEPTED]: useTermsAccepted.bind(this),
     [PERMISSIONS.NO_USE_TERMS_ACCEPTED]: noUseTermsAccepted.bind(this),
+    [PERMISSIONS.AUTO_SELECT_PROFILE]: autoSelectProfile.bind(this),
   }
 }

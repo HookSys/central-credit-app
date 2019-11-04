@@ -28,6 +28,10 @@ const SideBarProvider = ({ children }) => {
   )
 }
 
+SideBarProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
 const SideBar = () => {
   const structure = useStructure()
   const location = useLocation()

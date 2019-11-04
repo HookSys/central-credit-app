@@ -5,7 +5,7 @@ const Covenant = () => {
     <div className='row'>
       <div className='col-12'>
         Covenant
-      </div>    
+      </div>
     </div>
   )
 }

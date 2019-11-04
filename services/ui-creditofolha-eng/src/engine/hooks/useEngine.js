@@ -1,6 +1,6 @@
 import { useRef, useContext } from 'react'
-import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect'
 import Context from 'engine/context'
+import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect'
 
 function useEngine(selector) {
   const engine = useContext(Context)
@@ -16,7 +16,7 @@ function useEngine(selector) {
       selectedEngine = latestSelectedEngine.current
     }
   } catch (err) {
-    throw new Error(`An error occurred while selecting the engine state: ${err.message}.`)
+    throw new Error(`An error occurred while selecting the engine state: ${ err.message }.`)
   }
 
   useIsomorphicLayoutEffect(() => {

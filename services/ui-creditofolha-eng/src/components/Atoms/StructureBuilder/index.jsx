@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { StructureRoutesBuilder, Permissions, ThemeRender, StructureFeedbacksBuilder } from 'components'
+import { StructureRoutesBuilder, Permissions, ThemeRender } from 'components'
 
 const StructureBuilder = (structure) => {
   const { CONTAINER: Container, VALIDATION, THEME } = structure

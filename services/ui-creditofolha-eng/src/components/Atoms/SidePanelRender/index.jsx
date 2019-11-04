@@ -1,7 +1,6 @@
-import React, { useLayoutEffect, useState, useContext, useEffect } from 'react'
+import { useLayoutEffect, useState, useContext, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
 
 import { SideNavigationContext } from 'components/Templates/ModuleTemplate/SideNavigation'
 import { SideBarContext } from 'components/Templates/ModuleTemplate/SideBar'

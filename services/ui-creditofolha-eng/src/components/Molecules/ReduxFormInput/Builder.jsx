@@ -39,11 +39,11 @@ const ReduxFormInputBuilder = (displayName = 'ReduxFormInputBuilder') => {
       _classNames = classNamesFn
       return builder
     },
-    isDetailError: isDetailError => {
+    isDetailError: () => {
       _isDetailError = true
       return builder
     },
-    hideError: hideError => {
+    hideError: () => {
       _hideError = true
       return builder
     },

@@ -1,6 +1,6 @@
-import BaseRecord from './utils/BaseRecord'
 import { get } from 'lodash'
 import MODULES from 'engine/constants/modules'
+import BaseRecord from './utils/BaseRecord'
 
 const defaultValues = {
   permissoes: [],

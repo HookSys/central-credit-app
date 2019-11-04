@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { DEFAULT } from 'engine/constants/types'
 import { MetaTags, Permissions } from 'components'
@@ -6,7 +6,7 @@ import StructureChildBuilder from '../StructureChildBuilder'
 import StructureSidePanelBuilder from '../StructureSidePanelBuilder'
 
 const StructureRoutesBuilder = (structure) => {
-  const { TYPE, ENTRY, ROUTES, NAME: ContainerName, THEME } = structure
+  const { TYPE, ENTRY, ROUTES, NAME: ContainerName } = structure
   const rootPath = TYPE !== DEFAULT ? ENTRY : ''
   return Object.keys(ROUTES).reverse().map((key) => {
     const path = key === 'INDEX' ? '' : `${ rootPath }${ ROUTES[key].URL }`
@@ -14,7 +14,7 @@ const StructureRoutesBuilder = (structure) => {
     const hasChilds = typeof ROUTES[key].ROUTES === 'object'
     const hasSidePanelRoutes = typeof ROUTES[key].SIDEPANEL_ROUTES === 'object'
     const Page = ROUTES[key].COMPONENT
-          
+
     if (hasChilds) {
       return (
         <Route path={ path } key={ ENTRY + key }>

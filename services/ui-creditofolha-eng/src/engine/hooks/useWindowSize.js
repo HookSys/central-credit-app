@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react'
-import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect'
+import { useState, useRef } from 'react'
 import { debounce } from 'lodash'
+import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect'
 
 const WINDOW_SIZES = {
   XS: (width) => width < 768,
@@ -20,7 +20,7 @@ function useWindowSize() {
   }, [windowSize])
 
   useIsomorphicLayoutEffect(() => {
-    const onWindowResize = debounce((event) => {
+    const onWindowResize = debounce(() => {
       const width = window.innerWidth
       const sizes = Object.keys(WINDOW_SIZES)
       for (let i = 0; i < sizes.length; i++) {

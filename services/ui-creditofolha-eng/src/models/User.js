@@ -1,9 +1,7 @@
-import { List } from 'immutable'
 import { toEntityList } from 'models/utils/BaseList'
 import BaseRecord from 'models/utils/BaseRecord'
 import UserEntity from 'models/UserEntity'
 import UserTerms from 'models/UserTerms'
-import Engine from 'engine/main'
 
 const defaultValues = {
   cpf: '',

@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { CleanTemplate, SvgImage } from 'components'
 import { ArrowForward } from '@material-ui/icons'
-import { useStructure } from 'engine';
+import { useStructure } from 'engine'
 
 const { AVAILABLE_IMAGES } = SvgImage
 const { Content, HeaderTitle, Banner } = CleanTemplate
 
-const Register = ({ structure, rootPath, parentStructure }) => {
+const Register = ({ rootPath, parentStructure }) => {
   const { ROUTES: { LOGIN } } = useStructure()
   const { EMPLOYEE, COMPANY } = parentStructure.ROUTES
   return (
@@ -40,7 +40,7 @@ const Register = ({ structure, rootPath, parentStructure }) => {
 }
 
 Register.propTypes = {
-  structure: PropTypes.object.isRequired,
+  parentStructure: PropTypes.object.isRequired,
   rootPath: PropTypes.string.isRequired,
 }
 

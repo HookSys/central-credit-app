@@ -1,10 +1,10 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form/immutable'
 import { CleanTemplate, SvgImage, ReduxFormInput } from 'components'
-import { useValidators, useStructure } from 'engine'
+import { useValidators } from 'engine'
 import { authRequest } from 'actions/auth'
 
 import ReduxFormInputBuilder from 'components/Molecules/ReduxFormInput/Builder'

@@ -1,5 +1,4 @@
 import { LazyLoading } from 'components'
-import PERMISSIONS from 'engine/constants/permissions'
 import { HomeOutlined, Receipt, CompareArrows, MergeType, CallReceived, AttachMoney, Refresh } from '@material-ui/icons'
 
 // Pages

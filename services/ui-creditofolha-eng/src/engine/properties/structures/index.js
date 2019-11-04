@@ -1,9 +1,9 @@
+import MODULES from 'engine/constants/modules'
+
 import company from './company'
 import employee from './employee'
 import defaultSt from './default'
 import admin from './admin'
-
-import MODULES from 'engine/constants/modules'
 
 export default () => ({
   [MODULES.COMPANY]: company,

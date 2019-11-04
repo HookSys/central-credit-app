@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
@@ -32,7 +32,7 @@ const ReduxFormInputWithAddon = ReduxFormInputBuilder()
 const EmployeeRegistration = ({ handleSubmit, parentStructure, rootPath, invalid }) => {
   const { required, cpfValidator, weakPassword, passwordsMatch } = useValidators()
   const { cpfNormalizer } = useNormalizers()
-  
+
   const [scoreDescription, setScoreDescription] = useState([])
   const [isPasswordEyeActive, togglePasswordEyeActive] = useState()
 
@@ -139,6 +139,7 @@ const EmployeeRegistration = ({ handleSubmit, parentStructure, rootPath, invalid
 EmployeeRegistration.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   rootPath: PropTypes.string.isRequired,
+  parentStructure: PropTypes.object.isRequired,
   invalid: PropTypes.bool.isRequired,
 }
 

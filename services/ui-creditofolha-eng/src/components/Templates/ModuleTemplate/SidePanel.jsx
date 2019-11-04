@@ -22,7 +22,7 @@ const SidePanel = () => {
     <div
       ref={ sidepanelRef }
       className={ classNames('sidepanel', {
-        'visible': isSideBarCollapsed
+        'visible': isSideBarCollapsed,
       }) }
     >
       <div id='sidepanel-render' />

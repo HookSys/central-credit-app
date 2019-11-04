@@ -1,6 +1,5 @@
 import React, {
   forwardRef,
-  useLayoutEffect,
   useState,
   useCallback,
   useImperativeHandle,
@@ -35,39 +34,34 @@ const Dropdown = forwardRef(({ children, className }, ref) => {
         let x = 0
         let y = 0
 
-        const docWidth = document.documentElement.clientWidth
         const docHeight = document.documentElement.clientHeight
-        
-        const rx = hoverRect.x + hoverRect.width
+
         const lx = hoverRect.x
         const ty = hoverRect.y
         const by = hoverRect.y + hoverRect.height
-        
+
         const ttRect = dropdownElement.getBoundingClientRect()
-        
+
         const bAbove = (ty - ttRect.height) >= 0
         const bBellow = (by + ttRect.height) <= (window.scrollY + docHeight)
-        
+
         if (bBellow) {
           y = by
           x = lx + (hoverRect.width - ttRect.width)
-          
+
           if (x < 0) {
             x = lx
           }
         } else if (bAbove) {
           y = ty - ttRect.height
           x = lx + (hoverRect.width - ttRect.width)
-          
+
           if (x < 0) {
             x = lx
           }
         }
-        
-        setPosition({
-          x: x,
-          y: y,
-        })
+
+        setPosition({ x, y })
       }
     }
   }, [parent])
@@ -98,8 +92,8 @@ const Dropdown = forwardRef(({ children, className }, ref) => {
 
   const isModal = ['XS'].includes(size)
   const style = {
-    left: ((position.x + window.scrollX) + 'px'),
-    top: ((position.y + window.scrollY) + 'px'),
+    left: (`${ (position.x + window.scrollX) }px`),
+    top: (`${ (position.y + window.scrollY) }px`),
   }
 
   const dropdown = (

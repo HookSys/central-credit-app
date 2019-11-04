@@ -1,5 +1,6 @@
 import { LazyLoading } from 'components'
 import PERMISSIONS from 'engine/constants/permissions'
+import MODULES from 'engine/constants/modules'
 
 // Pages
 const LoginPage = LazyLoading(() => import('pages/Default/Login'))
@@ -24,7 +25,7 @@ export default {
     COMPONENT: ProfilesPage,
     VALIDATION: [
       PERMISSIONS.AUTH_REQUIRED({ redirectTo: '/login' }),
-      PERMISSIONS.USE_TERMS_ACCEPTED({ redirectTo: '/use-terms' }),
+      PERMISSIONS.AUTO_SELECT_PROFILE(),
       PERMISSIONS.NO_SELECTED_PROFILE(),
     ],
   },
@@ -34,6 +35,7 @@ export default {
     COMPONENT: UseTermsPage,
     VALIDATION: [
       PERMISSIONS.AUTH_REQUIRED({ redirectTo: '/login' }),
+      PERMISSIONS.SELECTED_PROFILE({ profile: MODULES.EMPLOYEE, redirectTo: '/profiles' }),
       PERMISSIONS.NO_USE_TERMS_ACCEPTED({ redirectTo: '/profiles' }),
     ],
   },

@@ -5,7 +5,7 @@ const ContractsIndex = () => {
     <div className='row'>
       <div className='col-12'>
         Contracts Test
-      </div>    
+      </div>
     </div>
   )
 }

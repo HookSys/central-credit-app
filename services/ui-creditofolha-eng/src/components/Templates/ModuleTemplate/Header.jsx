@@ -25,7 +25,7 @@ const Header = () => {
   const dropdown = useRef()
   const history = useHistory()
   const { toggleSideNavigation, isSideNavigationVisible } = useContext(SideNavigationContext)
-  
+
   const structure = useStructure()
   const getInitials = useEngine(({ helpers }) => helpers.getInitials)
   const defaultStructure = useEngine(
@@ -40,16 +40,18 @@ const Header = () => {
   const { ROUTES } = defaultStructure
   const { LOGO } = structure
   return (
-    <header role='header'>
+    <header>
       <div className='navbar navbar-dark bg-secondary navbar-md-light bg-md-white fixed-top shadow-sm'>
         <div className='row w-100 no-gutters'>
           <div className='d-flex d-md-none'>
             <button className='navbar-toggler p-0 border-0 text-white' type='button'>
               <Menu className='font-size-3xl' onClick={ () => toggleSideNavigation(!isSideNavigationVisible) } />
             </button>
-            <div className={ classNames('navbar-small-logo ml-2', LOGO.SMALL_CLASSNAME, {
-              'is-hided': isSideNavigationVisible,
-            }) }>
+            <div
+              className={ classNames('navbar-small-logo ml-2', LOGO.SMALL_CLASSNAME, {
+                'is-hided': isSideNavigationVisible,
+              }) }
+            >
               <SvgImage icon={ LOGO.SMALL_ICON } isOverflowHideen={ true } />
             </div>
           </div>
@@ -120,16 +122,18 @@ const Header = () => {
         >
           Termos e condições
         </Dropdown.Action>
-        <Dropdown.Action
-          onClick={ () => {
-            dispatch(userSelectEntity(null))
-            history.push(ROUTES.PROFILES.URL)
-          } }
-          icon={ SupervisorAccount }
-          className='pl-2'
-        >
-          Trocar de perfil
-        </Dropdown.Action>
+        { user.get('funcoes').size > 1 && (
+          <Dropdown.Action
+            onClick={ () => {
+              dispatch(userSelectEntity(null))
+              history.push(ROUTES.PROFILES.URL)
+            } }
+            icon={ SupervisorAccount }
+            className='pl-2'
+          >
+            Trocar de perfil
+          </Dropdown.Action>
+        ) }
         <Dropdown.Action
           onClick={ () => {
             dispatch(userLogout())

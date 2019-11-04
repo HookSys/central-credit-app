@@ -1,5 +1,4 @@
-import { useRef, useLayoutEffect, useEffect, useContext } from 'react'
-import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect'
+import { useContext } from 'react'
 import Context from 'engine/context'
 
 function useNormalizers() {

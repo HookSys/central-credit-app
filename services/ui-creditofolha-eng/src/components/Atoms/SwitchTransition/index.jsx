@@ -5,9 +5,9 @@ import { AnimatedSwitch } from 'react-router-transition'
 const SwitchTransition = ({ children }) => {
   return (
     <AnimatedSwitch
-      atEnter={{ opacity: 0 }}
-      atLeave={{ opacity: 0 }}
-      atActive={{ opacity: 1 }}
+      atEnter={ { opacity: 0 } }
+      atLeave={ { opacity: 0 } }
+      atActive={ { opacity: 1 } }
       className='route-wrapper'
     >
       { children }

@@ -1,4 +1,4 @@
-export default function (profile) {
+export default function () {
   const { store: { getState } } = this.store
   const state = getState()
   const user = state.user.get('data')

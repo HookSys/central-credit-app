@@ -1,4 +1,4 @@
-import React, { PureComponent, createContext, Fragment } from 'react'
+import React, { createContext, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -29,15 +29,16 @@ const ToastProvider = ({ children }) => {
     <Fragment>
       <ToastContainer position={ toast.POSITION.TOP_CENTER } />
       <ToastContext.Provider
-        value={ {
-          showSuccessToast: showSuccessToast,
-          showErrorToast: showErrorToast,
-        } }
+        value={ { showSuccessToast, showErrorToast } }
       >
         { children }
       </ToastContext.Provider>
     </Fragment>
   )
+}
+
+ToastProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 }
 
 export default ToastProvider

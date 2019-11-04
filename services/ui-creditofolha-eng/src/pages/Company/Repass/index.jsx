@@ -5,7 +5,7 @@ const Repass = () => {
     <div className='row'>
       <div className='col-12'>
         Repass
-      </div>    
+      </div>
     </div>
   )
 }

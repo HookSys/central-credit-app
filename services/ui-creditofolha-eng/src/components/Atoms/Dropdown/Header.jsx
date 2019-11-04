@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-const Header = ({ children, className, icon: Icon }) => {
+const Header = ({ children, className }) => {
   return (
     <div className={ classNames('dropdown-header', className) }>
       { children }

@@ -56,29 +56,6 @@ export function userSelectEntity(entityId) {
   }
 }
 
-export function userAcceptTermsRequest() {
-  return async (dispatch, getState, request) => {
-    dispatch(appLoadSpinner())
-    const access = getState().auth.get('access')
-    try {
-      const response = await request({
-        path: 'funcionario-termo-de-uso/',
-        method: 'POST',
-        token: access,
-        body: null,
-      })
-
-      await dispatch(userAcceptTermsSuccess(response))
-      return response
-    } catch (errorMessage) {
-      dispatch(userAsyncFail(errorMessage))
-      return null
-    } finally {
-      dispatch(appUnloadSpinner())
-    }
-  }
-}
-
 export function userAsyncRequest() {
   return async (dispatch, getState, request) => {
     dispatch(appLoadSpinner())
@@ -93,6 +70,30 @@ export function userAsyncRequest() {
 
       await dispatch(userAsyncSuccess(response))
       return response
+    } catch (errorMessage) {
+      dispatch(userAsyncFail(errorMessage))
+      return null
+    } finally {
+      dispatch(appUnloadSpinner())
+    }
+  }
+}
+
+export function userAcceptTermsRequest() {
+  return async (dispatch, getState, request) => {
+    dispatch(appLoadSpinner())
+    const access = getState().auth.get('access')
+    try {
+      const response = await request({
+        path: 'funcionario-termo-de-uso/',
+        method: 'POST',
+        token: access,
+        body: null,
+      })
+
+      await dispatch(userAcceptTermsSuccess(response))
+      await dispatch(userAsyncRequest())
+      return true
     } catch (errorMessage) {
       dispatch(userAsyncFail(errorMessage))
       return null

@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { ModuleTemplate } from 'components'
 
 const { Layout } = ModuleTemplate
 
-const CompanyContainer = ({ children, structure }) => {
+const CompanyContainer = ({ children }) => {
   return (
     <Layout>
       { children }

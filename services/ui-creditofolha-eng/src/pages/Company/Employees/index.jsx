@@ -5,7 +5,7 @@ const Employees = () => {
     <div className='row'>
       <div className='col-12'>
         Employees
-      </div>    
+      </div>
     </div>
   )
 }

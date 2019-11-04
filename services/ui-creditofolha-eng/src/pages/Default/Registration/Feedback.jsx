@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { FeedbackTemplate, SvgImage } from 'components'
 import { useSelector } from 'react-redux'
@@ -26,10 +25,16 @@ const Feedback = () => {
         <strong> { user.getHiddenEmail() } </strong>,
         somente com o email autenticado você consegue solicitar crédito.
         <Links>
-          <Link onClick={ () => history.push(ROUTES.LOGIN.URL) } hasArrow={ true }>
+          <Link
+            onClick={ () => history.push(ROUTES.LOGIN.URL) }
+            hasArrow={ true }
+          >
             Voltar para a página inicial
           </Link>
-          <Link onClick={ () => history.push(ROUTES.PROFILES.URL) } hasArrow={ true }>
+          <Link
+            onClick={ () => history.push(ROUTES.PROFILES.URL) }
+            hasArrow={ true }
+          >
             Quero simular crédito e validar meu email depois
           </Link>
         </Links>

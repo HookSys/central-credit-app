@@ -5,7 +5,7 @@ const Portability = () => {
     <div className='row'>
       <div className='col-12'>
         Portability
-      </div>    
+      </div>
     </div>
   )
 }

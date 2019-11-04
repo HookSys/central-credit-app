@@ -1,12 +1,10 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { ExitToApp } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { CleanTemplate, Avatar, SvgImage, Button } from 'components'
+import { useDispatch } from 'react-redux'
+import { CleanTemplate, Button } from 'components'
 import { userLogout, userAcceptTermsRequest } from 'actions/user'
 import { ToastContext } from 'components/Atoms/ToastProvider'
-import { useEngine } from 'engine'
 
 const { Layout, Container, Content, Footer, HeaderTitle } = CleanTemplate
 
@@ -14,7 +12,6 @@ const UseTerms = ({ parentStructure: { ROUTES } }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { showErrorToast } = useContext(ToastContext)
-  const user = useSelector(state => state.user.get('data'))
 
   const onRefuse = async () => {
     await dispatch(userLogout())
@@ -114,13 +111,13 @@ const UseTerms = ({ parentStructure: { ROUTES } }) => {
         </Content>
         <Footer>
           <Button
-            onClick={onRefuse}
+            onClick={ onRefuse }
             className='btn btn-default btn-sm d-block ml-auto mr-2'
           >
             Recusar
           </Button>
           <Button
-            onClick={onAccept}
+            onClick={ onAccept }
             className='btn btn-primary btn-sm d-block'
           >
             Aceitar

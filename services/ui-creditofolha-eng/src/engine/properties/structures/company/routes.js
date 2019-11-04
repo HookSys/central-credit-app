@@ -1,5 +1,4 @@
 import { LazyLoading } from 'components'
-import PERMISSIONS from 'engine/constants/permissions'
 import { HomeOutlined, SupervisorAccount, Receipt, CompareArrows, PermContactCalendar, AccountBalance } from '@material-ui/icons'
 
 // Pages
@@ -40,8 +39,8 @@ export default {
         URL: '/list',
         NAME: 'List',
         COMPONENT: ContractsListPage,
-      }
-    }
+      },
+    },
   },
   DISCOUNT_TRANSFER: {
     URL: '/discount-transfer',

@@ -1,6 +1,5 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import moment from 'moment'
 import { useSelector } from 'react-redux'
 import { StructureBuilder, Spy, Spinner, SwitchTransition } from 'components'
@@ -10,7 +9,7 @@ const Pages = () => {
   const isLoading = useSelector(state => state.app.get('spinner'))
   const structures = useEngine((engine) => engine.structures)
   const { MODULES } = structures
-  
+
   useEffect(() => {
     moment.locale('pt-br')
   }, [])

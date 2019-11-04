@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { CleanTemplate, SvgImage, Spinner } from 'components'
+import { CleanTemplate, SvgImage } from 'components'
 
 const { AVAILABLE_IMAGES } = SvgImage
 const { Layout, Container, HeaderLogo } = CleanTemplate

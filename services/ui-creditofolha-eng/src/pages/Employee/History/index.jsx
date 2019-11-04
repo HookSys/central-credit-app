@@ -5,7 +5,7 @@ const History = () => {
     <div className='row'>
       <div className='col-12'>
         History
-      </div>    
+      </div>
     </div>
   )
 }

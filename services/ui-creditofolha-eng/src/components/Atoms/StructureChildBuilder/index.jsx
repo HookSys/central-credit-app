@@ -1,9 +1,8 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { MetaTags, Permissions } from 'components'
 
 const StructureChildBuilder = (structure, route, rootPath) => {
-  const { THEME } = structure
   const { ROUTES, NAME: ChildName, COMPONENT: Container } = route
   return Object.keys(ROUTES).reverse().map((key) => {
     const path = key === 'INDEX' ? '' : `${ rootPath }${ ROUTES[key].URL }`

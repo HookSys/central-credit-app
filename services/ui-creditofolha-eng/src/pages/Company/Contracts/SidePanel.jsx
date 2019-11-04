@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { SidePanelTemplate, SidePanelRender } from 'components'
 
-const { Layout, Header, Title, BackLink, Links, Link } = SidePanelTemplate
+const { Layout, Header, Title, Links, Link } = SidePanelTemplate
 
 const ContractsSidePanel = ({ structure: { SIDEPANEL_ROUTES }, rootPath }) => {
   return (

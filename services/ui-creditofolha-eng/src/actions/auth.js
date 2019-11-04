@@ -1,5 +1,5 @@
 import { appLoadSpinner, appUnloadSpinner } from 'actions/app'
-import { userAsyncRequest } from 'actions/user';
+import { userAsyncRequest } from 'actions/user'
 
 export const AUTH_ASYNC_FAIL = 'AUTH_ASYNC_FAIL'
 export const AUTH_ASYNC_SUCCESS = 'AUTH_ASYNC_SUCCESS'
@@ -84,7 +84,7 @@ export function authRefresh(dispatch, getState, request) {
     })
     .catch(() => {
       dispatch(authAsyncFail('Your session has expired. Please log in'))
-      dispatch(deAuthSuccess())
+      dispatch(authLogout())
     })
 
   dispatch(authRefreshStart(refreshTokenPromise))

@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useContext } from 'react'
+import React, { useRef, useContext } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { useRightSwipe, useLeftSwipe } from 'engine'

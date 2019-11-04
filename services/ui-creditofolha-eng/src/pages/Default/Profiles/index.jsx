@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { ExitToApp } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { CleanTemplate, Avatar, SvgImage, Button } from 'components'
+import { CleanTemplate, Avatar, Button } from 'components'
 import { userLogout, userSelectEntity } from 'actions/user'
 import { useEngine } from 'engine'
 
@@ -26,6 +26,11 @@ const Profiles = ({ parentStructure: { ROUTES } }) => {
   }
 
   const entities = user.get('funcoes')
+
+  if (entities.size === 1) {
+    return null
+  }
+
   return (
     <Layout className='profiles'>
       <ListContainer>

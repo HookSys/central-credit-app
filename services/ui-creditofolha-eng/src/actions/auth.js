@@ -43,10 +43,10 @@ export function authLogout() {
 }
 
 export function authRequest(email, password) {
-  return async (dispatch, getState, request) => {
+  return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
     try {
-      const response = await request({
+      const response = await service.apiV2({
         path: 'auth/login/',
         method: 'POST',
         body: {
@@ -67,11 +67,11 @@ export function authRequest(email, password) {
   }
 }
 
-export function authRefresh(dispatch, getState, request) {
+export function authRefresh(dispatch, getState, service) {
   const refresh = getState().auth.get('refresh')
   dispatch(appLoadSpinner())
 
-  const refreshTokenPromise = request({
+  const refreshTokenPromise = service.apiV2({
     path: 'auth/refresh-login/',
     method: 'POST',
     body: {

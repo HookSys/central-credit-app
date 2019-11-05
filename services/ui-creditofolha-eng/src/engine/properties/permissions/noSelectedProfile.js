@@ -6,8 +6,8 @@ export default function () {
   if (selectedEntity) {
     const structure = this.structures[selectedEntity.get('entidade_tipo')]
     return () => {
-      const { getHistory } = this.spy
-      getHistory().push(structure.ENTRY)
+      const { history } = this.history
+      history.push(structure.ENTRY)
     }
   }
 

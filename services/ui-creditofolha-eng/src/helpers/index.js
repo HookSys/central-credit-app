@@ -6,6 +6,7 @@ import getInitials from './getInitials'
 import isRouteActive from './isRouteActive'
 import normalizeAll from './normalizeAll'
 import removeEmptyKeys from './removeEmptyKeys'
+import bindQueryParams from './bindQueryParams'
 
 export {
   reduxLogger,
@@ -16,4 +17,5 @@ export {
   isRouteActive,
   normalizeAll,
   removeEmptyKeys,
+  bindQueryParams,
 }

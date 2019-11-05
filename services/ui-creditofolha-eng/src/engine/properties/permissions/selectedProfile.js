@@ -5,8 +5,8 @@ export default function () {
   const selectedEntity = user.getSelectedEntity()
   return ({ redirectTo, profile }) => {
     if (!selectedEntity || selectedEntity.get('entidade_tipo') !== profile) {
-      const { getHistory } = this.spy
-      getHistory().push(redirectTo)
+      const { history } = this.history
+      history.push(redirectTo)
     }
   }
 }

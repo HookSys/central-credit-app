@@ -9,12 +9,11 @@ export default function () {
   if (!selectedEntity && entities.size === 1) {
     const entity = entities.get(0)
     const structure = this.structures[entity.get('entidade_tipo')]
-    const { getDispatch } = this.spy
-    const dispatch = getDispatch()
+    const { store: { dispatch } } = this.store
     dispatch(userSelectEntity(entity.get('entidade_id')))
     return () => {
-      const { getHistory } = this.spy
-      setTimeout(() => getHistory().push(structure.ENTRY))
+      const { history } = this.history
+      setTimeout(() => history.push(structure.ENTRY))
     }
   }
 

@@ -1,12 +1,12 @@
 export default async function () {
-  const { request } = this.service
+  const { external } = this.service
   const { themesManifestName } = this.configs
   const { location } = window
 
   try {
-    const { themes } = await request({
+    const { themes } = await external({
       method: 'GET',
-      externalPath: `${ location.origin }/${ themesManifestName }`,
+      path: `${ location.origin }/${ themesManifestName }`,
     })
 
     return themes

@@ -6,6 +6,7 @@ const defaultValues = {
   refresh: null,
   refreshTokenPromise: null,
   errors: null,
+  userFunction: 0,
 }
 
 export default class Auth extends BaseRecord(defaultValues, Auth) {

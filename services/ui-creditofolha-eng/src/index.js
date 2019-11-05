@@ -13,13 +13,15 @@ ReactDOM.render(
   <EngineProvider>
     { (Engine) => {
       const { store, persistor } = Engine.store.configure()
+      const { history } = Engine.history
+
       return (
         <Provider store={ store }>
           <PersistGate loading={ null } persistor={ persistor }>
             <Suspense fallback={ <AppLoader /> }>
               <ToastProvider>
                 <ThemeRender />
-                <Pages />
+                <Pages history={ history } />
               </ToastProvider>
             </Suspense>
           </PersistGate>

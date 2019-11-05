@@ -3,8 +3,8 @@ export default function () {
   const state = getState()
   if (!state.user.getIn(['data', 'useTermsAccepted'])) {
     return ({ redirectTo }) => {
-      const { getHistory } = this.spy
-      getHistory().push(redirectTo)
+      const { history } = this.history
+      history.push(redirectTo)
     }
   }
 

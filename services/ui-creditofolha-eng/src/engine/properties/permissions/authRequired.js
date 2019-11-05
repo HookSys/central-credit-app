@@ -3,8 +3,8 @@ export default function () {
   const state = getState()
   if (!state.auth.get('authenticated')) {
     return ({ redirectTo }) => {
-      const { getHistory } = this.spy
-      getHistory().push(redirectTo)
+      const { history } = this.history
+      history.push(redirectTo)
     }
   }
 

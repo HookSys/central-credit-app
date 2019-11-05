@@ -1,10 +1,10 @@
 export default () => ({
   configs: import('./configs'),
+  history: import('./history'),
   middlewares: import('./middlewares'),
   sentry: import('./sentry'),
-  spy: import('./spy'),
-  service: import('./service'),
   store: import('./store'),
+  service: import('./service'),
   structures: import('./structures'),
   themes: import('./themes'),
   form: import('./form'),

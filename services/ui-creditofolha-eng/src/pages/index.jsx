@@ -1,11 +1,12 @@
 import React, { Fragment, useEffect } from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { ConnectedRouter } from 'connected-react-router'
+import PropTypes from 'prop-types'
 import moment from 'moment'
 import { useSelector } from 'react-redux'
-import { StructureBuilder, Spy, Spinner, SwitchTransition } from 'components'
+import { StructureBuilder, Spinner, SwitchTransition } from 'components'
 import { useEngine } from 'engine'
 
-const Pages = () => {
+const Pages = ({ history }) => {
   const isLoading = useSelector(state => state.app.get('spinner'))
   const structures = useEngine((engine) => engine.structures)
   const { MODULES } = structures
@@ -15,9 +16,8 @@ const Pages = () => {
   }, [])
 
   return (
-    <Router>
+    <ConnectedRouter history={ history }>
       <Fragment>
-        <Spy />
         { isLoading && <Spinner /> }
         <SwitchTransition>
           { StructureBuilder(structures[MODULES.EMPLOYEE]) }
@@ -25,8 +25,12 @@ const Pages = () => {
           { StructureBuilder(structures[MODULES.DEFAULT]) }
         </SwitchTransition>
       </Fragment>
-    </Router>
+    </ConnectedRouter>
   )
+}
+
+Pages.propTypes = {
+  history: PropTypes.object.isRequired,
 }
 
 export default Pages

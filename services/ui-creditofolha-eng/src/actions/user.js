@@ -57,14 +57,13 @@ export function userSelectEntity(entityId) {
 }
 
 export function userAsyncRequest() {
-  return async (dispatch, getState, request) => {
+  return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
-    const access = getState().auth.get('access')
+
     try {
-      const response = await request({
+      const response = await service.apiV2({
         path: 'me/',
         method: 'GET',
-        token: access,
         body: null,
       })
 
@@ -80,14 +79,12 @@ export function userAsyncRequest() {
 }
 
 export function userAcceptTermsRequest() {
-  return async (dispatch, getState, request) => {
+  return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
-    const access = getState().auth.get('access')
     try {
-      const response = await request({
+      const response = await service.apiV2({
         path: 'funcionario-termo-de-uso/',
         method: 'POST',
-        token: access,
         body: null,
       })
 

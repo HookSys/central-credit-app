@@ -1,0 +1,21 @@
+.card {
+  background: $white;
+  border: 1px solid $gray-200;
+  max-width: 330px;
+  width: 100%;
+  padding: space-size(3);
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+
+  .card-infos {
+    background: rgba($gray-300, 0.05);
+    padding: space-size(2);
+  }
+
+  .card-actions {
+    font-size: text-size('2xs');
+
+    & svg:nth-child(n+2) {
+      margin-left: space-size(2);
+    }
+  }
+}

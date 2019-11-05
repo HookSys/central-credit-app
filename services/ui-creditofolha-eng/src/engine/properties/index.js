@@ -1,6 +1,5 @@
 export default () => ({
   configs: import('./configs'),
-  helpers: import('./helpers'),
   middlewares: import('./middlewares'),
   sentry: import('./sentry'),
   spy: import('./spy'),

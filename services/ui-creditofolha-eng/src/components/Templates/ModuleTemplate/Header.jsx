@@ -4,6 +4,7 @@ import { SvgImage, Dropdown } from 'components'
 import { useStructure, useEngine } from 'engine'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { getInitials } from 'helpers'
 
 import { userLogout, userSelectEntity } from 'actions/user'
 
@@ -27,7 +28,6 @@ const Header = () => {
   const { toggleSideNavigation, isSideNavigationVisible } = useContext(SideNavigationContext)
 
   const structure = useStructure()
-  const getInitials = useEngine(({ helpers }) => helpers.getInitials)
   const defaultStructure = useEngine(
     ({ structures: { MODULES: { DEFAULT }, ...STRUCTURES } }) => STRUCTURES[DEFAULT]
   )

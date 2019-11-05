@@ -2,11 +2,11 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk'
+import { reduxLogger } from 'helpers'
 
 export default function (initialState) {
   const getEnhancer = () => {
     const { refreshToken, reduxEngine } = this.middlewares
-    const { reduxLogger } = this.helpers
 
     const recompose = this.isEnvProduction || typeof window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] === 'undefined'
       ? compose

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { SvgImage } from 'components'
-import { useEngine } from 'engine'
+import { getInitials } from 'helpers'
 
 const isSvgImage = (icon) => icon && icon.viewBox && (
   <SvgImage icon={ icon } maxWidth='20px' maxHeight='20px' />
@@ -10,7 +10,6 @@ const isSvgImage = (icon) => icon && icon.viewBox && (
 const isIcon = (Icon) => Icon && <Icon />
 
 const Avatar = ({ title, icon, className }) => {
-  const getInitials = useEngine(({ helpers }) => helpers.getInitials)
   return (
     <div className={ classNames('avatar', className) }>
       { isSvgImage(icon) || isIcon(icon) || getInitials(title) }

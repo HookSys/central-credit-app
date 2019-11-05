@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Link, useLocation } from 'react-router-dom'
 import { SvgImage } from 'components'
-import { useStructure, useEngine, useLeftSwipe } from 'engine'
+import { useStructure, useLeftSwipe } from 'engine'
 import { Menu } from '@material-ui/icons'
+import { isRouteActive } from 'helpers'
 
 import { SideNavigationContext } from './SideNavigation'
 
@@ -35,7 +36,6 @@ SideBarProvider.propTypes = {
 const SideBar = () => {
   const structure = useStructure()
   const location = useLocation()
-  const { isRouteActive } = useEngine(engine => engine.helpers)
   const { isSideBarCollapsed, toggleSideBar } = useContext(SideBarContext)
   const { hasSidePanel, toggleSideNavigation } = useContext(SideNavigationContext)
 

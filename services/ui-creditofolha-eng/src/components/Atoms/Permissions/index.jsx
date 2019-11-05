@@ -1,12 +1,13 @@
 import React, { Fragment, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { getFirstViolatedPermission } from 'helpers'
 import { useEngine } from 'engine'
 
-const Permissions = ({ children, permissions }) => {
-  const getFirstViolatedPermission = useEngine(({ helpers }) => helpers.getFirstViolatedPermission)
+const Permissions = ({ children, permissions: validations }) => {
+  const permissions = useEngine(({ permissions: p }) => p)
   useEffect(() => {
     if (permissions) {
-      const hasError = getFirstViolatedPermission(permissions)
+      const hasError = getFirstViolatedPermission(validations, permissions)
       if (hasError) {
         hasError()
       }

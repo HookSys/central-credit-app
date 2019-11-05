@@ -1,9 +1,9 @@
 import { setError } from 'actions/errors'
+import { bindPathParams } from 'helpers'
 
 export default async function (payload) {
   const { getAccess, getDispatch } = this.spy
   const { RESPONSE_TYPES, CONTENT_TYPES } = this.service
-  const { bindPathParams } = this.helpers
   const { apiUrl } = this.configs
 
   const defaultContentType = 'application/json'

@@ -11,7 +11,4 @@ const recursiveFinder = (validations = [], permissions) => {
   return recursiveFinder(newValidations, permissions)
 }
 
-export default function (validations) {
-  const { permissions } = this
-  return recursiveFinder(validations, permissions)
-}
+export default recursiveFinder

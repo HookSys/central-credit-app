@@ -1,19 +1,15 @@
-import reduxLogger from './reduxLogger'
 import bindPathParams from './bindPathParams'
-import getUrl from './getUrl'
 import getFirstViolatedPermission from './getFirstViolatedPermission'
-import getInitials from './getInitials'
+import getFirstLetters from './getFirstLetters'
 import isRouteActive from './isRouteActive'
 import normalizeAll from './normalizeAll'
 import removeEmptyKeys from './removeEmptyKeys'
 import bindQueryParams from './bindQueryParams'
 
 export {
-  reduxLogger,
   bindPathParams,
-  getUrl,
   getFirstViolatedPermission,
-  getInitials,
+  getFirstLetters,
   isRouteActive,
   normalizeAll,
   removeEmptyKeys,

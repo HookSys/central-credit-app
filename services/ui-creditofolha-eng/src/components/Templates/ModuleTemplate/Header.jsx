@@ -4,7 +4,7 @@ import { SvgImage, Dropdown } from 'components'
 import { useStructure, useEngine } from 'engine'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { getInitials } from 'helpers'
+import { getFirstLetters } from 'helpers'
 
 import { userLogout, userSelectEntity } from 'actions/user'
 
@@ -77,14 +77,14 @@ const Header = () => {
                   </div>
                   <div className='navbar-user-avatar'>
                     <h6 className='text-primary p-0 m-0'>
-                      { getInitials(user.get('nome'), user.get('sobrenome')) }
+                      { getFirstLetters(user.get('nome'), user.get('sobrenome')) }
                     </h6>
                   </div>
                   <div className='d-flex flex-column justify-content-center text-right mr-3 pl-3'>
                     <span className='d-block font-weight-bold small-line-height'>
                       { userFullName }
                     </span>
-                    <span className='d-block small-line-height'>
+                    <span className='d-block small-line-height mt-1'>
                       { entity.get('entidade_nome') }
                     </span>
                   </div>

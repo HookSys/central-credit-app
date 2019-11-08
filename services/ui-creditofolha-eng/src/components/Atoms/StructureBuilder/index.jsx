@@ -8,12 +8,13 @@ const StructureBuilder = (structure) => {
   return (
     <Route path={ structure.ENTRY }>
       <Permissions permissions={ VALIDATION }>
-        <ThemeRender theme={ THEME } />
-        <Container structure={ structure }>
-          <Switch>
-            { StructureRoutesBuilder(structure) }
-          </Switch>
-        </Container>
+        <ThemeRender theme={ THEME }>
+          <Container structure={ structure }>
+            <Switch>
+              { StructureRoutesBuilder(structure) }
+            </Switch>
+          </Container>
+        </ThemeRender>
       </Permissions>
     </Route>
   )

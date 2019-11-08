@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { CleanTemplate, Button } from 'components'
 import { userLogout, userAcceptTermsRequest } from 'actions/user'
-import { ToastContext } from 'components/Atoms/ToastProvider'
+import { ToastContext } from 'components/ToastProvider'
 
 const { Layout, Container, Content, Footer, HeaderTitle } = CleanTemplate
 

@@ -5,9 +5,6 @@
   "env": {
     "REACT_APP_CREDITOR_BASE_URL": {
       "required": true
-    },
-    "REACT_APP_FRONTEND_SENTRY_CREDITOR_BASE_DSN": {
-      "required": true
     }
   },
   "formation": {
@@ -23,4 +20,3 @@
     }
   ]
 }
-

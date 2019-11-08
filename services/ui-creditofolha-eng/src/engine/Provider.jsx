@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { AppLoader } from 'components'
+import AppLoader from 'components/AppLoader'
 import Engine from 'engine/main'
 import Context from 'engine/context'
 

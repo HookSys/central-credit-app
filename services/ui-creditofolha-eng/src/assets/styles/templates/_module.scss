@@ -8,7 +8,6 @@
     max-width: $sidebar-width;
     width: $sidebar-width;
     min-height: 100vh;
-    height: 100%;
     z-index: $side-navigation-z-index;
         
     .sidebar {
@@ -49,7 +48,7 @@
       }
 
       .sidebar-content {
-        height: calc(100vh - #{$navbar-height});
+        height: calc(100% - #{$navbar-height});
         background-color: theme-color('secondary');
         box-shadow: 5px 0 10px 0 rgba(0, 0, 0, 0.1);
         overflow-x: hidden;

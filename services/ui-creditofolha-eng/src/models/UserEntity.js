@@ -7,6 +7,7 @@ const defaultValues = {
   entidade_tipo: '',
   entidade_id: null,
   entidade_nome: '',
+  identificador: '',
 }
 
 export default class UserEntity extends BaseRecord(defaultValues, UserEntity) {

@@ -1,4 +1,4 @@
-import { LazyLoading } from 'components'
+import LazyLoading from 'components/LazyLoading'
 import { HomeOutlined, SupervisorAccount, Receipt, CompareArrows, PermContactCalendar, AccountBalance } from '@material-ui/icons'
 
 // Pages

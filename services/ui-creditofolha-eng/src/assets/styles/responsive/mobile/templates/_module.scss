@@ -20,7 +20,7 @@
         }
 
         .sidebar-content {
-          height: calc(100vh - #{$navbar-sm-height});
+          height: calc(100% - #{$navbar-sm-height});
         }
       }
 

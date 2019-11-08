@@ -30,7 +30,8 @@ export default async function () {
         headers['Authorization'] = `Bearer ${ access }`
       }
 
-      const userFunction = getState().auth.get('userFunction')
+      const entity = getState().user.get('data').getSelectedEntity()
+      const userFunction = !entity ? null : entity.get('identificador')
       headers['User-Funcao'] = userFunction
 
       return JSON.stringify(data)

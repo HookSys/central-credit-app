@@ -9,8 +9,8 @@ import { useValidators, useNormalizers } from 'engine'
 import { RemoveRedEyeOutlined } from '@material-ui/icons'
 import { registerAsyncRequest } from 'actions/register'
 
-import ReduxFormInputBuilder from 'components/Molecules/ReduxFormInput/Builder'
-import InputAddonBuilder from 'components/Molecules/ReduxFormInput/builders/InputAddonBuilder'
+import ReduxFormInputBuilder from 'components/ReduxFormInput/Builder'
+import InputAddonBuilder from 'components/ReduxFormInput/builders/InputAddonBuilder'
 
 const formName = 'registerForm'
 const selector = formValueSelector(formName)

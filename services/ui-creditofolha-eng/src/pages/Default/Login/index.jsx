@@ -3,12 +3,13 @@ import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form/immutable'
-import { CleanTemplate, SvgImage, ReduxFormInput } from 'components'
+import { SvgImage, ReduxFormInput } from 'components'
+import { CleanTemplate } from 'templates'
 import { useValidators } from 'engine'
 import { authRequest } from 'actions/auth'
 
-import ReduxFormInputBuilder from 'components/Molecules/ReduxFormInput/Builder'
-import InputAddonBuilder from 'components/Molecules/ReduxFormInput/builders/InputAddonBuilder'
+import ReduxFormInputBuilder from 'components/ReduxFormInput/Builder'
+import InputAddonBuilder from 'components/ReduxFormInput/builders/InputAddonBuilder'
 import { RemoveRedEyeOutlined } from '@material-ui/icons'
 
 const { AVAILABLE_IMAGES } = SvgImage

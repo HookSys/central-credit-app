@@ -78,6 +78,28 @@ export function userAsyncRequest() {
   }
 }
 
+export function userFunctionAsyncRequest() {
+  return async (dispatch, getState, request) => {
+    dispatch(appLoadSpinner())
+    const selectedEntityId = getState().user.get('selectedEntityId')
+
+    try {
+      const response = await request({
+        path: `financeiras/${ selectedEntityId }`,
+        method: 'GET',
+      })
+
+      await dispatch(userAsyncSuccess(response))
+      return response
+    } catch (errorMessage) {
+      dispatch(userAsyncFail(errorMessage))
+      return null
+    } finally {
+      dispatch(appUnloadSpinner())
+    }
+  }
+}
+
 export function userAcceptTermsRequest() {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())

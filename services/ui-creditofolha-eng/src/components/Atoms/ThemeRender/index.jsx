@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
 import { useEngine } from 'engine'
-import AppLoader from 'components/AppLoader'
+import { AppLoader } from 'components'
 
 const ThemeRender = ({ theme, children }) => {
   const appThemes = useEngine(({ themes }) => themes.themes)
-  const [canRender, toggleCanRender] = useState(false)
+  const [canRender, toggleCanRender] = useState(true)
 
   useEffect(() => {
     toggleCanRender(false)
@@ -19,12 +19,12 @@ const ThemeRender = ({ theme, children }) => {
   }, [canRender])
 
   return (
-    <>
+    <Fragment>
       <Helmet>
         <link rel='stylesheet' href={ appThemes[theme] } />
       </Helmet>
       { children && (canRender ? children : <AppLoader />) }
-    </>
+    </Fragment>
   )
 }
 

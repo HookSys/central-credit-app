@@ -1,7 +1,8 @@
 {
   "presets": [
     ["react-app", { "absoluteRuntime": false }],
-    "@babel/preset-env"
+    "@babel/preset-env",
+    "@babel/preset-flow"
   ],
   "plugins": [
     ["@babel/plugin-proposal-decorators", { "legacy": true }],

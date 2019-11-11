@@ -1,0 +1,39 @@
+[ignore]
+.*/build/.*
+.*/__tests__/.*
+.*/assets/.*
+
+[include]
+src/
+
+[libs]
+flow-typed/
+
+[untyped]
+.*/moment-timezone/.*
+.*/redux-form/.*
+.*/node_modules/immutable/.*
+
+[lints]
+
+[options]
+esproposal.class_static_fields=enable
+esproposal.class_instance_fields=enable
+esproposal.export_star_as=enable
+suppress_comment= \\(.\\|\n\\)*\\$FlowIgnore
+suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
+module.name_mapper='^actions\(.*\)$' -> '<PROJECT_ROOT>/src/actions/\1'
+module.name_mapper='^app\(.*\)$' -> '<PROJECT_ROOT>/src/app/\1'
+module.name_mapper='^assets\(.*\)$' -> '<PROJECT_ROOT>/src/assets/\1'
+module.name_mapper='^components\(.*\)$' -> '<PROJECT_ROOT>/src/components/\1'
+module.name_mapper='^engine\(.*\)$' -> '<PROJECT_ROOT>/src/engine/\1'
+module.name_mapper='^factories\(.*\)$' -> '<PROJECT_ROOT>/src/pages/\1'
+module.name_mapper='^helpers\(.*\)$' -> '<PROJECT_ROOT>/src/helpers/\1'
+module.name_mapper='^models\(.*\)$' -> '<PROJECT_ROOT>/src/models/\1'
+module.name_mapper='^pages\(.*\)$' -> '<PROJECT_ROOT>/src/pages/\1'
+module.name_mapper='^queries\(.*\)$' -> '<PROJECT_ROOT>/src/queries/\1'
+module.name_mapper='^reducers\(.*\)$' -> '<PROJECT_ROOT>/src/reducers/\1'
+module.name_mapper='^selectors\(.*\)$' -> '<PROJECT_ROOT>/src/selectors/\1'
+module.name_mapper='^tests\(.*\)$' -> '<PROJECT_ROOT>/src/tests/\1'
+module.name_mapper='^templates\(.*\)$' -> '<PROJECT_ROOT>/src/templates/\1'
+module.name_mapper='^utils\(.*\)$' -> '<PROJECT_ROOT>/src/utils/\1'

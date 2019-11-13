@@ -1,17 +1,17 @@
 import { useContext } from 'react'
 import { useSelector } from 'react-redux'
-import Context from 'engine/context'
+import { AppContext } from 'app'
+import { DEFAULT } from 'constants/entity'
 
 function useStructure() {
-  const { structures } = useContext(Context)
+  const { Entity } = useContext(AppContext)
   const selectedEntity = useSelector(({ user }) => user.get('data').getSelectedEntity())
 
   if (!selectedEntity) {
-    const { MODULES } = structures
-    return structures[MODULES.DEFAULT]
+    return Entity[DEFAULT]
   }
 
-  return structures[selectedEntity.get('entidade_tipo')]
+  return Entity[selectedEntity.get('entidade_tipo')]
 }
 
 export default useStructure

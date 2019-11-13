@@ -1,6 +1,8 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { MetaTags, Permissions, DefaultContainer } from 'components'
+import MetaTags from 'components/MetaTags'
+import Permissions from 'components/Permissions'
+import DefaultContainer from 'components/DefaultContainer'
 
 const StructureChildBuilder = (structure, route, rootPath) => {
   const { ROUTES, NAME: ChildName, COMPONENT } = route

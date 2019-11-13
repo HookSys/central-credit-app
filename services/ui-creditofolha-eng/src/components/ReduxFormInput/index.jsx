@@ -2,7 +2,8 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { InputError, Input } from 'components'
+import Input from 'components/Input'
+import InputError from 'components/InputError'
 
 const ReduxFormInput = (props) => {
   const {

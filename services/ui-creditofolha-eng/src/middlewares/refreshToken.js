@@ -1,11 +1,9 @@
 import { authRefresh } from 'actions/auth'
 import jwtDecode from 'jwt-decode'
 import moment from 'moment'
+import { RefreshThreshold } from 'configs'
 
 export default function ({ dispatch, getState }) {
-  const { refreshThreshold } = this.configs
-  const { request } = this.service
-
   return next => action => {
     if (typeof action === 'function') {
       const auth = getState().auth.toJS()
@@ -16,9 +14,9 @@ export default function ({ dispatch, getState }) {
 
         const diff = moment(Date.now()).valueOf() - expiresDate
         const timeRemaining = moment.duration(diff).asMinutes()
-        if (timeRemaining >= refreshThreshold) {
+        if (timeRemaining >= RefreshThreshold) {
           if (!refreshTokenPromise) {
-            return authRefresh(dispatch, getState, request).then(() => { next(action) })
+            return authRefresh(dispatch, getState).then(() => { next(action) })
           }
           if (refreshTokenPromise.then) {
             return refreshTokenPromise.then(() => {

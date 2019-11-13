@@ -6,15 +6,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Avatar, Button } from 'components'
 import { CleanTemplate } from 'templates'
 import { userLogout, userSelectEntity } from 'actions/user'
-import { useEngine } from 'engine'
+import { useStructure } from 'hooks'
 
 const { Layout, List, ListContainer, ListItem, ListHeader } = CleanTemplate
 
-const Profiles = ({ parentStructure: { ROUTES } }) => {
+const Profiles = ({ parent: { ROUTES } }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const user = useSelector(state => state.user.get('data'))
-  const modules = useEngine(engine => engine.structures)
+  const modules = useStructure()
 
   const onSelectProfile = (entity, structure) => async () => {
     await dispatch(userSelectEntity(entity.get('entidade_id')))
@@ -82,7 +82,7 @@ const Profiles = ({ parentStructure: { ROUTES } }) => {
 }
 
 Profiles.propTypes = {
-  parentStructure: PropTypes.object.isRequired,
+  parent: PropTypes.object.isRequired,
 }
 
 export default Profiles

@@ -5,7 +5,8 @@ class Playground extends Component {
     return (
       <div className='row'>
         <div className='col-5'>
-          Test
+          1
+          { this.props.children }
         </div>
       </div>
     )

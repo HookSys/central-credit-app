@@ -1,11 +1,11 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
-import { useEngine } from 'engine'
-import { AppLoader } from 'components'
+import useThemes from 'hooks/useThemes'
+import AppLoader from 'components/AppLoader'
 
 const ThemeRender = ({ theme, children }) => {
-  const appThemes = useEngine(({ themes }) => themes.themes)
+  const appThemes = useThemes()
   const [canRender, toggleCanRender] = useState(true)
 
   useEffect(() => {

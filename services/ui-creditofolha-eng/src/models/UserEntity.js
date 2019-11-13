@@ -1,5 +1,5 @@
 import { get } from 'lodash'
-import MODULES from 'engine/constants/modules'
+import * as MODULES from 'constants/entity'
 import BaseRecord from './utils/BaseRecord'
 
 const defaultValues = {

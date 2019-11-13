@@ -1,7 +1,8 @@
 
 import React from 'react'
 import { Route } from 'react-router-dom'
-import { MetaTags, Permissions } from 'components'
+import MetaTags from 'components/MetaTags'
+import Permissions from 'components/Permissions'
 
 const StructureSidePanelBuilder = (structure, route, rootPath) => {
   const { SIDEPANEL_ROUTES, NAME: ChildName, COMPONENT: Container } = route

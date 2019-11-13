@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { Input, InputError } from 'components'
+import Input from 'components/Input'
+import InputError from 'components/InputError'
 import { useSelector } from 'react-redux'
 
 import InputAddonBuilder from './builders/InputAddonBuilder'

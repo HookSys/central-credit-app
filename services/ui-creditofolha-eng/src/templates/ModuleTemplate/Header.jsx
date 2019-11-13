@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react'
 import classNames from 'classnames'
 import { SvgImage, Dropdown } from 'components'
-import { useStructure, useEngine } from 'engine'
+import { useStructure } from 'hooks'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { getFirstLetters } from 'helpers'
@@ -28,9 +28,7 @@ const Header = () => {
   const { toggleSideNavigation, isSideNavigationVisible } = useContext(SideNavigationContext)
 
   const structure = useStructure()
-  const defaultStructure = useEngine(
-    ({ structures: { MODULES: { DEFAULT }, ...STRUCTURES } }) => STRUCTURES[DEFAULT]
-  )
+  const defaultStructure = structure.default
 
   const dispatch = useDispatch()
   const user = useSelector(state => state.user.get('data'))

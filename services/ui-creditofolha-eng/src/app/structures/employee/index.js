@@ -1,7 +1,7 @@
-import { MODULE } from 'engine/constants/types'
+import { MODULE } from 'constants/types'
 import { SvgImage, LazyLoading } from 'components'
-import PERMISSIONS from 'engine/constants/permissions'
-import MODULES from 'engine/constants/modules'
+import PERMISSIONS from 'constants/permissions'
+import MODULES from 'constants/modules'
 
 import ROUTES from './routes'
 

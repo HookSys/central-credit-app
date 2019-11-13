@@ -1,8 +1,14 @@
-extends:
-  eslint-config-airbnb
+extends: [
+  "eslint-config-airbnb",
+  "plugin:flowtype/recommended"
+]
 
 parser:
   babel-eslint
+
+plugins: [
+  "flowtype"
+]
 
 settings:
   ecmascript: 6

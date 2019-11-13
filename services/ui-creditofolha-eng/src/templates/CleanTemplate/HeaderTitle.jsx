@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { ArrowBack } from 'templates'
+import { ArrowBack } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 
 const HeaderTitle = ({ children, className, linkTo }) => {

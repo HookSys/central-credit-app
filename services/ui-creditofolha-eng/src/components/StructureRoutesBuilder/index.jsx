@@ -1,26 +1,27 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { DEFAULT } from 'engine/constants/types'
-import { MetaTags, Permissions } from 'components'
+import { STRUCTURE_TYPES } from 'constants/structure'
+import MetaTags from 'components/MetaTags'
+import Permissions from 'components/Permissions'
 import StructureChildBuilder from '../StructureChildBuilder'
 import StructureSidePanelBuilder from '../StructureSidePanelBuilder'
 
 const StructureRoutesBuilder = (structure) => {
-  const { TYPE, ENTRY, ROUTES, NAME: ContainerName } = structure
-  const rootPath = TYPE !== DEFAULT ? ENTRY : ''
-  return Object.keys(ROUTES).reverse().map((key) => {
-    const path = key === 'INDEX' ? '' : `${ rootPath }${ ROUTES[key].URL }`
-    const permissions = ROUTES[key].VALIDATION
-    const hasChilds = typeof ROUTES[key].ROUTES === 'object'
-    const hasSidePanelRoutes = typeof ROUTES[key].SIDEPANEL_ROUTES === 'object'
-    const Page = ROUTES[key].COMPONENT
+  const { type, entry, routes, name: ContainerName } = structure
+  const rootPath = type !== STRUCTURE_TYPES.DEFAULT ? entry : ''
+  return Object.keys(routes).reverse().map((key) => {
+    const path = key === 'INDEX' ? '' : `${ rootPath }${ routes[key].route }`
+    const permissions = null
+    const hasChilds = typeof routes[key].routes === 'object'
+    const hasSidePanelRoutes = typeof routes[key].SIDEPANEL_ROUTES === 'object'
+    const Page = routes[key].component
 
     if (hasChilds) {
       return (
-        <Route path={ path } key={ ENTRY + key }>
+        <Route path={ path } key={ entry + key }>
           <Permissions permissions={ permissions }>
             <Switch>
-              { StructureChildBuilder(structure, ROUTES[key], path) }
+              { StructureChildBuilder(structure, routes[key], path) }
             </Switch>
           </Permissions>
         </Route>
@@ -29,10 +30,10 @@ const StructureRoutesBuilder = (structure) => {
 
     if (hasSidePanelRoutes) {
       return (
-        <Route path={ path } key={ ENTRY + key }>
+        <Route path={ path } key={ entry + key }>
           <Permissions permissions={ permissions }>
             <Switch>
-              { StructureSidePanelBuilder(structure, ROUTES[key], path) }
+              { StructureSidePanelBuilder(structure, routes[key], path) }
             </Switch>
           </Permissions>
         </Route>
@@ -40,13 +41,13 @@ const StructureRoutesBuilder = (structure) => {
     }
 
     return (
-      <Route exact path={ path } key={ ENTRY + key }>
+      <Route exact path={ path } key={ entry + key }>
         <Permissions permissions={ permissions }>
           <MetaTags
-            metaTitle={ ROUTES[key].NAME }
+            metaTitle={ routes[key].name }
             metaTitleSuffix={ ContainerName }
           />
-          <Page structure={ ROUTES[key] } rootPath={ rootPath } parentStructure={ structure } />
+          <Page structure={ routes[key] } rootPath={ rootPath } parentStructure={ structure } />
         </Permissions>
       </Route>
     )

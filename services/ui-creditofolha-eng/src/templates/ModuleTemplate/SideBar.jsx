@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Link, useLocation } from 'react-router-dom'
 import { SvgImage } from 'components'
-import { useStructure, useLeftSwipe } from 'engine'
+import { useStructure, useLeftSwipe } from 'hooks'
 import { Menu } from '@material-ui/icons'
 import { isRouteActive } from 'helpers'
 

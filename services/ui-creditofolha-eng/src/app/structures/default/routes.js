@@ -1,74 +1,60 @@
-import { LazyLoading } from 'components'
-import PERMISSIONS from 'engine/constants/permissions'
-import MODULES from 'engine/constants/modules'
+// @flow
+import LazyLoading from 'components/LazyLoading'
+
+import type { StructureRoute } from 'app/types'
+import { AUTH_REQUIRED } from 'constants/permission'
 
 // Pages
 const LoginPage = LazyLoading(() => import('pages/Default/Login'))
 const ProfilesPage = LazyLoading(() => import('pages/Default/Profiles'))
 const UseTermsPage = LazyLoading(() => import('pages/Default/UseTerms'))
 const RegistrationPage = LazyLoading(() => import('pages/Default/Registration'))
+const RegistrationMenuPage = LazyLoading(() => import('pages/Default/Registration/Menu'))
 const RegistrationRegisterPage = LazyLoading(() => import('pages/Default/Registration/Register'))
-const RegistrationEmployeePage = LazyLoading(() => import('pages/Default/Registration/Employee'))
-const RegistrationCompanyPage = LazyLoading(() => import('pages/Default/Registration/Company'))
 const RegistrationFeedbackPage = LazyLoading(() => import('pages/Default/Registration/Feedback'))
 
-export default {
+const defaultRoutes: StructureRoute = {
   LOGIN: {
-    URL: '/login',
-    NAME: 'Login',
-    COMPONENT: LoginPage,
-    VALIDATION: [PERMISSIONS.NOAUTH_REQUIRED({ redirectTo: '/profiles' })],
+    route: '/login',
+    name: 'Login',
+    component: LoginPage,
+    permissions: [AUTH_REQUIRED],
   },
   PROFILES: {
-    URL: '/profiles',
-    NAME: 'Perfil',
-    COMPONENT: ProfilesPage,
-    VALIDATION: [
-      PERMISSIONS.AUTH_REQUIRED({ redirectTo: '/login' }),
-      PERMISSIONS.AUTO_SELECT_PROFILE(),
-      PERMISSIONS.NO_SELECTED_PROFILE(),
-    ],
+    route: '/profiles',
+    name: 'Perfil',
+    component: ProfilesPage,
   },
   USE_TERMS: {
-    URL: '/use-terms',
-    NAME: 'Termos de Uso',
-    COMPONENT: UseTermsPage,
-    VALIDATION: [
-      PERMISSIONS.AUTH_REQUIRED({ redirectTo: '/login' }),
-      PERMISSIONS.SELECTED_PROFILE({ profile: MODULES.EMPLOYEE, redirectTo: '/profiles' }),
-      PERMISSIONS.NO_USE_TERMS_ACCEPTED({ redirectTo: '/profiles' }),
-    ],
+    route: '/use-terms',
+    name: 'Termos de Uso',
+    component: UseTermsPage,
   },
   REGISTRATION: {
-    URL: '/registration',
-    NAME: 'Quero me cadastrar',
-    COMPONENT: RegistrationPage,
-    ROUTES: {
+    route: '/registration',
+    name: 'Quero me cadastrar',
+    component: RegistrationPage,
+    routes: {
       INDEX: {
-        URL: '',
-        NAME: 'Quero me Cadastrar',
-        COMPONENT: RegistrationRegisterPage,
-        VALIDATION: [PERMISSIONS.NOAUTH_REQUIRED({ redirectTo: '/profiles' })],
+        route: '',
+        name: 'Quero me Cadastrar',
+        component: RegistrationMenuPage,
       },
-      EMPLOYEE: {
-        URL: '/employee',
-        NAME: 'Cadastro de Conta',
-        COMPONENT: RegistrationEmployeePage,
-        VALIDATION: [PERMISSIONS.NOAUTH_REQUIRED({ redirectTo: '/profiles' })],
-      },
-      COMPANY: {
-        URL: '/company',
-        NAME: 'Cadastro de Empresa',
-        COMPONENT: RegistrationCompanyPage,
-        VALIDATION: [PERMISSIONS.NOAUTH_REQUIRED({ redirectTo: '/profiles' })],
+      REGISTER: {
+        route: '/register',
+        name: 'Cadastro de Conta',
+        component: RegistrationRegisterPage,
       },
       SUCCESS: {
-        URL: '/success',
-        NAME: 'Cadastrado com Sucesso',
-        COMPONENT: RegistrationFeedbackPage,
-        VALIDATION: [PERMISSIONS.RECENTLY_CREATED({ redirectTo: '/login' })],
-        IS_FEEDBACK: true,
+        route: '/success',
+        name: 'Cadastrado com Sucesso',
+        component: RegistrationFeedbackPage,
+        isFeedback: true,
       },
     },
   },
 }
+
+export type DefaultRoutesType = $Keys<typeof defaultRoutes>
+
+export default defaultRoutes

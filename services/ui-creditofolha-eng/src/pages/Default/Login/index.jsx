@@ -5,8 +5,8 @@ import { Link, useHistory } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form/immutable'
 import { SvgImage, ReduxFormInput } from 'components'
 import { CleanTemplate } from 'templates'
-import { useValidators } from 'engine'
 import { authRequest } from 'actions/auth'
+import { required } from 'form/validators'
 
 import ReduxFormInputBuilder from 'components/ReduxFormInput/Builder'
 import InputAddonBuilder from 'components/ReduxFormInput/builders/InputAddonBuilder'
@@ -30,17 +30,15 @@ const ReduxFormInputWithAddon = ReduxFormInputBuilder()
   .hideError()
   .build()
 
-const Login = ({ handleSubmit, parentStructure }) => {
+const Login = ({ handleSubmit, entity: { pages } }) => {
   const dispatch = useDispatch()
   const history = useHistory()
-  const { required } = useValidators()
   const [isPasswordEyeActive, togglePasswordEyeActive] = useState(false)
 
-  const { ROUTES } = parentStructure
   const onSubmit = async (values) => {
     const response = await dispatch(authRequest(values.get('email'), values.get('password')))
     if (response) {
-      setTimeout(() => history.push(ROUTES.PROFILES.URL))
+      setTimeout(() => history.push(pages.PROFILE))
     }
   }
 
@@ -87,7 +85,7 @@ const Login = ({ handleSubmit, parentStructure }) => {
             <div className='row justify-content-space-between flex-column-reverse flex-md-row mt-md-4'>
               <div className='col-12 col-md-6 mt-4 mt-md-auto'>
                 <Link
-                  to={ ROUTES.REGISTRATION.URL }
+                  to={ pages.REGISTRATION.INDEX }
                   className='btn btn-link btn-lg w-100 w-md-auto px-0 font-weight-bold text-center text-md-left text-primary'
                 >
                   Cadastre-se
@@ -106,7 +104,7 @@ const Login = ({ handleSubmit, parentStructure }) => {
 
 Login.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  parentStructure: PropTypes.object.isRequired,
+  entity: PropTypes.object.isRequired,
 }
 
 export default reduxForm({

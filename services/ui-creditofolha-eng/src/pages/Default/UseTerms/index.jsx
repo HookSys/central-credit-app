@@ -8,7 +8,7 @@ import { ToastContext } from 'components/ToastProvider'
 
 const { Layout, Container, Content, Footer, HeaderTitle } = CleanTemplate
 
-const UseTerms = ({ parentStructure: { ROUTES } }) => {
+const UseTerms = ({ parent: { ROUTES } }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { showErrorToast } = useContext(ToastContext)
@@ -129,7 +129,7 @@ const UseTerms = ({ parentStructure: { ROUTES } }) => {
 }
 
 UseTerms.propTypes = {
-  parentStructure: PropTypes.object.isRequired,
+  parent: PropTypes.object.isRequired,
 }
 
 export default UseTerms

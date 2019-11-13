@@ -1,15 +1,21 @@
-import { DEFAULT } from 'engine/constants/types'
-import { LazyLoading } from 'components'
+/* eslint-disable no-param-reassign */
+// @flow
+import { STRUCTURE_TYPES } from 'constants/structure'
+import LazyLoading from 'components/LazyLoading'
 
-import ROUTES from './routes'
+import type { Structure } from 'app/types'
+import defaultRoutes from './routes'
 
 const DefaultContainer = LazyLoading(() => import('pages/Default'))
 
-export default {
-  NAME: 'Crédito Folha',
-  ENTRY: '/',
-  TYPE: DEFAULT,
-  CONTAINER: DefaultContainer,
-  THEME: 'default',
-  ROUTES,
+const DefaultStructure: Structure = {
+  name: 'Crédito Folha',
+  theme: 'default',
+  entry: '/',
+  type: STRUCTURE_TYPES.DEFAULT,
+  component: DefaultContainer,
+  routes: defaultRoutes,
+  pages: { current: {} },
 }
+
+export default DefaultStructure

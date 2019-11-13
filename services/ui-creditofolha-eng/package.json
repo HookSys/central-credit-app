@@ -10,6 +10,7 @@
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-decorators": "^7.6.0",
     "@babel/preset-env": "^7.6.3",
+    "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.6.3",
     "@loadable/component": "^5.10.3",
     "@material-ui/core": "^3.5.1",
@@ -46,13 +47,14 @@
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-react-app": "^5.0.2",
     "eslint-loader": "3.0.2",
-    "eslint-plugin-flowtype": "3.13.0",
+    "eslint-plugin-flowtype": "^3.13.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "file-loader": "^4.2.0",
     "file-saver": "^2.0.2",
+    "flow-bin": "^0.111.3",
     "fork-ts-checker-webpack-plugin-alt": "^0.4.14",
     "fs-extra": "7.0.1",
     "html-webpack-plugin": "^4.0.0-beta.8",
@@ -197,9 +199,5 @@
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
     ]
-  },
-  "devDependencies": {
-    "@babel/preset-flow": "^7.0.0",
-    "flow-bin": "^0.111.3"
   }
 }

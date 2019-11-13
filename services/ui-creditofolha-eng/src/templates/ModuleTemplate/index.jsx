@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useStructure } from 'engine'
-import { MODULE } from 'engine/constants/types'
+import { useStructure } from 'hooks'
+import { STRUCTURE_TYPES } from 'constants/structure'
 
 import Header from './Header'
 import Content from './Content'
@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
     document.body.style.backgroundColor = '#f0f1f4'
   }, [])
 
-  if (structure.TYPE !== MODULE) {
+  if (structure.TYPE !== STRUCTURE_TYPES.MODULE) {
     return null
   }
 

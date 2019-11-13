@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
-import { useEngine } from 'engine'
+import { BaseUrl } from 'configs'
 
 const getRobotsValue = (shouldBeIndexed) => {
   return shouldBeIndexed ? 'index,follow' : 'noindex,follow'
@@ -15,13 +15,12 @@ const MetaTags = ({
   canonicalPath,
   shouldBeIndexed,
 }) => {
-  const baseUrl = useEngine(({ configs }) => configs.baseUrl)
   return (
     <Helmet>
       <title>{ `${ metaTitle } | ${ metaTitleSuffix } | ONIDATA` }</title>
       <meta name='description' content={ metaDescription } />
       <meta name='keywords' content={ metaKeywords } />
-      <link rel='canonical' href={ `${ baseUrl }${ canonicalPath }` } />
+      <link rel='canonical' href={ `${ BaseUrl }${ canonicalPath }` } />
       <meta name='robots' content={ getRobotsValue(shouldBeIndexed) } />
     </Helmet>
   )

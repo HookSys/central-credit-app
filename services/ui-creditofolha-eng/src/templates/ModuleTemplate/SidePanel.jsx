@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from 'react'
 import classNames from 'classnames'
-import { useLeftSwipe, useRightSwipe } from 'engine'
+import { useLeftSwipe, useRightSwipe } from 'hooks'
 
 import { SideBarContext } from './SideBar'
 import { SideNavigationContext } from './SideNavigation'

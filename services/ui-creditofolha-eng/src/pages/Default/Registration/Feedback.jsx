@@ -1,15 +1,16 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
-import { FeedbackTemplate, SvgImage } from 'components'
+import { SvgImage } from 'components'
 import { useSelector } from 'react-redux'
-import { useStructure } from 'engine'
+
+import { FeedbackTemplate } from 'templates'
 
 const { AVAILABLE_IMAGES } = SvgImage
 const { Layout, Header, Content, Links, Link } = FeedbackTemplate
 
-const Feedback = () => {
+const Feedback = ({ entity: { pages } }) => {
   const history = useHistory()
-  const { ROUTES } = useStructure()
   const user = useSelector(state => state.user.get('data'))
 
   return (
@@ -26,13 +27,13 @@ const Feedback = () => {
         somente com o email autenticado você consegue solicitar crédito.
         <Links>
           <Link
-            onClick={ () => history.push(ROUTES.LOGIN.URL) }
+            onClick={ () => history.push(pages.LOGIN) }
             hasArrow={ true }
           >
             Voltar para a página inicial
           </Link>
           <Link
-            onClick={ () => history.push(ROUTES.PROFILES.URL) }
+            onClick={ () => history.push(pages.PROFILES) }
             hasArrow={ true }
           >
             Quero simular crédito e validar meu email depois
@@ -41,6 +42,10 @@ const Feedback = () => {
       </Content>
     </Layout>
   )
+}
+
+Feedback.propTypes = {
+  entity: PropTypes.object.isRequired,
 }
 
 export default Feedback

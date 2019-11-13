@@ -1,22 +1,23 @@
-export default {
-  // Base URL for Helmet
-  baseUrl: 'http://meu.creditofolha.com',
+// Is DEV or Production
+export const IsEnvProduction = process.env.NODE_ENV === 'production'
 
-  // Endpoint Backend
-  apiUrl: process.env.REACT_APP_CREDITOR_BASE_URL,
+// Base URL for Helmet
+export const BaseUrl = 'http://meu.creditofolha.com'
 
-  // Time left to resfresh token, 15 minutes
-  refreshThreshold: 15,
+// Endpoint Backend
+export const ApiUrl = process.env.REACT_APP_CREDITOR_BASE_URL
 
-  // Manifest to get those themes from webpack
-  themesManifestName: 'themes-manifest.json',
+// Time left to resfresh token, 15 minutes
+export const RefreshThreshold = 15
 
-  // Sentry Configuration
-  sentry_base_dsn: process.env.REACT_APP_FRONTEND_SENTRY_CREDITOR_BASE_DSN,
+// Manifest to get those themes from webpack
+export const ThemesManifestName = 'themes-manifest.json'
 
-  // Configuration to persist redux reducers in storage
-  persistConfig: {
-    key: 'onidata-creditofolha',
-    whitelist: ['auth', 'user'],
-  },
+// Sentry Configuration
+export const SentryBaseDsn = process.env.REACT_APP_FRONTEND_SENTRY_CREDITOR_BASE_DSN
+
+// Configuration to persist redux reducers in storage
+export const PersistConfig = {
+  key: 'onidata-creditofolha',
+  whitelist: ['auth', 'user'],
 }

@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 
-import { useWindowSize } from 'engine'
+import { useWindowSize } from 'hooks'
 
 import Action from './Action'
 import Header from './Header'

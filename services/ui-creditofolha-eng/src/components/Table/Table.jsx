@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, useLayoutEffect, forwardRef, useImp
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { useSelector } from 'react-redux'
-import { useWindowSize } from 'engine'
+import { useWindowSize } from 'hooks'
 
 const getLastElementInHeader = (table) => {
   const ths = table.querySelectorAll('th:not(.fixed-action)')

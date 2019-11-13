@@ -1,6 +1,6 @@
-import { MODULE } from 'engine/constants/types'
-import MODULES from 'engine/constants/modules'
-import PERMISSIONS from 'engine/constants/permissions'
+import { MODULE } from 'constants/types'
+import MODULES from 'constants/modules'
+import PERMISSIONS from 'constants/permissions'
 
 import { SvgImage, LazyLoading } from 'components'
 import { Business } from '@material-ui/icons'

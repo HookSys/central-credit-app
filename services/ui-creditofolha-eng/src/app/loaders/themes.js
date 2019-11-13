@@ -1,28 +1,17 @@
 // @flow
-
-import type { Loader } from 'app/types/loader'
-
-type Theme = {
-  [string]: string
-}
-
-type Themes = Array<Theme>
+import type { Loader, Themes, AppData } from 'app/types'
+import { ThemesManifestName } from 'configs'
 
 function themes(): Loader<Themes> {
   return {
-    setup: (service, manifestName) => {
-      this.service = service
-      this.manifestName = manifestName
-      return this
-    },
     load: async () => {
-      try {
-        const { location } = window
-        const { external } = this.service
+      const { location } = window
+      const { Services }: AppData = this
 
-        const response: any = await external({
+      try {
+        const response: any = await Services.external({
           method: 'GET',
-          path: `${ location.origin }/${ this.themesManifestName }`,
+          path: `${ location.origin }/${ ThemesManifestName }`,
         })
 
         return response.themes

@@ -1,12 +1,21 @@
-export default function () {
-  const { store: { getState } } = this.store
-  const state = getState()
-  if (!state.auth.get('authenticated')) {
-    return ({ redirectTo }) => {
-      const { history } = this.history
-      history.push(redirectTo)
-    }
-  }
+// @flow
+import type { Permission, AppData } from 'app/types'
+import { DEFAULT } from 'constants/entity'
 
-  return true
+function authRequired(): Permission {
+  const appData: AppData = this
+  return {
+    validate: () => {
+      const { Redux: { store: { getState } } } = appData
+      const state = getState()
+      return !state.auth.get('authenticated')
+    },
+    action: () => {
+      const { History, Entity } = appData
+      const { pages } = Entity[DEFAULT]
+      History.push(pages.LOGIN)
+    },
+  }
 }
+
+export default authRequired

@@ -7,49 +7,42 @@ import MetaTags from 'components/MetaTags'
 import Permissions from 'components/Permissions'
 import DefaultContainer from 'components/DefaultContainer'
 
-import type { Structure, StructureRoute, StructureProps, RefStructurePages, Entity } from 'app/types'
+import type { TEntity, TEntityEntry, TRoutes, TRoute } from 'app/entities/types'
+
 import type { Node } from 'react'
 
-type RoutesBuilderProps = {
-  routes?: StructureRoute,
+type TRoutesBuilderProps = {
   rootPath: string,
-  structure: Structure | StructureProps,
-  rootKey: string,
-  pages: RefStructurePages,
-  entity: Entity,
+  routes: TRoutes,
+  parent: TRoute | TEntityEntry,
+  entity: TEntity,
+  id: string,
 }
-
-const RoutesBuilder = (
-  { routes, rootPath, structure, pages, rootKey, entity }: RoutesBuilderProps
-) => {
-  const { name: ContainerName, component } = structure
+function RoutesBuilder({ rootPath, routes, parent, entity, id }: TRoutesBuilderProps) {
+  const { name, component } = parent
   const Container = component || DefaultContainer
-
-  if (!pages.current) {
-    pages.current = {}
-  }
 
   if (!routes) {
     return null
   }
 
-  return Object.keys(routes).reverse().map<Node>((key: string) => {
-    const { route } = routes[key]
-    const path = key === 'INDEX' && !route ? '' : `${ rootPath }${ route }`
+  return Object.keys(routes).reverse().map<Node>((key) => {
+    const route = routes[key]
+    const { route: url } = route
+    const path = key === 'INDEX' && !url ? '' : `${ rootPath }${ url }`
 
-    if (typeof routes[key].routes === 'object') {
-      pages.current[key] = {}
+    if (route.routes && typeof route.routes === 'object') {
+      const cId = `${ id }>${ key }`
       return (
-        <Route path={ path } key={ rootPath + key }>
-          <Permissions permissions={ routes[key].permissions }>
+        <Route path={ path } key={ cId }>
+          <Permissions permissions={ route.permissions }>
             <Switch>
               { RoutesBuilder({
-                routes: routes[key].routes,
                 rootPath: path,
-                structure: routes[key],
-                pages,
-                rootKey: key,
+                routes: route.routes,
+                parent: route,
                 entity,
+                id: cId,
               }) }
             </Switch>
           </Permissions>
@@ -57,51 +50,50 @@ const RoutesBuilder = (
       )
     }
 
-    if (rootKey && typeof pages.current[rootKey] === 'object') {
-      pages.current[rootKey][key] = key === 'INDEX' ? rootPath : path
-    } else {
-      pages.current[key] = path
-    }
+    if (route.component) {
+      const Page = route.component
+      if (route.isFeedback) {
+        return (
+          <Route exact path={ path } key={ rootPath + key }>
+            <Permissions permissions={ route.permissions }>
+              <MetaTags
+                metaTitle={ route.name }
+                metaTitleSuffix={ name }
+              />
+              <Page
+                parent={ parent }
+                route={ route }
+                entity={ entity }
+              />
+            </Permissions>
+          </Route>
+        )
+      }
 
-    const Page = routes[key].component
-
-    if (routes[key].isFeedback) {
       return (
         <Route exact path={ path } key={ rootPath + key }>
-          <Permissions permissions={ routes[key].permissions }>
-            <MetaTags
-              metaTitle={ routes[key].name }
-              metaTitleSuffix={ ContainerName }
-            />
-            <Page
-              structure={ routes[key] }
-              rootPath={ rootPath }
-              parent={ structure }
+          <Permissions permissions={ route.permissions }>
+            <Container
+              route={ route }
+              parent={ parent }
               entity={ entity }
-            />
+            >
+              <MetaTags
+                metaTitle={ route.name }
+                metaTitleSuffix={ name }
+              />
+              <Page
+                route={ route }
+                parent={ parent }
+                entity={ entity }
+              />
+            </Container>
           </Permissions>
         </Route>
       )
     }
 
-    return (
-      <Route exact path={ path } key={ rootPath + key }>
-        <Permissions permissions={ routes[key].permissions }>
-          <Container structure={ routes[key] } rootPath={ rootPath } parent={ structure }>
-            <MetaTags
-              metaTitle={ routes[key].name }
-              metaTitleSuffix={ ContainerName }
-            />
-            <Page
-              structure={ routes[key] }
-              rootPath={ rootPath }
-              parent={ structure }
-              entity={ entity }
-            />
-          </Container>
-        </Permissions>
-      </Route>
-    )
+    return null
   })
 }
 

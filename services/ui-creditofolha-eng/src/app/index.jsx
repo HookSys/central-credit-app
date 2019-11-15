@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 import type { Node, Context } from 'react'
 import type { History } from 'react-router-dom'
-import type { AppData, Services, Redux, Themes, EntityManager, Permissions, Loader as TLoader } from 'app/types'
+import type { AppData, Services, Redux, Themes, Entity, Permissions, Loader as TLoader } from 'app/types'
 
 import AppLoader from 'components/AppLoader'
 import ThemesLoader from 'app/loaders/themes'
@@ -19,7 +19,7 @@ const InitialAppData: AppData = {
   History: {},
   Redux: ({}: Redux),
   Themes: {},
-  Entity: ({}: EntityManager),
+  Entity: ({}: Entity),
 }
 
 type AppProps = {|
@@ -45,7 +45,7 @@ const Loader = (): Promise<AppData> => {
     const services = Load<Services>(ServiceLoader)()
     const themes = Load<Themes>(ThemesLoader)()
     const permissions = Load<Permissions>(PermissionsLoader)()
-    const entity = Load<EntityManager>(EntityLoader)()
+    const entity = Load<Entity>(EntityLoader)()
 
     LoaderData.History = await history.load()
     LoaderData.Services = await services.load()

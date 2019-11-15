@@ -1,5 +1,5 @@
 import { get } from 'lodash'
-import * as MODULES from 'constants/entity'
+import { EEntityKeys } from 'constants/entity'
 import BaseRecord from './utils/BaseRecord'
 
 const defaultValues = {
@@ -12,7 +12,7 @@ const defaultValues = {
 
 export default class UserEntity extends BaseRecord(defaultValues, UserEntity) {
   constructor(values) {
-    const isEmployee = get(values, 'entidade_tipo', '') === MODULES.EMPLOYEE
+    const isEmployee = get(values, 'entidade_tipo', '') === EEntityKeys.EMPLOYEE
     const entityName = isEmployee && get(values, 'entidade_nome', '').match(/(\[\w*\])/g)
 
     super({

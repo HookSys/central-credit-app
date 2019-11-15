@@ -1,38 +1,32 @@
 // @flow
 import React from 'react'
 
-import StructureBuilder from 'app/builders/StructureBuilder'
+import EntityEntryBuilder from 'app/builders/EntityEntryBuilder'
 import RoutesBuilder from 'app/builders/RoutesBuilder'
 
-import type { Structure, RefStructurePages, Entity } from 'app/types'
-import type { EntityKey } from 'constants/entity'
+import type { TEntityKeys } from 'constants/entity'
+import type { TEntity, TEntityElementType } from 'app/entities/types'
 import type { Element } from 'react'
 
-type EntityBuilderType = (structure: Structure, entity: Entity, id: EntityKey) => {
-  element: Element<any>,
-  pages: RefStructurePages
-}
+function EntityBuilder(entity: TEntity, id: TEntityKeys): Element<TEntityElementType> {
+  const { entry, entry: { routes } } = entity
 
-const EntityBuilder: EntityBuilderType = (structure, entity, id) => {
-  const pages: RefStructurePages = { current: {} }
-
-  const element: Element<any> = (
-    <StructureBuilder structure={ structure } key={ id }>
-      <RoutesBuilder
-        rootPath=''
-        rootKey=''
-        routes={ structure.routes }
-        structure={ structure }
-        pages={ pages }
-        entity={ entity }
-      />
-    </StructureBuilder>
+  const element: Element<TEntityElementType> = (
+    <EntityEntryBuilder
+      entity={ entity }
+      key={ id }
+    >
+      { RoutesBuilder({
+        parent: entry,
+        rootPath: '',
+        routes,
+        entity,
+        id,
+      }) }
+    </EntityEntryBuilder>
   )
 
-  return {
-    element,
-    pages,
-  }
+  return element
 }
 
 export default EntityBuilder

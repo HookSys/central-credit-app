@@ -1,12 +1,18 @@
+/* eslint-disable no-restricted-syntax */
+// @flow
 import React from 'react'
-import PropTypes from 'prop-types'
 import { SvgImage } from 'components'
 import { CleanTemplate } from 'templates'
+
+import type { TDefaultRoutes } from 'app/entities/default/routes'
 
 const { AVAILABLE_IMAGES } = SvgImage
 const { Layout, Container, HeaderLogo } = CleanTemplate
 
-const Registration = ({ children }) => {
+type TRegistrationProps = {
+  children: any,
+}
+const Registration = ({ children }: TRegistrationProps) => {
   return (
     <Layout className='registration'>
       <Container size='col-12 col-md-5'>
@@ -19,8 +25,5 @@ const Registration = ({ children }) => {
   )
 }
 
-Registration.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
+export type TRegistrationModel = $ElementType<TDefaultRoutes, 'REGISTRATION'>
 export default Registration

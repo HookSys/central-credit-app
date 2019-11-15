@@ -1,13 +1,33 @@
+// @flow
 import React, { Fragment } from 'react'
 import { useLocation, Redirect } from 'react-router-dom'
-import PropTypes from 'prop-types'
 
-const DefaultContainer = ({ children, structure }) => {
+import type { TRoute, TEntityEntryModel, TEntityModel } from 'app/entities/types'
+import type { TDefaultRoutes } from 'app/entities/default/routes'
+
+export type TDefaultEntity = TEntityModel<TDefaultRoutes>
+export type TDefaultEntityEntry = TEntityEntryModel<TDefaultRoutes>
+
+export type PageComponentModelProps<P: TRoute | TDefaultEntityEntry> = {
+  entity: TDefaultEntity,
+  route: TRoute,
+  parent: P,
+  children?: any
+}
+
+type TDefaultContainerProps = {
+  children: any,
+  entity: TDefaultEntity,
+}
+const DefaultContainer = (
+  { entity, children }: TDefaultContainerProps
+) => {
   const location = useLocation()
-  const { ENTRY, ROUTES } = structure
-  if (location.pathname === ENTRY) {
+  const { entry, entry: { routes } } = entity
+
+  if (location.pathname === entry.route) {
     return (
-      <Redirect to={ ROUTES.LOGIN.URL } />
+      <Redirect to={ routes.LOGIN.route } />
     )
   }
   return (
@@ -15,11 +35,6 @@ const DefaultContainer = ({ children, structure }) => {
       { children }
     </Fragment>
   )
-}
-
-DefaultContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-  structure: PropTypes.object.isRequired,
 }
 
 export default DefaultContainer

@@ -1,8 +1,8 @@
 // @flow
-import type { Permission, AppData } from 'app/types'
-import { DEFAULT } from 'constants/entity'
+import type { Validator, AppData } from 'app/types'
+import { EEntityKeys } from 'constants/entity'
 
-function authRequired(): Permission {
+function authRequired(): Validator {
   const appData: AppData = this
   return {
     validate: () => {
@@ -11,9 +11,9 @@ function authRequired(): Permission {
       return !state.auth.get('authenticated')
     },
     action: () => {
-      const { History, Entity } = appData
-      const { pages } = Entity[DEFAULT]
-      History.push(pages.LOGIN)
+      // const { History, Entity } = appData
+      // const { pages } = Entity[EEntityKeys.DEFAULT]
+      // History.push(pages.LOGIN)
     },
   }
 }

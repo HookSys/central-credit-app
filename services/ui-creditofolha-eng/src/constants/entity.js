@@ -1,14 +1,14 @@
 // @flow
-export const COMPANY = 'empresa'
-export const EMPLOYEE = 'emprego'
-export const DEFAULT = 'default'
-export const ADMIN = 'admin'
-
-const ENTITY = {
-  COMPANY,
-  EMPLOYEE,
-  DEFAULT,
-  ADMIN,
+export const EEntityTypes = {
+  DEFAULT: 'default',
+  MODULE: 'module',
 }
+export type TEntityTypes = $Values<typeof EEntityTypes>
 
-export type EntityKey = $Values<typeof ENTITY>
+export const EEntityKeys = {
+  // COMPANY: 'empresa',
+  // EMPLOYEE: 'emprego',
+  DEFAULT: 'default',
+  // ADMIN: 'admin',
+}
+export type TEntityKeys = $Values<typeof EEntityKeys>

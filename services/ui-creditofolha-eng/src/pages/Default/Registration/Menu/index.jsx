@@ -1,21 +1,15 @@
-// @flow
 import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { SvgImage } from 'components'
 import { ArrowForward } from '@material-ui/icons'
 
 import { CleanTemplate } from 'templates'
 
-import type { Entity } from 'app/types'
-
 const { AVAILABLE_IMAGES } = SvgImage
 const { Content, HeaderTitle, Banner } = CleanTemplate
 
-type Props = {
-  entity: Entity,
-}
-
-const MenuRegistration = ({ entity: { pages } }: Props) => {
+const MenuRegistration = ({ entity: { pages } }) => {
   return (
     <Fragment>
       <Content>
@@ -42,6 +36,10 @@ const MenuRegistration = ({ entity: { pages } }: Props) => {
       </Banner>
     </Fragment>
   )
+}
+
+MenuRegistration.propTypes = {
+  entity: PropTypes.object.isRequired,
 }
 
 export default MenuRegistration

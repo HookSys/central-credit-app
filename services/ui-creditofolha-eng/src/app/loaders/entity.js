@@ -1,21 +1,25 @@
 // @flow
 import React, { Fragment } from 'react'
 
-import type { Loader, EntityManager } from 'app/types'
+import type { TEntityElementType } from 'app/entities/types'
+import type { Loader, Entity } from 'app/types'
 import type { Element } from 'react'
 
-import Structures from 'app/structures'
+import Entities from 'app/entities'
 
-function entity(): Loader<EntityManager> {
+function entity(): Loader<Entity> {
   return {
     load: async () => {
       return {
-        ...Structures,
+        Entities,
         render() {
           return (
             <Fragment>
-              { Object.keys(Structures).map<Element<any>>(
-                (key: string) => Structures[key].element
+              { Object.keys(Entities).map<Element<TEntityElementType>>(
+                (key) => {
+                  const t = Entities[key].element
+                  return t
+                }
               ) }
             </Fragment>
           )

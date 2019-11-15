@@ -1,7 +1,6 @@
 // @flow
 import axios from 'axios'
 import { CONTENT_TYPE, RESPONSE_TYPE } from 'constants/service'
-import { bindPathParams, bindQueryParams } from 'helpers'
 
 import type { ResponseType, $AxiosXHR, Axios } from 'axios'
 import type { Loader, Services, RequestPayload, AppData } from 'app/types'
@@ -11,6 +10,28 @@ import { ApiUrl } from 'configs'
 import { handleError } from 'actions/errors'
 
 function services(): Loader<Services> {
+  const bindPathParams = (pathParams = null, path = '') => {
+    if (!pathParams) {
+      return path
+    }
+    return Object.keys(pathParams).reduce((result, key) => {
+      return result.replace(`:${ key }`, pathParams[key])
+    }, path)
+  }
+
+  const bindQueryParams = (queryParams = null) => {
+    const getQueryString = (key: string, params: Object, isFirst: boolean): string | boolean => (
+      params[key] && `${ isFirst ? '?' : '&' }${ key }=${ params[key] }`
+    )
+    if (!queryParams || Object.keys(queryParams).length === 0) {
+      return ''
+    }
+    return Object.keys(queryParams).reduce<string>((result, key) => {
+      const param = getQueryString(key, queryParams, !!result)
+      return typeof param === 'string' ? `${ result }${ param }` : result
+    }, '')
+  }
+
   const onError = (response, params) => {
     const { Redux: { store: { dispatch } } }: AppData = this
     dispatch(handleError(response, params))

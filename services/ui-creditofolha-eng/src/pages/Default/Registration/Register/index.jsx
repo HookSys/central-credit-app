@@ -1,5 +1,5 @@
+// @flow
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Field, reduxForm, formValueSelector } from 'redux-form/immutable'
@@ -15,6 +15,8 @@ import ReduxFormInputBuilder from 'components/ReduxFormInput/Builder'
 import InputAddonBuilder from 'components/ReduxFormInput/builders/InputAddonBuilder'
 
 import { CleanTemplate } from 'templates'
+
+import type { TDefaultPageProps } from 'pages/Default'
 
 const formName = 'registerForm'
 const selector = formValueSelector(formName)
@@ -33,7 +35,13 @@ const ReduxFormInputWithAddon = ReduxFormInputBuilder()
   .rightAddon(InputAddon)
   .build()
 
-const RegisterRegistration = ({ handleSubmit, parent, rootPath, invalid }) => {
+type TPageProps = {
+  handleSubmit: Function,
+  invalid: boolean,
+}
+const RegisterRegistration = (
+  { handleSubmit, entity, invalid }: TPageProps & TDefaultPageProps
+) => {
   const [scoreDescription, setScoreDescription] = useState([])
   const [isPasswordEyeActive, togglePasswordEyeActive] = useState()
 
@@ -53,20 +61,18 @@ const RegisterRegistration = ({ handleSubmit, parent, rootPath, invalid }) => {
     }
   }, [password])
 
-  const { routes: { SUCCESS } } = parent
-
   const dispatch = useDispatch()
   const history = useHistory()
   const onSubmit = async (values) => {
     const response = await dispatch(registerAsyncRequest(values.get('cpf'), values.get('email'), values.get('password')))
     if (response) {
-      history.push(`${ rootPath }${ SUCCESS.route }`)
+      history.push(pages.REGISTRATION.SUCCESS)
     }
   }
 
   return (
     <Content>
-      <HeaderTitle linkTo={ rootPath }>
+      <HeaderTitle linkTo={ pages.REGISTRATION.INDEX }>
         Cadastro de Conta
       </HeaderTitle>
       <form onSubmit={ handleSubmit(onSubmit) }>
@@ -137,13 +143,6 @@ const RegisterRegistration = ({ handleSubmit, parent, rootPath, invalid }) => {
       </form>
     </Content>
   )
-}
-
-RegisterRegistration.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  rootPath: PropTypes.string.isRequired,
-  parent: PropTypes.object.isRequired,
-  invalid: PropTypes.bool.isRequired,
 }
 
 export default reduxForm({

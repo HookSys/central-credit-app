@@ -1,3 +1,4 @@
+// @flow
 import Auth from 'models/Auth'
 
 import {
@@ -9,7 +10,14 @@ import {
 
 const REHYDRATE = 'persist/REHYDRATE'
 
-const initialState = new Auth()
+const initialState = new Auth({
+  authenticated: false,
+  access: null,
+  refresh: null,
+  refreshTokenPromise: null,
+  errors: null,
+  userFunction: 0,
+})
 
 const actionsMap = {
   [AUTH_ASYNC_SUCCESS]: (state, action) => {

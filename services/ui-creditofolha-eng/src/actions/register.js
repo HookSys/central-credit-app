@@ -25,10 +25,10 @@ function registerAsyncFail(error) {
 }
 
 export function registerAsyncRequest(cpf, email, password) {
-  return async (dispatch, getState, service) => {
+  return async (dispatch, getState, services) => {
     dispatch(appLoadSpinner())
     try {
-      const response = await service.apiV2({
+      const response = await services.apiV2({
         path: 'signup',
         method: 'POST',
         body: {

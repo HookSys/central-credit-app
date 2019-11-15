@@ -10,7 +10,7 @@ import { useStructure } from 'hooks'
 
 const { Layout, List, ListContainer, ListItem, ListHeader } = CleanTemplate
 
-const Profiles = ({ parent: { ROUTES } }) => {
+const Profiles = ({ entity: { pages } }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const user = useSelector(state => state.user.get('data'))
@@ -23,7 +23,7 @@ const Profiles = ({ parent: { ROUTES } }) => {
 
   const onLogout = async () => {
     await dispatch(userLogout())
-    setTimeout(() => history.push(ROUTES.LOGIN.URL))
+    setTimeout(() => history.push(pages.LOGIN))
   }
 
   const entities = user.get('funcoes')
@@ -31,7 +31,6 @@ const Profiles = ({ parent: { ROUTES } }) => {
   if (entities.size === 1) {
     return null
   }
-
   return (
     <Layout className='profiles'>
       <ListContainer>
@@ -82,7 +81,7 @@ const Profiles = ({ parent: { ROUTES } }) => {
 }
 
 Profiles.propTypes = {
-  parent: PropTypes.object.isRequired,
+  entity: PropTypes.object.isRequired,
 }
 
 export default Profiles

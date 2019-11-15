@@ -1,19 +1,19 @@
 // @flow
+import { AUTH_REQUIRED } from 'constants/permission'
 import LazyLoading from 'components/LazyLoading'
 
-import type { StructureRoute } from 'app/types'
-import { AUTH_REQUIRED } from 'constants/permission'
+import type { TRouteComponent } from 'app/entities/types'
 
 // Pages
-const LoginPage = LazyLoading(() => import('pages/Default/Login'))
-const ProfilesPage = LazyLoading(() => import('pages/Default/Profiles'))
-const UseTermsPage = LazyLoading(() => import('pages/Default/UseTerms'))
-const RegistrationPage = LazyLoading(() => import('pages/Default/Registration'))
-const RegistrationMenuPage = LazyLoading(() => import('pages/Default/Registration/Menu'))
-const RegistrationRegisterPage = LazyLoading(() => import('pages/Default/Registration/Register'))
-const RegistrationFeedbackPage = LazyLoading(() => import('pages/Default/Registration/Feedback'))
+const LoginPage: TRouteComponent = LazyLoading(() => import('pages/Default/Login'))
+const ProfilesPage: TRouteComponent = LazyLoading(() => import('pages/Default/Profiles'))
+const UseTermsPage: TRouteComponent = LazyLoading(() => import('pages/Default/UseTerms'))
+const RegistrationPage: TRouteComponent = LazyLoading(() => import('pages/Default/Registration'))
+const RegistrationMenuPage: TRouteComponent = LazyLoading(() => import('pages/Default/Registration/Menu'))
+const RegistrationRegisterPage: TRouteComponent = LazyLoading(() => import('pages/Default/Registration/Register'))
+const RegistrationFeedbackPage: TRouteComponent = LazyLoading(() => import('pages/Default/Registration/Feedback'))
 
-const defaultRoutes: StructureRoute = {
+const DefaultRoutes = {
   LOGIN: {
     route: '/login',
     name: 'Login',
@@ -54,7 +54,6 @@ const defaultRoutes: StructureRoute = {
     },
   },
 }
+export type TDefaultRoutes = typeof DefaultRoutes
 
-export type DefaultRoutesType = $Keys<typeof defaultRoutes>
-
-export default defaultRoutes
+export default DefaultRoutes

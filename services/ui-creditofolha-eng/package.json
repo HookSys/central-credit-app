@@ -199,5 +199,8 @@
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
     ]
+  },
+  "devDependencies": {
+    "@babel/register": "^7.7.0"
   }
 }

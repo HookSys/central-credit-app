@@ -1,6 +1,6 @@
 // @flow
 import validators from 'app/permissions'
-import type { Loader, Permissions, Permission } from 'app/types'
+import type { Loader, Permissions, Validator } from 'app/types'
 
 function permissions(): Loader<Permissions> {
   const validate = (validations: Array<string>): void => {
@@ -8,7 +8,7 @@ function permissions(): Loader<Permissions> {
       return
     }
     const [validation, ...newValidations] = validations
-    const validator: Permission = validators[validation].call(this)
+    const validator: Validator = validators[validation].call(this)
     if (validator.validate()) {
       validator.action()
     } else {

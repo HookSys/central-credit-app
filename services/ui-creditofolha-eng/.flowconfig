@@ -11,8 +11,7 @@ flow-typed/
 
 [untyped]
 .*/moment-timezone/.*
-.*/redux-form/.*
-.*/node_modules/immutable/.*
+.*/node_modules/redux-persist/*.*
 
 [lints]
 
@@ -41,4 +40,8 @@ module.name_mapper='^utils\(.*\)$' -> '<PROJECT_ROOT>/src/utils/\1'
 module.name_mapper='^configs\(.*\)$' -> '<PROJECT_ROOT>/src/configs/\1'
 module.name_mapper='^middlewares\(.*\)$' -> '<PROJECT_ROOT>/src/middlewares/\1'
 module.name_mapper='^constants\(.*\)$' -> '<PROJECT_ROOT>/src/constants/\1'
-module.name_mapper='^routes\(.*\)$' -> '<PROJECT_ROOT>/src/routes/\1'
+module.name_mapper='^form\(.*\)$' -> '<PROJECT_ROOT>/src/form/\1'
+module.name_mapper='^types\(.*\)$' -> '<PROJECT_ROOT>/src/types/\1'
+module.name_mapper='^redux-form\(.*\)$' -> '<PROJECT_ROOT>/node_modules/@onidata/redux-form/\1'
+
+

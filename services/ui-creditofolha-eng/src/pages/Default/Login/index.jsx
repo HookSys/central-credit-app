@@ -1,5 +1,5 @@
+// @flow
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form/immutable'
@@ -8,37 +8,24 @@ import { CleanTemplate } from 'templates'
 import { authRequest } from 'actions/auth'
 import { required } from 'form/validators'
 
-import ReduxFormInputBuilder from 'components/ReduxFormInput/Builder'
-import InputAddonBuilder from 'components/ReduxFormInput/builders/InputAddonBuilder'
-import { RemoveRedEyeOutlined } from '@material-ui/icons'
+import type { PageComponentModelProps, TDefaultEntityEntry } from 'pages/Default'
 
 const { AVAILABLE_IMAGES } = SvgImage
 const { Layout, Logo, Container, Content, Title } = CleanTemplate
 
-const InputAddon = InputAddonBuilder()
-  .rightPosition()
-  .renderMethod(() => (
-    <div className='icon-right-addon'>
-      <RemoveRedEyeOutlined />
-    </div>
-  ))
-  .build()
-
-const ReduxFormInputWithAddon = ReduxFormInputBuilder()
-  .rightAddon(InputAddon)
-  .isDetailError()
-  .hideError()
-  .build()
-
-const Login = ({ handleSubmit, entity: { pages } }) => {
+type TPageProps = {
+  handleSubmit: Function,
+}
+const Login = (
+  { handleSubmit, parent: { routes } }: TPageProps & PageComponentModelProps<TDefaultEntityEntry>
+) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const [isPasswordEyeActive, togglePasswordEyeActive] = useState(false)
-
   const onSubmit = async (values) => {
     const response = await dispatch(authRequest(values.get('email'), values.get('password')))
     if (response) {
-      setTimeout(() => history.push(pages.PROFILE))
+      setTimeout(() => history.push(routes.PROFILES.route))
     }
   }
 
@@ -70,7 +57,7 @@ const Login = ({ handleSubmit, entity: { pages } }) => {
               placeholder='Senha'
               name='password'
               id='password'
-              component={ ReduxFormInputWithAddon }
+              component={ ReduxFormInput }
               className='form-control-lg'
               validate={ required }
               onRightAddonClick={ () => togglePasswordEyeActive(!isPasswordEyeActive) }
@@ -85,7 +72,7 @@ const Login = ({ handleSubmit, entity: { pages } }) => {
             <div className='row justify-content-space-between flex-column-reverse flex-md-row mt-md-4'>
               <div className='col-12 col-md-6 mt-4 mt-md-auto'>
                 <Link
-                  to={ pages.REGISTRATION.INDEX }
+                  to={ routes.REGISTRATION.route }
                   className='btn btn-link btn-lg w-100 w-md-auto px-0 font-weight-bold text-center text-md-left text-primary'
                 >
                   Cadastre-se
@@ -100,11 +87,6 @@ const Login = ({ handleSubmit, entity: { pages } }) => {
       </Container>
     </Layout>
   )
-}
-
-Login.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  entity: PropTypes.object.isRequired,
 }
 
 export default reduxForm({

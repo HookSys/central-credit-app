@@ -1,9 +1,11 @@
 // @flow
-export type Permission = {
+import type { Permission } from 'constants/permission'
+
+export type Validator = {
   validate(): boolean,
   action(): void,
 }
 
 export type Permissions = {
-  validate: (validations: Array<any>) => void,
+  validate: (validations: Array<Permission>) => void,
 }

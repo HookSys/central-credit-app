@@ -2,33 +2,34 @@
 import React, { useEffect, useState } from 'react'
 
 import type { Node, Context } from 'react'
-import type { History } from 'react-router-dom'
-import type { AppData, Services, Redux, Themes, Entity, Permissions, Loader as TLoader } from 'app/types'
+import type { History as THistory } from 'react-router-dom'
+import type { TCreditoFolha, TServicesLoader, TReduxLoader, TThemesLoader,
+  TEntityLoader, TPermissionsLoader, TLoader } from 'app/types'
 
 import AppLoader from 'components/AppLoader'
-import ThemesLoader from 'app/loaders/themes'
-import HistoryLoader from 'app/loaders/history'
-import ReduxLoader from 'app/loaders/redux'
-import ServiceLoader from 'app/loaders/services'
-import PermissionsLoader from 'app/loaders/permissions'
-import EntityLoader from 'app/loaders/entity'
+import ThemesLoader from 'app/loaders/Themes'
+import HistoryLoader from 'app/loaders/History'
+import ReduxLoader from 'app/loaders/Redux'
+import ServiceLoader from 'app/loaders/Services'
+import PermissionsLoader from 'app/loaders/Permissions'
+import EntityLoader from 'app/loaders/Entity'
 
-const InitialAppData: AppData = {
-  Services: ({}: Services),
+const InitialCreditoFolha: TCreditoFolha = {
+  Services: ({}: TServicesLoader),
   Permissions: { validate: () => undefined },
   History: {},
-  Redux: ({}: Redux),
+  Redux: ({}: TReduxLoader),
   Themes: {},
-  Entity: ({}: Entity),
+  Entity: ({}: TEntityLoader),
 }
 
-type AppProps = {|
-  children(p: AppData): Node,
+type TCreditoFolhaProps = {|
+  children(p: TCreditoFolha): Node,
 |}
 
-const Loader = (): Promise<AppData> => {
-  const LoaderData: AppData = {
-    ...InitialAppData,
+const Loader = (): Promise<TCreditoFolha> => {
+  const LoaderData: TCreditoFolha = {
+    ...InitialCreditoFolha,
   }
 
   const Load = function<T> (loader: TLoader<T>): TLoader<T> {
@@ -39,13 +40,13 @@ const Loader = (): Promise<AppData> => {
     })
   }
 
-  return new Promise<AppData>(async (resolve) => {
-    const history = Load<History>(HistoryLoader)()
-    const redux = Load<Redux>(ReduxLoader)()
-    const services = Load<Services>(ServiceLoader)()
-    const themes = Load<Themes>(ThemesLoader)()
-    const permissions = Load<Permissions>(PermissionsLoader)()
-    const entity = Load<Entity>(EntityLoader)()
+  return new Promise<TCreditoFolha>(async (resolve) => {
+    const history = Load<THistory>(HistoryLoader)()
+    const redux = Load<TReduxLoader>(ReduxLoader)()
+    const services = Load<TServicesLoader>(ServiceLoader)()
+    const themes = Load<TThemesLoader>(ThemesLoader)()
+    const permissions = Load<TPermissionsLoader>(PermissionsLoader)()
+    const entity = Load<TEntityLoader>(EntityLoader)()
 
     LoaderData.History = await history.load()
     LoaderData.Services = await services.load()
@@ -58,19 +59,21 @@ const Loader = (): Promise<AppData> => {
   })
 }
 
-export const AppContext: Context<AppData> = React.createContext<AppData>(InitialAppData)
+export const AppContext: Context<TCreditoFolha> = React.createContext<TCreditoFolha>(
+  InitialCreditoFolha
+)
 
-const App = ({ children }: AppProps) => {
-  const [appData, setAppData] = useState<AppData>(InitialAppData)
+const App = ({ children }: TCreditoFolhaProps) => {
+  const [CreditoFolha, StartCreditoFolha] = useState<TCreditoFolha>(InitialCreditoFolha)
 
   useEffect(() => {
-    Loader().then((data) => setAppData(data))
+    Loader().then((data) => StartCreditoFolha(data))
   }, [])
 
-  if (appData && Object.keys(appData.Themes).length > 0) {
+  if (CreditoFolha && Object.keys(CreditoFolha.Themes).length > 0) {
     return (
-      <AppContext.Provider value={ appData }>
-        { children(appData) }
+      <AppContext.Provider value={ CreditoFolha }>
+        { children(CreditoFolha) }
       </AppContext.Provider>
     )
   }

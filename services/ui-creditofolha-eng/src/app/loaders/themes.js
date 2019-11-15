@@ -1,12 +1,12 @@
 // @flow
-import type { Loader, Themes, AppData } from 'app/types'
+import type { TLoader, TThemesLoader, TCreditoFolha } from 'app/types'
 import { ThemesManifestName } from 'configs'
 
-function themes(): Loader<Themes> {
+function Themes(): TLoader<TThemesLoader> {
   return {
     load: async () => {
       const { location } = window
-      const { Services }: AppData = this
+      const { Services }: TCreditoFolha = this
 
       try {
         const response: any = await Services.external({
@@ -22,4 +22,4 @@ function themes(): Loader<Themes> {
   }
 }
 
-export default themes
+export default Themes

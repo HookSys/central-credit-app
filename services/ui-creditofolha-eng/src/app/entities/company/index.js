@@ -6,8 +6,7 @@ import { SvgImage } from 'components/SvgImage'
 import CompanyEntityContainer from 'pages/Company'
 import CompanyRoutes from 'app/entities/company/routes'
 
-// import type { TCompanyModel } from 'app/entities/company/types'
-import type { TEntity } from 'app/entities/types'
+import type { TEntity } from 'app/types'
 
 const { AVAILABLE_IMAGES } = SvgImage
 

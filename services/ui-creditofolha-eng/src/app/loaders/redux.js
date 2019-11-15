@@ -5,7 +5,7 @@ import storage from 'redux-persist/lib/storage'
 import rootReducer from 'reducers'
 import { IsEnvProduction, PersistConfig } from 'configs'
 
-import type { Loader, Redux, AppData } from 'app/types'
+import type { TLoader, TReduxLoader, TCreditoFolha } from 'app/types'
 import type { Store } from 'redux'
 
 import thunk from 'redux-thunk'
@@ -14,9 +14,9 @@ import refreshToken from 'middlewares/refreshToken'
 import reduxService from 'middlewares/reduxService'
 import { routerMiddleware } from 'connected-react-router'
 
-function redux(initialState?: Object): Loader<Redux> {
+function Redux(initialState?: Object): TLoader<TReduxLoader> {
   const getEnhancer = () => {
-    const { History, Services }: AppData = this
+    const { History, Services }: TCreditoFolha = this
 
     const recompose = IsEnvProduction || typeof window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] === 'undefined'
       ? compose
@@ -40,7 +40,7 @@ function redux(initialState?: Object): Loader<Redux> {
 
   return {
     load: async () => {
-      const { History }: AppData = this
+      const { History }: TCreditoFolha = this
       const enhancer = getEnhancer()
 
       const persistedReducer = persistReducer({ ...PersistConfig, storage },
@@ -56,4 +56,4 @@ function redux(initialState?: Object): Loader<Redux> {
   }
 }
 
-export default redux
+export default Redux

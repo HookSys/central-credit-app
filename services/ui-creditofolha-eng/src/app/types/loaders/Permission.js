@@ -1,11 +1,11 @@
 // @flow
 import type { Permission } from 'constants/permission'
 
-export type Validator = {
+export type TPermissionsValidator = {
   validate(): boolean,
   action(): void,
 }
 
-export type Permissions = {
+export type TPermissionsLoader = {
   validate: (validations: Array<Permission>) => void,
 }

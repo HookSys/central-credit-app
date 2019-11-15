@@ -4,7 +4,7 @@ import type { TEntityKeys } from 'constants/entity'
 
 import EntityBuilder from 'app/builders/EntityBuilder'
 
-import type { TEntity, TEntityInstance, TEntityInstances } from 'app/entities/types'
+import type { TEntity, TEntityInstance, TEntityInstances } from 'app/types'
 
 import DefaultEntity from './default'
 

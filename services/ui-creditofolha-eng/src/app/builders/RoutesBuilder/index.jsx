@@ -7,7 +7,7 @@ import MetaTags from 'components/MetaTags'
 import Permissions from 'components/Permissions'
 import DefaultContainer from 'components/DefaultContainer'
 
-import type { TEntity, TEntityEntry, TRoutes, TRoute } from 'app/entities/types'
+import type { TEntity, TEntityEntry, TRoutes, TRoute } from 'app/types'
 
 import type { Node } from 'react'
 

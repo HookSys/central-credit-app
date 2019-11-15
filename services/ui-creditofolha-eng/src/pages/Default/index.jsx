@@ -2,7 +2,7 @@
 import React, { Fragment } from 'react'
 import { useLocation, Redirect } from 'react-router-dom'
 
-import type { TRoute, TEntityEntryModel, TEntityModel } from 'app/entities/types'
+import type { TRoute, TEntityEntryModel, TEntityModel } from 'app/types'
 import type { TDefaultRoutes } from 'app/entities/default/routes'
 
 export type TDefaultEntity = TEntityModel<TDefaultRoutes>

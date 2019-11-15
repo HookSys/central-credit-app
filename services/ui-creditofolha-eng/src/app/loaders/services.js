@@ -3,13 +3,13 @@ import axios from 'axios'
 import { CONTENT_TYPE, RESPONSE_TYPE } from 'constants/service'
 
 import type { ResponseType, $AxiosXHR, Axios } from 'axios'
-import type { Loader, Services, RequestPayload, AppData } from 'app/types'
+import type { TLoader, TServicesLoader, TRequestPayload, TCreditoFolha } from 'app/types'
 import type { ContentType } from 'constants/service'
 
 import { ApiUrl } from 'configs'
 import { handleError } from 'actions/errors'
 
-function services(): Loader<Services> {
+function Services(): TLoader<TServicesLoader> {
   const bindPathParams = (pathParams = null, path = '') => {
     if (!pathParams) {
       return path
@@ -33,12 +33,12 @@ function services(): Loader<Services> {
   }
 
   const onError = (response, params) => {
-    const { Redux: { store: { dispatch } } }: AppData = this
+    const { Redux: { store: { dispatch } } }: TCreditoFolha = this
     dispatch(handleError(response, params))
   }
 
   const createService = (instance: Axios, handlingError: boolean = false) => {
-    return async<R = any>(payload: RequestPayload): Promise<R> => {
+    return async<R = any>(payload: TRequestPayload): Promise<R> => {
       const {
         path,
         pathParams,
@@ -87,7 +87,7 @@ function services(): Loader<Services> {
       const apiV2 = await axios.create({
         baseURL: `${ ApiUrl }/v2`,
         transformRequest: [(data, headers) => {
-          const { Redux: { store: { getState } } }: AppData = this
+          const { Redux: { store: { getState } } }: TCreditoFolha = this
           const access: ?string = getState().auth.get('access')
 
           if (access && headers) {
@@ -102,7 +102,7 @@ function services(): Loader<Services> {
       const apiV3 = await axios.create({
         baseURL: `${ ApiUrl }/v3`,
         transformRequest: [(data, headers) => {
-          const { Redux: { store: { getState } } }: AppData = this
+          const { Redux: { store: { getState } } }: TCreditoFolha = this
           const access: ?string = getState().auth.get('access')
 
           if (access && headers) {
@@ -130,4 +130,4 @@ function services(): Loader<Services> {
   }
 }
 
-export default services
+export default Services

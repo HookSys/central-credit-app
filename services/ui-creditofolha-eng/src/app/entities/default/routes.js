@@ -2,7 +2,7 @@
 import { AUTH_REQUIRED } from 'constants/permission'
 import LazyLoading from 'components/LazyLoading'
 
-import type { TRouteComponent } from 'app/entities/types'
+import type { TRouteComponent } from 'app/types'
 
 // Pages
 const LoginPage: TRouteComponent = LazyLoading(() => import('pages/Default/Login'))

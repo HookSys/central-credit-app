@@ -1,10 +1,9 @@
 // @flow
 import { EEntityTypes } from 'constants/entity'
+import type { TEntity } from 'app/types'
 
 import DefaultEntityContainer from 'pages/Default'
 import DefaultRoutes from 'app/entities/default/routes'
-// import type { TDefaultModel } from 'app/entities/default/types'
-import type { TEntity } from 'app/entities/types'
 
 const DefaultEntity: TEntity = {
   theme: 'Default',

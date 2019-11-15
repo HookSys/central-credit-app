@@ -2,7 +2,7 @@
 import LazyLoading from 'components/LazyLoading'
 import { HomeOutlined, SupervisorAccount, Receipt, CompareArrows, PermContactCalendar, AccountBalance } from '@material-ui/icons'
 
-import type { TRoutes, TRouteComponent } from 'app/entities/types'
+import type { TRoutes, TRouteComponent } from 'app/types'
 
 // Pages
 const DashboardPage: TRouteComponent = LazyLoading(() => import('pages/Company/Dashboard'))

@@ -2,7 +2,7 @@
 import type { Method, ResponseType } from 'axios'
 import type { ContentType } from 'constants/service'
 
-export type RequestPayload = {
+export type TRequestPayload = {
   path: string,
   pathParams?: Object,
   queryParams?: Object,
@@ -12,8 +12,8 @@ export type RequestPayload = {
   rType?: ResponseType,
 }
 
-export type Services = {
-  external: (payload: RequestPayload) => Promise<any>,
-  apiV2?: (payload: RequestPayload) => Promise<any>,
-  apiV3?: (payload: RequestPayload) => Promise<any>,
+export type TServicesLoader = {
+  external: (payload: TRequestPayload) => Promise<any>,
+  apiV2?: (payload: TRequestPayload) => Promise<any>,
+  apiV3?: (payload: TRequestPayload) => Promise<any>,
 }

@@ -1,4 +1,4 @@
 // @flow
-export type Themes = {
+export type TThemesLoader = {
   [key: string]: string
 }

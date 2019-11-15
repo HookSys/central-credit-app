@@ -6,7 +6,7 @@ import Permissions from 'components/Permissions'
 import ThemeRender from 'components/ThemeRender'
 
 import type { Node } from 'react'
-import type { TEntity } from 'app/entities/types'
+import type { TEntity } from 'app/types'
 
 type TEntityEntryBuilderProps = {
   entity: TEntity,

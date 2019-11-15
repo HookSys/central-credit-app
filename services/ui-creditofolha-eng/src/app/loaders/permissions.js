@@ -1,14 +1,14 @@
 // @flow
 import validators from 'app/permissions'
-import type { Loader, Permissions, Validator } from 'app/types'
+import type { TLoader, TPermissionsLoader, TPermissionsValidator } from 'app/types'
 
-function permissions(): Loader<Permissions> {
+function Permissions(): TLoader<TPermissionsLoader> {
   const validate = (validations: Array<string>): void => {
     if (!validations || validations.length === 0) {
       return
     }
     const [validation, ...newValidations] = validations
-    const validator: Validator = validators[validation].call(this)
+    const validator: TPermissionsValidator = validators[validation].call(this)
     if (validator.validate()) {
       validator.action()
     } else {
@@ -25,4 +25,4 @@ function permissions(): Loader<Permissions> {
   }
 }
 
-export default permissions
+export default Permissions

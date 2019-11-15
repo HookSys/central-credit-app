@@ -5,7 +5,7 @@ import EntityEntryBuilder from 'app/builders/EntityEntryBuilder'
 import RoutesBuilder from 'app/builders/RoutesBuilder'
 
 import type { TEntityKeys } from 'constants/entity'
-import type { TEntity, TEntityElementType } from 'app/entities/types'
+import type { TEntity, TEntityElementType } from 'app/types'
 import type { Element } from 'react'
 
 function EntityBuilder(entity: TEntity, id: TEntityKeys): Element<TEntityElementType> {

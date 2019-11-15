@@ -3,7 +3,7 @@
 import type { TEntityTypes } from 'constants/entity'
 import type { Permission } from 'constants/permission'
 import type { ComponentType, Element } from 'react'
-import type { TRoutes } from 'app/entities/types'
+import type { TRoutes } from 'app/types/entities'
 import type { TDefaultRoutes } from 'app/entities/default/routes'
 import type { TCompanyRoutes } from 'app/entities/company/routes'
 

@@ -1,11 +1,11 @@
 // @flow
 import { createBrowserHistory } from 'history'
 
-import type { History } from 'react-router-dom'
-import type { Loader } from 'app/types'
+import type { History as THistory } from 'react-router-dom'
+import type { TLoader } from 'app/types'
 
-function history(): Loader<History> {
-  const createdHistory: History = createBrowserHistory()
+function History(): TLoader<THistory> {
+  const createdHistory: THistory = createBrowserHistory()
 
   return {
     load: async () => {
@@ -14,4 +14,4 @@ function history(): Loader<History> {
   }
 }
 
-export default history
+export default History

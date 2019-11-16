@@ -3,7 +3,19 @@
     "baseUrl": "./src",
     "module": "commonjs",
     "jsx": "react",
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "paths": {
+      "company/*": ["./app/Company/*"],
+      "employee/*": ["./app/Employee/*"],
+      "default/*": ["./app/Default/*"],
+      "components/*": ["./shared/components/*"],
+      "helpers/*": ["./shared/helpers/*"],
+      "hooks/*": ["./shared/hooks/*"],
+      "permissions/*": ["./shared/permissions/*"],
+      "templates/*": ["./shared/templates/*"],
+      "base/*": ["./shared/base/*"],
+      "form/*": ["./shared/form/*"]
+    }
   },
   "exclude": [
     "node_modules",

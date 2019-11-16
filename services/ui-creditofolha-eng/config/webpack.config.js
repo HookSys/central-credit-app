@@ -302,6 +302,19 @@ module.exports = function(webpackEnv) {
         .map(ext => `.${ext}`)
         .filter(ext => useTypeScript || !ext.includes('ts')),
       alias: {
+        // Onidata Alias
+        'company': path.resolve(paths.appSrc, 'app', 'Company'),
+        'employee': path.resolve(paths.appSrc, 'app', 'Employee'),
+        'default': path.resolve(paths.appSrc, 'app', 'Default'),
+
+        'components': path.resolve(paths.appSrc, 'shared', 'components'),
+        'helpers': path.resolve(paths.appSrc, 'shared', 'helpers'),
+        'hooks': path.resolve(paths.appSrc, 'shared', 'hooks'),
+        'permissions': path.resolve(paths.appSrc, 'shared', 'permissions'),
+        'templates': path.resolve(paths.appSrc, 'shared', 'templates'),
+        'base': path.resolve(paths.appSrc, 'shared', 'base'),
+        'form': path.resolve(paths.appSrc, 'shared', 'form'),
+
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         'react-native': 'react-native-web',

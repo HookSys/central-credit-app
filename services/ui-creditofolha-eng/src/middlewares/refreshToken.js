@@ -1,4 +1,4 @@
-import { authRefresh } from 'actions/auth'
+import { authRefresh } from 'default/actions/auth'
 import jwtDecode from 'jwt-decode'
 import moment from 'moment'
 import { RefreshThreshold } from 'configs'

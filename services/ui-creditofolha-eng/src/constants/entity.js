@@ -6,7 +6,7 @@ export const EEntityTypes = {
 export type TEntityTypes = $Values<typeof EEntityTypes>
 
 export const EEntityKeys = {
-  // COMPANY: 'empresa',
+  COMPANY: 'empresa',
   // EMPLOYEE: 'emprego',
   DEFAULT: 'default',
   // ADMIN: 'admin',

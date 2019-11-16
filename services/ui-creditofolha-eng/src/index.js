@@ -5,26 +5,28 @@ import { PersistGate } from 'redux-persist/integration/react'
 import ThemeRender from 'components/ThemeRender'
 import AppLoader from 'components/AppLoader'
 import ToastProvider from 'components/ToastProvider'
-import App from 'app'
+import Core from './core'
 
 import 'moment/locale/pt-br'
 
-const Pages = lazy(() => import('pages'))
+const App = lazy(() => import('./app'))
 
 ReactDOM.render(
-  <App>
-    { ({ Redux, History, Entity }) => (
-      <Provider store={ Redux.store }>
-        <PersistGate loading={ null } persistor={ Redux.persistor }>
-          <Suspense fallback={ <AppLoader /> }>
-            <ToastProvider>
-              <ThemeRender />
-              <Pages history={ History } entity={ Entity } />
-            </ToastProvider>
-          </Suspense>
-        </PersistGate>
-      </Provider>
-    ) }
-  </App>,
+  <Core>
+    { ({ Redux, History, Entity }) => {
+      return (
+        <Provider store={ Redux.store }>
+          <PersistGate loading={ null } persistor={ Redux.persistor }>
+            <Suspense fallback={ <AppLoader /> }>
+              <ToastProvider>
+                <ThemeRender />
+                <App history={ History } entity={ Entity } />
+              </ToastProvider>
+            </Suspense>
+          </PersistGate>
+        </Provider>
+      )
+    } }
+  </Core>,
   document.getElementById('root')
 )

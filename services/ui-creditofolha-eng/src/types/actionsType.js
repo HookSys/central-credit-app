@@ -1,0 +1,26 @@
+// @flow
+
+// Redux Form
+export type REDUX_FORM_SUBMIT = '@@redux-form/START_SUBMIT'
+export type REDUX_FORM_CHANGE = '@@redux-form/CHANGE'
+
+// App
+export type APP_LOAD_SPINNER = 'CORE/APP_LOAD_SPINNER'
+export type APP_UNLOAD_SPINNER = 'CORE/APP_UNLOAD_SPINNER'
+
+// Auth
+export type AUTH_SUCCESS = 'CORE/AUTH_SUCCESS'
+export type AUTH_LOGOUT = 'CORE/AUTH_LOGOUT'
+
+// Exceptions
+export type EXCEPTION_SAVE = 'CORE/EXCEPTION_SAVE'
+export type EXCEPTION_CLEAR = 'CORE/EXCEPTION_CLEAR'
+
+export type TActionTypes = REDUX_FORM_SUBMIT
+  | REDUX_FORM_CHANGE
+  | APP_LOAD_SPINNER
+  | APP_UNLOAD_SPINNER
+  | AUTH_SUCCESS
+  | AUTH_LOGOUT
+  | EXCEPTION_SAVE
+  | EXCEPTION_CLEAR

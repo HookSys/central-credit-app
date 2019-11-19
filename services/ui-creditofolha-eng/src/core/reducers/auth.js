@@ -2,8 +2,8 @@ import Auth from 'core/models/Auth'
 
 import {
   AUTH_LOGOUT,
-  AUTH_ASYNC_SUCCESS,
-} from 'core/actions/auth'
+  AUTH_SUCCESS,
+} from 'core/constants/actionsType'
 
 const REHYDRATE = 'persist/REHYDRATE'
 
@@ -17,7 +17,7 @@ const initialState = new Auth({
 })
 
 const actionsMap = {
-  [AUTH_ASYNC_SUCCESS]: (state, action) => {
+  [AUTH_SUCCESS]: (state, action) => {
     const { access, refresh } = action
     return state.merge({
       authenticated: true,

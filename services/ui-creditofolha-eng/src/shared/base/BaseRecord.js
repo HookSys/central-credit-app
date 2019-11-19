@@ -4,17 +4,18 @@ import { Record, RecordInstance } from 'immutable'
 import moment from 'moment'
 
 declare class IBaseRecord<O: Object = Object> extends RecordInstance<O> {
-  [key: $Keys<O>]: $Values<O>;
-  constructor(v: $Shape<O>): this | void;
-
   getFormatedDate(field: $Keys<O>, format: string): string | '-';
   getFormatedCurrency(field: $Keys<O> | number): string;
   getFormatedPercent(field: $Keys<O> | number, abs?: boolean): string;
   getFormatedPhone(field: $Keys<O>): ?string;
 }
 
-function BaseRecord<O: Object = Object>(defaultValues: O, name: string): Class<IBaseRecord<O>> {
-  return class extends ((Record<O>(defaultValues, name): any): Class<IBaseRecord<O>>) {
+export type BaseRecordFactory<Values: Object> = Class<IBaseRecord<Values>>;
+export type BaseRecordOf<Values: Object> = IBaseRecord<Values> & $ReadOnly<Values>;
+
+function BaseRecord<O: Object = Object>(spec: O, name?: string): Class<IBaseRecord<O>> {
+  const ObjBaseRecord: Class<IBaseRecord<O>> = ((Record<O>(spec, name): any): Class<IBaseRecord<O>>)
+  return class extends ObjBaseRecord {
     getFormatedDate(field: $Keys<O>, format: string = 'DD/MM/YYYY'): string | '-' {
       if (this.get(field)) {
         return moment(this.get(field), 'YYYY-MM-DD').format(format)

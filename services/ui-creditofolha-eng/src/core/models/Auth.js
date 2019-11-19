@@ -1,25 +1,16 @@
 /* eslint-disable no-useless-constructor */
 // @flow
 import BaseRecord from 'base/BaseRecord'
-
-export type TAuthValues = {
-  authenticated: boolean,
-  access: ?string,
-  refresh: ?string,
-  refreshTokenPromise: ?Promise<any>,
-  errors: any,
-  userFunction: number,
-}
+import type { TAuthValues } from 'core/types'
 
 const defaultValues: TAuthValues = {
   authenticated: false,
-  access: null,
-  refresh: null,
+  access: '',
+  refresh: '',
   refreshTokenPromise: null,
   errors: null,
   userFunction: 0,
 }
-
 
 export default class Auth extends BaseRecord<TAuthValues>(defaultValues, 'Auth') {
   constructor(values: TAuthValues) {

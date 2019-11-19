@@ -42,5 +42,4 @@ module.name_mapper='^templates\(.*\)$' -> '<PROJECT_ROOT>/src/shared/templates/\
 module.name_mapper='^tests\(.*\)$' -> '<PROJECT_ROOT>/src/tests/\1'
 module.name_mapper='^types\(.*\)$' -> '<PROJECT_ROOT>/src/types/\1'
 module.name_mapper='^utils\(.*\)$' -> '<PROJECT_ROOT>/src/utils/\1'
-module.name_mapper='^redux-form\(.*\)$' -> '<PROJECT_ROOT>/node_modules/@onidata/redux-form/\1'
 [strict]

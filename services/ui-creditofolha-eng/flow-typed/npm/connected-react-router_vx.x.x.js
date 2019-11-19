@@ -1,4 +1,4 @@
-// flow-typed signature: 3357048b10824b09361ec6e6360e37f0
+// flow-typed signature: 9cb164cc0eb5d60ecc79182e66453740
 // flow-typed version: <<STUB>>/connected-react-router_v^6.5.2/flow_v0.111.3
 
 /**
@@ -83,10 +83,6 @@ declare module 'connected-react-router/lib/actions' {
 }
 
 declare module 'connected-react-router/lib/ConnectedRouter' {
-  declare module.exports: any;
-}
-
-declare module 'connected-react-router/lib/createAll' {
   declare module.exports: any;
 }
 
@@ -210,9 +206,6 @@ declare module 'connected-react-router/lib/actions.js' {
 }
 declare module 'connected-react-router/lib/ConnectedRouter.js' {
   declare module.exports: $Exports<'connected-react-router/lib/ConnectedRouter'>;
-}
-declare module 'connected-react-router/lib/createAll.js' {
-  declare module.exports: $Exports<'connected-react-router/lib/createAll'>;
 }
 declare module 'connected-react-router/lib/immutable.js' {
   declare module.exports: $Exports<'connected-react-router/lib/immutable'>;

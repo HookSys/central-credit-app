@@ -49,22 +49,11 @@ const Loader = (): Promise<TCore> => {
     const entity = Load<TEntityLoader>(EntityLoader)()
 
     LoaderData.History = await history.load()
-    console.log('LOADED History', LoaderData.History)
-
     LoaderData.Services = await services.load()
-    console.log('LOADED Services', LoaderData.Services)
-
     LoaderData.Redux = await redux.load()
-    console.log('LOADED Redux', LoaderData.Redux)
-
     LoaderData.Themes = await themes.load()
-    console.log('LOADED Themes', LoaderData.Themes)
-
     LoaderData.Permissions = await permissions.load()
-    console.log('LOADED Permissions', LoaderData.Permissions)
-
     LoaderData.Entity = await entity.load()
-    console.log('LOADED Entity', LoaderData.Entity)
 
     resolve(LoaderData)
   })
@@ -78,11 +67,7 @@ const Core = ({ children }: TCoreProps) => {
   const [core, startCore] = useState<TCore>(InitialCore)
 
   useEffect(() => {
-    console.log('LOADING')
-    Loader().then((data) => {
-      console.log('LOADED', data)
-      startCore(data)
-    })
+    Loader().then((data) => startCore(data))
   }, [])
 
   if (core && Object.keys(core.Themes).length > 0) {

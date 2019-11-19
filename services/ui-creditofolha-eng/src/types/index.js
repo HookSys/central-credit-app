@@ -13,3 +13,4 @@ export type TCore = {|
 
 export type * from './loaders'
 export type * from './entities'
+export type * from './State'

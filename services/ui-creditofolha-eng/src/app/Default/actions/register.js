@@ -1,10 +1,6 @@
+// @flow
 import { appLoadSpinner, appUnloadSpinner } from 'core/actions/app'
-import { userSetRecentlyCreated } from 'core/actions/user'
 import { authRequest } from 'core/actions/auth'
-
-export const REGISTER_ASYNC_SUCCESS = 'REGISTER_ASYNC_SUCCESS'
-export const REGISTER_ASYNC_FAIL = 'REGISTER_ASYNC_FAIL'
-export const REGISTER_FINISHED = 'REGISTER_FINISHED'
 
 function registerAsyncSuccess(cpf, email, password) {
   return {
@@ -14,13 +10,6 @@ function registerAsyncSuccess(cpf, email, password) {
       email,
       password,
     },
-  }
-}
-
-function registerAsyncFail(error) {
-  return {
-    type: REGISTER_ASYNC_FAIL,
-    error,
   }
 }
 

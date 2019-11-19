@@ -1,4 +1,4 @@
-// flow-typed signature: acfa8b54b2c89e263f8222aaf537e43c
+// flow-typed signature: 1e859b10e315d35f065084ee9d7f5ad6
 // flow-typed version: <<STUB>>/@babel/preset-env_v^7.6.3/flow_v0.111.3
 
 /**
@@ -27,6 +27,10 @@ declare module '@babel/preset-env/data/built-ins.json' {
 }
 
 declare module '@babel/preset-env/data/corejs2-built-in-features' {
+  declare module.exports: any;
+}
+
+declare module '@babel/preset-env/data/overlapping-plugins' {
   declare module.exports: any;
 }
 
@@ -128,6 +132,9 @@ declare module '@babel/preset-env/data/built-ins.json.js' {
 }
 declare module '@babel/preset-env/data/corejs2-built-in-features.js' {
   declare module.exports: $Exports<'@babel/preset-env/data/corejs2-built-in-features'>;
+}
+declare module '@babel/preset-env/data/overlapping-plugins.js' {
+  declare module.exports: $Exports<'@babel/preset-env/data/overlapping-plugins'>;
 }
 declare module '@babel/preset-env/data/plugin-features.js' {
   declare module.exports: $Exports<'@babel/preset-env/data/plugin-features'>;

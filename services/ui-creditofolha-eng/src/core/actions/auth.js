@@ -1,26 +1,29 @@
+// @flow
+import { AUTH_LOGOUT, AUTH_SUCCESS } from 'core/constants/actionsType'
 import { appLoadSpinner, appUnloadSpinner } from 'core/actions/app'
 
-export const AUTH_ASYNC_SUCCESS = 'AUTH_ASYNC_SUCCESS'
-export const AUTH_LOGOUT = 'AUTH_LOGOUT'
+import type { TAuthSuccessAction, TAuthLoginRequest, TAuthLoginResponse, TPromiseAction, TAuthLogoutAction, TThunkAction } from 'core/types'
 
-function authAsyncSuccess(response) {
+function authAsyncSuccess(
+  payload: TAuthLoginResponse
+): TAuthSuccessAction {
   return {
-    type: AUTH_ASYNC_SUCCESS,
-    ...response,
+    type: AUTH_SUCCESS,
+    payload,
   }
 }
 
-export function authLogout() {
+export function authLogout(): TAuthLogoutAction {
   return {
     type: AUTH_LOGOUT,
   }
 }
 
-export function authRequest(email, password) {
-  return async (dispatch, state, services) => {
+export function authRequest(email: string, password: string): TThunkAction {
+  return async (dispatch, state, services): TPromiseAction => {
     dispatch(appLoadSpinner())
     try {
-      const response = await services.apiV2({
+      const response = await services.apiV2<TAuthLoginRequest, TAuthLoginResponse>({
         path: 'auth/login/',
         method: 'POST',
         body: {

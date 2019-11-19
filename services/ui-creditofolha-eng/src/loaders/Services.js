@@ -1,16 +1,22 @@
+/* eslint-disable no-unused-expressions */
 // @flow
 import axios from 'axios'
 import { CONTENT_TYPE, RESPONSE_TYPE } from 'constants/service'
 
-import type { ResponseType, $AxiosXHR, Axios } from 'axios'
-import type { TLoader, TServicesLoader, TRequestPayload, TCore } from 'types'
+import type { ResponseType, $AxiosXHR, Axios, $AxiosError } from 'axios'
+import type { TLoader, TServicesLoader, TRequestPayload, TService, TCore } from 'types'
 import type { ContentType } from 'constants/service'
 
 import { ApiUrl } from 'configs'
-import { handleError } from 'core/actions/errors'
+import { handle } from 'core/actions/exception'
 
 function Services(): TLoader<TServicesLoader> {
-  const bindPathParams = (pathParams = null, path = '') => {
+  const AppCore: TCore = this
+
+  function bindPathParams<R: Object>(
+    pathParams: ?R,
+    path: string
+  ): string {
     if (!pathParams) {
       return path
     }
@@ -19,8 +25,10 @@ function Services(): TLoader<TServicesLoader> {
     }, path)
   }
 
-  const bindQueryParams = (queryParams = null) => {
-    const getQueryString = (key: string, params: Object, isFirst: boolean): string | boolean => (
+  function bindQueryParams<R: Object>(
+    queryParams: ?R
+  ) {
+    const getQueryString = (key: $Keys<R>, params: R, isFirst: boolean): string | boolean => (
       params[key] && `${ isFirst ? '?' : '&' }${ key }=${ params[key] }`
     )
     if (!queryParams || Object.keys(queryParams).length === 0) {
@@ -32,13 +40,13 @@ function Services(): TLoader<TServicesLoader> {
     }, '')
   }
 
-  const onError = (response, params) => {
-    const { Redux: { store: { dispatch } } }: TCore = this
-    dispatch(handleError(response, params))
+  function onError<T, R>(response: $AxiosXHR<T, R>, params: T) {
+    const { Redux: { store: { dispatch } } }: TCore = AppCore
+    dispatch(handle<T, R>(response, params))
   }
 
-  const createService = (instance: Axios, handlingError: boolean = false) => {
-    return async<R = any>(payload: TRequestPayload): Promise<R> => {
+  const createService = (instance: Axios, handlingError: boolean = false): TService => {
+    return async function<T, R> (payload: TRequestPayload<T>): Promise<R> {
       const {
         path,
         pathParams,
@@ -57,15 +65,15 @@ function Services(): TLoader<TServicesLoader> {
         headers['Content-Type'] = `${ contentType }`
       }
 
-      const bindedQuery: string = bindQueryParams(queryParams)
-      const bindedPath: string = bindPathParams(pathParams, path)
-      const transformedBody: any = contentType !== CONTENT_TYPE.JSON ? JSON.stringify(body) : body
+      const bindedQuery = bindQueryParams<R>(queryParams)
+      const bindedPath = bindPathParams<R>(pathParams, path)
+      // const transformedBody: T = contentType !== CONTENT_TYPE.JSON ? JSON.stringify(body) : body
 
       try {
-        const response: $AxiosXHR<R> = await instance({
+        const response: $AxiosXHR<T, R> = await instance<T, R>({
           method,
           url: `${ bindedPath }${ bindedQuery }`,
-          data: transformedBody || undefined,
+          data: body,
           responseType,
           headers,
         })
@@ -73,9 +81,10 @@ function Services(): TLoader<TServicesLoader> {
         const { data } = response
         return data
       } catch (error) {
-        if (handlingError) {
+        if (handlingError && error && error.response) {
+          const { response }: $AxiosError<T, R> = error
           const params = method === 'GET' ? pathParams : body
-          onError(error.response, params)
+          onError(response, params)
         }
         throw new Error(error)
       }
@@ -84,6 +93,10 @@ function Services(): TLoader<TServicesLoader> {
 
   return {
     load: async () => {
+      if (!ApiUrl) {
+        throw new Error('[SERVICES]: ApiURL not defined')
+      }
+
       const apiV2 = await axios.create({
         baseURL: `${ ApiUrl }/v2`,
         transformRequest: [(data, headers) => {

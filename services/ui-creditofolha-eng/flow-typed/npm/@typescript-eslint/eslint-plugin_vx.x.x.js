@@ -1,4 +1,4 @@
-// flow-typed signature: 37399fda15b444c819f6342825641bca
+// flow-typed signature: a835614f8d700f2abf0c73557de05aa3
 // flow-typed version: <<STUB>>/@typescript-eslint/eslint-plugin_v^2.2.0/flow_v0.111.3
 
 /**
@@ -211,6 +211,10 @@ declare module '@typescript-eslint/eslint-plugin/dist/rules/no-unnecessary-type-
 }
 
 declare module '@typescript-eslint/eslint-plugin/dist/rules/no-unnecessary-type-assertion' {
+  declare module.exports: any;
+}
+
+declare module '@typescript-eslint/eslint-plugin/dist/rules/no-unused-expressions' {
   declare module.exports: any;
 }
 
@@ -483,6 +487,9 @@ declare module '@typescript-eslint/eslint-plugin/dist/rules/no-unnecessary-type-
 }
 declare module '@typescript-eslint/eslint-plugin/dist/rules/no-unnecessary-type-assertion.js' {
   declare module.exports: $Exports<'@typescript-eslint/eslint-plugin/dist/rules/no-unnecessary-type-assertion'>;
+}
+declare module '@typescript-eslint/eslint-plugin/dist/rules/no-unused-expressions.js' {
+  declare module.exports: $Exports<'@typescript-eslint/eslint-plugin/dist/rules/no-unused-expressions'>;
 }
 declare module '@typescript-eslint/eslint-plugin/dist/rules/no-unused-vars.js' {
   declare module.exports: $Exports<'@typescript-eslint/eslint-plugin/dist/rules/no-unused-vars'>;

@@ -15,7 +15,7 @@
     "@loadable/component": "^5.10.3",
     "@material-ui/core": "^3.5.1",
     "@material-ui/icons": "^3.0.1",
-    "@onidata/redux-form": "https://github.com/onidata/redux-form.git#package",
+    "redux-form": "https://github.com/onidata/redux-form.git#package",
     "@sentry/browser": "^4.6.3",
     "@testing-library/cypress": "^5.0.1",
     "@testing-library/dom": "^6.4.1",

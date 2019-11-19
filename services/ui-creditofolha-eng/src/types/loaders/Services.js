@@ -1,19 +1,26 @@
+/* eslint-disable no-use-before-define */
 // @flow
 import type { Method, ResponseType } from 'axios'
 import type { ContentType } from 'constants/service'
 
-export type TRequestPayload = {
+export type TRequestParams = {
+  [key: string]: string
+} & Object
+
+export type TRequestPayload<T> = {|
   path: string,
-  pathParams?: Object,
-  queryParams?: Object,
+  pathParams?: TRequestParams,
+  queryParams?: TRequestParams,
   method: Method,
-  body?: any,
+  body?: T,
   cType?: ContentType,
   rType?: ResponseType,
-}
+|}
+
+export type TService = <T, R>(payload: TRequestPayload<T>) => Promise<R>
 
 export type TServicesLoader = {
-  external: (payload: TRequestPayload) => Promise<any>,
-  apiV2?: (payload: TRequestPayload) => Promise<any>,
-  apiV3?: (payload: TRequestPayload) => Promise<any>,
+  external: TService,
+  apiV2: TService,
+  apiV3: TService
 }

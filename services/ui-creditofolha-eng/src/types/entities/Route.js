@@ -14,11 +14,15 @@ export type TRoute = {
     entity: TEntity,
     route: TRoute,
     parent: TRoute,
-    children?: any
+    children?: any,
   }>,
   routes?: TRoutes,
 }
 
 export type TRoutes = {
-  [key: string]: TRoute
+  [key: string]: TRoute,
+}
+
+export type TPages = {
+  [key: string]: TPages | string,
 }

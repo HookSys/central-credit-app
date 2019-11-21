@@ -9,22 +9,17 @@ type TDefaultContainerProps = {
   children: any,
   entity: TDefaultEntity,
 }
-const DefaultContainer: TEntityComponent<TDefaultEntity> = (
-  { entity, children }: TDefaultContainerProps
-) => {
+const DefaultContainer: TEntityComponent<TDefaultEntity> = ({
+  entity,
+  children,
+}: TDefaultContainerProps) => {
   const location = useLocation()
   const { route, routes } = entity
 
   if (location.pathname === route) {
-    return (
-      <Redirect to={ routes.LOGIN.route } />
-    )
+    return <Redirect to={ routes.LOGIN.route } />
   }
-  return (
-    <Fragment>
-      { children }
-    </Fragment>
-  )
+  return <Fragment>{children}</Fragment>
 }
 
 export default DefaultContainer

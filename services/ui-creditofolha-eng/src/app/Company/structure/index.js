@@ -6,6 +6,8 @@ import { SvgImage } from 'components/SvgImage'
 import CompanyEntityContainer from 'company/pages'
 import CompanyRoutes from 'company/structure/routes'
 
+import { getPagesFromRoutes } from 'helpers'
+
 const { AVAILABLE_IMAGES } = SvgImage
 
 const CompanyEntity = {
@@ -23,6 +25,7 @@ const CompanyEntity = {
   },
   permissions: [AUTH_REQUIRED],
   component: CompanyEntityContainer,
+  pages: getPagesFromRoutes(CompanyRoutes),
   routes: CompanyRoutes,
 }
 

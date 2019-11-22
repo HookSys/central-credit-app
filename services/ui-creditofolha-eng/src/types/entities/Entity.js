@@ -10,6 +10,10 @@ export type TEntityLogo = {|
   className?: string,
 |}
 
+export type TPages = {
+  [key: string]: string,
+}
+
 export type TEntity = {
   name: string,
   route: string,
@@ -19,6 +23,7 @@ export type TEntity = {
   permissions?: Array<Permission>,
   routes: TRoutes,
   logo?: TEntityLogo,
+  pages: TPages,
   small?: TEntityLogo,
 }
 

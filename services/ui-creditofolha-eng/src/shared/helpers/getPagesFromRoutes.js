@@ -2,15 +2,20 @@
 // @flow
 import type { TRoutes, TPages } from 'types'
 
-export default function getPages(routes: TRoutes): TPages {
+export default function getPagesFromRoutes(routes: TRoutes, root: string = ''): TPages {
   let pages: TPages = {}
   for (const route of Object.keys(routes)) {
     if (routes[route].routes) {
       const { routes: subRoutes } = routes[route]
-      const subPages: TPages = getPages(subRoutes)
+      const subPages: TPages = getPagesFromRoutes(subRoutes, routes[route].route)
       pages = {
         ...pages,
         [route]: subPages,
+      }
+    } else {
+      pages = {
+        ...pages,
+        [route]: `${ root }${ routes[route].route }`,
       }
     }
   }

@@ -1,5 +1,7 @@
 // @flow
 import { combineReducers } from 'redux'
+import { reducer as formReducer } from 'redux-form/immutable'
+
 // import type { Reducer } from 'redux'
 import { connectRouter } from 'connected-react-router'
 
@@ -14,11 +16,12 @@ import type { History } from 'react-router'
 import Default from 'default/reducers'
 
 const coreState = (history: History) => combineReducers<any, any>({
-  default: Default,
+  // default: Default,
   app,
   errors,
   user,
   auth,
+  form: formReducer,
   router: connectRouter(history),
 })
 

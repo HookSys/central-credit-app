@@ -1,11 +1,11 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { useSelector } from 'react-redux'
 import Input from 'components/Input'
 import InputError from 'components/InputError'
 
-const ReduxFormInput = (props) => {
+const ReduxFormInput = forwardRef((props, ref) => {
   const {
     input,
     meta,
@@ -30,7 +30,6 @@ const ReduxFormInput = (props) => {
     inputGroupClassName,
     addonClassName,
     min,
-    inputRef,
     isDetailError,
     noMargin,
     maxLength,
@@ -87,8 +86,8 @@ const ReduxFormInput = (props) => {
           inputMode={ inputMode }
           className={ classNames(inputClassName, className) }
           min={ min }
-          inputRef={ inputRef }
           maxLength={ maxLength }
+          ref={ ref }
         />
         {
           (addonText || addonFunction) && addonDirection === 'right' && (
@@ -111,7 +110,7 @@ const ReduxFormInput = (props) => {
       )}
     </div>
   )
-}
+})
 
 ReduxFormInput.propTypes = {
   input: PropTypes.object,
@@ -140,7 +139,6 @@ ReduxFormInput.propTypes = {
   inputGroupClassName: PropTypes.string,
   addonClassName: PropTypes.string,
   min: PropTypes.number,
-  inputRef: PropTypes.object,
   isDetailError: PropTypes.bool,
   noMargin: PropTypes.bool,
   maxLength: PropTypes.number,
@@ -170,7 +168,6 @@ ReduxFormInput.defaultProps = {
   addonClassName: '',
   id: null,
   min: null,
-  inputRef: null,
   isDetailError: false,
   noMargin: false,
   maxLength: null,

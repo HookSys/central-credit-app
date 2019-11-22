@@ -21,3 +21,9 @@ export type TRegistrationPageProps = {
   parent: $PropertyType<TDefaultRoutes, 'REGISTRATION'>,
   route: $ElementType<TDefaultRoutes, $Keys<TDefaultRoutes>>,
 }
+
+export type TResetPasswordProps = {
+  entity: TDefaultEntity,
+  parent: $PropertyType<TDefaultRoutes, 'RESET_PASSWORD'>,
+  route: $ElementType<TDefaultRoutes, $Keys<TDefaultRoutes>>,
+}

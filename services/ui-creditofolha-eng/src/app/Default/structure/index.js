@@ -6,8 +6,6 @@ import DefaultRoutes from 'default/structure/routes'
 
 import { getPagesFromRoutes } from 'helpers'
 
-console.log(getPagesFromRoutes(DefaultRoutes))
-
 const DefaultEntity = {
   name: 'Crédito Folha',
   route: '/',

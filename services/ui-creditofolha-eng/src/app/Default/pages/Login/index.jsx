@@ -20,7 +20,7 @@ type TPageProps = {
 }
 
 const Login = (
-  { handleSubmit, parent: { routes } }: TPageProps
+  { handleSubmit, entity: { pages } }: TPageProps
 ) => {
   const dispatch = useDispatch()
   const history = useHistory()
@@ -28,7 +28,7 @@ const Login = (
   const onSubmit = async (values) => {
     const response = await dispatch(authRequest(values.get('email'), values.get('password')))
     if (response) {
-      setTimeout(() => history.push(routes.PROFILES.route))
+      setTimeout(() => history.push(pages.PROFILES))
     }
   }
 
@@ -67,7 +67,7 @@ const Login = (
             />
             <div className='row justify-content-space-between mt-n2 mb-4 pb-3'>
               <div className='col-12 text-right'>
-                <Link to='/' className='text-secondary font-weight-regular font-size-md'>
+                <Link to={ pages.RESET_PASSWORD.INDEX } className='text-secondary font-weight-regular font-size-md'>
                   Esqueceu a senha?
                 </Link>
               </div>
@@ -75,7 +75,7 @@ const Login = (
             <div className='row justify-content-space-between flex-column-reverse flex-md-row mt-md-4'>
               <div className='col-12 col-md-6 mt-4 mt-md-auto'>
                 <Link
-                  to={ routes.REGISTRATION.route }
+                  to={ pages.REGISTRATION.INDEX }
                   className='btn btn-link btn-lg w-100 w-md-auto px-0 font-weight-bold text-center text-md-left text-primary'
                 >
                   Cadastre-se

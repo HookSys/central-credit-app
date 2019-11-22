@@ -13,20 +13,20 @@ const { AVAILABLE_IMAGES } = SvgImage
 const { Content, HeaderTitle, Banner } = CleanTemplate
 
 const MenuRegistration = (
-  { entity: { routes: eRoutes }, parent: { routes } }: TRegistrationPageProps
+  { entity: { pages } }: TRegistrationPageProps
 ) => {
   return (
     <Fragment>
       <Content>
-        <HeaderTitle linkTo={ eRoutes.LOGIN.route }>
+        <HeaderTitle linkTo={ pages.LOGIN }>
           Cadastre-se
         </HeaderTitle>
         <div className='action-items'>
-          <Link to={ routes.REGISTER.route }>
+          <Link to={ pages.REGISTRATION.REGISTER }>
             Sou funcionário e quero um empréstimo
             <ArrowForward />
           </Link>
-          <Link to={ routes.REGISTER.route }>
+          <Link to={ pages.REGISTRATION.REGISTER }>
             Sou o gestor dos contratos realizados
             <ArrowForward />
           </Link>

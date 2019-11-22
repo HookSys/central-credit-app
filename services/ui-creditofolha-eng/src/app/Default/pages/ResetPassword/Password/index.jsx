@@ -1,27 +1,23 @@
 // @flow
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { Field, reduxForm, formValueSelector } from 'redux-form/immutable'
 import zxcvbn from 'zxcvbn'
-import ReduxFormInput from 'components/ReduxFormInput'
 import Button from 'components/Button'
 import PasswordStrength from 'components/PasswordStrength'
 import PasswordTips from 'components/PasswordTips'
-import { RemoveRedEyeOutlined } from '@material-ui/icons'
 import { registerAsyncRequest } from 'default/actions/register'
-
-import { required, cpfValidator, weakPassword, passwordsMatch } from 'form/validators'
-import { cpfNormalizer } from 'form/normalizers'
+import { required, weakPassword, passwordsMatch } from 'form/validators'
+import { CleanTemplate } from 'templates'
+import { RemoveRedEyeOutlined } from '@material-ui/icons'
 
 import ReduxFormInputBuilder from 'components/ReduxFormInput/Builder'
 import InputAddonBuilder from 'components/ReduxFormInput/builders/InputAddonBuilder'
 
-import { CleanTemplate } from 'templates'
+import type { TResetPasswordProps } from 'default/types'
 
-import type { TRegistrationPageProps } from 'default/types'
-
-const formName = 'registerForm'
+const formName = 'resetPasswordPassword'
 const selector = formValueSelector(formName)
 const { Content, HeaderTitle, Footer } = CleanTemplate
 
@@ -38,13 +34,13 @@ const ReduxFormInputWithAddon = ReduxFormInputBuilder()
   .rightAddon(InputAddon)
   .build()
 
-type TRegisterRegistrationProps = {
-  ...TRegistrationPageProps,
+type TResetPasswordFormProps = {
+  ...TResetPasswordProps,
   handleSubmit: Function,
   invalid: boolean,
 }
-const RegisterRegistration = (
-  { handleSubmit, entity: { pages }, invalid }: TRegisterRegistrationProps
+const ResetPasswordForm = (
+  { handleSubmit, entity: { pages }, invalid }: TResetPasswordFormProps
 ) => {
   const [scoreDescription, setScoreDescription] = useState([])
   const [isPasswordEyeActive, togglePasswordEyeActive] = useState()
@@ -65,10 +61,18 @@ const RegisterRegistration = (
     }
   }, [password])
 
-  const dispatch = useDispatch()
   const history = useHistory()
+  const location = useLocation()
+  useEffect(() => {
+    const { state } = location
+    if (!state || !state.token) {
+      history.push(pages.RESET_PASSWORD.INDEX)
+    }
+  }, [])
+
+  const dispatch = useDispatch()
   const onSubmit = async (values) => {
-    const response = await dispatch(registerAsyncRequest(values.get('cpf'), values.get('email'), values.get('password')))
+    const response = await dispatch(registerAsyncRequest(values.get('email_cpf')))
     if (response) {
       history.push(pages.REGISTRATION.SUCCESS)
     }
@@ -76,37 +80,10 @@ const RegisterRegistration = (
 
   return (
     <Content>
-      <HeaderTitle linkTo={ pages.REGISTRATION.INDEX }>
-        Cadastro de Conta
+      <HeaderTitle>
+        Recuperar Senha
       </HeaderTitle>
       <form onSubmit={ handleSubmit(onSubmit) }>
-        <div className='row'>
-          <div className='col-12'>
-            <Field
-              label='Email'
-              type='email'
-              name='email'
-              id='email'
-              validate={ [required] }
-              component={ ReduxFormInput }
-              inputMode='email'
-            />
-          </div>
-        </div>
-        <div className='row'>
-          <div className='col-12'>
-            <Field
-              label='CPF'
-              type='text'
-              name='cpf'
-              id='cpf'
-              validate={ [required, cpfValidator] }
-              component={ ReduxFormInput }
-              normalize={ cpfNormalizer }
-              inputMode='tel'
-            />
-          </div>
-        </div>
         <div className='row'>
           <div className='col-12'>
             <Field
@@ -151,4 +128,4 @@ const RegisterRegistration = (
 
 export default reduxForm({
   form: formName,
-})(RegisterRegistration)
+})(ResetPasswordForm)

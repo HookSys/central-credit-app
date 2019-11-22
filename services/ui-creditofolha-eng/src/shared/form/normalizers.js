@@ -38,3 +38,7 @@ export const cnpjNormalizer = (value) => {
   }
   return value
 }
+
+export const toUpperCase = (value) => {
+  return typeof value === 'string' ? value.toUpperCase() : value
+}

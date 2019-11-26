@@ -16,22 +16,15 @@ type TExceptionReducer = {
 const actionsMap: TExceptionReducer = {
   [REDUX_FORM_SUBMIT]: (state: TState, action: TSubmitAction): TState => {
     const { meta: { form }, payload: { registeredFields } } = action
-    const tst = state.set('fields', registeredFields).set('form', form)
-    return tst
+    return state.set('fields', registeredFields).set('form', form)
   },
   [REDUX_FORM_CHANGE]: (state: TState, action: TChangeAction) => {
     const { meta: { field, form } } = action
     return state.updateFormFieldErrors(field, form)
   },
   [EXCEPTION_SAVE]: (state, action) => {
-    const { code, error, critical, sentry, body } = action
-    return state.throw({
-      code,
-      critical,
-      error,
-      sentry,
-      body,
-    })
+    const { payload } = action
+    return state.throw(payload)
   },
   [EXCEPTION_CLEAR]: () => {
     return initialState

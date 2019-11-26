@@ -22,7 +22,3 @@ export type TRoute = {
 export type TRoutes = {
   [key: string]: TRoute,
 }
-
-export type TPages = {
-  [key: string]: TPages | string,
-}

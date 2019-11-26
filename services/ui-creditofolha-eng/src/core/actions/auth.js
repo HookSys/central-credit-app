@@ -1,6 +1,7 @@
 // @flow
 import { AUTH_LOGOUT, AUTH_SUCCESS } from 'core/constants/actionsType'
 import { appLoadSpinner, appUnloadSpinner } from 'core/actions/app'
+import { userAsyncRequest } from 'core/actions/user'
 
 import type { TAuthSuccessAction, TAuthLoginRequest, TAuthLoginResponse, TPromiseAction, TAuthLogoutAction, TThunkAction } from 'core/types'
 
@@ -33,6 +34,7 @@ export function authRequest(email: string, password: string): TThunkAction {
       })
 
       await dispatch(authAsyncSuccess(response))
+      await dispatch(userAsyncRequest())
       return response
     } catch (error) {
       return null

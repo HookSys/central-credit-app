@@ -1,5 +1,5 @@
 // @flow
-import { AUTH_REQUIRED } from 'constants/permission'
+import { AUTH_REQUIRED, NOAUTH_REQUIRED, AUTO_SELECT_PROFILE } from 'constants/permission'
 import LazyLoading from 'components/LazyLoading'
 
 // Pages
@@ -22,22 +22,28 @@ export const DefaultRoutes = {
     route: '/login',
     name: 'Login',
     component: LoginPage,
-    permissions: [AUTH_REQUIRED],
+    permissions: [NOAUTH_REQUIRED],
   },
   PROFILES: {
     route: '/profiles',
     name: 'Perfil',
     component: ProfilesPage,
+    permissions: [
+      AUTH_REQUIRED,
+      AUTO_SELECT_PROFILE,
+    ],
   },
   USE_TERMS: {
     route: '/use-terms',
     name: 'Termos de Uso',
     component: UseTermsPage,
+    permissions: [AUTH_REQUIRED],
   },
   REGISTRATION: {
     route: '/registration',
     name: 'Quero me cadastrar',
     component: RegistrationPage,
+    permissions: [NOAUTH_REQUIRED],
     routes: {
       INDEX: {
         route: '',
@@ -61,6 +67,7 @@ export const DefaultRoutes = {
     route: '/reset-password',
     name: 'Recuperar Senha',
     component: ResetPasswordPage,
+    permissions: [NOAUTH_REQUIRED],
     routes: {
       INDEX: {
         route: '',

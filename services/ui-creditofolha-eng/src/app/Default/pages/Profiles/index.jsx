@@ -18,7 +18,7 @@ const Profiles = ({ entity: { pages } }) => {
   const modules = useEntity()
 
   const onSelectProfile = (entity, entityStructure) => async () => {
-    await dispatch(userSelectEntity(entity.get('entidade_id')))
+    await dispatch(userSelectEntity(entity.get('identificador')))
     setTimeout(() => history.push(entityStructure.route))
   }
 
@@ -48,7 +48,7 @@ const Profiles = ({ entity: { pages } }) => {
             const { entity: entityStructure } = structure
             return (
               <ListItem
-                key={ entity.get('entidade_id') }
+                key={ entity.get('identificador') }
                 onClick={ onSelectProfile(entity, entityStructure) }
                 className='d-flex flex-row align-items-center py-2'
               >

@@ -1,6 +1,6 @@
 // @flow
 import { EEntityTypes } from 'constants/entity'
-import { AUTH_REQUIRED } from 'constants/permission'
+import { AUTH_REQUIRED, SELECTED_ENTITY } from 'constants/permission'
 import SvgImage from 'components/SvgImage'
 
 import CompanyEntityContainer from 'company/pages'
@@ -23,7 +23,10 @@ const CompanyEntity = {
     svg: AVAILABLE_IMAGES.LOGO_WHITE_FULL,
     className: 'bg-primary',
   },
-  permissions: [AUTH_REQUIRED],
+  permissions: [
+    AUTH_REQUIRED,
+    SELECTED_ENTITY,
+  ],
   component: CompanyEntityContainer,
   pages: getPagesFromRoutes(CompanyRoutes),
   routes: CompanyRoutes,

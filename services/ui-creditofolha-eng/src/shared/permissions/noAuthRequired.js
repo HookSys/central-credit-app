@@ -1,12 +1,27 @@
-export default function () {
-  const { store: { getState } } = this.store
-  const state = getState()
-  if (state.auth.get('authenticated')) {
-    return ({ redirectTo }) => {
-      const { history } = this.history
-      history.push(redirectTo)
-    }
-  }
+// @flow
+import type { TPermissionsValidator, TCore } from 'types'
+import { EEntityKeys } from 'constants/entity'
 
-  return true
+function noAuthRequired(): TPermissionsValidator {
+  return {
+    validate: () => {
+      const { Redux: { store: { getState } } }: TCore = this
+      const state = getState()
+      return state.auth.get('authenticated')
+    },
+    action: () => {
+      const { History, Entity, Redux: { store: { getState } } }: TCore = this
+      const user = getState().user.get('data')
+      const selectedEntity = user.getSelectedEntity()
+      if (!selectedEntity) {
+        const { pages } = Entity[EEntityKeys.DEFAULT].entity
+        History.push(pages.PROFILES)
+      } else {
+        const { route } = Entity[selectedEntity.get('entidade_tipo')].entity
+        History.push(route)
+      }
+    },
+  }
 }
+
+export default noAuthRequired

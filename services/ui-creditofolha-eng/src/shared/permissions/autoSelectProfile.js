@@ -1,21 +1,27 @@
-import { userSelectEntity } from 'actions/user'
+// @flow
+import { userSelectEntity } from 'core/actions/user'
 
-export default function () {
-  const { store: { getState } } = this.store
-  const state = getState()
-  const user = state.user.get('data')
-  const selectedEntity = user.getSelectedEntity()
-  const entities = user.get('funcoes')
-  if (!selectedEntity && entities.size === 1) {
-    const entity = entities.get(0)
-    const structure = this.structures[entity.get('entidade_tipo')]
-    const { store: { dispatch } } = this.store
-    dispatch(userSelectEntity(entity.get('entidade_id')))
-    return () => {
-      const { history } = this.history
-      setTimeout(() => history.push(structure.ENTRY))
-    }
+import type { TPermissionsValidator, TCore } from 'types'
+
+function autoSelectProfile(): TPermissionsValidator {
+  return {
+    validate: () => {
+      const { Redux: { store: { getState } } }: TCore = this
+      const user = getState().user.get('data')
+      const entities = user.get('funcoes')
+      return entities.size === 1
+    },
+    action: () => {
+      const { History, Entity, Redux }: TCore = this
+      const { store: { getState, dispatch } } = Redux
+      const entities = getState().user.getIn(['data', 'funcoes'])
+      const entity = entities.get(0)
+      dispatch(userSelectEntity(entity.get('identificador')))
+
+      const { route } = Entity[entity.get('entidade_tipo')].entity
+      setTimeout(() => History.push(route))
+    },
   }
-
-  return true
 }
+
+export default autoSelectProfile

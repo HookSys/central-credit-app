@@ -105,7 +105,7 @@ const Header = () => {
               { userFullName }
             </span>
             <span className='d-block opacity-05 small-line-height'>
-              { structure.NAME }
+              { structure.name }
             </span>
           </div>
         </Dropdown.Header>

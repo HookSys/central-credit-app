@@ -47,7 +47,7 @@ export default class User extends BaseRecord(defaultValues, User) {
     const entities = this.get('funcoes')
     const selectedEntityId = this.get('selectedEntityId')
     if (selectedEntityId && entities.size > 0) {
-      const entitieInx = entities.findIndex((entity) => entity.get('entidade_id') === selectedEntityId)
+      const entitieInx = entities.findIndex((entity) => entity.get('identificador') === selectedEntityId)
       if (entitieInx >= 0) {
         return entities.get(entitieInx)
       }

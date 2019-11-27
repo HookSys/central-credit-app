@@ -32,7 +32,6 @@ function useWindowSize() {
       }
     }, 100, { leading: false, trailing: true })
 
-    onWindowResize()
     window.addEventListener('resize', onWindowResize)
     return () => window.removeEventListener('resize', onWindowResize)
   }, [])

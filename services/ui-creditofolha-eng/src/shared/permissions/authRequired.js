@@ -3,10 +3,9 @@ import type { TPermissionsValidator, TCore } from 'types'
 import { EEntityKeys } from 'constants/entity'
 
 function authRequired(): TPermissionsValidator {
-  const CreditoFolha: TCore = this
   return {
     validate: () => {
-      const { Redux: { store: { getState } } } = CreditoFolha
+      const { Redux: { store: { getState } } }: TCore = this
       const state = getState()
       return !state.auth.get('authenticated')
     },

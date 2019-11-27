@@ -58,10 +58,13 @@ const Header = () => {
           </div>
           <div className='d-flex align-items-center ml-auto mr-2 text-white text-md-dark'>
             <div className='d-flex flex-row-reverse align-items-center'>
-              <div className='d-md-none border-left border-white pl-2'>
+              <div
+                role='presentation'
+                className='d-md-none border-left border-white pl-2'
+                onClick={ (ev) => dropdown.current.show(ev) }
+              >
                 <AccountCircle
                   className='font-size-3xl'
-                  onClick={ (ev) => dropdown.current.show(ev) }
                 />
               </div>
               <div className='d-md-none border-left border-white px-2'>

@@ -1,6 +1,6 @@
 // @flow
 import Exception from 'core/models/Exception'
-import { REDUX_FORM_SUBMIT, REDUX_FORM_CHANGE, EXCEPTION_SAVE, EXCEPTION_CLEAR } from 'core/constants/actionsType'
+import { REDUX_FORM_SUBMIT, REDUX_FORM_CHANGE, EXCEPTION_SAVE, EXCEPTION_CLEAR, REACT_ROUTER_LOCATION_CHANGE } from 'core/constants/actionsType'
 
 import type { Reducer } from 'redux'
 import type { TActionTypes } from 'types/actionsType'
@@ -27,6 +27,9 @@ const actionsMap: TExceptionReducer = {
     return state.throw(payload)
   },
   [EXCEPTION_CLEAR]: () => {
+    return initialState
+  },
+  [REACT_ROUTER_LOCATION_CHANGE]: () => {
     return initialState
   },
 }

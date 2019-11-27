@@ -1,13 +1,13 @@
 import React from 'react'
 
-const Users = () => {
+const History = () => {
   return (
     <div className='row'>
       <div className='col-12'>
-        Users
+        History
       </div>
     </div>
   )
 }
 
-export default Users
+export default History

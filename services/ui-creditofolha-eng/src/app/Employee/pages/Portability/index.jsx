@@ -1,13 +1,13 @@
 import React from 'react'
 
-const Covenant = () => {
+const Portability = () => {
   return (
     <div className='row'>
       <div className='col-12'>
-        Covenant
+        Portability
       </div>
     </div>
   )
 }
 
-export default Covenant
+export default Portability

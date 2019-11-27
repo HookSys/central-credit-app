@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
     document.body.style.backgroundColor = '#f0f1f4'
   }, [])
 
-  if (structure.TYPE !== EEntityTypes.MODULE) {
+  if (structure.type !== EEntityTypes.MODULE) {
     return null
   }
 

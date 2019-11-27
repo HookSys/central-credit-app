@@ -1,6 +1,6 @@
 // @flow
 import { EXCEPTION_SAVE, EXCEPTION_CLEAR } from 'core/constants/actionsType'
-import { Map } from 'immutable'
+import { fromJS } from 'immutable'
 
 import type { $AxiosXHR } from 'axios'
 import type { TPromiseAction, TExceptionHandleAction, TExceptionClearAction, TThunkAction } from 'core/types'
@@ -8,7 +8,7 @@ import type { TPromiseAction, TExceptionHandleAction, TExceptionClearAction, TTh
 function create(
   code: number,
   data: Object,
-  request: Map<any, any>,
+  request: any,
   critical?: boolean,
   sentry?: Object
 ): TExceptionHandleAction {
@@ -42,19 +42,19 @@ export function handle<T: Object, R: Object = T>(
     const notFoundErrors = [400, 404]
 
     if (connectionErrors.includes(status)) {
-      return dispatch(create(505, data, params, true))
+      return dispatch(create(505, data, fromJS(params), true))
     }
     if (permissionErrors.includes(status)) {
-      return dispatch(create(401, data, params, true))
+      return dispatch(create(401, data, fromJS(params), true))
     }
     if (notFoundErrors.includes(status)) {
-      return dispatch(create(404, data, params))
+      return dispatch(create(404, data, fromJS(params)))
     }
     if (status === 401) {
-      return dispatch(create(401, data, params))
+      return dispatch(create(401, data, fromJS(params)))
     }
 
     const { sentry, error } = data
-    return dispatch(create(500, error, params, true, sentry))
+    return dispatch(create(500, error, fromJS(params), true, sentry))
   }
 }

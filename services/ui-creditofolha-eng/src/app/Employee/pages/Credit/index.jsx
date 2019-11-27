@@ -1,13 +1,13 @@
 import React from 'react'
 
-const ContractsIndex = () => {
+const Credit = () => {
   return (
     <div className='row'>
       <div className='col-12'>
-        Contracts Test
+        Credit
       </div>
     </div>
   )
 }
 
-export default ContractsIndex
+export default Credit

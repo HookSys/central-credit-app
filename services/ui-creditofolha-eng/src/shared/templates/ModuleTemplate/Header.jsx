@@ -2,11 +2,12 @@ import React, { useContext, useRef } from 'react'
 import classNames from 'classnames'
 import SvgImage from 'components/SvgImage'
 import Dropdown from 'components/Dropdown'
-import { useStructure } from 'hooks'
+import { useEntity, useStructure } from 'hooks'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { getFirstLetters } from 'helpers'
 
+import { EEntityKeys } from 'constants/entity'
 import { userLogout, userSelectEntity } from 'core/actions/user'
 
 import {
@@ -28,16 +29,17 @@ const Header = () => {
   const history = useHistory()
   const { toggleSideNavigation, isSideNavigationVisible } = useContext(SideNavigationContext)
 
+  const entities = useEntity()
   const structure = useStructure()
-  const defaultStructure = structure.default
+  const defaultStructure = entities[EEntityKeys.DEFAULT].entity
 
   const dispatch = useDispatch()
   const user = useSelector(state => state.user.get('data'))
   const entity = user.getSelectedEntity()
 
   const userFullName = user.get('fullName')
-  const { ROUTES } = defaultStructure
-  const { LOGO } = structure
+  const { pages } = defaultStructure
+  const { small } = structure
   return (
     <header>
       <div className='navbar navbar-dark bg-secondary navbar-md-light bg-md-white fixed-top shadow-sm'>
@@ -47,11 +49,11 @@ const Header = () => {
               <Menu className='font-size-3xl' onClick={ () => toggleSideNavigation(!isSideNavigationVisible) } />
             </button>
             <div
-              className={ classNames('navbar-small-logo ml-2', LOGO.SMALL_CLASSNAME, {
+              className={ classNames('navbar-small-logo ml-2', small.className, {
                 'is-hided': isSideNavigationVisible,
               }) }
             >
-              <SvgImage icon={ LOGO.SMALL_ICON } isOverflowHideen={ true } />
+              <SvgImage icon={ small.svg } isOverflowHideen={ true } />
             </div>
           </div>
           <div className='d-flex align-items-center ml-auto mr-2 text-white text-md-dark'>
@@ -125,7 +127,7 @@ const Header = () => {
           <Dropdown.Action
             onClick={ () => {
               dispatch(userSelectEntity(null))
-              history.push(ROUTES.PROFILES.URL)
+              history.push(pages.PROFILES)
             } }
             icon={ SupervisorAccount }
             className='pl-2'
@@ -136,7 +138,7 @@ const Header = () => {
         <Dropdown.Action
           onClick={ () => {
             dispatch(userLogout())
-            history.push(ROUTES.LOGIN.URL)
+            history.push(pages.LOGIN)
           } }
           icon={ ExitToApp }
           className='pl-2 exit'

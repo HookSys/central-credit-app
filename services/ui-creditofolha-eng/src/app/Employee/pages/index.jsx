@@ -4,7 +4,7 @@ import ModuleTemplate from 'templates/ModuleTemplate'
 
 const { Layout } = ModuleTemplate
 
-const CompanyContainer = ({ children }) => {
+const EmployeeContainer = ({ children }) => {
   return (
     <Layout>
       { children }
@@ -12,8 +12,8 @@ const CompanyContainer = ({ children }) => {
   )
 }
 
-CompanyContainer.propTypes = {
+EmployeeContainer.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default CompanyContainer
+export default EmployeeContainer

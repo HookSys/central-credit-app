@@ -17,8 +17,8 @@ const { AVAILABLE_IMAGES } = SvgImage
 const { Layout, Header, Content } = FeedbackTemplate
 
 const formName = 'resetPasswordToken'
-const ResetPasswordToken = ({ handleSubmit, entity: { pages } }) => {
-  const { showSuccessToast } = useContext(ToastContext)
+const ResetPasswordToken = ({ handleSubmit, invalid, entity: { pages } }) => {
+  const { showSuccessToast, showErrorToast } = useContext(ToastContext)
   const location = useLocation()
   const history = useHistory()
 
@@ -47,10 +47,18 @@ const ResetPasswordToken = ({ handleSubmit, entity: { pages } }) => {
 
   const onSubmit = (values) => {
     const { state: { email } } = location
+    if (!values || !values.get('token')) {
+      showErrorToast({
+        message: 'Favor preencher o token corretamente',
+      })
+      return
+    }
+
     const token = values.get('token').reduce((result, value) => {
       const newToken = result + value
       return newToken
     }, '')
+
     history.push(pages.RESET_PASSWORD.PASSWORD, {
       email,
       token,
@@ -71,15 +79,15 @@ const ResetPasswordToken = ({ handleSubmit, entity: { pages } }) => {
             Insira o código que enviamos abaixo para digitar uma nova senha:
           </div>
 
-          <Token tokenErrors={ false } />
+          <Token />
 
           <div className='d-flex flex-column flex-md-row justify-content-between align-items-center mt-4'>
             <div className=''>
               <span className='d-block mb-n1'>Não recebeu o código?</span>
-              <Button className='btn btn-link p-0 m-0' onClick={ onResendToken }>Enviar código novamente</Button>
+              <Button type='button' className='btn btn-link p-0 m-0' onClick={ onResendToken }>Enviar código novamente</Button>
             </div>
             <div>
-              <Button className='btn btn-primary mt-2 mt-md-0 w-100 w-md-auto py-1'>Enviar</Button>
+              <Button disabled={ invalid } className='btn btn-primary mt-2 mt-md-0 w-100 w-md-auto py-1'>Enviar</Button>
             </div>
           </div>
         </form>
@@ -91,6 +99,7 @@ const ResetPasswordToken = ({ handleSubmit, entity: { pages } }) => {
 ResetPasswordToken.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   entity: PropTypes.object.isRequired,
+  invalid: PropTypes.bool.isRequired,
 }
 
 export default reduxForm({

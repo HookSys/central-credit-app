@@ -1,6 +1,7 @@
 // @flow
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
+import { EEntityTypes } from 'constants/entity'
 
 import RoutesBuilder from 'builders/RoutesBuilder'
 import Permissions from 'components/Permissions'
@@ -18,19 +19,23 @@ function EntityBuilder(entity: TEntity, id: TEntityKeys): TEntityInstance {
     permissions: entity.permissions,
   }
 
+  const rootPath = entity.type === EEntityTypes.DEFAULT ? '' : route
+
+  const tst = RoutesBuilder({
+    parent,
+    rootPath,
+    routes,
+    entity,
+    id,
+  })
+
   const element = (
     <Route path={ route }>
       <Permissions permissions={ permissions }>
         <ThemeRender theme={ theme }>
           <Container entity={ entity }>
             <Switch>
-              { RoutesBuilder({
-                parent,
-                rootPath: '',
-                routes,
-                entity,
-                id,
-              }) }
+              { tst }
             </Switch>
           </Container>
         </ThemeRender>

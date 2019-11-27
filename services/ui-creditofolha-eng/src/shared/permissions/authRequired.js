@@ -1,6 +1,6 @@
 // @flow
 import type { TPermissionsValidator, TCore } from 'types'
-// import { EEntityKeys } from 'constants/entity'
+import { EEntityKeys } from 'constants/entity'
 
 function authRequired(): TPermissionsValidator {
   const CreditoFolha: TCore = this
@@ -11,9 +11,9 @@ function authRequired(): TPermissionsValidator {
       return !state.auth.get('authenticated')
     },
     action: () => {
-      // const { History, Entity } = appData
-      // const { pages } = Entity[EEntityKeys.DEFAULT]
-      // History.push(pages.LOGIN)
+      const { History, Entity }: TCore = this
+      const { pages } = Entity[EEntityKeys.DEFAULT].entity
+      History.push(pages.LOGIN)
     },
   }
 }

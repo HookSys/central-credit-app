@@ -8,10 +8,10 @@ function useStructure() {
   const selectedEntity = useSelector(({ user }) => user.get('data').getSelectedEntity())
 
   if (!selectedEntity) {
-    return Entity[EEntityKeys.DEFAULT]
+    return Entity[EEntityKeys.DEFAULT].entity
   }
 
-  return Entity[selectedEntity.get('entidade_tipo')]
+  return Entity[selectedEntity.get('entidade_tipo')].entity
 }
 
 export default useStructure

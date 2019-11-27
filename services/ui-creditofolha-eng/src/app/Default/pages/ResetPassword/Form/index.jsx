@@ -6,8 +6,9 @@ import { Field, reduxForm } from 'redux-form/immutable'
 import ReduxFormInput from 'components/ReduxFormInput'
 import Button from 'components/Button'
 import { passwordRecoverySendToken } from 'default/actions/password'
-import { required } from 'form/validators'
+import { required, cpfOrEmailValidator } from 'form/validators'
 import { CleanTemplate } from 'templates'
+import { cpfOrEmailNormalizer } from 'form/normalizers'
 
 import type { TResetPasswordProps } from 'default/types'
 
@@ -43,11 +44,12 @@ const ResetPasswordForm = (
           <div className='col-12'>
             <Field
               label='Email ou CPF'
-              type='email'
+              type='text'
               name='email_cpf'
               id='email_cpf'
               placeholder='Insira seu e-mail ou CPF'
-              validate={ [required] }
+              validate={ [required, cpfOrEmailValidator] }
+              normalize={ cpfOrEmailNormalizer }
               component={ ReduxFormInput }
               inputMode='email'
             />

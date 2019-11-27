@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import { useSelector } from 'react-redux'
 import Spinner from 'components/Spinner'
-import SwitchTransition from 'components/SwitchTransition'
 
 const App = ({ history, entity }) => {
   const isLoading = useSelector(state => state.app.get('spinner'))
@@ -17,9 +16,7 @@ const App = ({ history, entity }) => {
     <ConnectedRouter history={ history }>
       <Fragment>
         { isLoading && <Spinner /> }
-        <SwitchTransition>
-          { entity.render() }
-        </SwitchTransition>
+        { entity.render() }
       </Fragment>
     </ConnectedRouter>
   )

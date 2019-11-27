@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { SidePanelTemplate } from 'templates'
-import { SidePanelRender } from 'components'
+import SidePanelTemplate from 'templates/SidePanelTemplate'
+import SidePanelRender from 'components/SidePanelRender'
 
 const { Layout, Header, Title, Links, Link } = SidePanelTemplate
 

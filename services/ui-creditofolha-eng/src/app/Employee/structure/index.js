@@ -1,29 +1,34 @@
-import { MODULE } from 'constants/types'
-import { SvgImage, LazyLoading } from 'components'
-import PERMISSIONS from 'constants/permissions'
-import MODULES from 'constants/modules'
+// @flow
+import { EEntityTypes } from 'constants/entity'
+import { AUTH_REQUIRED } from 'constants/permission'
+import SvgImage from 'components/SvgImage'
 
-import ROUTES from './routes'
+import EmployeeEntityContainer from 'employee/pages'
+import EmployeeRoutes from 'employee/structure/routes'
+
+import { getPagesFromRoutes } from 'helpers'
 
 const { AVAILABLE_IMAGES } = SvgImage
-const EmployeeContainer = LazyLoading(() => import('pages/Employee'))
 
-export default {
-  NAME: 'Funcionário',
-  THEME: 'employee',
-  ENTRY: '/employee',
-  TYPE: MODULE,
-  CONTAINER: EmployeeContainer,
-  LOGO: {
-    CLASSNAME: 'bg-primary',
-    ICON: AVAILABLE_IMAGES.LOGO_WHITE_FULL,
-    SMALL_CLASSNAME: 'bg-primary',
-    SMALL_ICON: AVAILABLE_IMAGES.LOGO_WHITE_FULL,
+const EmployeeEntity = {
+  name: 'Funcionário',
+  route: '/employee',
+  theme: 'employee',
+  type: EEntityTypes.MODULE,
+  logo: {
+    svg: AVAILABLE_IMAGES.LOGO_WHITE_FULL,
+    className: 'bg-primary',
   },
-  VALIDATION: [
-    PERMISSIONS.AUTH_REQUIRED({ redirectTo: '/login' }),
-    PERMISSIONS.USE_TERMS_ACCEPTED({ redirectTo: '/use-terms' }),
-    PERMISSIONS.SELECTED_PROFILE({ profile: MODULES.EMPLOYEE, redirectTo: '/profiles' }),
-  ],
-  ROUTES,
+  small: {
+    svg: AVAILABLE_IMAGES.LOGO_WHITE_FULL,
+    className: 'bg-primary',
+  },
+  permissions: [AUTH_REQUIRED],
+  component: EmployeeEntityContainer,
+  routes: EmployeeRoutes,
+  pages: getPagesFromRoutes(EmployeeRoutes, '/employee'),
 }
+
+export type TEmployeeEntity = typeof EmployeeEntity
+
+export default EmployeeEntity

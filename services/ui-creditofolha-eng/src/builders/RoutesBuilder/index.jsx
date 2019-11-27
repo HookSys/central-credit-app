@@ -29,7 +29,7 @@ function RoutesBuilder({ rootPath, routes, parent, entity, id }: TRoutesBuilderP
   return Object.keys(routes).reverse().map<Node>((key) => {
     const route = routes[key]
     const { route: url } = route
-    const path = key === 'INDEX' && !url ? '' : `${ rootPath }${ url }`
+    const path = `${ rootPath }${ url }`
 
     if (route.routes && typeof route.routes === 'object') {
       const cId = `${ id }>${ key }`

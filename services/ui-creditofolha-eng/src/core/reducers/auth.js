@@ -18,7 +18,7 @@ const initialState = new Auth({
 
 const actionsMap = {
   [AUTH_SUCCESS]: (state, action) => {
-    const { access, refresh } = action
+    const { access, refresh } = action.payload
     return state.merge({
       authenticated: true,
       access,

@@ -1,7 +1,7 @@
 // @flow
 import { EEntityTypes } from 'constants/entity'
-import { AUTH_REQUIRED } from 'components/Permissions'
-import { SvgImage } from 'components/SvgImage'
+import { AUTH_REQUIRED } from 'constants/permission'
+import SvgImage from 'components/SvgImage'
 
 import CompanyEntityContainer from 'company/pages'
 import CompanyRoutes from 'company/structure/routes'

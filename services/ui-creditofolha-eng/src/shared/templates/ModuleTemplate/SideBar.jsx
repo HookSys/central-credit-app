@@ -48,7 +48,7 @@ const SideBar = () => {
     }
   }, [hasSidePanel]), sidebarRef)
 
-  const { LOGO, ROUTES, ENTRY } = structure
+  const { logo, pages, routes } = structure
   return (
     <nav
       ref={ sidebarRef }
@@ -56,8 +56,8 @@ const SideBar = () => {
         'collapsed': isSideBarCollapsed,
       }) }
     >
-      <div className={ classNames('sidebar-logo', LOGO.CLASSNAME) }>
-        <SvgImage icon={ LOGO.ICON } isOverflowHideen={ true } className='sidebar-logo-svg' />
+      <div className={ classNames('sidebar-logo', logo.className) }>
+        <SvgImage icon={ logo.svg } isOverflowHideen={ true } className='sidebar-logo-svg' />
         <Menu
           onClick={ () => toggleSideBar(!isSideBarCollapsed) }
           className={ classNames('sidebar-menu-collapse', {
@@ -66,9 +66,10 @@ const SideBar = () => {
         />
       </div>
       <div className='sidebar-content pt-1'>
-        { Object.keys(ROUTES).map((route) => {
-          const Icon = ROUTES[route].ICON()
-          const url = `${ ENTRY }${ ROUTES[route].URL }`
+        { Object.keys(routes).map((route) => {
+          const Icon = routes[route].icon()
+          const url = pages[route]
+
           return (
             <Link
               to={ url }
@@ -78,7 +79,7 @@ const SideBar = () => {
               }) }
             >
               <Icon />
-              <span>{ ROUTES[route].NAME }</span>
+              <span>{ routes[route].name }</span>
             </Link>
           )
         })}

@@ -7,7 +7,7 @@ import Avatar from 'components/Avatar'
 import Button from 'components/Button'
 import CleanTemplate from 'templates/CleanTemplate'
 import { userLogout, userSelectEntity } from 'core/actions/user'
-import { useStructure } from 'hooks'
+import { useEntity } from 'hooks'
 
 const { Layout, List, ListContainer, ListItem, ListHeader } = CleanTemplate
 
@@ -15,11 +15,11 @@ const Profiles = ({ entity: { pages } }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const user = useSelector(state => state.user.get('data'))
-  const modules = useStructure()
+  const modules = useEntity()
 
-  const onSelectProfile = (entity, structure) => async () => {
+  const onSelectProfile = (entity, entityStructure) => async () => {
     await dispatch(userSelectEntity(entity.get('entidade_id')))
-    setTimeout(() => history.push(structure.ENTRY))
+    setTimeout(() => history.push(entityStructure.route))
   }
 
   const onLogout = async () => {
@@ -45,21 +45,21 @@ const Profiles = ({ entity: { pages } }) => {
               return false
             }
 
-            const { NAME, CLASSNAME, ICON } = structure
+            const { entity: entityStructure } = structure
             return (
               <ListItem
                 key={ entity.get('entidade_id') }
-                onClick={ onSelectProfile(entity, structure) }
+                onClick={ onSelectProfile(entity, entityStructure) }
                 className='d-flex flex-row align-items-center py-2'
               >
                 <Avatar
                   title={ entity.get('entidade_nome') }
-                  icon={ ICON }
-                  className={ CLASSNAME }
+                  icon={ entityStructure.logo.svg }
+                  className={ entityStructure.logo.className }
                 />
                 <div className='ml-3'>
                   <h6 className='pb-0 mb-n1'>{entity.get('entidade_nome')}</h6>
-                  <small>{ NAME }</small>
+                  <small>{ entityStructure.name }</small>
                 </div>
               </ListItem>
             )

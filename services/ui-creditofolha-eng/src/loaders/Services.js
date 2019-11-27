@@ -46,7 +46,7 @@ function Services(): TLoader<TServicesLoader> {
   }
 
   const createService = (instance: Axios, handlingError: boolean = false): TService => {
-    return async function<T, R> (payload: TRequestPayload<T>): Promise<R> {
+    return function<T, R> (payload: TRequestPayload<T>): Promise<any> {
       const {
         path,
         pathParams,
@@ -69,25 +69,27 @@ function Services(): TLoader<TServicesLoader> {
       const bindedPath = bindPathParams<R>(pathParams, path)
       // const transformedBody: T = contentType !== CONTENT_TYPE.JSON ? JSON.stringify(body) : body
 
-      try {
-        const response: $AxiosXHR<T, R> = await instance<T, R>({
-          method,
-          url: `${ bindedPath }${ bindedQuery }`,
-          data: body,
-          responseType,
-          headers,
-        })
+      return new Promise(async (resolve, reject) => {
+        try {
+          const response: $AxiosXHR<T, R> = await instance<T, R>({
+            method,
+            url: `${ bindedPath }${ bindedQuery }`,
+            data: body,
+            responseType,
+            headers,
+          })
 
-        const { data } = response
-        return data
-      } catch (error) {
-        if (handlingError && error && error.response) {
-          const { response }: $AxiosError<T, R> = error
-          const params = method === 'GET' ? pathParams : body
-          onError(response, params)
+          const { data } = response
+          resolve(data)
+        } catch (error) {
+          if (handlingError && error && error.response) {
+            const { response }: $AxiosError<T, R> = error
+            const params = method === 'GET' ? pathParams : body
+            onError(response, params)
+          }
+          reject()
         }
-        throw new Error(error)
-      }
+      })
     }
   }
 
@@ -102,7 +104,6 @@ function Services(): TLoader<TServicesLoader> {
         transformRequest: [(data, headers) => {
           const { Redux: { store: { getState } } }: TCore = this
           const access: ?string = getState().auth.get('access')
-
           if (access && headers) {
             // eslint-disable-next-line no-param-reassign
             headers['Authorization'] = `Bearer ${ access }`

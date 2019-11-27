@@ -1,13 +1,13 @@
 import React from 'react'
 
-const Dashboard = () => {
+const Renegotiation = () => {
   return (
     <div className='row'>
       <div className='col-12'>
-        Dashboard
+        Renegotiation
       </div>
     </div>
   )
 }
 
-export default Dashboard
+export default Renegotiation

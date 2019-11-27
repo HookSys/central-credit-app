@@ -42,3 +42,13 @@ export const cnpjNormalizer = (value) => {
 export const toUpperCase = (value) => {
   return typeof value === 'string' ? value.toUpperCase() : value
 }
+
+export const cpfOrEmailNormalizer = (value) => {
+  if (value) {
+    // eslint-disable-next-line no-restricted-globals
+    if (!isNaN(value[0])) {
+      return cpfNormalizer(value)
+    }
+  }
+  return value
+}

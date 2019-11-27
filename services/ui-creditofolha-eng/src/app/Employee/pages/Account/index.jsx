@@ -1,13 +1,13 @@
 import React from 'react'
 
-const ContractsList = () => {
+const Account = () => {
   return (
     <div className='row'>
       <div className='col-12'>
-        Contracts List
+        Account
       </div>
     </div>
   )
 }
 
-export default ContractsList
+export default Account

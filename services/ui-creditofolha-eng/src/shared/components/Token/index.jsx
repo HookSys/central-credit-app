@@ -95,7 +95,7 @@ Token.propTypes = {
 }
 
 Token.defaultProps = {
-  tokenErrors: '',
+  tokenErrors: null,
 }
 
 export default Token

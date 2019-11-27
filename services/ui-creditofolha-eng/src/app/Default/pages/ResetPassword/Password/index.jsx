@@ -1,5 +1,5 @@
 // @flow
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useLocation } from 'react-router-dom'
 import { Field, reduxForm, formValueSelector } from 'redux-form/immutable'
@@ -7,10 +7,11 @@ import zxcvbn from 'zxcvbn'
 import Button from 'components/Button'
 import PasswordStrength from 'components/PasswordStrength'
 import PasswordTips from 'components/PasswordTips'
-import { registerAsyncRequest } from 'default/actions/register'
+import { passwordRecoveryVerifyToken } from 'default/actions/password'
 import { required, weakPassword, passwordsMatch } from 'form/validators'
 import { CleanTemplate } from 'templates'
 import { RemoveRedEyeOutlined } from '@material-ui/icons'
+import { ToastContext } from 'components/ToastProvider'
 
 import ReduxFormInputBuilder from 'components/ReduxFormInput/Builder'
 import InputAddonBuilder from 'components/ReduxFormInput/builders/InputAddonBuilder'
@@ -44,6 +45,18 @@ const ResetPasswordForm = (
 ) => {
   const [scoreDescription, setScoreDescription] = useState([])
   const [isPasswordEyeActive, togglePasswordEyeActive] = useState()
+  const { showSuccessToast, showErrorToast } = useContext(ToastContext)
+  const history = useHistory()
+
+  const tokenError = useSelector(state => state.errors.getFieldError('token'))
+  useEffect(() => {
+    if (tokenError) {
+      showErrorToast({
+        message: tokenError,
+      })
+      setTimeout(() => history.push(pages.RESET_PASSWORD.INDEX, { email: null, token: null }))
+    }
+  }, [tokenError])
 
   const password = useSelector(state => selector(state, 'password'))
   useEffect(() => {
@@ -61,7 +74,6 @@ const ResetPasswordForm = (
     }
   }, [password])
 
-  const history = useHistory()
   const location = useLocation()
   useEffect(() => {
     const { state } = location
@@ -72,9 +84,13 @@ const ResetPasswordForm = (
 
   const dispatch = useDispatch()
   const onSubmit = async (values) => {
-    const response = await dispatch(registerAsyncRequest(values.get('email_cpf')))
+    const { state } = location
+    const response = await dispatch(passwordRecoveryVerifyToken(state.email, values.get('password'), state.token))
     if (response) {
-      history.push(pages.REGISTRATION.SUCCESS)
+      showSuccessToast({
+        message: 'Sua senha foi alterada com sucesso!',
+      })
+      setTimeout(() => history.push(pages.LOGIN))
     }
   }
 

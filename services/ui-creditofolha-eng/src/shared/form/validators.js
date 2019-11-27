@@ -98,3 +98,18 @@ export const weakPassword = (score) => () => {
 export const passwordsMatch = ((value, allValues) => {
   return value !== allValues.get('password') ? 'As duas senhas não conferem' : undefined
 })
+
+export const email = ((value) => {
+  return value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+    ? 'E-mail inválido' : undefined
+})
+
+export const cpfOrEmailValidator = (value) => {
+  if (value) {
+    // eslint-disable-next-line no-restricted-globals
+    if (!isNaN(value[0])) {
+      return cpfValidator(value)
+    }
+  }
+  return email(value)
+}

@@ -1,6 +1,6 @@
 // @flow
 import type { BaseRecordOf } from 'base/BaseRecord'
-import { List, Record, Map, fromJS } from 'immutable'
+import { List, Record, Map } from 'immutable'
 import { toEntityList } from 'base/BaseList'
 import FieldError from 'core/models/FieldError'
 import type { TException, IException, TExceptionPayload, TExceptionFieldError } from 'core/types'
@@ -19,9 +19,7 @@ const defaultValues: TException = {
 
 export default class Exception extends ((Record<TException>(defaultValues, 'Exception'): any): Class<IException<TException>>) {
   throw(payload: TExceptionPayload) {
-    const request = (fromJS(payload.request): any)
-
-    const parents = this.getParentPathsFromRequest(request)
+    const parents = this.getParentPathsFromRequest(payload.request)
     const errors = this.toFieldError(payload.data, parents)
     const alerts = this.getAlertErrors(errors)
     const invalidIds = this.getInvalidIds(errors)

@@ -28,7 +28,7 @@ const CompanyEntity = {
     SELECTED_ENTITY,
   ],
   component: CompanyEntityContainer,
-  pages: getPagesFromRoutes(CompanyRoutes),
+  pages: getPagesFromRoutes(CompanyRoutes, '/company'),
   routes: CompanyRoutes,
 }
 

@@ -5,7 +5,7 @@ import SidePanelRender from 'components/SidePanelRender'
 
 const { Layout, Header, Title, Links, Link } = SidePanelTemplate
 
-const ContractsSidePanel = ({ structure: { SIDEPANEL_ROUTES }, rootPath }) => {
+const ContractsSidePanel = ({ pages, routes }) => {
   return (
     <SidePanelRender>
       <Layout>
@@ -15,14 +15,14 @@ const ContractsSidePanel = ({ structure: { SIDEPANEL_ROUTES }, rootPath }) => {
           </Title>
         </Header>
         <Links>
-          { Object.keys(SIDEPANEL_ROUTES).map((key) => {
+          { Object.keys(routes).map((key) => {
             return (
               <Link
-                to={ `${ rootPath }${ SIDEPANEL_ROUTES[key].URL }` }
+                to={ pages[key] }
                 routeKey={ key }
                 key={ key }
               >
-                { SIDEPANEL_ROUTES[key].NAME }
+                { routes[key].name }
               </Link>
             )
           })}
@@ -33,8 +33,8 @@ const ContractsSidePanel = ({ structure: { SIDEPANEL_ROUTES }, rootPath }) => {
 }
 
 ContractsSidePanel.propTypes = {
-  structure: PropTypes.object.isRequired,
-  rootPath: PropTypes.string.isRequired,
+  routes: PropTypes.object.isRequired,
+  pages: PropTypes.object.isRequired,
 }
 
 export default ContractsSidePanel

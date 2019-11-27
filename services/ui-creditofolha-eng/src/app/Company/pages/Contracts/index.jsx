@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 
 import ContractsSidePanel from './SidePanel'
 
-const Contracts = ({ children, structure, rootPath }) => {
+const Contracts = ({ entity: { pages }, parent, children }) => {
   return (
     <div className='row'>
       <div className='col-5'>
         { children }
-        <ContractsSidePanel structure={ structure } rootPath={ rootPath } />
+        <ContractsSidePanel pages={ pages.CONTRACTS } routes={ parent.routes } />
       </div>
     </div>
   )
@@ -16,8 +16,8 @@ const Contracts = ({ children, structure, rootPath }) => {
 
 Contracts.propTypes = {
   children: PropTypes.node.isRequired,
-  structure: PropTypes.object.isRequired,
-  rootPath: PropTypes.string.isRequired,
+  entity: PropTypes.object.isRequired,
+  parent: PropTypes.object.isRequired,
 }
 
 export default Contracts

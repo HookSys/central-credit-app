@@ -7,7 +7,7 @@ export default function getPagesFromRoutes(routes: TRoutes, root: string = ''): 
   for (const route of Object.keys(routes)) {
     if (routes[route].routes) {
       const { routes: subRoutes } = routes[route]
-      const subPages: TPages = getPagesFromRoutes(subRoutes, routes[route].route)
+      const subPages: TPages = getPagesFromRoutes(subRoutes, root + routes[route].route)
       pages = {
         ...pages,
         [route]: subPages,

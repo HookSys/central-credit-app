@@ -68,7 +68,8 @@ const SideBar = () => {
       <div className='sidebar-content pt-1'>
         { Object.keys(routes).map((route) => {
           const Icon = routes[route].icon()
-          const url = pages[route]
+          console.log(pages)
+          const url = typeof pages[route] === 'object' ? pages[route].INDEX : pages[route]
 
           return (
             <Link

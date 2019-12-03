@@ -8,6 +8,7 @@ declare class IBaseRecord<O: Object = Object> extends RecordInstance<O> {
   getFormatedCurrency(field: $Keys<O> | number): string;
   getFormatedPercent(field: $Keys<O> | number, abs?: boolean): string;
   getFormatedPhone(field: $Keys<O>): ?string;
+  getFullName(): ?string;
 }
 
 export type BaseRecordFactory<Values: Object> = Class<IBaseRecord<Values>>;
@@ -16,6 +17,13 @@ export type BaseRecordOf<Values: Object> = IBaseRecord<Values> & $ReadOnly<Value
 function BaseRecord<O: Object = Object>(spec: O, name?: string): Class<IBaseRecord<O>> {
   const ObjBaseRecord: Class<IBaseRecord<O>> = ((Record<O>(spec, name): any): Class<IBaseRecord<O>>)
   return class extends ObjBaseRecord {
+    getFullName(): ?string {
+      if (this.get('nome') && this.get('sobrenome')) {
+        return `${ this.get('nome') } ${ this.get('sobrenome') }`
+      }
+      return ''
+    }
+
     getFormatedDate(field: $Keys<O>, format: string = 'DD/MM/YYYY'): string | '-' {
       if (this.get(field)) {
         return moment(this.get(field), 'YYYY-MM-DD').format(format)

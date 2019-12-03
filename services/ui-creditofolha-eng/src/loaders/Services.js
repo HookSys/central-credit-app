@@ -1,14 +1,17 @@
 /* eslint-disable no-unused-expressions */
 // @flow
 import axios from 'axios'
+import { fromJS } from 'immutable'
 import { CONTENT_TYPE, RESPONSE_TYPE } from 'constants/service'
+import { EEntityKeys } from 'constants/entity'
 
 import type { ResponseType, $AxiosXHR, Axios, $AxiosError } from 'axios'
 import type { TLoader, TServicesLoader, TRequestPayload, TService, TCore } from 'types'
 import type { ContentType } from 'constants/service'
 
 import { ApiUrl } from 'configs'
-import { handle } from 'core/actions/exception'
+import { create } from 'core/actions/exception'
+import { userLogout } from 'core/actions/user'
 
 function Services(): TLoader<TServicesLoader> {
   const AppCore: TCore = this
@@ -28,21 +31,51 @@ function Services(): TLoader<TServicesLoader> {
   function bindQueryParams<R: Object>(
     queryParams: ?R
   ) {
-    const getQueryString = (key: $Keys<R>, params: R, isFirst: boolean): string | boolean => (
-      params[key] && `${ isFirst ? '?' : '&' }${ key }=${ params[key] }`
-    )
+    const getQueryString = (key: $Keys<R>, params: R, isFirst: boolean): string | boolean => {
+      if (params[key]) {
+        return `${ isFirst ? '?' : '&' }${ key }=${ params[key] }`
+      }
+      return ''
+    }
+
     if (!queryParams || Object.keys(queryParams).length === 0) {
       return ''
     }
     return Object.keys(queryParams).reduce<string>((result, key) => {
-      const param = getQueryString(key, queryParams, !!result)
+      const param = getQueryString(key, queryParams, !result)
       return typeof param === 'string' ? `${ result }${ param }` : result
     }, '')
   }
 
   function onError<T, R>(response: $AxiosXHR<T, R>, params: T) {
-    const { Redux: { store: { dispatch } } }: TCore = AppCore
-    dispatch(handle<T, R>(response, params))
+    const { Redux: { store: { getState, dispatch } }, History, Entity }: TCore = AppCore
+    const { status, data }: any = response
+
+    const connectionErrors = [502, 503, 504]
+    const permissionErrors = [403]
+    const notFoundErrors = [400, 404]
+
+    if (connectionErrors.includes(status)) {
+      return dispatch(create(505, data, fromJS(params), true))
+    }
+    if (permissionErrors.includes(status)) {
+      return dispatch(create(401, data, fromJS(params), true))
+    }
+    if (notFoundErrors.includes(status)) {
+      return dispatch(create(404, data, fromJS(params)))
+    }
+    if (status === 401) {
+      const isAuthenticated = getState().auth.get('authenticated')
+      if (isAuthenticated) {
+        const { entity: { pages } } = Entity[EEntityKeys.DEFAULT]
+        return dispatch(userLogout()).then(() => History.push(pages.LOGIN))
+      }
+
+      return dispatch(create(401, data, fromJS(params)))
+    }
+
+    const { sentry, error } = data
+    return dispatch(create(500, error, fromJS(params), true, sentry))
   }
 
   const createService = (instance: Axios, handlingError: boolean = false): TService => {

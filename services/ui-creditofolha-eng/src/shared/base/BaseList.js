@@ -23,6 +23,14 @@ export default function BaseList<O: Object>(
         options: values && values.options ? values.options : defaultValues.options,
       })
     }
+
+    getTotalPages(): number {
+      const options = this.get('options')
+      if (options && options.get('limit')) {
+        return Math.ceil(this.get('count') / options.get('limit'))
+      }
+      return 0
+    }
   }
 
   return new CBaseList(defaultValues)

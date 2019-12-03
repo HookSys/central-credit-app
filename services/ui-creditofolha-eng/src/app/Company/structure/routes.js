@@ -4,16 +4,22 @@ import { HomeOutlined, SupervisorAccount, Receipt, CompareArrows, PermContactCal
 
 // Pages
 const DashboardPage = LazyLoading(() => import('company/pages/Dashboard'))
+
 const EmployeesPage = LazyLoading(() => import('company/pages/Employees'))
+const EmployeesListPage = LazyLoading(() => import('company/pages/Employees/List'))
+const EmployeesDemissionPage = LazyLoading(() => import('company/pages/Employees/Demission'))
+const EmployeesImportPage = LazyLoading(() => import('company/pages/Employees/Import'))
+
 const ContractsPage = LazyLoading(() => import('company/pages/Contracts'))
 const ContractsIndexPage = LazyLoading(() => import('company/pages/Contracts/Contracts'))
 const ContractsListPage = LazyLoading(() => import('company/pages/Contracts/List'))
+
 const RepassPage = LazyLoading(() => import('company/pages/Repass'))
 const UsersPage = LazyLoading(() => import('company/pages/Users'))
 const CovenantPage = LazyLoading(() => import('company/pages/Covenant'))
 
 const CompanyRoutes = {
-  DASHBOARD: {
+  INDEX: {
     route: '',
     name: 'Início',
     component: DashboardPage,
@@ -24,6 +30,23 @@ const CompanyRoutes = {
     name: 'Funcionários',
     component: EmployeesPage,
     icon: () => SupervisorAccount,
+    routes: {
+      INDEX: {
+        route: '',
+        name: 'Quadro de Funcionários',
+        component: EmployeesListPage,
+      },
+      DEMISSION: {
+        route: '/demission',
+        name: 'Demissão',
+        component: EmployeesDemissionPage,
+      },
+      IMPORT: {
+        route: '/import',
+        name: 'Importar',
+        component: EmployeesImportPage,
+      },
+    },
   },
   CONTRACTS: {
     route: '/contracts',

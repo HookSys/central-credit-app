@@ -1,23 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import GridLayout from 'components/GridLayout'
 
 const Card = ({ children, className, size }) => {
-  const cardTemplate = `
-    'title actions'
-    'infos infos'
-    / 1fr 1fr
-  `
-
   return (
     <div className={ size }>
-      <GridLayout
-        gridTemplate={ cardTemplate }
-        className={ classNames('card', className) }
-      >
+      <div className={ classNames('card mb-4', className) }>
         { children }
-      </GridLayout>
+      </div>
     </div>
   )
 }
@@ -30,7 +20,7 @@ Card.propTypes = {
 
 Card.defaultProps = {
   className: '',
-  size: 'col-12 col-sm-6 col-xl-4',
+  size: 'col-12 col-lg-6 col-xl-4 col-2xl-3',
 }
 
 export default Card

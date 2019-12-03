@@ -14,9 +14,11 @@ import type { History } from 'react-router'
 // import type { TCoreState, TAction } from 'core/types'
 
 // import Default from 'default/reducers'
+import company from 'company/reducers'
 
 const coreState = (history: History) => combineReducers<any, any>({
   // default: Default,
+  company,
   app,
   errors,
   user,

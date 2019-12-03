@@ -4,12 +4,14 @@ import classNames from 'classnames'
 
 const Container = ({ children, className, isWhiteBackground }) => {
   return (
-    <div className={ classNames('w-100', className, {
-      'bg-light': !isWhiteBackground,
-      'bg-white': isWhiteBackground,
-    }) }
-    >
-      { children }
+    <div className='row'>
+      <div className={ classNames('col-12', className, {
+        'bg-container': !isWhiteBackground,
+        'bg-white': isWhiteBackground,
+      }) }
+      >
+        { children }
+      </div>
     </div>
   )
 }

@@ -59,6 +59,10 @@ class Pagination extends Component {
   render() {
     const { pages, selectedPage, onChange } = this.props
 
+    if (pages === 0) {
+      return null
+    }
+
     const disableFirstAndPrevButtons = pages === 0 || selectedPage === 0
     const disableLastAndNextButtons = pages === 0 || selectedPage === (pages - 1)
     const pagesArr = Array.from(Array(pages)).map((item, index) => index)

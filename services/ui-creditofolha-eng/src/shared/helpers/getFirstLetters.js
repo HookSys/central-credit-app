@@ -1,4 +1,5 @@
-export default (name, lastname) => {
+// @flow
+export default (name: ?string, lastname: ?string): string => {
   if (name == null) {
     return 'NC'
   }

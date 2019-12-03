@@ -161,6 +161,7 @@
     .navbar {
       min-height: $navbar-height;
       padding: 0px;
+      padding-left: $sidebar-width;
 
       .navbar-small-logo {
         width: 36.8px;

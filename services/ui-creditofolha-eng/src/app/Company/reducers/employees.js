@@ -6,6 +6,7 @@ import {
   EMPLOYEES_ASYNC_SUCCESS,
   EMPLOYEES_ASYNC_FAIL,
   EMPLOYEES_UPDATE_PAGE,
+  EMPLOYEES_UPDATE_FILTERS,
 } from 'company/actions/employees'
 
 const EmployeesOptions = new Record({
@@ -14,11 +15,16 @@ const EmployeesOptions = new Record({
   selected: null,
 })
 
+const EmployeesFilters = new Record({
+  search: null,
+})
+
 const initialState = new BaseList({
   errorMessage: '',
   count: 0,
   results: toEntityList([], Employee),
   options: EmployeesOptions(),
+  filters: EmployeesFilters(),
 })
 
 const actionsMap = {
@@ -43,6 +49,13 @@ const actionsMap = {
     const options = state.get('options')
     return state.merge({
       options: options.set('currentPageIndex', page),
+    })
+  },
+  [EMPLOYEES_UPDATE_FILTERS]: (state, action) => {
+    const { search } = action.payload
+    const filters = state.get('filters')
+    return state.merge({
+      filters: filters.set('search', search),
     })
   },
 }

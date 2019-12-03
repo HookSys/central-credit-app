@@ -12,6 +12,9 @@ const ReduxFormInputBuilder = (displayName = 'ReduxFormInputBuilder') => {
   let _leftAddon
   let _rightAddon
 
+  // Disable Margin
+  let _disableMargin = false
+
   // ClassNames (Form, Label and InputGroup)
   let _classNames
 
@@ -30,6 +33,10 @@ const ReduxFormInputBuilder = (displayName = 'ReduxFormInputBuilder') => {
   const builder = {
     leftAddon: leftAddon => {
       _leftAddon = leftAddon
+      return builder
+    },
+    disableMargin: () => {
+      _disableMargin = true
       return builder
     },
     rightAddon: rightAddon => {
@@ -77,7 +84,11 @@ const ReduxFormInputBuilder = (displayName = 'ReduxFormInputBuilder') => {
         const fieldError = errors.getFieldError(input.name, _isDetailError) || error
 
         return (
-          <div className={ classNames(...formClassNames) }>
+          <div
+            className={ classNames(...formClassNames, {
+              'mb-0': _disableMargin,
+            }) }
+          >
             <label
               htmlFor={ input.name }
               className={ classNames(...labelClassNames, {
@@ -88,7 +99,10 @@ const ReduxFormInputBuilder = (displayName = 'ReduxFormInputBuilder') => {
               { label }
             </label>
 
-            <div className={ classNames(...groupClassNames) }>
+            <div
+              className={ classNames(...groupClassNames, {
+              }) }
+            >
               { _leftAddon && _leftAddon(props) }
               <Input
                 type={ type }
@@ -103,6 +117,7 @@ const ReduxFormInputBuilder = (displayName = 'ReduxFormInputBuilder') => {
                 inputMode={ inputMode }
                 className={ classNames(...inputClassNames, className, {
                   'is-invalid': (touched && fieldError),
+                  'has-rightAddon': !!_rightAddon,
                 }) }
               />
               { _rightAddon && _rightAddon(props) }

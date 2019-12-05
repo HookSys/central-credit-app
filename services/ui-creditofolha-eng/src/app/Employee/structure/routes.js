@@ -22,7 +22,7 @@ const MyAccountContactPage = LazyLoading(() => import('default/pages/MyAccount/C
 const MyAccountContactFormPage = LazyLoading(() => import('default/pages/MyAccount/Contact/Form'))
 const MyAccountContactTokenPage = LazyLoading(() => import('default/pages/MyAccount/Contact/Token'))
 const MyAccountContactConfirmPage = LazyLoading(() => import('default/pages/MyAccount/Contact/Confirm'))
-
+const MyAccountPasswordPage = LazyLoading(() => import('default/pages/MyAccount/Password'))
 
 const EmployeeRoutes = {
   INDEX: {
@@ -85,6 +85,11 @@ const EmployeeRoutes = {
             component: MyAccountContactConfirmPage,
           },
         },
+      },
+      PASSWORD: {
+        route: '/password',
+        name: 'Redefinir Senha',
+        component: MyAccountPasswordPage,
       },
     },
   },

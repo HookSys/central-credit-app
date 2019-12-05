@@ -68,7 +68,9 @@ const MyAccountVerified = ({ entity: { pages } }) => {
         label='Redefinir Senha'
         isVerified={ true }
         hideStatus={ true }
-        onEdit={ () => {} }
+        onEdit={ () => {
+          history.push(pages.MY_ACCOUNT.PASSWORD)
+        } }
       >
         <div className='d-flex mt-2 ml-n1'>
           { range(1, 10).map((obj) => <div className='password' key={ obj } />) }

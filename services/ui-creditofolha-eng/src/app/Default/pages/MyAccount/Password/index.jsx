@@ -98,7 +98,7 @@ const MyAccountContact = ({ handleSubmit, invalid, submit, entity: { pages } }) 
       <Container>
         <Form onSubmit={ handleSubmit(onSubmit) }>
           <div className='row'>
-            <div className='col-8 offset-2'>
+            <div className='col-12 col-md-8 offset-md-2'>
               <div className='bg-light border border-low-dark mt-4 border-dotted px-4 py-5'>
                 <div className='row'>
                   <div className='col-xs-9 offset-xs-1 col-md-6 offset-md-3'>

@@ -4,10 +4,14 @@ import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form/immutable'
 import SvgImage from 'components/SvgImage'
-import ReduxFormInput from 'components/ReduxFormInput'
 import { CleanTemplate } from 'templates'
 import { authRequest } from 'core/actions/auth'
 import { required } from 'form/validators'
+import { RemoveRedEyeOutlined } from '@material-ui/icons'
+
+import ReduxFormInput from 'components/ReduxFormInput'
+import ReduxFormInputBuilder from 'components/ReduxFormInput/Builder'
+import InputAddonBuilder from 'components/ReduxFormInput/builders/InputAddonBuilder'
 
 import type { TDefaultPageProps } from 'default/types'
 
@@ -18,6 +22,21 @@ type TPageProps = {
   ...TDefaultPageProps,
   handleSubmit: Function,
 }
+
+const InputAddon = InputAddonBuilder()
+  .rightPosition()
+  .renderMethod(() => (
+    <div className='icon-right-addon'>
+      <RemoveRedEyeOutlined />
+    </div>
+  ))
+  .build()
+
+const ReduxFormInputWithAddon = ReduxFormInputBuilder()
+  .rightAddon(InputAddon)
+  .isDetailError()
+  .build()
+
 
 const Login = (
   { handleSubmit, entity: { pages } }: TPageProps
@@ -60,7 +79,7 @@ const Login = (
               placeholder='Senha'
               name='password'
               id='password'
-              component={ ReduxFormInput }
+              component={ ReduxFormInputWithAddon }
               className='form-control-lg'
               validate={ required }
               onRightAddonClick={ () => togglePasswordEyeActive(!isPasswordEyeActive) }

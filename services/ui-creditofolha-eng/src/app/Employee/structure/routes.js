@@ -18,6 +18,11 @@ const MyAccountEmailPage = LazyLoading(() => import('default/pages/MyAccount/Ema
 const MyAccountEmailFormPage = LazyLoading(() => import('default/pages/MyAccount/Email/Form'))
 const MyAccountEmailTokenPage = LazyLoading(() => import('default/pages/MyAccount/Email/Token'))
 const MyAccountEmailConfirmPage = LazyLoading(() => import('default/pages/MyAccount/Email/Confirm'))
+const MyAccountContactPage = LazyLoading(() => import('default/pages/MyAccount/Contact'))
+const MyAccountContactFormPage = LazyLoading(() => import('default/pages/MyAccount/Contact/Form'))
+const MyAccountContactTokenPage = LazyLoading(() => import('default/pages/MyAccount/Contact/Token'))
+const MyAccountContactConfirmPage = LazyLoading(() => import('default/pages/MyAccount/Contact/Confirm'))
+
 
 const EmployeeRoutes = {
   INDEX: {
@@ -56,6 +61,28 @@ const EmployeeRoutes = {
             route: '/confirm',
             name: 'Confirmar alteração',
             component: MyAccountEmailConfirmPage,
+          },
+        },
+      },
+      CONTACT: {
+        route: '/contact',
+        name: 'Contato',
+        component: MyAccountContactPage,
+        routes: {
+          INDEX: {
+            route: '',
+            name: 'Confirmar Telefone',
+            component: MyAccountContactFormPage,
+          },
+          TOKEN: {
+            route: '/token',
+            name: 'Inserir o token',
+            component: MyAccountContactTokenPage,
+          },
+          CONFIRM: {
+            route: '/confirm',
+            name: 'Confirmar alteração',
+            component: MyAccountContactConfirmPage,
           },
         },
       },

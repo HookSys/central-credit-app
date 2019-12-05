@@ -7,17 +7,16 @@ import { get } from 'lodash'
 import useStructure from './useStructure'
 
 function getPathKeysOf(pages, pathname, parent = '') {
-  for (const page in pages) {
-    const path = parent === '' ? page : `${ parent }.routes.${ page }`
-    if (typeof pages[page] === 'object') {
-      return getPathKeysOf(pages[page], pathname, path)
+  return Object.keys(pages).reduce((path, key) => {
+    const pathFull = parent === '' ? key : `${ parent }.routes.${ key }`
+    if (typeof pages[key] === 'object') {
+      return getPathKeysOf(pages[key], pathname, pathFull)
     }
-    if (pages[page] === pathname) {
-      return path
+    if (pages[key] === pathname) {
+      return pathFull
     }
-  }
-
-  return ''
+    return path
+  }, '')
 }
 
 function useActiveRoute() {

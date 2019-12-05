@@ -39,6 +39,25 @@ export const cnpjNormalizer = (value) => {
   return value
 }
 
+export const phoneNormalizer = (value) => {
+  if (value) {
+    const onlyNums = value.replace(/[^\d]/g, '')
+
+    if (onlyNums.length <= 2) {
+      return `(${ onlyNums }`
+    }
+    if (onlyNums.length <= 5) {
+      return `(${ onlyNums.slice(0, 2) }) ${ onlyNums.slice(2, 5) }`
+    }
+    if (onlyNums.length <= 8) {
+      return `(${ onlyNums.slice(0, 2) }) ${ onlyNums.slice(2, 5) } ${ onlyNums.slice(5, 8) }`
+    }
+
+    return `(${ onlyNums.slice(0, 2) }) ${ onlyNums.slice(2, 5) } ${ onlyNums.slice(5, 8) } ${ onlyNums.slice(8, 11) }`
+  }
+  return value
+}
+
 export const toUpperCase = (value) => {
   return typeof value === 'string' ? value.toUpperCase() : value
 }

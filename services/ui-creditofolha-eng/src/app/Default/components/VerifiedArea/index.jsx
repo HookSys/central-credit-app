@@ -5,7 +5,7 @@ import { Edit } from '@material-ui/icons'
 import Button from 'components/Button'
 import { Container } from 'templates/PageTemplate'
 
-const VerifiedArea = ({ isVerified, label, children, onValidate, hideStatus }) => {
+const VerifiedArea = ({ isVerified, label, children, onValidate, onEdit, hideStatus }) => {
   return (
     <Container isWhiteBackground={ true } className='py-3 px-4 mb-3'>
       <div className='d-flex justify-content-between align-items-center'>
@@ -33,7 +33,7 @@ const VerifiedArea = ({ isVerified, label, children, onValidate, hideStatus }) =
             <Button className='btn btn-danger' onClick={ onValidate }>Validar</Button>
           </div>
         ) : (
-          <div className='border border-gray rounded p-2' onClick={ onValidate }>
+          <div className='border border-gray rounded p-2' onClick={ onEdit }>
             <Edit className='svg-action' />
           </div>
         ) }
@@ -46,12 +46,14 @@ VerifiedArea.propTypes = {
   children: PropTypes.node.isRequired,
   isVerified: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,
-  onValidate: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onValidate: PropTypes.func,
   hideStatus: PropTypes.bool,
 }
 
 VerifiedArea.defaultProps = {
   hideStatus: false,
+  onValidate: () => {},
 }
 
 export default VerifiedArea

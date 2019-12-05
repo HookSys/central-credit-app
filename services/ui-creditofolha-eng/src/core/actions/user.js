@@ -1,5 +1,6 @@
 import { appLoadSpinner, appUnloadSpinner } from 'core/actions/app'
 import { authLogout } from 'core/actions/auth'
+import { removeEmptyKeys } from 'helpers'
 
 export const USER_ASYNC_SUCCESS = 'USER_ASYNC_SUCCESS'
 export const USER_ASYNC_FAIL = 'USER_ASYNC_FAIL'
@@ -7,10 +8,18 @@ export const USER_SELECT_ENTITY = 'USER_SELECT_ENTITY'
 export const USER_SET_RECENTLY_CREATED = 'USER_SET_RECENTLY_CREATED'
 export const USER_LOGOUT = 'USER_LOGOUT'
 export const USER_ACCEPT_TERMS_SUCCESS = 'USER_ACCEPT_TERMS_SUCCESS'
+export const USER_VALIDATION_SUCCESS = 'USER_ACCEPT_TERMS_SUCCESS'
 
 function userAsyncSuccess(user) {
   return {
     type: USER_ASYNC_SUCCESS,
+    user,
+  }
+}
+
+function userValidationSuccess(user) {
+  return {
+    type: USER_VALIDATION_SUCCESS,
     user,
   }
 }
@@ -115,6 +124,33 @@ export function userAcceptTermsRequest() {
       return true
     } catch (errorMessage) {
       dispatch(userAsyncFail(errorMessage))
+      return null
+    } finally {
+      dispatch(appUnloadSpinner())
+    }
+  }
+}
+
+export function userUpdateInformations(email, token, password, newPassword, phone) {
+  return async (dispatch, getState, service) => {
+    dispatch(appLoadSpinner())
+    const body = removeEmptyKeys({
+      email,
+      token,
+      password_atual: password,
+      password_novo: newPassword,
+      telefone_celular: phone,
+    })
+
+    try {
+      const response = await await service.apiV2({
+        path: 'me/',
+        method: 'POST',
+        body,
+      })
+      dispatch(userValidationSuccess(response))
+      return response
+    } catch (error) {
       return null
     } finally {
       dispatch(appUnloadSpinner())

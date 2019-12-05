@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 const ColumnWrapper = ({ children, className }) => {
   return (
-    <div className='row'>
+    <div className='row mt-2'>
       <div className='col-12'>
         <div className={ classNames('d-flex py-sticky-0', className) }>
           { children }

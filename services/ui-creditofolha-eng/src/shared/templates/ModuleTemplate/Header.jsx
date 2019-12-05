@@ -131,7 +131,11 @@ const Header = () => {
           </div>
         </Dropdown.Header>
         <Dropdown.Action
-          onClick={ () => {} }
+          onClick={ () => {
+            const { pages: structurePages } = structure
+            dropdown.current.hide()
+            history.push(structurePages.MY_ACCOUNT.INDEX)
+          } }
           icon={ AccountBox }
           className='pl-2'
         >

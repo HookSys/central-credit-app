@@ -5,7 +5,7 @@ import classNames from 'classnames'
 const Container = ({ children, className, isWhiteBackground }) => {
   return (
     <div className='row'>
-      <div className={ classNames('col-12', className, {
+      <div className={ classNames('border border-gray col-12', className, {
         'bg-container': !isWhiteBackground,
         'bg-white': isWhiteBackground,
       }) }

@@ -10,6 +10,7 @@ export type TRoute = {
   icon?: () => Node,
   permissions?: Array<Permission>,
   isFeedback?: boolean,
+  hideMenu?: boolean,
   component?: ComponentType<{
     entity: TEntity,
     route: TRoute,

@@ -18,12 +18,20 @@ const RepassPage = LazyLoading(() => import('company/pages/Repass'))
 const UsersPage = LazyLoading(() => import('company/pages/Users'))
 const CovenantPage = LazyLoading(() => import('company/pages/Covenant'))
 
+const MyAccountPage = LazyLoading(() => import('default/pages/MyAccount'))
+
 const CompanyRoutes = {
   INDEX: {
     route: '',
     name: 'Início',
     component: DashboardPage,
     icon: () => HomeOutlined,
+  },
+  MY_ACCOUNT: {
+    route: '/my-account',
+    name: 'Minha Conta',
+    hideMenu: true,
+    component: MyAccountPage,
   },
   EMPLOYEES: {
     route: '/employees',

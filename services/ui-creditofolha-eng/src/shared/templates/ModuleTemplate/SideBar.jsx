@@ -67,9 +67,12 @@ const SideBar = () => {
       </div>
       <div className='sidebar-content pt-1'>
         { Object.keys(routes).map((route) => {
+          if (routes[route].hideMenu) {
+            return null
+          }
+
           const Icon = routes[route].icon()
           const url = typeof pages[route] === 'object' ? pages[route].INDEX : pages[route]
-
           return (
             <Link
               to={ url }

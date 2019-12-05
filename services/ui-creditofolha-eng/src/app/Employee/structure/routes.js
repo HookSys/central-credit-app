@@ -12,12 +12,54 @@ const AccountPage = LazyLoading(() => import('employee/pages/Account'))
 const RenegotiationPage = LazyLoading(() => import('employee/pages/Renegotiation'))
 const PortabilityPage = LazyLoading(() => import('employee/pages/Portability'))
 
+const MyAccountPage = LazyLoading(() => import('default/pages/MyAccount'))
+const MyAccountVerifiedPage = LazyLoading(() => import('default/pages/MyAccount/Verified'))
+const MyAccountEmailPage = LazyLoading(() => import('default/pages/MyAccount/Email'))
+const MyAccountEmailFormPage = LazyLoading(() => import('default/pages/MyAccount/Email/Form'))
+const MyAccountEmailTokenPage = LazyLoading(() => import('default/pages/MyAccount/Email/Token'))
+const MyAccountEmailConfirmPage = LazyLoading(() => import('default/pages/MyAccount/Email/Confirm'))
+
 const EmployeeRoutes = {
   INDEX: {
     route: '',
     name: 'Início',
     component: DashboardPage,
     icon: () => HomeOutlined,
+  },
+  MY_ACCOUNT: {
+    route: '/my-account',
+    name: 'Minha Conta',
+    hideMenu: true,
+    component: MyAccountPage,
+    routes: {
+      INDEX: {
+        route: '',
+        name: 'Informações',
+        component: MyAccountVerifiedPage,
+      },
+      EMAIL: {
+        route: '/email',
+        name: 'E-mail',
+        component: MyAccountEmailPage,
+        routes: {
+          INDEX: {
+            route: '',
+            name: 'Confirmar Email',
+            component: MyAccountEmailFormPage,
+          },
+          TOKEN: {
+            route: '/token',
+            name: 'Inserir o token',
+            component: MyAccountEmailTokenPage,
+          },
+          CONFIRM: {
+            route: '/confirm',
+            name: 'Confirmar alteração',
+            component: MyAccountEmailConfirmPage,
+          },
+        },
+      },
+    },
   },
   CREDIT: {
     route: '/credit',

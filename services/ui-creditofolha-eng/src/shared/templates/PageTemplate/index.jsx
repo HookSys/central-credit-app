@@ -30,5 +30,6 @@ export { default as ColumnWrapper } from './ColumnWrapper'
 export { default as ColumnRight } from './ColumnRight'
 export { default as ColumnLeft } from './ColumnLeft'
 export { default as Title } from './Title'
+export { default as BackLink } from './BackLink'
 
 export default Layout

@@ -16,9 +16,9 @@ const ContractsDashboard = ({ entity: { pages } }) => {
 
   const user = useSelector(state => state.user.get('data'))
   const isEmailValidated = user.get('email_verificado')
-  const isPhonelValidated = user.get('telefone_verificado')
+  const isPhoneValidated = user.get('telefone_celular_verificado')
 
-  if (!isEmailValidated || !isPhonelValidated) {
+  if (!isEmailValidated || !isPhoneValidated) {
     return (
       <Redirect to={ pages.INDEX.VALIDATE } />
     )

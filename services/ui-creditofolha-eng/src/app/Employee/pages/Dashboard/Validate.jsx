@@ -19,9 +19,9 @@ const ValidateDashboard = ({ entity: { pages } }) => {
   }
 
   const isEmailValidated = user.get('email_verificado')
-  const isPhonelValidated = user.get('telefone_verificado')
+  const isPhoneValidated = user.get('telefone_celular_verificado')
 
-  if (isEmailValidated && isPhonelValidated) {
+  if (isEmailValidated && isPhoneValidated) {
     return (
       <Redirect to={ pages.INDEX.INDEX } />
     )
@@ -67,22 +67,22 @@ const ValidateDashboard = ({ entity: { pages } }) => {
             </div>
             <div
               className={ classNames('d-flex align-items-center w-100 bg-white-op px-4 py-3 mt-2', {
-                'text-success shadow-lg': isPhonelValidated,
+                'text-success shadow-lg': isPhoneValidated,
               }) }
             >
               <SvgImage
-                icon={ isPhonelValidated ? AVAILABLE_IMAGES.PHONE_DASHBOARD_ICON
+                icon={ isPhoneValidated ? AVAILABLE_IMAGES.PHONE_DASHBOARD_ICON
                   : AVAILABLE_IMAGES.PHONE_DASHBOARD_ICON }
                 className='font-size-3xl mr-3'
               />
               <span
                 className={ classNames('d-block font-size-xl', {
-                  'font-weight-bold': isPhonelValidated,
+                  'font-weight-bold': isPhoneValidated,
                 }) }
               >
                 Validar telefone
               </span>
-              { !isPhonelValidated ? (
+              { !isPhoneValidated ? (
                 <Button className='btn btn-light btn-sm bg-white ml-auto' onClick={ onButtonClick }>Validar</Button>
               ) : (
                 <CheckCircle className='ml-auto' />

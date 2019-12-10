@@ -10,7 +10,10 @@ function getPathKeysOf(pages, pathname, parent = '') {
   return Object.keys(pages).reduce((path, key) => {
     const pathFull = parent === '' ? key : `${ parent }.routes.${ key }`
     if (typeof pages[key] === 'object') {
-      return getPathKeysOf(pages[key], pathname, pathFull)
+      const pathsub = getPathKeysOf(pages[key], pathname, pathFull)
+      if (pathsub !== '') {
+        return pathsub
+      }
     }
     if (pages[key] === pathname) {
       return pathFull

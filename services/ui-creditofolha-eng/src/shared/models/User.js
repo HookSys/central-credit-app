@@ -1,7 +1,7 @@
 import { toEntityList } from 'base/BaseList'
 import BaseRecord from 'base/BaseRecord'
-import UserEntity from 'core/models//UserEntity'
-import UserTerms from 'core/models/UserTerms'
+import UserEntity from 'models//UserEntity'
+import UserTerms from 'models/UserTerms'
 
 const defaultValues = {
   cpf: '',

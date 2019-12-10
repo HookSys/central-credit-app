@@ -1,5 +1,5 @@
 // @flow
-import Exception from 'core/models/Exception'
+import Exception from 'models/Exception'
 import { REDUX_FORM_SUBMIT, REDUX_FORM_CHANGE, EXCEPTION_SAVE, EXCEPTION_CLEAR, REACT_ROUTER_LOCATION_CHANGE } from 'core/constants/actionsType'
 
 import type { Reducer } from 'redux'

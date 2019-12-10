@@ -2,13 +2,13 @@ import { appLoadSpinner, appUnloadSpinner } from 'core/actions/app'
 import { authLogout } from 'core/actions/auth'
 import { removeEmptyKeys } from 'helpers'
 
-export const USER_ASYNC_SUCCESS = 'USER_ASYNC_SUCCESS'
-export const USER_ASYNC_FAIL = 'USER_ASYNC_FAIL'
-export const USER_SELECT_ENTITY = 'USER_SELECT_ENTITY'
-export const USER_SET_RECENTLY_CREATED = 'USER_SET_RECENTLY_CREATED'
-export const USER_LOGOUT = 'USER_LOGOUT'
-export const USER_ACCEPT_TERMS_SUCCESS = 'USER_ACCEPT_TERMS_SUCCESS'
-export const USER_VALIDATION_SUCCESS = 'USER_ACCEPT_TERMS_SUCCESS'
+export const USER_ASYNC_SUCCESS = 'CORE/USER_ASYNC_SUCCESS'
+export const USER_ASYNC_FAIL = 'CORE/USER_ASYNC_FAIL'
+export const USER_SELECT_ENTITY = 'CORE/USER_SELECT_ENTITY'
+export const USER_SET_RECENTLY_CREATED = 'CORE/USER_SET_RECENTLY_CREATED'
+export const USER_LOGOUT = 'CORE/USER_LOGOUT'
+export const USER_ACCEPT_TERMS_SUCCESS = 'CORE/USER_ACCEPT_TERMS_SUCCESS'
+export const USER_VALIDATION_SUCCESS = 'CORE/USER_ACCEPT_TERMS_SUCCESS'
 
 function userAsyncSuccess(user) {
   return {

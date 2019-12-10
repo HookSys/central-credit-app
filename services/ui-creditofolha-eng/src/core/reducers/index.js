@@ -9,6 +9,7 @@ import app from 'core/reducers/app'
 import errors from 'core/reducers/exception'
 import user from 'core/reducers/user'
 import auth from 'core/reducers/auth'
+import alerts from 'core/reducers/alerts'
 
 import type { History } from 'react-router'
 // import type { TCoreState, TAction } from 'core/types'
@@ -21,10 +22,13 @@ const coreState = (history: History) => combineReducers<any, any>({
   // default: Default,
   company,
   employee,
+
   app,
   errors,
   user,
   auth,
+  alerts,
+
   form: formReducer,
   router: connectRouter(history),
 })

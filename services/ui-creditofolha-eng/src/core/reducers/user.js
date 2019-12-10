@@ -1,4 +1,4 @@
-import User from 'core/models/User'
+import User from 'models/User'
 import Base from 'base/Base'
 
 import {

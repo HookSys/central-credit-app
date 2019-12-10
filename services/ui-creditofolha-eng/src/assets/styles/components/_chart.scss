@@ -1,9 +1,9 @@
 .chart {
-  max-width: 700px;
   margin: 0 auto;
+  margin-top: space-size(4);
 
   canvas {
     padding: space-size(3);
-    background: white;
+    background: $white;
   }
 }

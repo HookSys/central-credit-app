@@ -1,4 +1,4 @@
-import Auth from 'core/models/Auth'
+import Auth from 'models/Auth'
 
 import {
   AUTH_LOGOUT,

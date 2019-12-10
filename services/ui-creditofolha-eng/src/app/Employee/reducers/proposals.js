@@ -1,5 +1,5 @@
 import BaseList, { toEntityList } from 'base/BaseList'
-import Proposal from 'employee/models/Proposal'
+import Proposal from 'models/Proposal'
 
 import {
   PROPOSALS_ASYNC_SUCCESS,

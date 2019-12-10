@@ -314,6 +314,8 @@ module.exports = function(webpackEnv) {
         'templates': path.resolve(paths.appSrc, 'shared', 'templates'),
         'base': path.resolve(paths.appSrc, 'shared', 'base'),
         'form': path.resolve(paths.appSrc, 'shared', 'form'),
+        'models': path.resolve(paths.appSrc, 'shared', 'models'),
+        'factories': path.resolve(paths.appSrc, 'shared', 'factories'),
 
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/

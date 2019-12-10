@@ -1,6 +1,6 @@
 import BaseRecord from 'base/BaseRecord'
 import { toEntityList } from 'base/BaseList'
-import ReceivablePayment from 'employee/models/ReceivablePayment'
+import ReceivablePayment from 'models/ReceivablePayment'
 
 const defaultValues = {
   id: null,

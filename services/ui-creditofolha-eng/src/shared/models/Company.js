@@ -1,6 +1,6 @@
 import { get } from 'lodash'
 import BaseRecord from 'base/BaseRecord'
-import Address from 'core/models/Address'
+import Address from 'models/Address'
 
 const defaultValues = {
   id: '',

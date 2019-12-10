@@ -1,9 +1,9 @@
 import { get } from 'lodash'
 import BaseRecord from 'base/BaseRecord'
 import { toEntityList } from 'base/BaseList'
-import Financial from 'employee/models/Financial'
-import Client from 'employee/models/Client'
-import Receivable from 'employee/models/Receivable'
+import Financial from 'models/Financial'
+import Client from 'models/Client'
+import Receivable from 'models/Receivable'
 
 const defaultValues = {
   identificador: null,

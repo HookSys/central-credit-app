@@ -1,5 +1,5 @@
 import Base from 'base/Base'
-import Employee from 'employee/models/Employee'
+import Employee from 'models/Employee'
 
 import {
   EMPLOYEE_ASYNC_SUCCESS,

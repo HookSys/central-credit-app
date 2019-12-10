@@ -1,8 +1,8 @@
 import { get } from 'lodash'
 import BaseRecord from 'base/BaseRecord'
-import Address from 'core/models/Address'
-import Document from 'core/models/Document'
-import Person from 'employee/models/Person'
+import Address from 'models/Address'
+import Document from 'models/Document'
+import Person from 'models/Person'
 
 const defaultValues = {
   pessoa: new Person(),

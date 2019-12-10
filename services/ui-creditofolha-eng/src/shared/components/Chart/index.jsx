@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Bar, defaults } from 'react-chartjs-2'
 
-defaults.bar.scales.xAxes[0].barPercentage = 0.2
 defaults.scale.ticks.beginAtZero = true
-
 
 const Chart = ({ className, data, children }) => {
   return (

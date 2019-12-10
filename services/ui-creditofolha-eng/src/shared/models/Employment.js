@@ -1,7 +1,7 @@
 import { get } from 'lodash'
 import BaseRecord from 'base/BaseRecord'
-import Payment from 'employee/models/Payment'
-import Client from 'employee/models/Client'
+import Payment from 'models/Payment'
+import Client from 'models/Client'
 
 const defaultValues = {
   id: '',

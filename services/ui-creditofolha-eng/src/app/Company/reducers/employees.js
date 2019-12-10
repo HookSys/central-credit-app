@@ -1,6 +1,6 @@
 import { Record } from 'immutable'
 import BaseList, { toEntityList } from 'base/BaseList'
-import Employee from 'company/models/Employee'
+import Employee from 'models/Employee'
 
 import {
   EMPLOYEES_ASYNC_SUCCESS,

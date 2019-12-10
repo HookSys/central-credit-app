@@ -1,8 +1,8 @@
 import { get } from 'lodash'
 import BaseRecord from 'base/BaseRecord'
-import Payment from 'employee/models/Payment'
-import Contract from 'employee/models/Contract'
-import Employment from 'employee/models/Employment'
+import Payment from 'models/Payment'
+import Contract from 'models/Contract'
+import Employment from 'models/Employment'
 
 const defaultValues = {
   identificador: null,

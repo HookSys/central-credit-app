@@ -15,10 +15,12 @@ import type { History } from 'react-router'
 
 // import Default from 'default/reducers'
 import company from 'company/reducers'
+import employee from 'employee/reducers'
 
 const coreState = (history: History) => combineReducers<any, any>({
   // default: Default,
   company,
+  employee,
   app,
   errors,
   user,

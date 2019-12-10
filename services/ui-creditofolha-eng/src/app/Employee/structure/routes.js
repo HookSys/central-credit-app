@@ -5,6 +5,9 @@ import { HomeOutlined, Receipt, CompareArrows, MergeType, CallReceived, AttachMo
 
 // Pages
 const DashboardPage = LazyLoading(() => import('employee/pages/Dashboard'))
+const DashboardValidatePage = LazyLoading(() => import('employee/pages/Dashboard/Validate'))
+const DashboardNoContractsPage = LazyLoading(() => import('employee/pages/Dashboard/NoContracts'))
+const DashboardContractsPage = LazyLoading(() => import('employee/pages/Dashboard/Contracts'))
 const CreditRequestPage = LazyLoading(() => import('employee/pages/Credit'))
 const HistoryPage = LazyLoading(() => import('employee/pages/History'))
 const RepassPage = LazyLoading(() => import('employee/pages/Repass'))
@@ -30,6 +33,23 @@ const EmployeeRoutes = {
     name: 'Início',
     component: DashboardPage,
     icon: () => HomeOutlined,
+    routes: {
+      INDEX: {
+        route: '',
+        name: 'Contratos',
+        component: DashboardContractsPage,
+      },
+      VALIDATE: {
+        route: '/validate',
+        name: 'Valide suas informações',
+        component: DashboardValidatePage,
+      },
+      NO_CONTRACTS: {
+        route: '/no-contracts',
+        name: 'Contratos',
+        component: DashboardNoContractsPage,
+      },
+    },
   },
   MY_ACCOUNT: {
     route: '/my-account',

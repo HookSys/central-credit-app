@@ -124,7 +124,7 @@ Table.propTypes = {
 Table.defaultProps = {
   className: '',
   showToast: false,
-  backgroundColor: 'bg-container-light',
+  backgroundColor: 'bg-container',
   disableAction: false,
   containerRef: null,
   tableRef: null,

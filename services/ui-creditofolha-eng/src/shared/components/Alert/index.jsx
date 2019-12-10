@@ -7,6 +7,7 @@ const Alert = forwardRef((props, ref) => {
   const {
     className,
     children,
+    hideClose,
   } = props
 
   const [isVisible, showAlert] = useState(false)
@@ -29,7 +30,7 @@ const Alert = forwardRef((props, ref) => {
       <div className='alert-content'>
         { children }
       </div>
-      <HighlightOff className='alert-close-button' onClick={ () => showAlert(false) } />
+      { !hideClose && (<HighlightOff className='alert-close-button' onClick={ () => showAlert(false) } />) }
     </div>
   )
 })
@@ -37,10 +38,12 @@ const Alert = forwardRef((props, ref) => {
 Alert.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
+  hideClose: PropTypes.bool,
 }
 
 Alert.defaultProps = {
   className: 'alert',
+  hideClose: false,
 }
 
 export default Alert

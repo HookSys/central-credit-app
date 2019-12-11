@@ -4,6 +4,7 @@ import Employee from 'models/Employee'
 
 import {
   EMPLOYEES_ASYNC_SUCCESS,
+  EMPLOYEE_ASYNC_SUCCESS,
   EMPLOYEES_ASYNC_FAIL,
   EMPLOYEES_UPDATE_PAGE,
   EMPLOYEES_UPDATE_FILTERS,
@@ -28,6 +29,13 @@ const initialState = new BaseList({
 })
 
 const actionsMap = {
+  [EMPLOYEE_ASYNC_SUCCESS]: (state, action) => {
+    const { payload: employee } = action
+    const options = state.get('options')
+    return state.merge({
+      options: options.set('selected', new Employee(employee)),
+    })
+  },
   [EMPLOYEES_ASYNC_SUCCESS]: (state, action) => {
     const { results, count, next, previous } = action.payload
 

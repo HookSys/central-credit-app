@@ -16,6 +16,10 @@ const EmployeesSidePanel = ({ pages, routes }) => {
         </Header>
         <Links>
           { Object.keys(routes).map((key) => {
+            if (routes[key].hideMenu) {
+              return null
+            }
+
             return (
               <Link
                 to={ pages[key] }

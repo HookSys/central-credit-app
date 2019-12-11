@@ -1,6 +1,7 @@
 import { appLoadSpinner, appUnloadSpinner } from 'core/actions/app'
 
 export const EMPLOYEES_ASYNC_SUCCESS = 'COMPANY/EMPLOYEES_ASYNC_SUCCESS'
+export const EMPLOYEE_ASYNC_SUCCESS = 'COMPANY/EMPLOYEE_ASYNC_SUCCESS'
 export const EMPLOYEES_ASYNC_FAIL = 'COMPANY/EMPLOYEES_ASYNC_FAIL'
 export const EMPLOYEES_UPDATE_PAGE = 'COMPANY/EMPLOYEES_UPDATE_PAGE'
 export const EMPLOYEES_UPDATE_FILTERS = 'COMPANY/EMPLOYEES_UPDATE_FILTERS'
@@ -8,6 +9,13 @@ export const EMPLOYEES_UPDATE_FILTERS = 'COMPANY/EMPLOYEES_UPDATE_FILTERS'
 function employeesAsyncSuccess(employees) {
   return {
     type: EMPLOYEES_ASYNC_SUCCESS,
+    payload: employees,
+  }
+}
+
+function employeeAsyncSuccess(employees) {
+  return {
+    type: EMPLOYEE_ASYNC_SUCCESS,
     payload: employees,
   }
 }
@@ -59,6 +67,34 @@ export function employeesAsyncRequest(query) {
       })
 
       await dispatch(employeesAsyncSuccess(response))
+      return response
+    } catch (errorMessage) {
+      dispatch(employeesAsyncFail(errorMessage))
+      return null
+    } finally {
+      dispatch(appUnloadSpinner())
+    }
+  }
+}
+
+export function employeeAsyncRequest(query, employeeId) {
+  return async (dispatch, getState, service) => {
+    dispatch(appLoadSpinner())
+
+    try {
+      const response = await service.apiV3({
+        path: '/cep/funcionarios/:employeeId/',
+        method: 'GET',
+        pathParams: {
+          employeeId,
+        },
+        queryParams: {
+          fields: query,
+        },
+        body: null,
+      })
+
+      await dispatch(employeeAsyncSuccess(response))
       return response
     } catch (errorMessage) {
       dispatch(employeesAsyncFail(errorMessage))

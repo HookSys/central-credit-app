@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 const Layout = ({ children, className, isFluid }) => {
   return (
-    <div className={ classNames(className, {
+    <div className={ classNames('mb-5', className, {
       'container-fluid': isFluid,
       'container': !isFluid,
     }) }
@@ -31,5 +31,6 @@ export { default as ColumnRight } from './ColumnRight'
 export { default as ColumnLeft } from './ColumnLeft'
 export { default as Title } from './Title'
 export { default as BackLink } from './BackLink'
+export { default as HeaderInfo } from './HeaderInfo'
 
 export default Layout

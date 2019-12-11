@@ -1,10 +1,12 @@
-export const dashboardContractQuery = [
+import createQuery from 'helpers/createQuery'
+
+export const dashboardContractQuery = createQuery([
   'id',
   'efetivado_em',
   'ultimo_vencimento',
-]
+])
 
-export const pendingAverbationQuery = [
+export const pendingAverbationQuery = createQuery([
   'identificador',
   'averbacao',
   'averbacao_ate',
@@ -16,4 +18,4 @@ export const pendingAverbationQuery = [
   'percentual_comprometido',
   'emprego',
   'num_parcelas',
-]
+])

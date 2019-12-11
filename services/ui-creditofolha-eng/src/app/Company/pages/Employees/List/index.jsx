@@ -1,4 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Cards, { Card, CardRow, CardTitle, CardAlert, CardContent, CardInfo } from 'components/Cards'
 import { ColumnWrapper, ColumnLeft, Title, Container } from 'templates/PageTemplate'
@@ -7,12 +9,25 @@ import Pagination from 'components/Pagination'
 import { EmployeeStatusDescription, EmployeeStatusColor } from 'company/constants/employee'
 import { employeesListQuery } from 'company/queries/employees'
 
-const EmployeesList = () => {
+function bindPathParams(
+  pathParams,
+  path
+) {
+  if (!pathParams) {
+    return path
+  }
+  return Object.keys(pathParams).reduce((result, key) => {
+    return result.replace(`:${ key }`, pathParams[key])
+  }, path)
+}
+
+const EmployeesList = ({ entity: { pages: entityPages } }) => {
   const dispatch = useDispatch()
   const employees = useSelector(({ company }) => company.employees.get('results'))
   const options = useSelector(({ company }) => company.employees.get('options'))
   const pages = useSelector(({ company }) => company.employees.getTotalPages())
   const selectedPage = options.get('currentPageIndex')
+  const history = useHistory()
 
   useEffect(() => {
     dispatch(employeesAsyncRequest(employeesListQuery))
@@ -35,7 +50,15 @@ const EmployeesList = () => {
             { employees.map((employee) => {
               const status = employee.get('status')
               return (
-                <Card key={ employee.get('id') }>
+                <Card
+                  key={ employee.get('id') }
+                  onClick={ () => {
+                    const route = bindPathParams({
+                      employeeId: employee.get('id'),
+                    }, entityPages.EMPLOYEES.VIEW)
+                    history.push(route)
+                  } }
+                >
                   <CardRow>
                     <CardTitle isAvatarVisible={ true }>
                       { employee.getFullName() }
@@ -73,6 +96,10 @@ const EmployeesList = () => {
       </ColumnWrapper>
     </Fragment>
   )
+}
+
+EmployeesList.propTypes = {
+  entity: PropTypes.object.isRequired,
 }
 
 export default EmployeesList

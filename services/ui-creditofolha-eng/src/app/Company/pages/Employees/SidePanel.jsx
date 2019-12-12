@@ -1,11 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useHistory } from 'react-router-dom'
 import SidePanelTemplate from 'templates/SidePanelTemplate'
 import SidePanelRender from 'components/SidePanelRender'
 
-const { Layout, Header, Title, Links, Link } = SidePanelTemplate
+const { Layout, Header, Title, Links, Link, Action } = SidePanelTemplate
 
 const EmployeesSidePanel = ({ pages, routes }) => {
+  const history = useHistory()
+
   return (
     <SidePanelRender>
       <Layout>
@@ -13,6 +16,9 @@ const EmployeesSidePanel = ({ pages, routes }) => {
           <Title>
             Funcionários
           </Title>
+          <Action onClick={ () => history.push(pages.NEW) }>
+            +
+          </Action>
         </Header>
         <Links>
           { Object.keys(routes).map((key) => {

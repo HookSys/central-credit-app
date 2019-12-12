@@ -6,6 +6,7 @@ import SidePanelLink from './Link'
 import SidePanelTitle from './Title'
 import SidePanelHeader from './Header'
 import SidePanelBackLink from './BackLink'
+import SidePanelAction from './Action'
 import SidePanelCards from './Cards'
 import SidePanelCard from './Cards/Card'
 
@@ -28,6 +29,7 @@ export default {
   Links: SidePanelLinks,
   Header: SidePanelHeader,
   BackLink: SidePanelBackLink,
+  Action: SidePanelAction,
   Cards: SidePanelCards,
   Card: SidePanelCard,
 }

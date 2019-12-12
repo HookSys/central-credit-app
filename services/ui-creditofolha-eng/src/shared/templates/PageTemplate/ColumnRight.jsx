@@ -7,7 +7,7 @@ import { useWindowSize } from 'hooks'
 const ColumnRight = ({ children, className, isActionBar }) => {
   const size = useWindowSize()
 
-  if (isActionBar && ['XS', 'SM', 'MD'].includes(size)) {
+  if (isActionBar && ['XS', 'SM'].includes(size)) {
     return (
       <ActionBarRender>
         <div className='mobile-action-bar'>

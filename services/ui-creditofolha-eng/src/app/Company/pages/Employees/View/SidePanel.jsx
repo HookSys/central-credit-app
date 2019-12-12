@@ -7,7 +7,7 @@ import SidePanelRender from 'components/SidePanelRender'
 import EmployeeCard from 'company/components/EmployeeCard'
 import { bindPathParams } from 'helpers'
 
-const { Layout, Header, Title, BackLink, Cards, Card } = SidePanelTemplate
+const { Layout, Header, Title, BackLink, Cards, Card, Action } = SidePanelTemplate
 
 const EmployeeViewSidePanel = () => {
   const { pages } = useStructure()
@@ -36,6 +36,9 @@ const EmployeeViewSidePanel = () => {
           <Title>
             Funcionários
           </Title>
+          <Action onClick={ () => history.push(pages.EMPLOYEES.NEW) }>
+            +
+          </Action>
         </Header>
         { employees.size > 0 ? (
           <Cards>

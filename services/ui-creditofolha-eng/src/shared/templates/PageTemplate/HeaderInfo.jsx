@@ -4,11 +4,11 @@ import classNames from 'classnames'
 
 const HeaderInfo = ({ title, children, className }) => {
   return (
-    <div className={ classNames('d-flex flex-column', className) }>
-      <span className='d-block text-low-dark'>
+    <div className={ classNames('d-flex flex-column justify-content-center', className) }>
+      <span className='d-block text-low-dark text-truncate'>
         { title }
       </span>
-      <span className='d-block'>
+      <span className='d-block text-truncate'>
         { children }
       </span>
     </div>

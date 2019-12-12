@@ -10,6 +10,7 @@ const EmployeesListPage = LazyLoading(() => import('company/pages/Employees/List
 const EmployeesDemissionPage = LazyLoading(() => import('company/pages/Employees/Demission'))
 const EmployeesImportPage = LazyLoading(() => import('company/pages/Employees/Import'))
 const EmployeesViewPage = LazyLoading(() => import('company/pages/Employees/View'))
+const EmployeesNewPage = LazyLoading(() => import('company/pages/Employees/New'))
 
 const ContractsPage = LazyLoading(() => import('company/pages/Contracts'))
 const ContractsIndexPage = LazyLoading(() => import('company/pages/Contracts/Contracts'))
@@ -125,6 +126,12 @@ const CompanyRoutes = {
         route: '/view/:employeeId',
         name: 'Detalhes',
         component: EmployeesViewPage,
+        hideMenu: true,
+      },
+      NEW: {
+        route: '/new',
+        name: 'Novo',
+        component: EmployeesNewPage,
         hideMenu: true,
       },
     },

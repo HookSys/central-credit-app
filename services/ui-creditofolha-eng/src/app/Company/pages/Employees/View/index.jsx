@@ -84,7 +84,7 @@ const EmployeesView = ({ entity: { pages } }) => {
         </ColumnRight>
       </ColumnWrapper>
 
-      <ColumnWrapper className='mt-0 mb-4'>
+      <ColumnWrapper className='mt-0 mb-4 d-flex flex-column flex-md-row'>
         <ColumnLeft>
           <div className='d-flex align-items-center'>
             <Avatar
@@ -98,21 +98,22 @@ const EmployeesView = ({ entity: { pages } }) => {
           </div>
         </ColumnLeft>
         <ColumnRight>
-          <div className='d-flex'>
+          <div className='d-flex justify-content-between justify-content-md-end flex-wrap'>
             <HeaderInfo
               title='Margem Disponível'
+              className='mt-3 mt-md-0 pr-2'
             >
               { employee.getFormatedCurrency('margem_disponivel') }
             </HeaderInfo>
             <HeaderInfo
               title='Matrícula'
-              className='ml-4'
+              className='mt-3 mt-md-0 ml-md-4 pr-2'
             >
               { `#${ employee.get('matricula') }` }
             </HeaderInfo>
             <HeaderInfo
               title='Data de Admissão'
-              className='ml-4'
+              className='mt-3 mt-md-0 ml-md-4 pr-2'
             >
               { employee.getFormatedDate('admitido_em') }
             </HeaderInfo>

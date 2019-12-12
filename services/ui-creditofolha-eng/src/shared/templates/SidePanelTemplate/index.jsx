@@ -6,6 +6,8 @@ import SidePanelLink from './Link'
 import SidePanelTitle from './Title'
 import SidePanelHeader from './Header'
 import SidePanelBackLink from './BackLink'
+import SidePanelCards from './Cards'
+import SidePanelCard from './Cards/Card'
 
 const Layout = ({ children }) => {
   return (
@@ -26,4 +28,6 @@ export default {
   Links: SidePanelLinks,
   Header: SidePanelHeader,
   BackLink: SidePanelBackLink,
+  Cards: SidePanelCards,
+  Card: SidePanelCard,
 }

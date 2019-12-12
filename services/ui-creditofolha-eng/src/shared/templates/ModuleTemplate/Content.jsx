@@ -4,9 +4,11 @@ import classNames from 'classnames'
 import { useRightSwipe, useLeftSwipe } from 'hooks'
 
 import { SideNavigationContext } from './SideNavigation'
+import { ActionBarContext } from './ActionBar'
 
 const Content = ({ children }) => {
   const contentRef = useRef()
+  const { isActionBarVisible } = useContext(ActionBarContext)
   const { toggleSideNavigation, isSideNavigationVisible } = useContext(SideNavigationContext)
 
   useRightSwipe(() => {
@@ -19,7 +21,9 @@ const Content = ({ children }) => {
 
   return (
     <div
-      className='d-flex flex-column content'
+      className={ classNames('d-flex flex-column content', {
+        'mb-5': isActionBarVisible,
+      }) }
       ref={ contentRef }
     >
       { children }

@@ -9,6 +9,7 @@ import SideBar from './SideBar'
 import SidePanel from './SidePanel'
 import Providers from './Providers'
 import SideNavigation from './SideNavigation'
+import ActionBar from './ActionBar'
 
 const Layout = ({ children }) => {
   const structure = useStructure()
@@ -34,6 +35,7 @@ const Layout = ({ children }) => {
             { children }
           </main>
         </Content>
+        <ActionBar />
       </Providers>
     </Fragment>
   )

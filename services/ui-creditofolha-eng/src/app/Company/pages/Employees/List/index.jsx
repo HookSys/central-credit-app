@@ -8,20 +8,11 @@ import { employeesAsyncRequest, employeesUpdatePage } from 'company/actions/empl
 import Pagination from 'components/Pagination'
 import { EmployeeStatusDescription, EmployeeStatusColor } from 'company/constants/employee'
 import { employeesListQuery } from 'company/queries/employees'
+import { bindPathParams } from 'helpers'
+import EmployeesSidePanel from 'company/pages/Employees/SidePanel'
+import EmployeesSearchForm from 'company/pages/Employees/SearchForm'
 
-function bindPathParams(
-  pathParams,
-  path
-) {
-  if (!pathParams) {
-    return path
-  }
-  return Object.keys(pathParams).reduce((result, key) => {
-    return result.replace(`:${ key }`, pathParams[key])
-  }, path)
-}
-
-const EmployeesList = ({ entity: { pages: entityPages } }) => {
+const EmployeesList = ({ parent, entity: { pages: entityPages } }) => {
   const dispatch = useDispatch()
   const employees = useSelector(({ company }) => company.employees.get('results'))
   const options = useSelector(({ company }) => company.employees.get('options'))
@@ -37,8 +28,17 @@ const EmployeesList = ({ entity: { pages: entityPages } }) => {
     dispatch(employeesUpdatePage(page))
   }
 
+  const onEmployeeClick = (employee) => () => {
+    const route = bindPathParams({
+      employeeId: employee.get('id'),
+    }, entityPages.EMPLOYEES.VIEW)
+    history.push(route)
+  }
+
   return (
     <Fragment>
+      <EmployeesSidePanel pages={ entityPages.EMPLOYEES } routes={ parent.routes } />
+      <EmployeesSearchForm />
       <ColumnWrapper>
         <ColumnLeft>
           <Title>Quadro de Funcionários</Title>
@@ -52,12 +52,7 @@ const EmployeesList = ({ entity: { pages: entityPages } }) => {
               return (
                 <Card
                   key={ employee.get('id') }
-                  onClick={ () => {
-                    const route = bindPathParams({
-                      employeeId: employee.get('id'),
-                    }, entityPages.EMPLOYEES.VIEW)
-                    history.push(route)
-                  } }
+                  onClick={ onEmployeeClick(employee) }
                 >
                   <CardRow>
                     <CardTitle isAvatarVisible={ true }>
@@ -100,6 +95,7 @@ const EmployeesList = ({ entity: { pages: entityPages } }) => {
 
 EmployeesList.propTypes = {
   entity: PropTypes.object.isRequired,
+  parent: PropTypes.object.isRequired,
 }
 
 export default EmployeesList

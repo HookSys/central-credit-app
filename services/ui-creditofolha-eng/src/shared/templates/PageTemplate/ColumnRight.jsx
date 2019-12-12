@@ -1,22 +1,40 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import ActionBarRender from 'components/ActionBarRender'
+import { useWindowSize } from 'hooks'
 
-const ColumnLeft = ({ children, className }) => {
+const ColumnRight = ({ children, className, isActionBar }) => {
+  const size = useWindowSize()
+
+  if (isActionBar && ['XS', 'SM', 'MD'].includes(size)) {
+    return (
+      <ActionBarRender>
+        <div className='mobile-action-bar'>
+          { children }
+        </div>
+      </ActionBarRender>
+    )
+  }
+
   return (
-    <div className={ classNames('ml-auto', className) }>
+    <div
+      className={ classNames('ml-auto', className) }
+    >
       { children }
     </div>
   )
 }
 
-ColumnLeft.propTypes = {
+ColumnRight.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  isActionBar: PropTypes.bool,
 }
 
-ColumnLeft.defaultProps = {
+ColumnRight.defaultProps = {
   className: '',
+  isActionBar: false,
 }
 
-export default ColumnLeft
+export default ColumnRight

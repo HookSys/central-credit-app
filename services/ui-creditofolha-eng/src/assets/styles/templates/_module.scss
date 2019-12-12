@@ -153,6 +153,8 @@
 
   .content {
     width: calc(100vw - #{$sidebar-width});
+    max-height: 100vh;
+    overflow-y: scroll;
 
     .sidebar-overlay {
       visibility: hidden;

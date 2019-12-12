@@ -6,10 +6,12 @@ import { useParams, useHistory } from 'react-router-dom'
 import { ColumnWrapper, ColumnLeft, ColumnRight, Container, HeaderInfo } from 'templates/PageTemplate'
 import ViewTable, { ViewTableRow, ViewTableCell } from 'components/ViewTable'
 import { ToastContext } from 'components/ToastProvider'
-import { newEmployeeQuery } from 'company/queries/employees'
-import { employeeAsyncRequest } from 'company/actions/employees'
+import { newEmployeeQuery, employeesListQuery } from 'company/queries/employees'
+import { employeesAsyncRequest, employeeAsyncRequest } from 'company/actions/employees'
 import Avatar from 'components/Avatar'
 import Button from 'components/Button'
+
+import EmployeeViewSidePanel from './SidePanel'
 
 const EmployeesView = ({ entity: { pages } }) => {
   const { showErrorToast } = useContext(ToastContext)
@@ -17,6 +19,7 @@ const EmployeesView = ({ entity: { pages } }) => {
   const history = useHistory()
   const dispatch = useDispatch()
   const employee = useSelector(({ company }) => company.employees.getIn(['options', 'selected']))
+  const employees = useSelector(({ company }) => company.employees.get('results'))
 
   const employeeNotFound = () => {
     showErrorToast({
@@ -32,6 +35,8 @@ const EmployeesView = ({ entity: { pages } }) => {
       dispatch(employeeAsyncRequest(newEmployeeQuery, employeeId)).then((response) => {
         if (!response) {
           employeeNotFound()
+        } else if (employees.size === 0) {
+          dispatch(employeesAsyncRequest(employeesListQuery))
         }
       })
     }
@@ -46,6 +51,7 @@ const EmployeesView = ({ entity: { pages } }) => {
   const hasAccess = employee.get('possui_acesso')
   return (
     <Fragment>
+      <EmployeeViewSidePanel />
       <ColumnWrapper className='mb-2 mt-4'>
         <ColumnLeft>
           <div className='d-flex align-items-center h-100'>
@@ -67,7 +73,7 @@ const EmployeesView = ({ entity: { pages } }) => {
             </div>
           </div>
         </ColumnLeft>
-        <ColumnRight>
+        <ColumnRight isActionBar={ true }>
           <Button type='button' className='btn btn-link'>
             Demitir
           </Button>

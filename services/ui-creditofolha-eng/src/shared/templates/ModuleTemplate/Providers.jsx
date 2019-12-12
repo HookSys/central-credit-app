@@ -3,13 +3,16 @@ import PropTypes from 'prop-types'
 
 import { SideBarProvider } from './SideBar'
 import { SideNavigationProvider } from './SideNavigation'
+import { ActionBarProvider } from './ActionBar'
 
 const Providers = ({ children }) => {
   return (
     <div className='module-template'>
       <SideNavigationProvider>
         <SideBarProvider>
-          { children }
+          <ActionBarProvider>
+            { children }
+          </ActionBarProvider>
         </SideBarProvider>
       </SideNavigationProvider>
     </div>

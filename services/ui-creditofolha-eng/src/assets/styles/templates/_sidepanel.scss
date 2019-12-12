@@ -66,4 +66,29 @@
       }
     }
   }
+
+  .sidepanel-card {
+    min-height: 70px;
+    max-width: 90%;
+    border-radius: 4px;
+    border: 1px solid $gray-200;
+    outline: none !important;
+    position: relative;
+  
+    &:hover {
+      background-color: rgba(theme-color('primary'), 0.5);
+    }
+  
+    span {
+      color: theme-color('primary');
+    }
+  
+    &.active {
+      background-color: theme-color('primary');
+  
+      span {
+        color: $white !important;
+      }
+    }
+  }
 }

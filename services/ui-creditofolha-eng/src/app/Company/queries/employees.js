@@ -4,6 +4,7 @@ export const employeesListQuery = createQuery([
   'id',
   'nome',
   'sobrenome',
+  'cpf',
   'status',
   'matricula',
   'possui_acesso',

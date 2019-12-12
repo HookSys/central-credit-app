@@ -9,9 +9,27 @@ const WINDOW_SIZES = {
   LG: (width) => width >= 1022,
 }
 
+function getWindowSize() {
+  return new Promise((resolve) => {
+    const width = window.innerWidth
+    const sizes = Object.keys(WINDOW_SIZES)
+    for (let i = 0; i < sizes.length; i++) {
+      const size = sizes[i]
+      if (WINDOW_SIZES[size](width)) {
+        resolve(size)
+      }
+    }
+  })
+}
+
 function useWindowSize() {
   const [windowSize, updateWindowSize] = useState()
   const latestWindowSize = useRef()
+
+  const onWindowResize = debounce(async () => {
+    const size = await getWindowSize()
+    updateWindowSize(size)
+  }, 100, { leading: false, trailing: true })
 
   useIsomorphicLayoutEffect(() => {
     if (latestWindowSize.current !== windowSize) {
@@ -20,18 +38,7 @@ function useWindowSize() {
   }, [windowSize])
 
   useIsomorphicLayoutEffect(() => {
-    const onWindowResize = debounce(() => {
-      const width = window.innerWidth
-      const sizes = Object.keys(WINDOW_SIZES)
-      for (let i = 0; i < sizes.length; i++) {
-        const size = sizes[i]
-        if (WINDOW_SIZES[size](width)) {
-          updateWindowSize(size)
-          break
-        }
-      }
-    }, 100, { leading: false, trailing: true })
-
+    getWindowSize().then((size) => updateWindowSize(size))
     window.addEventListener('resize', onWindowResize)
     return () => window.removeEventListener('resize', onWindowResize)
   }, [])

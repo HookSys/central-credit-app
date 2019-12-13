@@ -1,9 +1,8 @@
 import { get } from 'lodash'
 import BaseRecord from 'base/BaseRecord'
 import Payment from 'models/Payment'
-import Client from 'models/Client'
+import Document from 'models/Document'
 import Address from 'models/Address'
-import Person from 'models/Person'
 import Company from 'models/Company'
 
 const defaultValues = {
@@ -18,11 +17,14 @@ const defaultValues = {
   telefone_celular: null,
   pagamento: new Payment(),
   endereco: new Address(),
+  documento: new Document(),
   matricula: null,
   status: null,
   cargo: null,
+  nome_mae: null,
   admitido_em: null,
   salario: null,
+  estado_civil: null,
   empresa: new Company(),
   inss: null,
   irrf: null,
@@ -43,9 +45,8 @@ export default class Employee extends BaseRecord(defaultValues, Employee) {
       ...values,
       pagamento: get(values, 'pagamento') ? new Payment(values.pagamento) : defaultValues.pagamento,
       empresa: get(values, 'empresa') ? new Company(values.empresa) : defaultValues.empresa,
-      cliente: get(values, 'cliente') ? new Client(values.cliente) : defaultValues.cliente,
+      documento: get(values, 'documento') ? new Document(values.documento) : defaultValues.documento,
       endereco: get(values, 'endereco') ? new Address(values.endereco) : defaultValues.endereco,
-      pessoa: get(values, 'pessoa') ? new Person(values.pessoa) : defaultValues.pessoa,
     })
   }
 

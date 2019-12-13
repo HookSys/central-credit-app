@@ -4,6 +4,7 @@ import axios from 'axios'
 import { fromJS } from 'immutable'
 import { CONTENT_TYPE, RESPONSE_TYPE } from 'constants/service'
 import { EEntityKeys } from 'constants/entity'
+import { bindPathParams } from 'helpers'
 
 import type { ResponseType, $AxiosXHR, Axios, $AxiosError } from 'axios'
 import type { TLoader, TServicesLoader, TRequestPayload, TService, TCore } from 'types'
@@ -15,18 +16,6 @@ import { userLogout } from 'core/actions/user'
 
 function Services(): TLoader<TServicesLoader> {
   const AppCore: TCore = this
-
-  function bindPathParams<R: Object>(
-    pathParams: ?R,
-    path: string
-  ): string {
-    if (!pathParams) {
-      return path
-    }
-    return Object.keys(pathParams).reduce((result, key) => {
-      return result.replace(`:${ key }`, pathParams[key])
-    }, path)
-  }
 
   function bindQueryParams<R: Object>(
     queryParams: ?R

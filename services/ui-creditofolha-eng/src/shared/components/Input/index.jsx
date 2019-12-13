@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Fragment } from 'react'
+import classNames from 'classnames'
 
 const Input = React.forwardRef((props, ref) => {
   const {
@@ -37,7 +38,9 @@ const Input = React.forwardRef((props, ref) => {
         onPaste={ onPaste }
         value={ value }
         placeholder={ placeholder }
-        className={ className }
+        className={ classNames(className, {
+          'no-value': value === '',
+        }) }
         checked={ checked }
         inputMode={ inputMode }
         tabIndex={ tabIndex }

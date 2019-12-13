@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import classNames from 'classnames'
 
 const Select = (props) => {
   const {
@@ -24,7 +25,10 @@ const Select = (props) => {
       onBlur={ onBlur }
       value={ value }
       placeholder={ placeholder }
-      className={ className }
+      autoComplete='true'
+      className={ classNames(className, {
+        'no-value': defaultValue && value === '',
+      }) }
     >
       { defaultValue && (
         <option value=''>{ placeholder || 'Selecione' }</option>

@@ -9,7 +9,8 @@ function selectedEntity(): TPermissionsValidator {
     validate: () => {
       const { Entity, Redux: { store: { getState } } }: TCore = this
       const user = getState().user.get('data')
-      const { location: { pathname } } = getState().router
+      const { router } = getState()
+      const pathname = router.getIn(['location', 'pathname'])
       const entity = user.getSelectedEntity()
       if (!entity) {
         return true

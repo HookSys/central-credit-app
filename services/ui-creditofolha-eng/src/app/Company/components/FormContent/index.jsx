@@ -6,7 +6,7 @@ const FormContent = ({ title, children, name }) => {
   return (
     <FormSection name={ name }>
       <div className='mb-3'>
-        <h5 className='text-primary'>{ title }</h5>
+        { title && (<h5 className='text-primary'>{ title }</h5>) }
         { children }
       </div>
     </FormSection>
@@ -14,16 +14,18 @@ const FormContent = ({ title, children, name }) => {
 }
 
 FormContent.propTypes = {
-  title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  title: PropTypes.string,
   name: PropTypes.string,
 }
 
 FormContent.defaultProps = {
   name: '',
+  title: null,
 }
 
 export { default as Row } from './Row'
 export { default as Element } from './Element'
+export { default as FormArea } from './Area'
 
 export default FormContent

@@ -4,12 +4,15 @@ import classNames from 'classnames'
 import { isRouteActive } from 'helpers'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
 
-const Link = ({ children, to, routeKey }) => {
+const Link = ({ children, pages, routeKey, onClick }) => {
   const location = useLocation()
 
+  const isContainer = typeof pages[routeKey] === 'object'
+  const to = isContainer ? pages[routeKey].INDEX : pages[routeKey]
   return (
     <RouterLink
       to={ to }
+      onClick={ onClick }
       className={ classNames('pl-3', {
         'active': isRouteActive(location, to, routeKey),
       }) }
@@ -21,8 +24,13 @@ const Link = ({ children, to, routeKey }) => {
 
 Link.propTypes = {
   children: PropTypes.node.isRequired,
-  to: PropTypes.string.isRequired,
+  pages: PropTypes.object.isRequired,
   routeKey: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+}
+
+Link.defaultProps = {
+  onClick: () => {},
 }
 
 export default Link

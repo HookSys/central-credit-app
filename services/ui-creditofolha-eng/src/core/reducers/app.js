@@ -1,10 +1,11 @@
 import { fromJS } from 'immutable'
-
 import { APP_LOAD_SPINNER, APP_UNLOAD_SPINNER } from 'core/constants/actionsType'
 
 const initialState = fromJS({
   actions: 0,
   spinner: false,
+  prevRoute: null,
+  route: null,
 })
 
 const actionsMap = {

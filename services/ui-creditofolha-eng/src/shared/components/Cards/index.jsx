@@ -25,5 +25,6 @@ export { default as CardRow } from './Row'
 export { default as CardTitle } from './Title'
 export { default as CardContent } from './Content'
 export { default as CardInfo } from './Info'
+export { default as CardAction } from './Action'
 
 export default Cards

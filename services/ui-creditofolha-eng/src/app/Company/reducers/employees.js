@@ -8,6 +8,7 @@ import {
   EMPLOYEES_ASYNC_FAIL,
   EMPLOYEES_UPDATE_PAGE,
   EMPLOYEES_UPDATE_FILTERS,
+  EMPLOYEE_RESET_SELECTED,
 } from 'company/actions/employees'
 
 const EmployeesOptions = new Record({
@@ -44,6 +45,12 @@ const actionsMap = {
       next,
       previous,
       results: toEntityList(results, Employee),
+    })
+  },
+  [EMPLOYEE_RESET_SELECTED]: (state) => {
+    const options = state.get('options')
+    return state.merge({
+      options: options.set('selected', null),
     })
   },
   [EMPLOYEES_ASYNC_FAIL]: (state, action) => {

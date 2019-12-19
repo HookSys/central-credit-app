@@ -8,6 +8,7 @@ import FeedbackLinks from './Links'
 import FeedbackLink from './Link'
 import FeedbackLeft from './Left'
 import FeedbackRight from './Right'
+import FeedbackTitle from './Title'
 
 const Layout = ({ children, isHorizontal }) => {
   useEffect(() => {
@@ -53,4 +54,5 @@ export default {
   Link: FeedbackLink,
   Left: FeedbackLeft,
   Right: FeedbackRight,
+  Title: FeedbackTitle,
 }

@@ -36,15 +36,24 @@ function RoutesBuilder({ rootPath, routes, parent, entity, id }: TRoutesBuilderP
       return (
         <Route path={ path } key={ cId }>
           <Permissions permissions={ route.permissions }>
-            <Switch>
-              { RoutesBuilder({
-                rootPath: path,
-                routes: route.routes,
-                parent: route,
-                entity,
-                id: cId,
-              }) }
-            </Switch>
+            <Container
+              route={ route }
+              parent={ parent }
+              entity={ entity }
+            >
+              <Switch>
+                { RoutesBuilder({
+                  rootPath: path,
+                  routes: route.routes,
+                  parent: {
+                    ...route,
+                    parent,
+                  },
+                  entity,
+                  id: cId,
+                }) }
+              </Switch>
+            </Container>
           </Permissions>
         </Route>
       )

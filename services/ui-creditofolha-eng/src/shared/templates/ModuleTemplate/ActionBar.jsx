@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
+
+import { SideNavigationContext } from './SideNavigation'
 
 const ActionBarContext = React.createContext({
   isActionBarVisible: false,
@@ -26,8 +29,15 @@ ActionBarProvider.propTypes = {
 }
 
 const ActionBar = () => {
+  const { isSideNavigationVisible } = useContext(SideNavigationContext)
   return (
-    <div id='action-bar-render' />
+    <div
+      id='action-bar-render'
+      className={ classNames({
+        'visible': !isSideNavigationVisible,
+        'invisible': isSideNavigationVisible,
+      }) }
+    />
   )
 }
 

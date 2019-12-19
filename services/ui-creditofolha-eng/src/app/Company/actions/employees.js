@@ -2,9 +2,11 @@ import { appLoadSpinner, appUnloadSpinner } from 'core/actions/app'
 
 export const EMPLOYEES_ASYNC_SUCCESS = 'COMPANY/EMPLOYEES_ASYNC_SUCCESS'
 export const EMPLOYEE_ASYNC_SUCCESS = 'COMPANY/EMPLOYEE_ASYNC_SUCCESS'
+export const EMPLOYEE_RESET_SELECTED = 'EMPLOYEE_RESET_SELECTED'
 export const EMPLOYEES_ASYNC_FAIL = 'COMPANY/EMPLOYEES_ASYNC_FAIL'
 export const EMPLOYEES_UPDATE_PAGE = 'COMPANY/EMPLOYEES_UPDATE_PAGE'
 export const EMPLOYEES_UPDATE_FILTERS = 'COMPANY/EMPLOYEES_UPDATE_FILTERS'
+export const EMPLOYEE_CREATE_SUCCESS = 'EMPLOYEE_CREATE_SUCCESS'
 
 function employeesAsyncSuccess(employees) {
   return {
@@ -27,6 +29,18 @@ function employeesAsyncFail(error) {
   }
 }
 
+function employeeCreateSuccess(employee) {
+  return {
+    type: EMPLOYEE_CREATE_SUCCESS,
+    payload: employee,
+  }
+}
+
+export function employeeResetSelected() {
+  return {
+    type: EMPLOYEE_RESET_SELECTED,
+  }
+}
 
 export function employeesUpdatePage(page) {
   return {
@@ -44,7 +58,7 @@ export function employeesUpdateFilters(search) {
   }
 }
 
-export function employeesAsyncRequest(query) {
+export function employeesAsyncRequest(query, status, ordering) {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
 
@@ -62,6 +76,8 @@ export function employeesAsyncRequest(query) {
           fields: query,
           offset,
           search,
+          status,
+          ordering,
         },
         body: null,
       })
@@ -95,6 +111,90 @@ export function employeeAsyncRequest(query, employeeId) {
       })
 
       await dispatch(employeeAsyncSuccess(response))
+      return response
+    } catch (errorMessage) {
+      dispatch(employeesAsyncFail(errorMessage))
+      return null
+    } finally {
+      dispatch(appUnloadSpinner())
+    }
+  }
+}
+
+export function employeeDemissionAsyncRequest(query, employeeId) {
+  return async (dispatch, getState, service) => {
+    dispatch(appLoadSpinner())
+
+    try {
+      const response = await service.apiV3({
+        path: '/cep/funcionarios/:employeeId/demitir/',
+        method: 'GET',
+        pathParams: {
+          employeeId,
+        },
+        queryParams: {
+          fields: query,
+        },
+        body: null,
+      })
+
+      await dispatch(employeeAsyncSuccess(response))
+      return response
+    } catch (errorMessage) {
+      dispatch(employeesAsyncFail(errorMessage))
+      return null
+    } finally {
+      dispatch(appUnloadSpinner())
+    }
+  }
+}
+
+export function employeeCreateRequest(employee) {
+  return async (dispatch, getState, service) => {
+    dispatch(appLoadSpinner())
+
+    const user = getState().user.get('data')
+    const entity = user.getSelectedEntity()
+
+    try {
+      const response = await service.apiV2({
+        path: '/empresas/:entity/funcionarios/',
+        method: 'POST',
+        pathParams: {
+          entity: entity.get('entidade_id'),
+        },
+        body: employee,
+      })
+
+      await dispatch(employeeCreateSuccess(response))
+      return response
+    } catch (errorMessage) {
+      dispatch(employeesAsyncFail(errorMessage))
+      return null
+    } finally {
+      dispatch(appUnloadSpinner())
+    }
+  }
+}
+
+export function employeeFireRequest(employeeId, firedDate, amountCep) {
+  return async (dispatch, getState, service) => {
+    dispatch(appLoadSpinner())
+
+    try {
+      const response = await service.apiV3({
+        path: '/cep/funcionarios/:employeeId/demitir/',
+        method: 'PUT',
+        pathParams: {
+          employeeId,
+        },
+        body: {
+          demissao_em: firedDate,
+          valor_descontado: amountCep,
+        },
+      })
+
+      await dispatch(employeeResetSelected())
       return response
     } catch (errorMessage) {
       dispatch(employeesAsyncFail(errorMessage))

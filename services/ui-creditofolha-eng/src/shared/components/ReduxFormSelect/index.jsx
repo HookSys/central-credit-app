@@ -35,7 +35,7 @@ const ReduxFormSelect = (props) => {
   const labelClass = classNames(labelClassName, {
     'text-danger': (error && inputTouched) || currentErrorText,
     'sr-only': !label,
-  })
+  }, 'd-block text-truncate')
 
   return (
     <div

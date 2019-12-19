@@ -1,17 +1,17 @@
 import BaseRecord from 'base/BaseRecord'
 
 const defaultValues = {
-  agencia: '-',
-  agencia_dac: '',
-  banco: '-',
-  banco_nome: '-',
+  agencia: null,
+  agencia_dac: null,
+  banco: null,
+  banco_nome: null,
   cliente_desde: null,
-  conta: '-',
-  conta_dac: '',
+  conta: null,
+  conta_dac: null,
   cpf_responsavel: null,
-  cnpj_responsavel: '',
+  cnpj_responsavel: null,
   praca: null,
-  tipo: '-',
+  tipo: null,
 }
 
 export default class Payment extends BaseRecord(defaultValues, Payment) {

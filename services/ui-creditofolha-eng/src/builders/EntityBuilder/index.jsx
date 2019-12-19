@@ -17,6 +17,7 @@ function EntityBuilder(entity: TEntity, id: TEntityKeys): TEntityInstance {
     name: entity.name,
     routes: entity.routes,
     permissions: entity.permissions,
+    parent: entity,
   }
 
   const rootPath = entity.type === EEntityTypes.DEFAULT ? '' : route

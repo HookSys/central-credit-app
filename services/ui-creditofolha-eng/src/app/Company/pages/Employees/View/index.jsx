@@ -7,7 +7,7 @@ import { ColumnWrapper, ColumnLeft, ColumnRight, Container, HeaderInfo } from 't
 import ViewTable, { ViewTableRow, ViewTableCell } from 'components/ViewTable'
 import { ToastContext } from 'components/ToastProvider'
 import { newEmployeeQuery, employeesListQuery } from 'company/queries/employees'
-import { employeesAsyncRequest, employeeAsyncRequest } from 'company/actions/employees'
+import { employeesAsyncRequest, employeeAsyncRequest, employeeResetSelected } from 'company/actions/employees'
 import Avatar from 'components/Avatar'
 import Button from 'components/Button'
 
@@ -27,6 +27,8 @@ const EmployeesView = ({ entity: { pages } }) => {
     })
     history.push(pages.EMPLOYEES.INDEX)
   }
+
+  useEffect(() => () => dispatch(employeeResetSelected()), [])
 
   useEffect(() => {
     if (!employeeId) {

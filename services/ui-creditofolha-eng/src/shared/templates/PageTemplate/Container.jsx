@@ -27,4 +27,4 @@ Container.defaultProps = {
   isWhiteBackground: false,
 }
 
-export default Container
+export default React.memo(Container)

@@ -118,6 +118,7 @@ const ReduxFormInputBuilder = (displayName = 'ReduxFormInputBuilder') => {
                 className={ classNames(...inputClassNames, className, {
                   'is-invalid': (touched && fieldError),
                   'has-rightAddon': !!_rightAddon,
+                  'has-leftAddon': !!_leftAddon,
                 }) }
               />
               { _rightAddon && _rightAddon(props) }

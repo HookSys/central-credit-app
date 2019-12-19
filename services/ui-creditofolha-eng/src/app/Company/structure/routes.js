@@ -8,6 +8,10 @@ const DashboardPage = LazyLoading(() => import('company/pages/Dashboard'))
 const EmployeesPage = LazyLoading(() => import('company/pages/Employees'))
 const EmployeesListPage = LazyLoading(() => import('company/pages/Employees/List'))
 const EmployeesDemissionPage = LazyLoading(() => import('company/pages/Employees/Demission'))
+const EmployeesDemissionListPage = LazyLoading(() => import('company/pages/Employees/Demission/List'))
+const EmployeesDemissionInformPage = LazyLoading(() => import('company/pages/Employees/Demission/Inform'))
+const EmployeesDemissionSuccessPage = LazyLoading(() => import('company/pages/Employees/Demission/Success'))
+
 const EmployeesImportPage = LazyLoading(() => import('company/pages/Employees/Import'))
 const EmployeesViewPage = LazyLoading(() => import('company/pages/Employees/View'))
 const EmployeesNewPage = LazyLoading(() => import('company/pages/Employees/New'))
@@ -116,6 +120,27 @@ const CompanyRoutes = {
         route: '/demission',
         name: 'Demissão',
         component: EmployeesDemissionPage,
+        routes: {
+          INDEX: {
+            route: '',
+            name: 'Demissão de funcionários',
+            component: EmployeesDemissionListPage,
+            hideMenu: true,
+          },
+          INFORM: {
+            route: '/:employeeId',
+            name: 'Informar demissão',
+            component: EmployeesDemissionInformPage,
+            hideMenu: true,
+          },
+          SUCCESS: {
+            route: '/success',
+            name: 'Sucesso',
+            component: EmployeesDemissionSuccessPage,
+            hideMenu: true,
+            isFeedback: true,
+          },
+        },
       },
       IMPORT: {
         route: '/import',

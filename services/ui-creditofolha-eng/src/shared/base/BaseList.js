@@ -31,6 +31,13 @@ export default function BaseList<O: Object>(
       }
       return 0
     }
+
+    withoutItem(value: any, field: string = 'id'): this {
+      const results = this.get('results')
+      return this.set('results', results.filter((item) => {
+        return item.get(field) !== value
+      }))
+    }
   }
 
   return new CBaseList(defaultValues)

@@ -6,24 +6,26 @@ import classNames from 'classnames'
 const FeedbackHeader = ({ desktopIconName, mobileIconName, children, bgClassName }) => (
   <div className={ classNames('feedback-header', bgClassName) }>
     <div className='d-block d-md-none mobile-icon'>
-      <SvgImage icon={ mobileIconName } />
+      { mobileIconName && (<SvgImage icon={ mobileIconName } />) }
     </div>
     <h2 className='d-block font-weight-regular'>{ children }</h2>
     <div className='d-none d-md-block desktop-icon'>
-      <SvgImage icon={ desktopIconName } />
+      { desktopIconName && (<SvgImage icon={ desktopIconName } />) }
     </div>
   </div>
 )
 
 FeedbackHeader.propTypes = {
-  desktopIconName: PropTypes.object.isRequired,
-  mobileIconName: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
+  desktopIconName: PropTypes.object,
+  mobileIconName: PropTypes.object,
   bgClassName: PropTypes.string,
 }
 
 FeedbackHeader.defaultProps = {
   bgClassName: 'bg-default',
+  desktopIconName: null,
+  mobileIconName: null,
 }
 
 export default FeedbackHeader

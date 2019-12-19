@@ -6,6 +6,9 @@
     &.has-rightAddon {
       padding-right: 40px;
     }
+    &.has-leftAddon {
+      padding-left: 40px;
+    }
   }
 
   .no-value {
@@ -21,22 +24,49 @@
   .input-group {
     position: relative !important;
 
-    .icon-right-addon {
-      position: absolute;
-      right: 12px;
-      top: 0px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      z-index: 5;
-      svg {
-        width: 20px;
-        height: 20px;
-        cursor: pointer;
-        opacity: 0.4;
-  
-        &:hover {
+    .input-group-append,
+    .input-group-prepend {
+      .icon-left-addon {
+        position: absolute;
+        left: 12px;
+        top: 0px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        z-index: 5;
+        
+        svg {
+          width: 20px;
+          height: 20px;
           opacity: 0.9;
+        }
+      }
+
+      .icon-right-addon {
+        position: absolute;
+        right: 12px;
+        top: 0px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        z-index: 5;
+        svg {
+          width: 20px;
+          height: 20px;
+          opacity: 0.9;
+        }
+      }
+
+      &.clickable {
+        .icon-left-addon,
+        .icon-right-addon {
+          svg {
+            opacity: 0.4;
+            cursor: pointer;
+            &:hover {
+              opacity: 0.9 !important;
+            }
+          }
         }
       }
     }

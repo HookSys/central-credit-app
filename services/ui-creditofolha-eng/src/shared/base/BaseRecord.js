@@ -9,6 +9,7 @@ declare class IBaseRecord<O: Object = Object> extends RecordInstance<O> {
   getFormatedPercent(field: $Keys<O> | number, abs?: boolean): string;
   getFormatedPhone(field: $Keys<O>): ?string;
   getFullName(): ?string;
+  getCleanValue(field: $Keys<O>): string;
 }
 
 export type BaseRecordFactory<Values: Object> = Class<IBaseRecord<Values>>;
@@ -66,6 +67,14 @@ function BaseRecord<O: Object = Object>(spec: O, name?: string): Class<IBaseReco
       }
 
       return number.replace(/(\d{2})(\d{3})(\d{3})(\d{3})/, '($1) $2 $3 $4')
+    }
+
+    getCleanValue(field: $Keys<O>): string {
+      const value = this.get(field)
+      if (typeof value === 'string') {
+        return value.replace(/([( ]|[) ])+/g, '')
+      }
+      return value
     }
   }
 }

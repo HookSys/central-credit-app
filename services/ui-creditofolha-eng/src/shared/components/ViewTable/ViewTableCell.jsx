@@ -8,7 +8,7 @@ const ViewTableCell = ((props) => {
     <div className={ classNames('w-100 p-2 mb-3 border-bottom', className, borderColor) }>
       <div className='font-size-sm text-muted'>{ label }</div>
       <div
-        className={ classNames('ml-n3 pl-3', {
+        className={ classNames('ml-n3 pl-3 text-truncate', {
           'border-md-left': !noBorderLeft,
         }, borderColor) }
       >

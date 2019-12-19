@@ -61,8 +61,10 @@ const InputAddonBuilder = (displayName = 'InputAddon') => {
         const _onClick = isLeft ? onLeftAddonClick : onRightAddonClick
         return (
           <div
-            className={ classNames(...inputGroup) }
-            onClick={ () => _onClick(input) }
+            className={ classNames(...inputGroup, {
+              'clickable': typeof _onClick === 'function',
+            }) }
+            onClick={ () => typeof _onClick === 'function' && _onClick(input) }
           >
             { _renderMethod && _renderMethod() }
             { _renderText && (

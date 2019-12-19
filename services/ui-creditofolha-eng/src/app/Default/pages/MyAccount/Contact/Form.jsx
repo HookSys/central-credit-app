@@ -23,7 +23,7 @@ const MyAccountContactForm = ({ handleSubmit, initialize, entity: { pages } }) =
   useEffect(() => {
     const phone = typeof userPhone === 'string' ? userPhone.slice(3, userPhone.length) : ''
     initialize({
-      phone,
+      phone: phoneNormalizer(phone),
     })
   }, [userPhone])
 
@@ -61,7 +61,6 @@ const MyAccountContactForm = ({ handleSubmit, initialize, entity: { pages } }) =
               placeholder='Telefone'
               component={ ReduxFormInput }
               normalize={ phoneNormalizer }
-              format={ phoneNormalizer }
               validate={ [required] }
             />
           </div>

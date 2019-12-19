@@ -1,4 +1,4 @@
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(md) {
   .module-template {
     .side-navigation {
       width: 0px;
@@ -77,6 +77,18 @@
 }
 
 @include media-breakpoint-down(md) {
+  #action-bar-render {
+    max-height: 0;
+    height: 100%;
+    transition: max-height 10s ease-in-out;
+    &.visible {
+      max-height: fit-content;
+    }
+    &.invisible {
+      max-height: 0;
+    }
+  }
+
   .mobile-action-bar {
     position: fixed;
     bottom: 0px;

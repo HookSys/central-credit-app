@@ -63,8 +63,12 @@ function Services(): TLoader<TServicesLoader> {
       return dispatch(create(401, data, fromJS(params)))
     }
 
-    const { sentry, error } = data
-    return dispatch(create(500, error, fromJS(params), true, sentry))
+    if (data) {
+      const { sentry, error } = data
+      return dispatch(create(500, error, fromJS(params), true, sentry))
+    }
+
+    return dispatch(create(500, null, fromJS(params), true))
   }
 
   const createService = (instance: Axios, handlingError: boolean = false): TService => {

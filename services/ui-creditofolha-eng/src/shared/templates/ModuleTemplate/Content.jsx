@@ -22,7 +22,7 @@ const Content = ({ children }) => {
   return (
     <div
       className={ classNames('d-flex flex-column content', {
-        'mb-5': isActionBarVisible,
+        'mb-5': isActionBarVisible && !isSideNavigationVisible,
       }) }
       ref={ contentRef }
     >

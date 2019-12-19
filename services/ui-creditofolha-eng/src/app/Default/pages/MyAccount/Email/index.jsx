@@ -4,14 +4,13 @@ import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { submit, isPristine, isInvalid } from 'redux-form/immutable'
 import Layout, { ColumnWrapper, ColumnLeft, ColumnRight, Title, BackLink } from 'templates/PageTemplate'
-import { useActiveRoute } from 'hooks'
 import Button from 'components/Button'
 
 export const formName = 'emailMyAccountForm'
 
 const MyAccountEmail = ({ children }) => {
-  const route = useActiveRoute()
   const history = useHistory()
+  const route = history.getStructure()
   const dispatch = useDispatch()
   const pristine = useSelector(state => isPristine(formName)(state))
   const invalid = useSelector(state => isInvalid(formName)(state))

@@ -3,18 +3,30 @@ import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect'
 
 function useLeftSwipe(callback, elementRef) {
   const startPos = useRef()
+  const movedPos = useRef()
+
+  const onTouchMove = (event) => {
+    const { clientX, clientY } = event.targetTouches[0]
+    movedPos.current = {
+      clientX,
+      clientY,
+    }
+  }
 
   const onTouchEnd = (event) => {
     window.removeEventListener('touchend', onTouchEnd)
-    const { clientX, clientY } = event.changedTouches[0]
-    const { clientX: startClientX, clientY: startClientY } = startPos.current
+    window.removeEventListener('touchmove', onTouchMove)
+    if (!movedPos.current) {
+      return
+    }
 
-    if (Math.abs(clientY - startClientY) < 20 && startClientX !== clientX) {
+    const { clientX, clientY } = movedPos.current
+    const { clientX: startClientX, clientY: startClientY } = startPos.current
+    const swipped = startClientX > clientX && (startClientX - clientX) > 100
+    if (Math.abs(clientY - startClientY) < 10 && swipped) {
       event.preventDefault()
       event.stopPropagation()
-      if (startClientX > clientX) {
-        callback()
-      }
+      callback()
       startPos.current = 0
     }
   }
@@ -25,7 +37,9 @@ function useLeftSwipe(callback, elementRef) {
       clientX,
       clientY,
     }
+    movedPos.current = null
     window.addEventListener('touchend', onTouchEnd)
+    window.addEventListener('touchmove', onTouchMove)
   }
 
   useIsomorphicLayoutEffect(() => {

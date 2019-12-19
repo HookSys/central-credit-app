@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form/immutable'
 
 // import type { Reducer } from 'redux'
-import { connectRouter } from 'connected-react-router'
+import { connectRouter } from 'connected-react-router/immutable'
 
 import app from 'core/reducers/app'
 import errors from 'core/reducers/exception'

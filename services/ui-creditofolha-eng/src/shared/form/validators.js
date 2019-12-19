@@ -1,5 +1,23 @@
+import moment from 'moment'
+
 export const required = ((value) => {
-  return value ? undefined : 'Este campo é obrigatório'
+  return value || value === 0 ? undefined : 'Este campo é obrigatório'
+})
+
+export const dateRequired = ((value) => {
+  if (typeof value === 'string' && value.length >= 10) {
+    const momentValue = moment(value, 'DD/MM/YYYY')
+    if (moment.isMoment(momentValue)) {
+      const day = momentValue.day()
+      const month = momentValue.month()
+      const year = momentValue.year()
+      if (day <= 31 && month < 12 && year >= 1900 && year < 3000) {
+        return undefined
+      }
+    }
+  }
+
+  return 'Informe uma data correta'
 })
 
 export const cpfValidator = (value = '') => {
@@ -91,6 +109,13 @@ export const cnpjValidator = (value = '') => {
 export const weakPassword = (score) => () => {
   if (!score || score <= 30) {
     return 'A senha é muito fraca'
+  }
+  return undefined
+}
+
+export const maxLength = (max, message = 'Valor máximo ultrapassado!') => (value) => {
+  if (value && value > max) {
+    return message
   }
   return undefined
 }

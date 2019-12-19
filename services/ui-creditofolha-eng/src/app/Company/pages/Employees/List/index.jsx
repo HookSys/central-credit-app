@@ -1,16 +1,16 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Cards, { Card, CardRow, CardTitle, CardAlert, CardContent, CardInfo } from 'components/Cards'
 import { ColumnWrapper, ColumnLeft, Title, Container } from 'templates/PageTemplate'
-import { employeesAsyncRequest, employeesUpdatePage } from 'company/actions/employees'
+import { employeesAsyncRequest, employeesUpdatePage, employeesUpdateFilters } from 'company/actions/employees'
 import Pagination from 'components/Pagination'
 import { EmployeeStatusDescription, EmployeeStatusColor } from 'company/constants/employee'
 import { employeesListQuery } from 'company/queries/employees'
 import { bindPathParams } from 'helpers'
 import EmployeesSidePanel from 'company/pages/Employees/SidePanel'
-import EmployeesSearchForm from 'company/pages/Employees/SearchForm'
+import EmployeesSearchForm from 'company/components/EmployeesSearchForm'
 
 const EmployeesList = ({ parent, entity: { pages: entityPages } }) => {
   const dispatch = useDispatch()
@@ -20,8 +20,16 @@ const EmployeesList = ({ parent, entity: { pages: entityPages } }) => {
   const selectedPage = options.get('currentPageIndex')
   const history = useHistory()
 
-  useEffect(() => {
+  const requestEmployeesList = useCallback(() => {
     dispatch(employeesAsyncRequest(employeesListQuery))
+  }, [])
+
+  const onChange = useCallback(() => {
+    dispatch(employeesUpdateFilters(''))
+  }, [])
+
+  useEffect(() => {
+    requestEmployeesList()
   }, [selectedPage])
 
   const onPageChange = (page) => async () => {
@@ -37,8 +45,12 @@ const EmployeesList = ({ parent, entity: { pages: entityPages } }) => {
 
   return (
     <Fragment>
-      <EmployeesSidePanel pages={ entityPages.EMPLOYEES } routes={ parent.routes } />
-      <EmployeesSearchForm />
+      <EmployeesSidePanel
+        pages={ entityPages.EMPLOYEES }
+        routes={ parent.routes }
+        onChange={ onChange }
+      />
+      <EmployeesSearchForm requestEmployeesList={ requestEmployeesList } />
       <ColumnWrapper>
         <ColumnLeft>
           <Title>Quadro de Funcionários</Title>

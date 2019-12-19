@@ -7,10 +7,13 @@ export const currencyMask = createNumberMask({
   allowEmpty: true,
 })
 
-export const cpfNormalizer = (value) => {
-  if (value) {
-    const onlyNums = value.replace(/[^\d]/g, '')
+export const cpfNormalizer = (value, previousValue) => {
+  if (!value) {
+    return value
+  }
 
+  const onlyNums = value.replace(/[^\d]/g, '')
+  if (!previousValue || value.length > previousValue.length) {
     if (onlyNums.length <= 3) {
       return onlyNums
     }
@@ -26,10 +29,13 @@ export const cpfNormalizer = (value) => {
   return value
 }
 
-export const cepNormalizer = (value) => {
-  if (value) {
-    const onlyNums = value.replace(/[^\d]/g, '')
+export const cepNormalizer = (value, previousValue) => {
+  if (!value) {
+    return value
+  }
 
+  const onlyNums = value.replace(/[^\d]/g, '')
+  if (!previousValue || value.length > previousValue.length) {
     if (onlyNums.length <= 5) {
       return onlyNums
     }
@@ -38,10 +44,13 @@ export const cepNormalizer = (value) => {
   return value
 }
 
-export const cnpjNormalizer = (value) => {
-  if (value) {
-    const onlyNums = value.replace(/[^\d]/g, '')
+export const cnpjNormalizer = (value, previousValue) => {
+  if (!value) {
+    return value
+  }
 
+  const onlyNums = value.replace(/[^\d]/g, '')
+  if (!previousValue || value.length > previousValue.length) {
     if (onlyNums.length <= 2) {
       return onlyNums
     }
@@ -60,10 +69,13 @@ export const cnpjNormalizer = (value) => {
   return value
 }
 
-export const phoneNormalizer = (value) => {
-  if (value) {
-    const onlyNums = value.replace(/[^\d]/g, '')
+export const phoneNormalizer = (value, previousValue) => {
+  if (!value) {
+    return value
+  }
 
+  const onlyNums = value.replace(/[^\d]/g, '')
+  if (!previousValue || value.length > previousValue.length) {
     if (onlyNums.length <= 2) {
       return `(${ onlyNums }`
     }
@@ -79,10 +91,13 @@ export const phoneNormalizer = (value) => {
   return value
 }
 
-export const dateNormalizer = (value) => {
-  if (value) {
-    const onlyNums = value.replace(/[^\d]/g, '')
+export const dateNormalizer = (value, previousValue) => {
+  if (!value) {
+    return value
+  }
 
+  const onlyNums = value.replace(/[^\d]/g, '')
+  if (!previousValue || (previousValue.length < 8 || value.length > 9)) {
     if (onlyNums.length <= 2) {
       return `${ onlyNums }`
     }
@@ -92,6 +107,7 @@ export const dateNormalizer = (value) => {
 
     return `${ onlyNums.slice(0, 2) }/${ onlyNums.slice(2, 4) }/${ onlyNums.slice(4, 8) }`
   }
+
   return value
 }
 

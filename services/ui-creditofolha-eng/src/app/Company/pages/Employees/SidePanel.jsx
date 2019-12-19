@@ -6,7 +6,7 @@ import SidePanelRender from 'components/SidePanelRender'
 
 const { Layout, Header, Title, Links, Link, Action } = SidePanelTemplate
 
-const EmployeesSidePanel = ({ pages, routes }) => {
+const EmployeesSidePanel = ({ pages, routes, onChange }) => {
   const history = useHistory()
 
   return (
@@ -28,9 +28,10 @@ const EmployeesSidePanel = ({ pages, routes }) => {
 
             return (
               <Link
-                to={ pages[key] }
+                pages={ pages }
                 routeKey={ key }
                 key={ key }
+                onClick={ onChange }
               >
                 { routes[key].name }
               </Link>
@@ -45,6 +46,11 @@ const EmployeesSidePanel = ({ pages, routes }) => {
 EmployeesSidePanel.propTypes = {
   routes: PropTypes.object.isRequired,
   pages: PropTypes.object.isRequired,
+  onChange: PropTypes.func,
 }
 
-export default EmployeesSidePanel
+EmployeesSidePanel.defaultProps = {
+  onChange: undefined,
+}
+
+export default React.memo(EmployeesSidePanel)

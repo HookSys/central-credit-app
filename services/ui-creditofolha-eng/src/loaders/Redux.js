@@ -12,7 +12,7 @@ import thunk from 'redux-thunk'
 import reduxLogger from 'middlewares/reduxLogger'
 // import refreshToken from 'middlewares/refreshToken'
 import reduxService from 'middlewares/reduxService'
-import { routerMiddleware } from 'connected-react-router'
+import { routerMiddleware } from 'connected-react-router/immutable'
 
 function Redux(initialState?: Object): TLoader<TReduxLoader> {
   const getEnhancer = () => {

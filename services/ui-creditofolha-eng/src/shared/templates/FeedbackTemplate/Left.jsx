@@ -5,13 +5,13 @@ import classNames from 'classnames'
 
 const FeedbackLeft = ({ desktopIconName, mobileIconName, children, renderIcon, bgClassName }) => (
   <div className={ classNames('feedback-left', bgClassName) }>
-    <div className='d-block d-md-none mobile-icon'>
+    <div className='d-block d-md-none mobile-icon text-center'>
       {renderIcon ? renderIcon() : (
         <SvgImage icon={ mobileIconName } />
       )}
     </div>
     <h2 className='d-flex font-weight-regular justify-content-center'>{ children }</h2>
-    <div className='d-none d-md-block desktop-icon'>
+    <div className='d-none d-md-block desktop-icon text-center'>
       {renderIcon ? renderIcon() : (
         <SvgImage icon={ desktopIconName } />
       )}

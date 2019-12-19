@@ -4,6 +4,7 @@ import Payment from 'models/Payment'
 import Document from 'models/Document'
 import Address from 'models/Address'
 import Company from 'models/Company'
+import NextCut from 'models/NextCut'
 
 const defaultValues = {
   id: null,
@@ -37,6 +38,7 @@ const defaultValues = {
   referencia_telefone: null,
   referencia_nome: null,
   referencia_parentesco: null,
+  proximo_corte: new NextCut(),
 }
 
 export default class Employee extends BaseRecord(defaultValues, Employee) {
@@ -47,6 +49,7 @@ export default class Employee extends BaseRecord(defaultValues, Employee) {
       empresa: get(values, 'empresa') ? new Company(values.empresa) : defaultValues.empresa,
       documento: get(values, 'documento') ? new Document(values.documento) : defaultValues.documento,
       endereco: get(values, 'endereco') ? new Address(values.endereco) : defaultValues.endereco,
+      proximo_corte: get(values, 'proximo_corte') ? new NextCut(values.proximo_corte) : defaultValues.proximo_corte,
     })
   }
 
@@ -60,5 +63,9 @@ export default class Employee extends BaseRecord(defaultValues, Employee) {
 
     const amountCompromised = ((amountCep + amountOthers) * 100) / salary
     return this.getFormatedPercent(amountCompromised, false)
+  }
+
+  hasContracts() {
+    return this.get('valor_emprestado') > 0
   }
 }

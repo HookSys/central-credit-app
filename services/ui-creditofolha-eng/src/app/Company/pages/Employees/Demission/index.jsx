@@ -1,13 +1,32 @@
-import React from 'react'
+import React, { Fragment, useCallback } from 'react'
+import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
+import EmployeesSidePanel from 'company/pages/Employees/SidePanel'
+import { employeesUpdateFilters } from 'company/actions/employees'
 
-const ContractsIndex = () => {
+const EmployeesDemission = ({ children, parent: { parent }, entity: { pages } }) => {
+  const dispatch = useDispatch()
+
+  const onChange = useCallback(() => {
+    dispatch(employeesUpdateFilters(''))
+  }, [])
+
   return (
-    <div className='row'>
-      <div className='col-12'>
-        Contracts Test
-      </div>
-    </div>
+    <Fragment>
+      <EmployeesSidePanel
+        pages={ pages.EMPLOYEES }
+        routes={ parent.routes }
+        onChange={ onChange }
+      />
+      { children }
+    </Fragment>
   )
 }
 
-export default ContractsIndex
+EmployeesDemission.propTypes = {
+  children: PropTypes.node.isRequired,
+  entity: PropTypes.object.isRequired,
+  parent: PropTypes.object.isRequired,
+}
+
+export default EmployeesDemission

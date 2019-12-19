@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react'
-import { ConnectedRouter } from 'connected-react-router'
+import { ConnectedRouter } from 'connected-react-router/immutable'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { useSelector } from 'react-redux'

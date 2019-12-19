@@ -121,6 +121,10 @@ export default class Exception extends ((Record<TException>(defaultValues, 'Exce
   }
 
   getParentPathsFromRequest(request: Map<any, any>, parent?: string = ''): List<string> {
+    if (!request || !request.keySeq) {
+      return new List()
+    }
+
     return request.keySeq().reduce((result, key) => {
       const value = request.getIn([key])
       if (!value) {
@@ -148,6 +152,9 @@ export default class Exception extends ((Record<TException>(defaultValues, 'Exce
     paths: List<string> = new List<string>(),
     parent: string = ''
   ): List<BaseRecordOf<TExceptionFieldError>> {
+    if (!data) {
+      return new List()
+    }
     return Object.keys(data).reduce((result, key) => {
       const value = data[key]
       if (!value) {

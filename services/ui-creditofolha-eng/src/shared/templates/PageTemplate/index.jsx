@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import { useActiveRoute } from 'hooks'
 
 const Layout = ({ children, className, isFluid }) => {
+  const activeRoute = useActiveRoute()
+
+  if (activeRoute && activeRoute.isFeedback) {
+    return (
+      <Fragment>
+        { children }
+      </Fragment>
+    )
+  }
+
   return (
     <div className={ classNames('mb-5', className, {
       'container-fluid': isFluid,

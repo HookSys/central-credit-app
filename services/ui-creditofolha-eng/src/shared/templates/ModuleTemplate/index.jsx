@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useStructure } from 'hooks'
+import { useStructure, useActiveRoute } from 'hooks'
 import { EEntityTypes } from 'constants/entity'
 
 import Header from './Header'
@@ -13,6 +13,7 @@ import ActionBar from './ActionBar'
 
 const Layout = ({ children }) => {
   const structure = useStructure()
+  const activeRoute = useActiveRoute()
 
   useEffect(() => {
     document.body.style.backgroundColor = '#f0f1f4'
@@ -20,6 +21,14 @@ const Layout = ({ children }) => {
 
   if (structure.type !== EEntityTypes.MODULE) {
     return null
+  }
+
+  if (activeRoute && activeRoute.isFeedback) {
+    return (
+      <Fragment>
+        { children }
+      </Fragment>
+    )
   }
 
   return (

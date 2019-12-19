@@ -8,6 +8,16 @@ export const employeesListQuery = createQuery([
   'status',
   'matricula',
   'possui_acesso',
+  'valor_emprestado',
+])
+
+export const demissionEmployeeQuery = createQuery([
+  'id',
+  'nome',
+  'sobrenome',
+  'cpf',
+  'matricula',
+  'saldo_devedor',
 ])
 
 export const newEmployeeQuery = createQuery([

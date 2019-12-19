@@ -1,32 +1,39 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Field, Form, reduxForm, formValueSelector, FormSection } from 'redux-form/immutable'
-import { ColumnWrapper, ColumnLeft, Container } from 'templates/PageTemplate'
+import { ColumnWrapper, ColumnLeft, ColumnRight, Container } from 'templates/PageTemplate'
 import Avatar from 'components/Avatar'
 import FormContent, { Row, Element } from 'company/components/FormContent'
 import { civilState, ufs, documentTypes, banks, accountType } from 'constants/general'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useServices } from 'hooks'
+import { useHistory } from 'react-router-dom'
+import { employeeCreateRequest } from 'company/actions/employees'
 
+import { ToastContext } from 'components/ToastProvider'
+import Button from 'components/Button'
 import ReduxFormSelect from 'components/ReduxFormSelect'
 import ReduxFormInput from 'components/ReduxFormInput'
-import { required, cpfValidator } from 'form/validators'
+import { required, cpfValidator, dateRequired } from 'form/validators'
 import { dateNormalizer, phoneNormalizer, numbersNormalizer,
   cpfNormalizer, currencyMask, cepNormalizer } from 'form/normalizers'
 
+import EmployeeFactory from 'factories/Employee'
 import EmployeeNewSidePanel from './SidePanel'
 
 export const formName = 'newEditEmployeeForm'
 const selector = formValueSelector(formName)
 
-const EmployeesNew = ({ handleSubmit, change }) => {
-  const cep = useSelector(state => selector(state, 'endereco[cep]'))
+const EmployeesNew = ({ handleSubmit, change, submit }) => {
+  const { showErrorToast, showSuccessToast } = useContext(ToastContext)
+  const cep = useSelector(state => selector(state, 'endereco.cep'))
   const services = useServices()
+  const history = useHistory()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (typeof cep === 'string' && cep.length >= 9) {
       // TODO: Criar um metodo no service para resgatar os endereços
-
       services.external({
         path: 'https://viacep.com.br/ws/:cep/json/unicode',
         pathParams: {
@@ -36,17 +43,29 @@ const EmployeesNew = ({ handleSubmit, change }) => {
       }).then((address) => {
         if (address && !address.error) {
           const { logradouro, complemento, bairro, localidade, uf } = address
-          change('endereco[cidade]', localidade)
-          change('endereco[bairro]', bairro)
-          change('endereco[complemento]', complemento)
-          change('endereco[uf]', uf)
-          change('endereco[logradouro]', logradouro)
+          change('endereco.cidade', localidade)
+          change('endereco.bairro', bairro)
+          change('endereco.complemento', complemento)
+          change('endereco.uf', uf)
+          change('endereco.logradouro', logradouro)
         }
       })
     }
   }, [cep])
 
-  const onSubmit = () => {}
+  const onSubmit = async (values) => {
+    const request = EmployeeFactory.createRequest(values)
+    const response = await dispatch(employeeCreateRequest(request))
+    if (response) {
+      showSuccessToast({
+        message: 'Funcionário criado com sucesso!',
+      })
+    } else {
+      showErrorToast({
+        message: 'Favor corrigir os itens abaixo.',
+      })
+    }
+  }
 
   return (
     <Fragment>
@@ -63,6 +82,14 @@ const EmployeesNew = ({ handleSubmit, change }) => {
             </div>
           </div>
         </ColumnLeft>
+        <ColumnRight isActionBar={ true }>
+          <Button className='btn btn-default bg-white mr-3' onClick={ () => history.goBack() }>
+            Cancelar
+          </Button>
+          <Button onClick={ () => submit() }>
+            Salvar
+          </Button>
+        </ColumnRight>
       </ColumnWrapper>
       <Container isWhiteBackground={ true }>
         <Form onSubmit={ handleSubmit(onSubmit) }>
@@ -100,7 +127,7 @@ const EmployeesNew = ({ handleSubmit, change }) => {
                   id='nascimento'
                   placeholder='Data de Nascimento'
                   component={ ReduxFormInput }
-                  validate={ [required] }
+                  validate={ [dateRequired] }
                   normalize={ dateNormalizer }
                 />
               </Element>
@@ -202,18 +229,6 @@ const EmployeesNew = ({ handleSubmit, change }) => {
                   />
                 </Element>
               </Row>
-              <Row>
-                <Element lg='4'>
-                  <Field
-                    name='emissao_em'
-                    label='Data de emissão: *'
-                    id='emissao_em'
-                    placeholder='Data de emissão'
-                    component={ ReduxFormInput }
-                    normalize={ dateNormalizer }
-                  />
-                </Element>
-              </Row>
             </FormSection>
           </FormContent>
           <FormContent title='Detalhes do funcionário'>
@@ -237,7 +252,7 @@ const EmployeesNew = ({ handleSubmit, change }) => {
                   id='admitido_em'
                   placeholder='Data de admissão'
                   component={ ReduxFormInput }
-                  validate={ [required] }
+                  validate={ [dateRequired] }
                   normalize={ dateNormalizer }
                 />
               </Element>
@@ -264,7 +279,7 @@ const EmployeesNew = ({ handleSubmit, change }) => {
                   placeholder='Desconto INSS'
                   component={ ReduxFormInput }
                   validate={ [required] }
-                  normalize={ dateNormalizer }
+                  { ...currencyMask }
                 />
               </Element>
               <Element lg='4'>
@@ -276,7 +291,7 @@ const EmployeesNew = ({ handleSubmit, change }) => {
                   placeholder='Desconto IRRF'
                   component={ ReduxFormInput }
                   validate={ [required] }
-                  normalize={ dateNormalizer }
+                  { ...currencyMask }
                 />
               </Element>
               <Element lg='4'>
@@ -288,7 +303,7 @@ const EmployeesNew = ({ handleSubmit, change }) => {
                   placeholder='Desconto diversos'
                   component={ ReduxFormInput }
                   validate={ [required] }
-                  normalize={ dateNormalizer }
+                  { ...currencyMask }
                 />
               </Element>
             </Row>
@@ -347,6 +362,7 @@ const EmployeesNew = ({ handleSubmit, change }) => {
                   label='Dígito:'
                   id='agencia_dac'
                   placeholder='Dígito'
+                  maxLength={ 1 }
                   component={ ReduxFormInput }
                 />
               </Element>
@@ -366,6 +382,7 @@ const EmployeesNew = ({ handleSubmit, change }) => {
                   name='conta_dac'
                   label='Dígito:'
                   id='conta_dac'
+                  maxLength={ 1 }
                   placeholder='Dígito'
                   component={ ReduxFormInput }
                 />
@@ -432,7 +449,7 @@ const EmployeesNew = ({ handleSubmit, change }) => {
                 <Field
                   type='text'
                   name='complemento'
-                  label='Complemento: *'
+                  label='Complemento:'
                   id='complemento'
                   placeholder='Complemento'
                   component={ ReduxFormInput }
@@ -473,11 +490,10 @@ const EmployeesNew = ({ handleSubmit, change }) => {
                 <Field
                   type='text'
                   name='referencia_nome'
-                  label='Nome completo: *'
+                  label='Nome completo:'
                   id='referencia_nome'
                   placeholder='Nome completo'
                   component={ ReduxFormInput }
-                  validate={ [required] }
                 />
               </Element>
               <Element lg='3'>
@@ -494,12 +510,11 @@ const EmployeesNew = ({ handleSubmit, change }) => {
                 <Field
                   type='text'
                   name='referencia_telefone'
-                  label='Telefone: *'
+                  label='Telefone:'
                   id='referencia_telefone'
                   placeholder='Telefone'
                   component={ ReduxFormInput }
                   normalize={ phoneNormalizer }
-                  validate={ [required] }
                 />
               </Element>
             </Row>
@@ -513,7 +528,7 @@ const EmployeesNew = ({ handleSubmit, change }) => {
 EmployeesNew.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   change: PropTypes.func.isRequired,
-  // submit: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired,
 }
 
 export default reduxForm({

@@ -18,6 +18,7 @@ export type TRoute = {
     children?: any,
   }>,
   routes?: TRoutes,
+  parent?: TRoute | TEntity,
 }
 
 export type TRoutes = {

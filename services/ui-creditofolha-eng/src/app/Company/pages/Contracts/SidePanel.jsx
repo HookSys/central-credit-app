@@ -18,7 +18,7 @@ const ContractsSidePanel = ({ pages, routes }) => {
           { Object.keys(routes).map((key) => {
             return (
               <Link
-                to={ pages[key] }
+                pages={ pages }
                 routeKey={ key }
                 key={ key }
               >

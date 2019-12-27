@@ -2,6 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 import { Record, RecordInstance } from 'immutable'
 import moment from 'moment'
+import type Moment from 'moment'
 
 declare class IBaseRecord<O: Object = Object> extends RecordInstance<O> {
   getFormatedDate(field: $Keys<O>, format: string): string | '-';
@@ -10,6 +11,7 @@ declare class IBaseRecord<O: Object = Object> extends RecordInstance<O> {
   getFormatedPhone(field: $Keys<O>): ?string;
   getFullName(): ?string;
   getCleanValue(field: $Keys<O>): string;
+  getAsMoment(field: $Keys<O>): ?Moment;
 }
 
 export type BaseRecordFactory<Values: Object> = Class<IBaseRecord<Values>>;
@@ -75,6 +77,13 @@ function BaseRecord<O: Object = Object>(spec: O, name?: string): Class<IBaseReco
         return value.replace(/([( ]|[) ])+/g, '')
       }
       return value
+    }
+
+    getAsMoment(field: $Keys<O>): ?Moment {
+      if (this.get(field)) {
+        return moment(this.get(field), 'YYYY-MM-DD')
+      }
+      return null
     }
   }
 }

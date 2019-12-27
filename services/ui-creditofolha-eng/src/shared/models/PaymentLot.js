@@ -2,9 +2,7 @@ import { get } from 'lodash'
 import moment from 'moment'
 import { List, Map } from 'immutable'
 import BaseRecord from 'base/BaseRecord'
-import BaseList, { toEntityList } from 'base/BaseList'
-import CompanyFactory from 'factories/Company'
-import Financial from 'models/Financial'
+import { toEntityList } from 'base/BaseList'
 import Discount from 'models/Discount'
 import Payment from 'models/Payment'
 import PAYMENT_LOT_STATUS from 'constants/paymentLot'
@@ -12,36 +10,28 @@ import PaymentEmployeeLot from 'models/PaymentEmployeeLot'
 
 const defaultValues = {
   id: '',
-  empresa: CompanyFactory.createCompany(),
-  financeira: new Financial(),
   mes_referencia: '',
   valor_previsto: 0,
   valor_descontado: 0,
-  status: '',
-  descontos: toEntityList([], Discount),
-  pagamento: new Payment(),
+  status: new List(),
+  descontos_por_funcionario: toEntityList([], Discount),
+  pagamento: toEntityList([], Payment),
   corte_em: '',
   processado_em: '',
   vencimento_em: '',
   enviado_em: '',
   conciliado_em: '',
-  discountsByEmployee: toEntityList([], PaymentEmployeeLot),
 }
 
 export default class PaymentLot extends BaseRecord(defaultValues, PaymentLot) {
   constructor(values) {
-    const discounts = get(values, 'descontos') ? toEntityList(values.descontos, Discount) : defaultValues.descontos
-    const discountsByEmployee = BaseList.getListSorted(
-      PaymentLot.getDiscountGroupedByEmployee(discounts),
-      ['employee', 'fullName']
-    )
     super({
       ...values,
-      empresa: get(values, 'empresa') ? CompanyFactory.createCompany(values.empresa) : defaultValues.empresa,
-      financeira: get(values, 'financeira') ? new Financial(values.financeira) : defaultValues.financeira,
-      pagamento: get(values, 'pagamento') ? new Payment(values.pagamento) : defaultValues.pagamento,
-      descontos: discounts,
-      discountsByEmployee,
+      status: get(values, 'status') ? new List(values.status) : defaultValues.status,
+      pagamento: get(values, 'pagamento') ? toEntityList(values.pagamento, Payment) : defaultValues.pagamento,
+      descontos_por_funcionario: get(values, 'descontos_por_funcionario')
+        ? toEntityList(values.descontos_por_funcionario, Discount)
+        : defaultValues.descontos_por_funcionario,
     })
   }
 

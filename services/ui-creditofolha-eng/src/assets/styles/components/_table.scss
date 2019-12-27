@@ -124,6 +124,18 @@
         border: none;
         vertical-align: middle;
 
+        .avatar {
+          width: 35px !important;
+          height: 35px !important;
+          min-width: 35px !important;
+          min-height: 35px !important;
+
+          &:hover {
+            border: unset;
+            transition: unset;
+          }
+        }
+
         &:last-child {
           padding-right: 15px;
         }

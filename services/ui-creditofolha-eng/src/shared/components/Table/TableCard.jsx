@@ -13,7 +13,7 @@ export const TableCard = ((props) => {
       hasChild={ hasChild }
       isChildOpen={ isChildOpen }
     >
-      <TableCell className='px-1 py-3'>
+      <TableCell className='px-2'>
         { children }
       </TableCell>
     </TableRow>

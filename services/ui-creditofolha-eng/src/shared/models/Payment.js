@@ -1,23 +1,23 @@
 import BaseRecord from 'base/BaseRecord'
+import moment from 'moment'
+import PaymentFactory from 'factories/Payment'
+import { get } from 'lodash'
 
 const defaultValues = {
-  agencia: null,
-  agencia_dac: null,
-  banco: null,
-  banco_nome: null,
-  cliente_desde: null,
-  conta: null,
-  conta_dac: null,
-  cpf_responsavel: null,
-  cnpj_responsavel: null,
-  praca: null,
-  tipo: null,
+  pagamento_em: moment(),
+  valor_pagamento: 0,
+  forma_pagamento: '',
+  dados_pagamento: PaymentFactory.createPaymentType(),
+  financeira: '',
 }
 
 export default class Payment extends BaseRecord(defaultValues, Payment) {
   constructor(values) {
     super({
       ...values,
+      dados_pagamento: get(values, 'dados_pagamento')
+        ? PaymentFactory.createPaymentType(values.dados_pagamento)
+        : defaultValues.dados_pagamento,
     })
   }
 }

@@ -1,6 +1,6 @@
 import { get } from 'lodash'
 import BaseRecord from 'base/BaseRecord'
-import Payment from 'models/Payment'
+import BankAccount from 'models/BankAccount'
 import Contract from 'models/Contract'
 import Employee from 'models/Employee'
 
@@ -29,7 +29,7 @@ const defaultValues = {
   efetivado: null,
   status: null,
   saldo_devedor: null,
-  pagamento: new Payment(),
+  pagamento: new BankAccount(),
   financeira: null,
   efetivado_em: null,
   data_pagamento: null,
@@ -47,6 +47,7 @@ export default class Proposal extends BaseRecord(defaultValues, Proposal) {
       ...values,
       contrato: get(values, 'contrato') ? new Contract(values.contrato) : defaultValues.contrato,
       emprego: get(values, 'emprego') ? new Employee(values.emprego) : defaultValues.emprego,
+      pagamento: get(values, 'pagamento') ? new BankAccount(values.pagamento) : defaultValues.pagamento,
     })
   }
 

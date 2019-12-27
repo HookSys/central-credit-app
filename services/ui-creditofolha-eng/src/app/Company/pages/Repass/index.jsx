@@ -1,13 +1,17 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import Layout from 'templates/PageTemplate'
 
-const Repass = () => {
+const Repass = ({ children }) => {
   return (
-    <div className='row'>
-      <div className='col-12'>
-        Repass
-      </div>
-    </div>
+    <Layout>
+      { children }
+    </Layout>
   )
+}
+
+Repass.propTypes = {
+  children: PropTypes.node.isRequired,
 }
 
 export default Repass

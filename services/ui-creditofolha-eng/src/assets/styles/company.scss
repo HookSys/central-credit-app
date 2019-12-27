@@ -20,6 +20,7 @@ $theme-colors: (
 @import 'variables/variables';
 @import "~react-toastify/scss/main.scss";
 @import '~bootstrap/scss/bootstrap';
+@import "~react-circular-progressbar/dist/styles.css";
 @import 'functions/functions';
 @import 'utilities/utilities';
 @import 'components/components';

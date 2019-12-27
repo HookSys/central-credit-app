@@ -83,6 +83,33 @@ export function paymentLotsAsyncRequest(query, params) {
   }
 }
 
+export function paymentLotByMonthAsyncRequest(query, month) {
+  return async (dispatch, getState, service) => {
+    dispatch(appLoadSpinner())
+
+    try {
+      const response = await service.apiV3({
+        path: 'cep/lotes/:month/',
+        method: 'GET',
+        pathParams: {
+          month,
+        },
+        queryParams: {
+          fields: query,
+        },
+      })
+
+      dispatch(paymentLotAsyncSuccess(response))
+      return response
+    } catch (errorMessage) {
+      dispatch(paymentLotsAsyncFail(errorMessage))
+      return errorMessage
+    } finally {
+      dispatch(appUnloadSpinner())
+    }
+  }
+}
+
 
 export function paymentLotAsyncRequest(query, lotId) {
   return async (dispatch, getState, service) => {

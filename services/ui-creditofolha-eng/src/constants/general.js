@@ -1088,3 +1088,42 @@ export const accountType = [
     label: 'Poupança',
   },
 ]
+
+export const discountReasons = [
+  {
+    label: 'Sem divergência',
+    value: 'sem-divergencia',
+  },
+  {
+    label: 'Pensão alimenticia',
+    value: 'pensao-alimenticia',
+  },
+  {
+    label: 'Férias',
+    value: 'ferias',
+  },
+  {
+    label: 'Demissão',
+    value: 'demissao',
+  },
+  {
+    label: 'Afastado',
+    value: 'afastado',
+  },
+  {
+    label: 'Invalidez',
+    value: 'invalidez',
+  },
+  {
+    label: 'Óbito',
+    value: 'obito',
+  },
+  {
+    label: 'Fraude',
+    value: 'fraude',
+  },
+  {
+    label: 'Outros',
+    value: 'outros',
+  },
+]

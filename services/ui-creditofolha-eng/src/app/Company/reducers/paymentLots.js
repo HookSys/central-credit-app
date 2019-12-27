@@ -37,10 +37,10 @@ const initialState = new BaseList({
 
 const actionsMap = {
   [PAYMENT_LOTS_SELECT_ASYNC_SUCCESS]: (state, action) => {
-    const { data } = action
+    const { payload } = action
     const options = state.get('options')
     return state.merge({
-      options: options.set('selected', new PaymentLot(data)),
+      options: options.set('selected', new PaymentLot(payload)),
     })
   },
   [PAYMENT_LOTS_SAVE_SUCCESS]: (state, action) => {

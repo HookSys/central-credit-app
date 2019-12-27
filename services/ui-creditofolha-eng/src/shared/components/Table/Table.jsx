@@ -74,7 +74,7 @@ export const Table = forwardRef((props, ref) => {
   }, [])
 
   return (
-    <div className={ classNames('w-100 px-3 pb-4 mb-4 position-relative', backgroundColor) }>
+    <div className={ classNames('w-100 px-3 mb-4 position-relative', backgroundColor) }>
       <div className='w-100 pb-2 overflow-auto' ref={ containerRefIn }>
         <table
           ref={ tableRefIn }

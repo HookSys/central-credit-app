@@ -53,7 +53,7 @@ const EmployeesList = ({ parent, entity: { pages: entityPages } }) => {
       <EmployeesSearchForm requestEmployeesList={ requestEmployeesList } />
       <ColumnWrapper>
         <ColumnLeft>
-          <Title>Quadro de Funcionários</Title>
+          <Title>Quadro de funcionários</Title>
         </ColumnLeft>
       </ColumnWrapper>
       <Container>

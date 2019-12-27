@@ -13,7 +13,7 @@ import { employeesListQuery } from 'company/queries/employees'
 import EmployeesSearchForm from 'company/components/EmployeesSearchForm'
 import CreateGenericConfirmModal from 'components/GenericConfirmModal'
 import { EmployeeStatus } from 'company/constants/employee'
-import OrderingBuilder from 'components/OrderingBuilder'
+import OrderingBuilder, { ORDERS } from 'components/OrderingBuilder'
 import { bindPathParams } from 'helpers'
 
 const ConfirmDemissionModal = CreateGenericConfirmModal({
@@ -22,7 +22,7 @@ const ConfirmDemissionModal = CreateGenericConfirmModal({
 })
 
 const employeesOrdering = OrderingBuilder()
-  .add('valor_emprestado', '-')
+  .add('valor_emprestado', ORDERS.DESC)
   .build()
 
 const EmployeesDemissionList = ({ entity: { pages: entityPages } }) => {

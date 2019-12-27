@@ -80,7 +80,7 @@ const EmployeesView = ({ entity: { pages } }) => {
           <Button type='button' className='btn btn-link'>
             Demitir
           </Button>
-          <Button type='button' className='btn btn-default bg-white'>
+          <Button type='button' className='btn btn-default'>
             Editar
           </Button>
         </ColumnRight>

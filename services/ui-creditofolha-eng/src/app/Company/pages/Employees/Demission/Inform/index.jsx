@@ -131,7 +131,7 @@ const EmployeesDemissionInform = (
           <Title>Informar demissão</Title>
         </ColumnLeft>
         <ColumnRight isActionBar={ true }>
-          <Button className='btn btn-default bg-white mr-3' onClick={ () => history.goBack() }>
+          <Button className='btn btn-default mr-3' onClick={ () => history.goBack() }>
             Cancelar
           </Button>
           <Button className='btn btn-danger' onClick={ () => submit() } disabled={ invalid }>

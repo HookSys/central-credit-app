@@ -6,7 +6,6 @@ import { toEntityList } from 'base/BaseList'
 import Discount from 'models/Discount'
 import Payment from 'models/Payment'
 import PAYMENT_LOT_STATUS from 'constants/paymentLot'
-import PaymentEmployeeLot from 'models/PaymentEmployeeLot'
 
 const defaultValues = {
   id: '',
@@ -59,57 +58,19 @@ export default class PaymentLot extends BaseRecord(defaultValues, PaymentLot) {
     ].includes(this.get('status'))
   }
 
-  getByReceivable(formFieldArraysObject) {
-    if (formFieldArraysObject) {
-      const discountsByEmployee = this.get('discountsByEmployee')
-      const result = formFieldArraysObject.reduce((discounts, formFieldArray, fieldName) => {
-        const discountByEmployee = discountsByEmployee.find((item) => item.get('fieldName') === fieldName)
-        const contracts = discountByEmployee.get('contracts')
-        const newDiscounts = formFieldArray.reduce((fieldArrayDiscounts, discount) => {
-          const receivableFromForm = discount.get('recebivel')
-          const discountedValueFromForm = discount.get('valor_descontado')
-          const divergenceFromForm = discount.get('divergencia')
-          const hasChanged = contracts.findIndex(
-            (contract) => contract.get('recebivel') === receivableFromForm
-              && contract.get('valor_descontado') === discountedValueFromForm
-              && contract.get('divergencia') === divergenceFromForm
-          ) === -1
-          if (hasChanged) {
-            return fieldArrayDiscounts.push(new Map({
-              divergencia: divergenceFromForm,
-              valor_descontado: discountedValueFromForm,
-              recebivel: receivableFromForm,
-            }))
-          }
-          return fieldArrayDiscounts
-        }, new List())
-        return discounts.push(...newDiscounts)
-      }, new List())
-      return result
+  getRequest(values) {
+    if (values && List.isList(values)) {
+      return new Map({
+        descontos_por_funcionario: values.map((discount) => {
+          return new Map({
+            valor_descontado: discount.get('valor_descontado'),
+            divergencia: discount.get('divergencia'),
+            cpf: discount.getIn(['funcionario', 'cpf']),
+          })
+        }),
+      })
     }
 
-    return null
-  }
-
-  static getDiscountGroupedByEmployee(discounts) {
-    return discounts.reduce((paymentsEmployeeLot, discount) => {
-      const employee = discount.get('funcionario')
-      if (employee.get('cpf')) {
-        const inx = paymentsEmployeeLot.findIndex(
-          (paymentEmployeeLotIn) => paymentEmployeeLotIn.getIn(['employee', 'cpf']) === discount.getIn(['funcionario', 'cpf'])
-        )
-        if (inx < 0) {
-          const paymentEmployeeLot = new PaymentEmployeeLot({
-            employee: discount.get('funcionario'),
-          })
-          return paymentsEmployeeLot.push(paymentEmployeeLot.addNewContract(discount))
-        }
-
-        const paymentEmployeeLot = paymentsEmployeeLot.get(inx)
-        return paymentsEmployeeLot.set(inx, paymentEmployeeLot.addNewContract(discount))
-      }
-
-      return paymentsEmployeeLot
-    }, new List())
+    return new Map()
   }
 }

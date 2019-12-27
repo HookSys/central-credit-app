@@ -14,6 +14,7 @@ $theme-colors: (
   "low-dark":   $gray-300,
   "container":  $container,
   "gray":       $gray-200,
+  "default":    $white,
 );
 
 @import '~bootstrap/scss/functions';

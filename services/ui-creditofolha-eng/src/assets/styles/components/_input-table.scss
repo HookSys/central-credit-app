@@ -9,6 +9,7 @@
             border-right: none;
             border-radius: 0px;
             border-width: 1px;
+            background-color: transparent;
 
             &:not([value=""]):not(:focus):not(.is-invalid):not(.is-warning):not(.no-value) {
               border-color: $gray-800;

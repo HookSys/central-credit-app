@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useCallback } from 'react'
+import React, { Fragment, useEffect, useCallback, useContext } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { Map } from 'immutable'
@@ -12,23 +12,57 @@ import { capitalize } from 'helpers'
 import { CalendarToday } from '@material-ui/icons'
 import { Table, TableHead, TableHeader, TableBody } from 'components/Table'
 import { repassDiscountLotQuery } from 'company/queries/paymentLots'
-import { paymentLotByMonthAsyncRequest } from 'company/actions/paymentLots'
+import { paymentLotByMonthAsyncRequest, paymentLotByMonthSaveRequest,
+  paymentLotByMonthSendRequest } from 'company/actions/paymentLots'
+import { ToastContext } from 'components/ToastProvider'
 import EmployeeFieldArray from './EmployeeFieldArray'
 
 const formName = 'repassDiscountForm'
 
 const RepassDiscountList = (
-  { parent, handleSubmit, initialize, submit, invalid, pristine, entity: { pages: entityPages } }
+  { parent, handleSubmit, initialize, submit, invalid, pristine,
+    entity: { pages: entityPages } }
 ) => {
   const dispatch = useDispatch()
+  const { showErrorToast, showSuccessToast } = useContext(ToastContext)
   const date = moment()
   const currentMonth = date.format('YYYYMM')
   const paymentLot = useSelector(({ company }) => company.paymentLots.getIn(['options', 'selected']))
+  const errors = useSelector(state => state.errors.get('errors'))
 
   const onSidePanelChange = useCallback(() => {
   }, [])
 
-  const onSubmit = useCallback(() => {
+  const onSubmit = useCallback(async (form) => {
+    const discounts = form.get('descontos_por_funcionario')
+    const values = paymentLot.getRequest(discounts)
+    const response = await dispatch(paymentLotByMonthSaveRequest(currentMonth, values))
+    if (!response) {
+      showErrorToast({
+        message: 'Ajuste os erros abaixo antes de prosseguir.',
+      })
+      return false
+    }
+
+    showSuccessToast({
+      message: 'Alterações efetuadas com sucesso.',
+    })
+    return true
+  }, [paymentLot])
+
+  const onSend = useCallback(async () => {
+    const response = await dispatch(paymentLotByMonthSendRequest(currentMonth))
+    if (!response) {
+      showErrorToast({
+        message: 'Ocorreu um problema ao processar a requisição, tente novamente mais tarde.',
+      })
+      return false
+    }
+
+    showSuccessToast({
+      message: 'Lotes enviados com sucesso!',
+    })
+    return true
   }, [])
 
   useEffect(() => {
@@ -53,6 +87,7 @@ const RepassDiscountList = (
   const start = moment(maturityIn, 'DD/MM/YYYY').subtract(1, 'months').startOf('month')
   const percentage = Math.round((Math.abs(today - start) / Math.abs(end - start)) * 100)
   const daysRemaning = Math.floor(moment.duration(moment(maturityIn, 'DD/MM/YYYY').startOf('day') - date.startOf('day')).asDays())
+  const hasErrors = errors && errors.filter((error) => error.get('path').includes('descontos_por_funcionario')).size > 0
 
   return (
     <Fragment>
@@ -66,18 +101,18 @@ const RepassDiscountList = (
           <Title>{ `Desconto do salário de ${ capitalize(date.format('MMMM')) } ${ date.format('YYYY') }` }</Title>
         </ColumnLeft>
         <ColumnRight isActionBar={ true }>
-          <Button disabled={ invalid || pristine } className='btn btn-default bg-white mr-3'>
+          <Button disabled={ invalid || (pristine && !hasErrors) } className='btn btn-default mr-3' onClick={ () => submit() }>
             Salvar
           </Button>
-          <Button disabled={ invalid || !pristine } onClick={ () => submit() }>
+          <Button disabled={ hasErrors || !pristine } onClick={ onSend }>
             Enviar
           </Button>
         </ColumnRight>
       </ColumnWrapper>
       <ColumnWrapper className='mt-0 mb-4 d-flex flex-column flex-md-row'>
         <ColumnLeft>
-          <div className='d-flex justify-content-between justify-content-md-end flex-wrap'>
-            <div className='d-flex align-items-end justify-content-center mr-auto mr-lg-0'>
+          <div className='d-flex flex-wrap'>
+            <div className='d-flex align-items-end w-100 w-md-auto'>
               <CircularProgressbar
                 percentage={ percentage }
                 Icon={ CalendarToday }
@@ -89,13 +124,13 @@ const RepassDiscountList = (
             </div>
             <HeaderInfo
               title='Valor Original'
-              className='mt-3 mt-md-0 pr-2'
+              className='mt-3 mt-md-0 ml-4 pr-2'
             >
               { paymentLot.getFormatedCurrency('valor_previsto') }
             </HeaderInfo>
             <HeaderInfo
               title='Valor Atual'
-              className='mt-3 mt-md-0 ml-md-4 pr-2'
+              className='mt-3 mt-md-0 ml-4 pr-2'
             >
               { paymentLot.getFormatedCurrency('valor_descontado') }
             </HeaderInfo>
@@ -129,6 +164,7 @@ const RepassDiscountList = (
                 discounts={ paymentLot.get('descontos_por_funcionario') }
                 component={ EmployeeFieldArray }
                 rerenderOnEveryChange={ true }
+                errors={ errors }
               />
             </TableBody>
           </Table>

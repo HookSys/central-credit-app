@@ -110,6 +110,54 @@ export function paymentLotByMonthAsyncRequest(query, month) {
   }
 }
 
+export function paymentLotByMonthSaveRequest(month, values) {
+  return async (dispatch, getState, service) => {
+    dispatch(appLoadSpinner())
+
+    try {
+      const response = await service.apiV3({
+        path: 'cep/lotes/:month/',
+        method: 'PUT',
+        pathParams: {
+          month,
+        },
+        body: values,
+      })
+
+      dispatch(paymentLotAsyncSuccess(response))
+      return response
+    } catch (errorMessage) {
+      dispatch(paymentLotsAsyncFail(errorMessage))
+      return errorMessage
+    } finally {
+      dispatch(appUnloadSpinner())
+    }
+  }
+}
+
+export function paymentLotByMonthSendRequest(month) {
+  return async (dispatch, getState, service) => {
+    dispatch(appLoadSpinner())
+
+    try {
+      const response = await service.apiV3({
+        path: 'cep/lotes/:month/submeter/',
+        method: 'POST',
+        pathParams: {
+          month,
+        },
+      })
+
+      dispatch(paymentLotAsyncSuccess(response))
+      return response
+    } catch (errorMessage) {
+      dispatch(paymentLotsAsyncFail(errorMessage))
+      return errorMessage
+    } finally {
+      dispatch(appUnloadSpinner())
+    }
+  }
+}
 
 export function paymentLotAsyncRequest(query, lotId) {
   return async (dispatch, getState, service) => {

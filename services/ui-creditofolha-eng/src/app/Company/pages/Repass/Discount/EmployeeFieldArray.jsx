@@ -13,7 +13,7 @@ import { currencyMask } from 'form/normalizers'
 import ReduxFormSelect from 'components/ReduxFormSelect'
 import ReduxFormInput from 'components/ReduxFormInput'
 
-const EmployeeFieldArray = ({ fields, discounts }) => {
+const EmployeeFieldArray = ({ fields, discounts, errors }) => {
   const size = useWindowSize()
 
   if (['XS', 'SM'].includes(size)) {
@@ -101,61 +101,76 @@ const EmployeeFieldArray = ({ fields, discounts }) => {
 
         const paymentLotReduxForm = fields.get(i)
         const diff = paymentLot.get('valor_previsto') - paymentLotReduxForm.get('valor_descontado')
+        const hasError = errors && errors.filter((error) => error.get('path').includes(employee.get('cpf')))
+
         return (
-          <TableRow key={ `i-${ (i + 1) }` }>
-            <TableCell>
-              <div className='d-flex align-items-center'>
-                <Avatar
-                  title={ fullname }
-                  className='text-primary border-primary'
-                />
-                <div className='d-flex flex-column justify-content-center ml-2'>
-                  <span className='d-block text-primary mb-n1'>{ fullname }</span>
-                  <span className='d-block font-size-sm font-weight-lighter text-low-dark'>{ `CPF: ${ employee.get('cpf') }` }</span>
+          <Fragment key={ `i-${ (i + 1) }` }>
+            { hasError.size > 0 && (
+              <TableRow className='bg-alert-danger h-auto'>
+                <TableCell colSpan='6'>
+                  <span className='d-block text-center text-danger font-weight-bold my-2'>
+                    { hasError.get(0).get('reason') }
+                  </span>
+                </TableCell>
+              </TableRow>
+            ) }
+            <TableRow
+              noSpacer={ hasError.size > 0 }
+            >
+              <TableCell>
+                <div className='d-flex align-items-center'>
+                  <Avatar
+                    title={ fullname }
+                    className='text-primary border-primary'
+                  />
+                  <div className='d-flex flex-column justify-content-center ml-2'>
+                    <span className='d-block text-primary mb-n1'>{ fullname }</span>
+                    <span className='d-block font-size-sm font-weight-lighter text-low-dark'>{ `CPF: ${ employee.get('cpf') }` }</span>
+                  </div>
                 </div>
-              </div>
-            </TableCell>
-            <TableCell>
-              { employee.get('matricula') }
-            </TableCell>
-            <TableCell>
-              { paymentLot.getFormatedCurrency('valor_previsto') }
-            </TableCell>
-            <TableCell>
-              <Field
-                type='text'
-                name={ `${ field }.valor_descontado` }
-                id={ `${ field }.valor_descontado` }
-                formClassName='mb-0'
-                component={ ReduxFormInput }
-                validate={ [required] }
-                hideError={ true }
-                { ...currencyMask }
-              />
-            </TableCell>
-            <TableCell>
-              <Field
-                name={ `${ field }.divergencia` }
-                id={ `${ field }.divergencia` }
-                placeholder='Motivo'
-                noMargin={ true }
-                validate={ [required] }
-                options={ discountReasons }
-                hideError={ true }
-                component={ ReduxFormSelect }
-              />
-            </TableCell>
-            <TableCell>
-              <span
-                className={ classNames('font-weight-bold', {
-                  'text-danger': diff < 0,
-                  'text-success': diff > 0,
-                }) }
-              >
-                { paymentLot.getFormatedCurrency(diff) }
-              </span>
-            </TableCell>
-          </TableRow>
+              </TableCell>
+              <TableCell>
+                { employee.get('matricula') }
+              </TableCell>
+              <TableCell>
+                { paymentLot.getFormatedCurrency('valor_previsto') }
+              </TableCell>
+              <TableCell>
+                <Field
+                  type='text'
+                  name={ `${ field }.valor_descontado` }
+                  id={ `${ field }.valor_descontado` }
+                  formClassName='mb-0'
+                  component={ ReduxFormInput }
+                  validate={ [required] }
+                  hideError={ true }
+                  { ...currencyMask }
+                />
+              </TableCell>
+              <TableCell>
+                <Field
+                  name={ `${ field }.divergencia` }
+                  id={ `${ field }.divergencia` }
+                  placeholder='Motivo'
+                  noMargin={ true }
+                  validate={ [required] }
+                  options={ discountReasons }
+                  hideError={ true }
+                  component={ ReduxFormSelect }
+                />
+              </TableCell>
+              <TableCell>
+                <span
+                  className={ classNames('font-weight-bold', {
+                    'text-danger': diff < 0,
+                    'text-success': diff > 0,
+                  }) }
+                >
+                  { paymentLot.getFormatedCurrency(diff) }
+                </span>
+              </TableCell>
+            </TableRow>
+          </Fragment>
         )
       }) }
     </Fragment>
@@ -165,6 +180,7 @@ const EmployeeFieldArray = ({ fields, discounts }) => {
 EmployeeFieldArray.propTypes = {
   fields: PropTypes.object.isRequired,
   discounts: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
 }
 
 export default EmployeeFieldArray

@@ -96,6 +96,10 @@
       }
     }
 
+    tr.bg-alert-danger + tr {
+      box-shadow: 0 3px 3px 0 #{theme-color-level('danger', $alert-bg-level)} !important;
+    }
+
     tr.has-child-open + tr.is-child-spacer-opened + tr.is-row-child {
       &:after {
         content: unset !important;

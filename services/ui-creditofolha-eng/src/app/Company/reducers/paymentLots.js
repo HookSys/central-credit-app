@@ -85,9 +85,7 @@ const actionsMap = {
   },
   [PAYMENT_LOTS_ASYNC_FAIL]: (state, action) => {
     const { errorMessage } = action
-    const options = state.get('options')
     return state.merge({
-      options: options.set('selected', null),
       errorMessage,
     })
   },

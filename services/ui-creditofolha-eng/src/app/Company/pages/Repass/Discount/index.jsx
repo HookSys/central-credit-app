@@ -15,7 +15,7 @@ import { repassDiscountLotQuery } from 'company/queries/paymentLots'
 import { paymentLotByMonthAsyncRequest, paymentLotByMonthSaveRequest,
   paymentLotByMonthSendRequest } from 'company/actions/paymentLots'
 import { ToastContext } from 'components/ToastProvider'
-import EmployeeFieldArray from './EmployeeFieldArray'
+import EmployeeFieldArray from './FieldArray'
 
 const formName = 'repassDiscountForm'
 
@@ -112,7 +112,7 @@ const RepassDiscountList = (
       <ColumnWrapper className='mt-0 mb-4 d-flex flex-column flex-md-row'>
         <ColumnLeft>
           <div className='d-flex flex-wrap'>
-            <div className='d-flex align-items-end w-100 w-md-auto'>
+            <div className='d-flex align-items-end w-100 w-sm-auto'>
               <CircularProgressbar
                 percentage={ percentage }
                 Icon={ CalendarToday }
@@ -124,7 +124,7 @@ const RepassDiscountList = (
             </div>
             <HeaderInfo
               title='Valor Original'
-              className='mt-3 mt-md-0 ml-4 pr-2'
+              className='mt-3 mt-md-0 ml-sm-4 pr-2'
             >
               { paymentLot.getFormatedCurrency('valor_previsto') }
             </HeaderInfo>

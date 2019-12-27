@@ -6,7 +6,7 @@ const WINDOW_SIZES = {
   XS: (width) => width < 768,
   SM: (width) => width < 992,
   MD: (width) => width < 1200,
-  LG: (width) => width >= 1022,
+  LG: (width) => width >= 1200,
 }
 
 function getWindowSize() {

@@ -42,11 +42,11 @@ const Header = () => {
   const { small } = structure
   return (
     <header>
-      <div className='navbar navbar-dark bg-secondary navbar-lg-light bg-lg-white fixed-top shadow-md'>
+      <div className='navbar navbar-dark bg-secondary navbar-xl-light bg-xl-white fixed-top shadow-md'>
         <div className='row w-100 no-gutters'>
           <div className='col-12'>
             { /* Mobile Navbar */ }
-            <div className='d-flex d-lg-none w-100 align-items-center'>
+            <div className='d-flex d-xl-none w-100 align-items-center'>
               { /* Mobile Left Navbar */ }
               <div className='d-flex text-white mr-auto'>
                 <button className='navbar-toggler p-0 border-0 text-white' type='button'>
@@ -78,7 +78,7 @@ const Header = () => {
             </div>
 
             { /* Desktop Navbar */ }
-            <div className='d-none d-lg-flex w-100 align-items-center'>
+            <div className='d-none d-xl-flex w-100 align-items-center'>
               { /* Desktop Left Navbar */ }
               <div className='d-flex text-dark mr-auto ml-3'>
                 <div id='search-form-render' />

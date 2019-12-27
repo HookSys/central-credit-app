@@ -22,6 +22,8 @@ const ContractsListPage = LazyLoading(() => import('company/pages/Contracts/List
 
 const RepassPage = LazyLoading(() => import('company/pages/Repass'))
 const RepassDiscountPage = LazyLoading(() => import('company/pages/Repass/Discount'))
+const RepassDiscountListPage = LazyLoading(() => import('company/pages/Repass/Discount/List'))
+const RepassDiscountSuccessPage = LazyLoading(() => import('company/pages/Repass/Discount/Success'))
 const RepassDetailPage = LazyLoading(() => import('company/pages/Repass/Detail'))
 
 const UsersPage = LazyLoading(() => import('company/pages/Users'))
@@ -192,6 +194,21 @@ const CompanyRoutes = {
         route: '',
         name: 'Desconto em folha',
         component: RepassDiscountPage,
+        routes: {
+          INDEX: {
+            route: '',
+            name: 'Desconto em folha',
+            component: RepassDiscountListPage,
+            hideMenu: true,
+          },
+          SUCCESS: {
+            route: '/success',
+            name: 'Sucesso!',
+            component: RepassDiscountSuccessPage,
+            hideMenu: true,
+            isFeedback: true,
+          },
+        },
       },
       DETAIL: {
         route: '/detail',

@@ -6,6 +6,7 @@ const defaultValues = {
   status: '',
   codigo_barras: '',
   nosso_numero: '',
+  identificador: '',
   valor: 0,
   vencimento_em: moment(),
   url_pdf: '',

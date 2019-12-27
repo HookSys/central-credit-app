@@ -23,7 +23,7 @@ FeedbackHeader.propTypes = {
 }
 
 FeedbackHeader.defaultProps = {
-  bgClassName: 'bg-default',
+  bgClassName: 'bg-main',
   desktopIconName: null,
   mobileIconName: null,
 }

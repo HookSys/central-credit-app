@@ -6,6 +6,7 @@ export const dashboardPaymentLotQuery = createQuery([
 
 export const repassDiscountLotQuery = createQuery([
   'vencimento_em',
+  'mes_referencia',
   'valor_descontado',
   'valor_previsto',
   'pagamento',

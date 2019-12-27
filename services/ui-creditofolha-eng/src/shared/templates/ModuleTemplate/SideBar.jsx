@@ -33,6 +33,14 @@ SideBarProvider.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
+function getFirstValidRoute(pages, route) {
+  if (typeof pages[route] !== 'object') {
+    return pages[route]
+  }
+
+  return getFirstValidRoute(pages[route], 'INDEX')
+}
+
 const SideBar = () => {
   const structure = useStructure()
   const location = useLocation()
@@ -72,7 +80,7 @@ const SideBar = () => {
           }
 
           const Icon = routes[route].icon()
-          const url = typeof pages[route] === 'object' ? pages[route].INDEX : pages[route]
+          const url = getFirstValidRoute(pages, route)
           return (
             <Link
               to={ url }

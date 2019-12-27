@@ -28,7 +28,7 @@ FeedbackLeft.propTypes = {
 }
 
 FeedbackLeft.defaultProps = {
-  bgClassName: 'bg-default',
+  bgClassName: 'bg-main',
   renderIcon: null,
   desktopIconName: null,
   mobileIconName: null,

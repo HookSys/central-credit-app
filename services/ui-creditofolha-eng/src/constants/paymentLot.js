@@ -40,4 +40,15 @@ export const PAYMENT_LOT_STATUS_DESCRIPTION = {
   [PAYMENT_LOT_STATUS.RETURN_DIVERGENT_PAYMENT]: 'Retorno pagamento divergente',
 }
 
+export const PAYMENT_TYPES = {
+  TED: 'ted',
+  BILLET: 'boleto',
+}
+
+export const PAYMENT_DESCRIPTION = {
+  [PAYMENT_TYPES.TED]: 'TED',
+  [PAYMENT_TYPES.BILLET]: 'Boleto bancário',
+}
+
+
 export default PAYMENT_LOT_STATUS

@@ -6,7 +6,7 @@ import { get } from 'lodash'
 const defaultValues = {
   pagamento_em: moment(),
   valor_pagamento: 0,
-  forma_pagamento: '',
+  forma_de_pagamento: '',
   dados_pagamento: PaymentFactory.createPaymentType(),
   financeira: '',
 }

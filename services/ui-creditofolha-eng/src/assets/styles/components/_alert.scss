@@ -51,4 +51,15 @@
       background-color: $warning;
     }
   }
+
+  &.info {
+    background-color: $info-100;
+    .alert-icon {
+      color: $info;
+    }
+
+    &::before {
+      background-color: $info;
+    }
+  }
 }

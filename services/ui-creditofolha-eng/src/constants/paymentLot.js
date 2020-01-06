@@ -1,10 +1,15 @@
 export const PAYMENT_LOT_STATUS = {
-  SUBMITED: 'submetido',
-  PENDENT: 'pendente',
+  OPEN: 'em-aberto',
+  DIVERGENT_PAYMENT: 'retorno-pagamento-divergente',
+  NEGOTIATED: 'negociado',
+  CLOSED: 'fechado',
+  SENT: 'enviado',
+  PENDING: 'pendente',
+  PAYMENT_RETURN: 'retorno-pagamento-divergente',
+  CONCILIATED_AUTOMATICALLY: 'conciliado-automaticamente',
   CONCILIATED: 'conciliado',
-  AUTO_CONCILIATED: 'conciliado-automaticamente',
+  SUBMITTED: 'submetido',
   EXPIRED: 'expirado',
-  RETURN_DIVERGENT_PAYMENT: 'retorno-pagamento-divergente',
 }
 
 export const PAYMENT_LOT_REASONS = {

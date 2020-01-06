@@ -23,6 +23,8 @@ const ContractsListPage = LazyLoading(() => import('company/pages/Contracts/List
 const RepassPage = LazyLoading(() => import('company/pages/Repass'))
 const RepassDiscountPage = LazyLoading(() => import('company/pages/Repass/Discount'))
 const RepassDiscountListPage = LazyLoading(() => import('company/pages/Repass/Discount/List'))
+const RepassDiscountInfosPage = LazyLoading(() => import('company/pages/Repass/Discount/Infos'))
+const RepassDiscountEmptyPage = LazyLoading(() => import('company/pages/Repass/Discount/Empty'))
 const RepassDiscountSuccessPage = LazyLoading(() => import('company/pages/Repass/Discount/Success'))
 const RepassDetailPage = LazyLoading(() => import('company/pages/Repass/Detail'))
 
@@ -207,6 +209,18 @@ const CompanyRoutes = {
             component: RepassDiscountSuccessPage,
             hideMenu: true,
             isFeedback: true,
+          },
+          INFOS: {
+            route: '/infos',
+            name: 'Informações',
+            component: RepassDiscountInfosPage,
+            hideMenu: true,
+          },
+          EMPTY: {
+            route: '/empty',
+            name: 'Lote vazio',
+            component: RepassDiscountEmptyPage,
+            hideMenu: true,
           },
         },
       },

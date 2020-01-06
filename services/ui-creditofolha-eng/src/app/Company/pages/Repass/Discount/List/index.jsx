@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useCallback, useContext } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Redirect } from 'react-router-dom'
 import { Map } from 'immutable'
 import { useSelector, useDispatch } from 'react-redux'
 import { FieldArray, Form, reduxForm } from 'redux-form/immutable'
@@ -12,6 +12,7 @@ import { capitalize } from 'helpers'
 import { CalendarToday } from '@material-ui/icons'
 import { Table, TableHead, TableHeader, TableBody } from 'components/Table'
 import { repassDiscountLotQuery } from 'company/queries/paymentLots'
+import { PAYMENT_LOT_STATUS } from 'constants/paymentLot'
 import { paymentLotByMonthAsyncRequest, paymentLotByMonthSaveRequest,
   paymentLotByMonthSendRequest } from 'company/actions/paymentLots'
 import { ToastContext } from 'components/ToastProvider'
@@ -65,6 +66,11 @@ const RepassDiscountList = (
 
   useEffect(() => {
     dispatch(paymentLotByMonthAsyncRequest(repassDiscountLotQuery, currentMonth))
+      .then((response) => {
+        if (!response) {
+          history.push(pages.REPASS.INDEX.EMPTY)
+        }
+      })
   }, [])
 
   useEffect(() => {
@@ -77,6 +83,12 @@ const RepassDiscountList = (
 
   if (!paymentLot) {
     return null
+  }
+
+  if (!paymentLot.get('status').includes(PAYMENT_LOT_STATUS.PENDING)) {
+    return (
+      <Redirect to={ pages.REPASS.INDEX.INFOS } />
+    )
   }
 
   const maturityIn = paymentLot.getFormatedDate('vencimento_em')

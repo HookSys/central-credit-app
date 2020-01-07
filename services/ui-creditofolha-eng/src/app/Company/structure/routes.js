@@ -28,6 +28,7 @@ const RepassDiscountEmptyPage = LazyLoading(() => import('company/pages/Repass/D
 const RepassDiscountSuccessPage = LazyLoading(() => import('company/pages/Repass/Discount/Success'))
 const RepassDetailPage = LazyLoading(() => import('company/pages/Repass/Detail'))
 const RepassDetailListPage = LazyLoading(() => import('company/pages/Repass/Detail/List'))
+const RepassDetailViewPage = LazyLoading(() => import('company/pages/Repass/Detail/View'))
 
 const UsersPage = LazyLoading(() => import('company/pages/Users'))
 const CovenantPage = LazyLoading(() => import('company/pages/Covenant'))
@@ -243,6 +244,12 @@ const CompanyRoutes = {
             route: '',
             name: 'Lista',
             component: RepassDetailListPage,
+            hideMenu: true,
+          },
+          VIEW: {
+            route: '/:paymentLotMonth',
+            name: 'Detalhe',
+            component: RepassDetailViewPage,
             hideMenu: true,
           },
         },

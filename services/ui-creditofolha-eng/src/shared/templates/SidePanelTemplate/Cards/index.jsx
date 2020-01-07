@@ -5,7 +5,7 @@ import classNames from 'classnames'
 const SidePanelCards = ({ children, className, maxHeight }) => {
   return (
     <div
-      className={ classNames('d-flex align-items-center flex-column w-100 overflow-auto mt-3', className) }
+      className={ classNames('d-flex align-items-center flex-column w-100 overflow-auto', className) }
       style={ { maxHeight } }
     >
       { children }
@@ -20,7 +20,7 @@ SidePanelCards.propTypes = {
 }
 
 SidePanelCards.defaultProps = {
-  className: '',
+  className: 'mt-3',
   maxHeight: '90vh',
 }
 

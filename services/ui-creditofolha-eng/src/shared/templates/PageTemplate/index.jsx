@@ -33,5 +33,6 @@ export { default as ColumnLeft } from './ColumnLeft'
 export { default as Title } from './Title'
 export { default as BackLink } from './BackLink'
 export { default as HeaderInfo } from './HeaderInfo'
+export { default as Box } from './Box'
 
 export default React.memo(Layout)

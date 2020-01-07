@@ -99,7 +99,7 @@
     position: relative;
   
     &:hover {
-      background-color: rgba(theme-color('primary'), 0.5);
+      background-color: rgba(theme-color('primary'), 0.3);
     }
   
     span {
@@ -107,10 +107,56 @@
     }
   
     &.active {
-      background-color: theme-color('primary');
+      background-color: rgba(theme-color('primary'), 0.9);;
   
       span {
         color: $white !important;
+      }
+
+      &::before {
+        border: solid theme-color('primary');
+        border-width: 0 7px 7px 0;
+        display: block;
+        padding: 3px;
+        position: absolute;
+        content: "";
+        right: -7px;
+        top: 20%;
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+      }
+    }
+
+    &::after {
+      position: absolute;
+      display: block;
+      content: "";
+      top: 0px;
+      right: 0px;
+      height: 100%;
+      width: 5px;
+      background-color: theme-color('primary');
+    }
+
+    &.warning {
+      &::after {
+        background-color: theme-color('warning');
+      }
+
+      &:hover {
+        background-color: rgba(theme-color('warning'), 0.3);
+      }
+
+      span {
+        color: theme-color('warning');
+      }
+
+      &.active {
+        background-color: rgba(theme-color('warning'), 0.9);
+
+        &::before {
+          border-color: theme-color('warning');
+        }
       }
     }
   }

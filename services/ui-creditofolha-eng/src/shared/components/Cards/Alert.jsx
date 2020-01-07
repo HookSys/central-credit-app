@@ -13,7 +13,7 @@ const Alert = ({ children, className, type }) => {
 Alert.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  type: PropTypes.oneOf(['warning', 'success', 'danger', 'dark']),
+  type: PropTypes.oneOf(['warning', 'success', 'danger', 'dark', 'info']),
 }
 
 Alert.defaultProps = {

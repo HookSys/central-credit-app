@@ -5,8 +5,9 @@ import { repassDiscountLotQuery } from 'company/queries/paymentLots'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { PAYMENT_LOT_STATUS } from 'constants/paymentLot'
+import RepassSidePanel from 'company/pages/Repass/SidePanel'
 
-const RepassDiscount = ({ children, entity: { pages } }) => {
+const RepassDiscount = ({ children, parent: { parent }, entity: { pages } }) => {
   const history = useHistory()
   const dispatch = useDispatch()
 
@@ -29,6 +30,10 @@ const RepassDiscount = ({ children, entity: { pages } }) => {
 
   return (
     <Fragment>
+      <RepassSidePanel
+        pages={ pages.REPASS }
+        routes={ parent.routes }
+      />
       { children }
     </Fragment>
   )
@@ -36,6 +41,7 @@ const RepassDiscount = ({ children, entity: { pages } }) => {
 
 RepassDiscount.propTypes = {
   children: PropTypes.node.isRequired,
+  parent: PropTypes.object.isRequired,
   entity: PropTypes.object.isRequired,
 }
 

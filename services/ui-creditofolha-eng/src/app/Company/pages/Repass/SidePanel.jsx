@@ -25,7 +25,7 @@ const RepassSidePanel = ({ pages, routes, onChange }) => {
                 pages={ pages }
                 routeKey={ key }
                 key={ key }
-                onClick={ onChange(routes[key]) }
+                onClick={ onChange }
               >
                 { routes[key].name }
               </Link>
@@ -44,7 +44,7 @@ RepassSidePanel.propTypes = {
 }
 
 RepassSidePanel.defaultProps = {
-  onChange: undefined,
+  onChange: () => {},
 }
 
 export default React.memo(RepassSidePanel)

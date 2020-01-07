@@ -12,6 +12,8 @@ import {
   PAYMENT_LOTS_RESET_SELECTED,
   PAYMENT_LOTS_SAVE_SUCCESS,
   PAYMENT_LOTS_COMMENTS_ASYNC_SUCCESS,
+  PAYMENT_LOTS_SELECT_ITEM,
+  PAYMENT_LOTS_RESET_RESULTS,
   PAYMENT_LOTS_POST_COMMENT_ASYNC_SUCCESS,
 } from 'company/actions/paymentLots'
 
@@ -41,6 +43,13 @@ const actionsMap = {
     const options = state.get('options')
     return state.merge({
       options: options.set('selected', new PaymentLot(payload)),
+    })
+  },
+  [PAYMENT_LOTS_SELECT_ITEM]: (state, action) => {
+    const { payload } = action
+    const options = state.get('options')
+    return state.merge({
+      options: options.set('selected', payload),
     })
   },
   [PAYMENT_LOTS_SAVE_SUCCESS]: (state, action) => {
@@ -75,12 +84,20 @@ const actionsMap = {
     })
   },
   [PAYMENT_LOTS_ASYNC_SUCCESS]: (state, action) => {
-    const { results, count, next, previous } = action
+    const { results, count, next, previous } = action.payload
     return state.merge({
       count,
       next,
       previous,
       results: toEntityList(results, PaymentLot),
+    })
+  },
+  [PAYMENT_LOTS_RESET_RESULTS]: (state) => {
+    return state.merge({
+      count: initialState.get('count'),
+      next: initialState.get('next'),
+      previous: initialState.get('previous'),
+      results: initialState.get('results'),
     })
   },
   [PAYMENT_LOTS_ASYNC_FAIL]: (state, action) => {

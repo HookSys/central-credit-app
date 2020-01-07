@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { isRouteSidePanelActive } from 'helpers'
@@ -11,12 +11,20 @@ const Link = ({ children, pages, routeKey, onClick }) => {
 
   const isContainer = typeof pages[routeKey] === 'object'
   const to = isContainer ? pages[routeKey].INDEX : pages[routeKey]
+  const isActive = isRouteSidePanelActive(location, to, routeKey, route)
+
+  const onClickHook = useCallback(() => {
+    if (!isActive) {
+      onClick()
+    }
+  }, [isActive])
+
   return (
     <RouterLink
       to={ to }
-      onClick={ onClick }
+      onClick={ onClickHook }
       className={ classNames('pl-3', {
-        'active': isRouteSidePanelActive(location, to, routeKey, route),
+        'active': isActive,
       }) }
     >
       { children }

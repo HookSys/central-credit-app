@@ -10,6 +10,14 @@ export const pendingPaymentLotQuery = createQuery([
   'vencimento_em',
 ])
 
+export const repassDetailingLotQuery = createQuery([
+  'mes_referencia',
+  'valor_previsto',
+  'valor_descontado',
+  'status',
+  'descontos_por_funcionario',
+])
+
 export const repassDiscountLotQuery = createQuery([
   'vencimento_em',
   'mes_referencia',

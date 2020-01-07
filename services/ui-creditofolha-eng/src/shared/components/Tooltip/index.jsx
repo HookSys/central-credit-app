@@ -12,7 +12,7 @@ export {
 
 const Tooltip = ({ children, isOpen, onClose }) => (
   <Fragment>
-    { isOpen && (<div className='tooltip-overlay' role='presentation' onClick={ onClose } />) }
+    { isOpen && onClose && (<div className='tooltip-overlay' role='presentation' onClick={ onClose } />) }
     <div className={ classNames('custom-tooltip', { 'd-block': isOpen }) }>
       { children }
     </div>
@@ -22,7 +22,11 @@ const Tooltip = ({ children, isOpen, onClose }) => (
 Tooltip.propTypes = {
   children: PropTypes.node.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
+}
+
+Tooltip.defaultProps = {
+  onClose: null,
 }
 
 Tooltip.Header = TooltipHeader

@@ -1,12 +1,13 @@
 import React, { useContext, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, Redirect } from 'react-router-dom'
 import Button from 'components/Button'
 import FeedbackTemplate from 'templates/FeedbackTemplate'
 import SvgImage from 'components/SvgImage'
 import { PAYMENT_TYPES } from 'constants/paymentLot'
+import { paymentLotResetResults } from 'company/actions/paymentLots'
 import { TableDefault, TableHead, TableHeader } from 'components/Table'
 import { ToastContext } from 'components/ToastProvider'
 import BilletPayment from 'company/components/BilletPayment'
@@ -19,6 +20,7 @@ const EmployeesDemissionSuccess = ({ entity: { pages } }) => {
   const { showSuccessToast } = useContext(ToastContext)
   const paymentLot = useSelector(({ company }) => company.paymentLots.getIn(['options', 'selected']))
   const history = useHistory()
+  const dispatch = useDispatch()
 
   if (!paymentLot) {
     return (
@@ -32,7 +34,11 @@ const EmployeesDemissionSuccess = ({ entity: { pages } }) => {
     })
   }, [showSuccessToast])
 
-  const onDetail = () => history.push(pages.REPASS.DETAIL.INDEX)
+  const onDetail = useCallback(() => {
+    dispatch(paymentLotResetResults())
+    setTimeout(() => history.push(pages.REPASS.DETAIL.INDEX))
+  }, [])
+
   const payments = paymentLot.get('pagamento')
   return (
     <Layout>

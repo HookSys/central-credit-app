@@ -19,4 +19,4 @@ SwitchTransition.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default SwitchTransition
+export default React.memo(SwitchTransition)

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef, useCallback } from 'react'
+import React, { useContext, useState, useRef, useCallback, memo } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Link, useLocation } from 'react-router-dom'
@@ -14,7 +14,7 @@ const SideBarContext = React.createContext({
   toggleSideBar: () => {},
 })
 
-const SideBarProvider = ({ children }) => {
+const SideBarProvider = memo(({ children }) => {
   const [isSideBarCollapsed, toggleSideBar] = useState(false)
 
   return (
@@ -27,7 +27,7 @@ const SideBarProvider = ({ children }) => {
       { children }
     </SideBarContext.Provider>
   )
-}
+})
 
 SideBarProvider.propTypes = {
   children: PropTypes.node.isRequired,
@@ -56,6 +56,8 @@ const SideBar = () => {
     }
   }, [hasSidePanel]), sidebarRef)
 
+  const onMenuClick = useCallback(() => toggleSideBar(!isSideBarCollapsed), [isSideBarCollapsed])
+
   const { logo, pages, routes } = structure
   return (
     <nav
@@ -67,7 +69,7 @@ const SideBar = () => {
       <div className={ classNames('sidebar-logo', logo.className) }>
         <SvgImage icon={ logo.svg } isOverflowHideen={ true } className='sidebar-logo-svg' />
         <Menu
-          onClick={ () => toggleSideBar(!isSideBarCollapsed) }
+          onClick={ onMenuClick }
           className={ classNames('sidebar-menu-collapse', {
             'has-sidepanel': hasSidePanel,
           }) }
@@ -103,4 +105,4 @@ export {
   SideBarProvider,
   SideBarContext,
 }
-export default SideBar
+export default memo(SideBar)

@@ -1,20 +1,9 @@
-import React, { Fragment, useCallback } from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-// import { useDispatch } from 'react-redux'
-import RepassSidePanel from 'company/pages/Repass/SidePanel'
 
-const RepassDiscount = ({ children, parent: { parent }, entity: { pages } }) => {
-  // const dispatch = useDispatch()
-  const onSidePanelChange = useCallback(() => {
-  }, [])
-
+const RepassDiscount = ({ children }) => {
   return (
     <Fragment>
-      <RepassSidePanel
-        pages={ pages.REPASS }
-        routes={ parent.routes }
-        onChange={ onSidePanelChange }
-      />
       { children }
     </Fragment>
   )
@@ -22,8 +11,6 @@ const RepassDiscount = ({ children, parent: { parent }, entity: { pages } }) => 
 
 RepassDiscount.propTypes = {
   children: PropTypes.node.isRequired,
-  entity: PropTypes.object.isRequired,
-  parent: PropTypes.object.isRequired,
 }
 
-export default RepassDiscount
+export default React.memo(RepassDiscount)

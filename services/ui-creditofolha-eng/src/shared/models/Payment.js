@@ -7,6 +7,7 @@ const defaultValues = {
   pagamento_em: moment(),
   valor_pagamento: 0,
   forma_de_pagamento: '',
+  total_a_ser_pago: 0,
   dados_pagamento: PaymentFactory.createPaymentType(),
   financeira: '',
 }

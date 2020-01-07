@@ -30,4 +30,4 @@ Action.defaultProps = {
   className: '',
 }
 
-export default Action
+export default React.memo(Action)

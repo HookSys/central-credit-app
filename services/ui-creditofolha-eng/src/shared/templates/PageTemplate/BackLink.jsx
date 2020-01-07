@@ -29,4 +29,4 @@ BackLink.defaultProps = {
   className: '',
 }
 
-export default BackLink
+export default React.memo(BackLink)

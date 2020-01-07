@@ -1,16 +1,16 @@
-import { useLayoutEffect, useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect, memo } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 import { SideNavigationContext } from 'templates/ModuleTemplate/SideNavigation'
 import { SideBarContext } from 'templates/ModuleTemplate/SideBar'
 
-const SidePanelRender = ({ children }) => {
+const SidePanelRender = memo(({ children }) => {
   const [portal, setPortal] = useState()
   const { toggleHasSidePanel } = useContext(SideNavigationContext)
   const { toggleSideBar } = useContext(SideBarContext)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setPortal(document.getElementById('sidepanel-render'))
     toggleHasSidePanel(true)
     return () => {
@@ -31,7 +31,7 @@ const SidePanelRender = ({ children }) => {
   }
 
   return null
-}
+})
 
 SidePanelRender.propTypes = {
   children: PropTypes.node.isRequired,

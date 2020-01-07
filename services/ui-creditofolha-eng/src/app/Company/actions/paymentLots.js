@@ -110,6 +110,28 @@ export function paymentLotByMonthAsyncRequest(query, month) {
   }
 }
 
+
+export function paymentLotOpenAsyncRequest(query) {
+  return async (dispatch) => {
+    try {
+      const { results } = await dispatch(paymentLotsAsyncRequest(query, {
+        ordering: '-vencimento_em',
+        limit: 1,
+        offset: 0,
+      }))
+      if (Array.isArray(results) && results.length > 0) {
+        const [paymentLot] = results
+        await dispatch(paymentLotAsyncSuccess(paymentLot))
+        return new PaymentLot(paymentLot)
+      }
+
+      return null
+    } catch {
+      return null
+    }
+  }
+}
+
 export function paymentLotByMonthSaveRequest(month, values) {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())

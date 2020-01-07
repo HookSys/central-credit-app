@@ -38,4 +38,4 @@ ThemeRender.defaultProps = {
   theme: 'default',
 }
 
-export default ThemeRender
+export default React.memo(ThemeRender)

@@ -23,4 +23,4 @@ ColumnWrapper.defaultProps = {
   className: 'py-4',
 }
 
-export default ColumnWrapper
+export default React.memo(ColumnWrapper)

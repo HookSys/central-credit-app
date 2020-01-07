@@ -5,7 +5,7 @@ import { Container } from 'templates/PageTemplate'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { repassDiscountLotQuery } from 'company/queries/paymentLots'
-import { paymentLotByMonthAsyncRequest } from 'company/actions/paymentLots'
+import { paymentLotOpenAsyncRequest } from 'company/actions/paymentLots'
 import Alert from 'components/Alert'
 
 const RepassDiscountEmpty = ({ entity: { pages } }) => {
@@ -17,7 +17,7 @@ const RepassDiscountEmpty = ({ entity: { pages } }) => {
 
   useEffect(() => {
     alertRef.current.show()
-    dispatch(paymentLotByMonthAsyncRequest(repassDiscountLotQuery, currentMonth))
+    dispatch(paymentLotOpenAsyncRequest(repassDiscountLotQuery, currentMonth))
       .then((response) => {
         if (response) {
           history.push(pages.REPASS.INDEX.INFOS)
@@ -52,4 +52,4 @@ RepassDiscountEmpty.propTypes = {
   entity: PropTypes.object.isRequired,
 }
 
-export default RepassDiscountEmpty
+export default React.memo(RepassDiscountEmpty)

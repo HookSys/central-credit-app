@@ -12,11 +12,10 @@ import thunk from 'redux-thunk'
 import reduxLogger from 'middlewares/reduxLogger'
 // import refreshToken from 'middlewares/refreshToken'
 import reduxService from 'middlewares/reduxService'
-import { routerMiddleware } from 'connected-react-router/immutable'
 
 function Redux(initialState?: Object): TLoader<TReduxLoader> {
   const getEnhancer = () => {
-    const { History, Services }: TCore = this
+    const { Services }: TCore = this
 
     const recompose = IsEnvProduction || typeof window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] === 'undefined'
       ? compose
@@ -24,15 +23,11 @@ function Redux(initialState?: Object): TLoader<TReduxLoader> {
 
     return IsEnvProduction
       ? recompose(applyMiddleware(
-        routerMiddleware(History),
         reduxService(Services),
-        // refreshToken,
         thunk
       ))
       : recompose(applyMiddleware(
-        routerMiddleware(History),
         reduxService(Services),
-        // refreshToken,
         thunk,
         reduxLogger
       ))
@@ -40,11 +35,10 @@ function Redux(initialState?: Object): TLoader<TReduxLoader> {
 
   return {
     load: async () => {
-      const { History }: TCore = this
       const enhancer = getEnhancer()
 
       const persistedReducer = persistReducer({ ...PersistConfig, storage },
-        rootReducer(History))
+        rootReducer)
       const store: Store<any, any> = createStore(persistedReducer, initialState, enhancer)
       const persistor: any = persistStore(store)
 

@@ -29,4 +29,4 @@ const AppLoader = () => {
   )
 }
 
-export default AppLoader
+export default React.memo(AppLoader)

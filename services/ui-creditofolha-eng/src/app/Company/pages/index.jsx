@@ -16,4 +16,4 @@ CompanyContainer.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default CompanyContainer
+export default React.memo(CompanyContainer)

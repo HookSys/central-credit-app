@@ -7,10 +7,10 @@ import type { TPermissionsValidator, TCore } from 'types'
 function selectedEntity(): TPermissionsValidator {
   return {
     validate: () => {
-      const { Entity, Redux: { store: { getState } } }: TCore = this
+      const { Entity, History, Redux: { store: { getState } } }: TCore = this
       const user = getState().user.get('data')
-      const { router } = getState()
-      const pathname = router.getIn(['location', 'pathname'])
+      // const { router } = getState()
+      const { location: { pathname } } = History
       const entity = user.getSelectedEntity()
       if (!entity) {
         return true

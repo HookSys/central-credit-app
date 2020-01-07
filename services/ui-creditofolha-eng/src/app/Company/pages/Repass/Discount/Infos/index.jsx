@@ -9,7 +9,7 @@ import { PAYMENT_TYPES, PAYMENT_LOT_STATUS } from 'constants/paymentLot'
 import { ToastContext } from 'components/ToastProvider'
 import { TableDefault, TableHead, TableHeader } from 'components/Table'
 import { repassDiscountLotQuery } from 'company/queries/paymentLots'
-import { paymentLotByMonthAsyncRequest } from 'company/actions/paymentLots'
+import { paymentLotOpenAsyncRequest } from 'company/actions/paymentLots'
 import BilletPayment from 'company/components/BilletPayment'
 import TedPayment from 'company/components/TedPayment'
 
@@ -22,7 +22,7 @@ const RepassDiscountInfos = ({ entity: { pages } }) => {
   const currentMonth = date.format('YYYYMM')
 
   useEffect(() => {
-    dispatch(paymentLotByMonthAsyncRequest(repassDiscountLotQuery, currentMonth))
+    dispatch(paymentLotOpenAsyncRequest(repassDiscountLotQuery, currentMonth))
       .then((response) => {
         if (!response) {
           history.push(pages.REPASS.INDEX.EMPTY)
@@ -104,4 +104,4 @@ RepassDiscountInfos.propTypes = {
   entity: PropTypes.object.isRequired,
 }
 
-export default RepassDiscountInfos
+export default React.memo(RepassDiscountInfos)

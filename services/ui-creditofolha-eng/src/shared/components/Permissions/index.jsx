@@ -26,4 +26,4 @@ Permissions.defaultProps = {
   permissions: [],
 }
 
-export default Permissions
+export default React.memo(Permissions)

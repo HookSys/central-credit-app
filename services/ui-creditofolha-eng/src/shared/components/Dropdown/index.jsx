@@ -6,6 +6,7 @@ import React, {
   Fragment,
   useEffect,
   useRef,
+  memo,
 } from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
@@ -13,12 +14,9 @@ import classNames from 'classnames'
 
 import { useWindowSize } from 'hooks'
 
-import Action from './Action'
-import Header from './Header'
-
 const dropdownRoot = document.getElementById('dropdown-root')
 
-const Dropdown = forwardRef(({ children, className }, ref) => {
+const Dropdown = memo(forwardRef(({ children, className }, ref) => {
   const [position, setPosition] = useState({ y: 0, x: 0 })
   const [isVisible, toggleDropdown] = useState(false)
   const [parent, setParent] = useState(null)
@@ -129,7 +127,7 @@ const Dropdown = forwardRef(({ children, className }, ref) => {
   )
 
   return ReactDOM.createPortal(dropdown, dropdownRoot)
-})
+}))
 
 Dropdown.propTypes = {
   children: PropTypes.node.isRequired,
@@ -140,7 +138,7 @@ Dropdown.defaultProps = {
   className: '',
 }
 
-Dropdown.Action = Action
-Dropdown.Header = Header
+export { default as DropdownAction } from './Action'
+export { default as DropdownHeader } from './Header'
 
 export default Dropdown

@@ -11,12 +11,17 @@ const TedPayment = ({ payment }) => {
           <span className='font-weight-bold'>{ payment.getFormatedCurrency('total_a_ser_pago') }</span>
         </TableCell>
         <TableCell className='align-top'>
-          <span className='font-weight-bold'>{`${ payment.get('forma_de_pagamento') } - ${ paymentData.get('banco_nome') }`}</span>
-          <span>
-            { ` Ag ${ paymentData.get('agencia') } ${ paymentData.get('agencia_dac') } 
-              / CC ${ paymentData.get('conta') }-${ paymentData.get('conta_dac') }
-              / ${ payment.getIn(['financeira', 'cnpj']) }
-            ` }
+          <span className='d-block font-weight-bold text-uppercase'>
+            { `${ payment.get('forma_de_pagamento') } - ${ paymentData.get('banco_nome') }` }
+          </span>
+          <span className='d-block'>
+            <strong>Agência:</strong> { `${ paymentData.get('agencia') } ${ paymentData.get('agencia_dac') }` }
+          </span>
+          <span className='d-block'>
+            <strong>Conta Corrente:</strong> { `${ paymentData.get('conta') }-${ paymentData.get('conta_dac') }` }
+          </span>
+          <span className='d-block'>
+            <strong>CNPJ:</strong> { payment.getIn(['financeira', 'cnpj']) }
           </span>
         </TableCell>
       </TableRow>

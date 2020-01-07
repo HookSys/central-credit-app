@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState, useContext } from 'react'
+import React, { useLayoutEffect, useState, useContext } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
@@ -28,4 +28,4 @@ ActionBarRender.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default ActionBarRender
+export default React.memo(ActionBarRender)

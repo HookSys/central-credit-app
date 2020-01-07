@@ -4,6 +4,12 @@ export const dashboardPaymentLotQuery = createQuery([
   'vencimento_em',
 ])
 
+export const pendingPaymentLotQuery = createQuery([
+  'mes_referencia',
+  'status',
+  'vencimento_em',
+])
+
 export const repassDiscountLotQuery = createQuery([
   'vencimento_em',
   'mes_referencia',

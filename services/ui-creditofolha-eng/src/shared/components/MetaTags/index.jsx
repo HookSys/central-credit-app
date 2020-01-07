@@ -44,4 +44,4 @@ MetaTags.defaultProps = {
   shouldBeIndexed: true,
 }
 
-export default MetaTags
+export default React.memo(MetaTags)

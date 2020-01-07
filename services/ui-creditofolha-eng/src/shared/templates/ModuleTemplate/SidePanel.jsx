@@ -30,4 +30,4 @@ const SidePanel = () => {
   )
 }
 
-export default SidePanel
+export default React.memo(SidePanel)

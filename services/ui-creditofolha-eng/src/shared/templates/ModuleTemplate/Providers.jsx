@@ -23,4 +23,4 @@ Providers.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default Providers
+export default React.memo(Providers)

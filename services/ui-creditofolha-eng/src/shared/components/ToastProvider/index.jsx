@@ -41,4 +41,4 @@ ToastProvider.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default ToastProvider
+export default React.memo(ToastProvider)

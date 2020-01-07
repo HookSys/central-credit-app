@@ -29,4 +29,4 @@ SidePanelCard.defaultProps = {
   isActive: false,
 }
 
-export default SidePanelCard
+export default React.memo(SidePanelCard)

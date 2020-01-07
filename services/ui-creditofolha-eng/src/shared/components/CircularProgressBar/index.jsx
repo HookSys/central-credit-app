@@ -27,4 +27,4 @@ CircularProgressBar.defaultProps = {
   Icon: null,
 }
 
-export default CircularProgressBar
+export default React.memo(CircularProgressBar)

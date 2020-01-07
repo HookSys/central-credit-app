@@ -24,4 +24,4 @@ SidePanelCards.defaultProps = {
   maxHeight: '90vh',
 }
 
-export default SidePanelCards
+export default React.memo(SidePanelCards)

@@ -25,7 +25,7 @@ const RepassSidePanel = ({ pages, routes, onChange }) => {
                 pages={ pages }
                 routeKey={ key }
                 key={ key }
-                onClick={ onChange }
+                onClick={ onChange(routes[key]) }
               >
                 { routes[key].name }
               </Link>

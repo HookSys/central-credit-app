@@ -1,8 +1,8 @@
-import { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState, memo } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
-const SearchFormRender = ({ children }) => {
+const SearchFormRender = memo(({ children }) => {
   const [portal, setPortal] = useState()
 
   useLayoutEffect(() => {
@@ -17,7 +17,7 @@ const SearchFormRender = ({ children }) => {
   }
 
   return null
-}
+})
 
 SearchFormRender.propTypes = {
   children: PropTypes.node.isRequired,

@@ -37,4 +37,4 @@ ColumnRight.defaultProps = {
   isActionBar: false,
 }
 
-export default ColumnRight
+export default React.memo(ColumnRight)

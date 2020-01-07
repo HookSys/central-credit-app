@@ -96,4 +96,4 @@ ModalStatic.defaultProps = {
   size: 'md',
 }
 
-export default ModalStatic
+export default React.memo(ModalStatic)

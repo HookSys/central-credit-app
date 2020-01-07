@@ -34,4 +34,4 @@ Spinner.defaultProps = {
   noOverlay: false,
 }
 
-export default Spinner
+export default React.memo(Spinner)

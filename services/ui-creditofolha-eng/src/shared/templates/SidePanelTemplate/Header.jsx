@@ -13,4 +13,4 @@ Header.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default Header
+export default React.memo(Header)

@@ -13,8 +13,8 @@ import { CalendarToday } from '@material-ui/icons'
 import { Table, TableHead, TableHeader, TableBody } from 'components/Table'
 import { repassDiscountLotQuery } from 'company/queries/paymentLots'
 import { PAYMENT_LOT_STATUS } from 'constants/paymentLot'
-import { paymentLotByMonthAsyncRequest, paymentLotByMonthSaveRequest,
-  paymentLotByMonthSendRequest } from 'company/actions/paymentLots'
+import { paymentLotByMonthSaveRequest,
+  paymentLotByMonthSendRequest, paymentLotOpenAsyncRequest } from 'company/actions/paymentLots'
 import { ToastContext } from 'components/ToastProvider'
 import EmployeeFieldArray from './FieldArray'
 
@@ -26,46 +26,54 @@ const RepassDiscountList = (
   const dispatch = useDispatch()
   const history = useHistory()
   const { showErrorToast, showSuccessToast } = useContext(ToastContext)
-  const date = moment()
-  const currentMonth = date.format('YYYYMM')
   const paymentLot = useSelector(({ company }) => company.paymentLots.getIn(['options', 'selected']))
   const errors = useSelector(state => state.errors.get('errors'))
 
   const onSubmit = useCallback(async (form) => {
-    const discounts = form.get('descontos_por_funcionario')
-    const values = paymentLot.getRequest(discounts)
-    const response = await dispatch(paymentLotByMonthSaveRequest(currentMonth, values))
-    if (!response) {
-      showErrorToast({
-        message: 'Ajuste os erros abaixo antes de prosseguir.',
+    if (paymentLot) {
+      const currentMonth = paymentLot.get('mes_referencia')
+      const discounts = form.get('descontos_por_funcionario')
+      const values = paymentLot.getRequest(discounts)
+      const response = await dispatch(paymentLotByMonthSaveRequest(currentMonth, values))
+      if (!response) {
+        showErrorToast({
+          message: 'Ajuste os erros abaixo antes de prosseguir.',
+        })
+        return false
+      }
+
+      showSuccessToast({
+        message: 'Alterações efetuadas com sucesso.',
       })
-      return false
+      return true
     }
 
-    showSuccessToast({
-      message: 'Alterações efetuadas com sucesso.',
-    })
-    return true
+    return false
   }, [paymentLot])
 
   const onSend = useCallback(async () => {
-    const response = await dispatch(paymentLotByMonthSendRequest(currentMonth))
-    if (!response) {
-      showErrorToast({
-        message: 'Ocorreu um problema ao processar a requisição, tente novamente mais tarde.',
+    if (paymentLot) {
+      const currentMonth = paymentLot.get('mes_referencia')
+      const response = await dispatch(paymentLotByMonthSendRequest(currentMonth))
+      if (!response) {
+        showErrorToast({
+          message: 'Ocorreu um problema ao processar a requisição, tente novamente mais tarde.',
+        })
+        setTimeout(() => history.push(pages.REPASS.INDEX.SUCCESS))
+        return false
+      }
+
+      showSuccessToast({
+        message: 'Lotes enviados com sucesso!',
       })
-      setTimeout(() => history.push(pages.REPASS.INDEX.SUCCESS))
-      return false
+      return true
     }
 
-    showSuccessToast({
-      message: 'Lotes enviados com sucesso!',
-    })
-    return true
-  }, [])
+    return false
+  }, [paymentLot])
 
   useEffect(() => {
-    dispatch(paymentLotByMonthAsyncRequest(repassDiscountLotQuery, currentMonth))
+    dispatch(paymentLotOpenAsyncRequest(repassDiscountLotQuery))
       .then((response) => {
         if (!response) {
           history.push(pages.REPASS.INDEX.EMPTY)
@@ -91,6 +99,7 @@ const RepassDiscountList = (
     )
   }
 
+  const date = paymentLot.getReferenceMonth()
   const maturityIn = paymentLot.getFormatedDate('vencimento_em')
   const today = date.startOf('day')
   const end = moment(maturityIn, 'DD/MM/YYYY').startOf('day')

@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Modal as MainModal, ModalHeader, ModalFooter, ModalBody } from 'reactstrap'
 
-class Modal extends Component {
+class Modal extends PureComponent {
   static propTypes = {
     children: PropTypes.node.isRequired,
     isOpen: PropTypes.bool.isRequired,

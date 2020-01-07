@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 
 import SidePanelLinks from './Links'
@@ -10,13 +10,13 @@ import SidePanelAction from './Action'
 import SidePanelCards from './Cards'
 import SidePanelCard from './Cards/Card'
 
-const Layout = ({ children }) => {
+const Layout = memo(({ children }) => {
   return (
     <div className='sidepanel-template d-flex flex-column'>
       { children }
     </div>
   )
-}
+})
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,

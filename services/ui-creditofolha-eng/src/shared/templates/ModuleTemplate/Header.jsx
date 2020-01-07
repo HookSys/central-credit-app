@@ -1,14 +1,9 @@
 import React, { useContext, useRef } from 'react'
 import classNames from 'classnames'
 import SvgImage from 'components/SvgImage'
-import Dropdown from 'components/Dropdown'
-import { useEntity, useStructure } from 'hooks'
-import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useStructure } from 'hooks'
+import { useSelector } from 'react-redux'
 import { getFirstLetters } from 'helpers'
-
-import { EEntityKeys } from 'constants/entity'
-import { userLogout, userSelectEntity } from 'core/actions/user'
 
 import {
   Menu,
@@ -16,29 +11,20 @@ import {
   AccountCircle,
   Notifications,
   KeyboardArrowDown,
-  AccountBox,
-  Assignment,
-  SupervisorAccount,
-  ExitToApp,
 } from '@material-ui/icons'
 
 import { SideNavigationContext } from './SideNavigation'
+import MainMenu from './Menu'
 
 const Header = () => {
   const dropdown = useRef()
-  const history = useHistory()
   const { toggleSideNavigation, isSideNavigationVisible } = useContext(SideNavigationContext)
 
-  const entities = useEntity()
   const structure = useStructure()
-  const defaultStructure = entities[EEntityKeys.DEFAULT].entity
-
-  const dispatch = useDispatch()
   const user = useSelector(state => state.user.get('data'))
   const entity = user.getSelectedEntity()
 
   const userFullName = user.get('fullName')
-  const { pages } = defaultStructure
   const { small } = structure
   return (
     <header>
@@ -119,60 +105,9 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <Dropdown ref={ dropdown }>
-        <Dropdown.Header className='flex-column pl-5'>
-          <div className='pl-2'>
-            <span className='d-block'>
-              { userFullName }
-            </span>
-            <span className='d-block opacity-05 small-line-height'>
-              { structure.name }
-            </span>
-          </div>
-        </Dropdown.Header>
-        <Dropdown.Action
-          onClick={ () => {
-            const { pages: structurePages } = structure
-            dropdown.current.hide()
-            history.push(structurePages.MY_ACCOUNT.INDEX)
-          } }
-          icon={ AccountBox }
-          className='pl-2'
-        >
-          Minha Conta
-        </Dropdown.Action>
-        <Dropdown.Action
-          onClick={ () => {} }
-          icon={ Assignment }
-          className='pl-2'
-        >
-          Termos e condições
-        </Dropdown.Action>
-        { user.get('funcoes').size > 1 && (
-          <Dropdown.Action
-            onClick={ () => {
-              dispatch(userSelectEntity(null))
-              history.push(pages.PROFILES)
-            } }
-            icon={ SupervisorAccount }
-            className='pl-2'
-          >
-            Trocar de perfil
-          </Dropdown.Action>
-        ) }
-        <Dropdown.Action
-          onClick={ () => {
-            dispatch(userLogout())
-            history.push(pages.LOGIN)
-          } }
-          icon={ ExitToApp }
-          className='pl-2 exit'
-        >
-          Sair
-        </Dropdown.Action>
-      </Dropdown>
+      <MainMenu dropdownRef={ dropdown } user={ user } />
     </header>
   )
 }
 
-export default Header
+export default React.memo(Header)

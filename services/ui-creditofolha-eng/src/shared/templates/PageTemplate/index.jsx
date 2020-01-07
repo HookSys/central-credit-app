@@ -1,19 +1,9 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { useActiveRoute } from 'hooks'
+// import { useActiveRoute } from 'hooks'
 
 const Layout = ({ children, className, isFluid }) => {
-  const activeRoute = useActiveRoute()
-
-  if (activeRoute && activeRoute.isFeedback) {
-    return (
-      <Fragment>
-        { children }
-      </Fragment>
-    )
-  }
-
   return (
     <div className={ classNames('mb-5', className, {
       'container-fluid': isFluid,
@@ -44,4 +34,4 @@ export { default as Title } from './Title'
 export { default as BackLink } from './BackLink'
 export { default as HeaderInfo } from './HeaderInfo'
 
-export default Layout
+export default React.memo(Layout)

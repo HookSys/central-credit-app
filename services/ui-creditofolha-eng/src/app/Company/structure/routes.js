@@ -27,6 +27,7 @@ const RepassDiscountInfosPage = LazyLoading(() => import('company/pages/Repass/D
 const RepassDiscountEmptyPage = LazyLoading(() => import('company/pages/Repass/Discount/Empty'))
 const RepassDiscountSuccessPage = LazyLoading(() => import('company/pages/Repass/Discount/Success'))
 const RepassDetailPage = LazyLoading(() => import('company/pages/Repass/Detail'))
+const RepassDetailListPage = LazyLoading(() => import('company/pages/Repass/Detail/List'))
 
 const UsersPage = LazyLoading(() => import('company/pages/Users'))
 const CovenantPage = LazyLoading(() => import('company/pages/Covenant'))
@@ -199,9 +200,10 @@ const CompanyRoutes = {
         routes: {
           INDEX: {
             route: '',
-            name: 'Desconto em folha',
+            name: 'Lista',
             component: RepassDiscountListPage,
             hideMenu: true,
+            isNotIndex: true,
           },
           SUCCESS: {
             route: '/success',
@@ -215,12 +217,14 @@ const CompanyRoutes = {
             name: 'Informações',
             component: RepassDiscountInfosPage,
             hideMenu: true,
+            isNotIndex: true,
           },
           EMPTY: {
             route: '/empty',
             name: 'Lote vazio',
             component: RepassDiscountEmptyPage,
             hideMenu: true,
+            isNotIndex: true,
           },
         },
       },
@@ -228,6 +232,14 @@ const CompanyRoutes = {
         route: '/detail',
         name: 'Detalhamento',
         component: RepassDetailPage,
+        routes: {
+          INDEX: {
+            route: '',
+            name: 'Lista',
+            component: RepassDetailListPage,
+            hideMenu: true,
+          },
+        },
       },
     },
   },

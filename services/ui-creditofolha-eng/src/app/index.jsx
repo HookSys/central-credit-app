@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect } from 'react'
-import { ConnectedRouter } from 'connected-react-router/immutable'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { useSelector } from 'react-redux'
 import Spinner from 'components/Spinner'
+import { Router } from 'react-router-dom/'
 
 const App = ({ history, entity }) => {
   const isLoading = useSelector(state => state.app.get('spinner'))
@@ -13,12 +13,12 @@ const App = ({ history, entity }) => {
   }, [])
 
   return (
-    <ConnectedRouter history={ history }>
+    <Router history={ history }>
       <Fragment>
         { isLoading && <Spinner /> }
         { entity.render() }
       </Fragment>
-    </ConnectedRouter>
+    </Router>
   )
 }
 
@@ -27,4 +27,4 @@ App.propTypes = {
   entity: PropTypes.object.isRequired,
 }
 
-export default App
+export default React.memo(App)

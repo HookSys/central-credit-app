@@ -1,34 +1,16 @@
-import React, { Fragment, useCallback } from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { ColumnWrapper, ColumnLeft, Title, Container } from 'templates/PageTemplate'
-import RepassSidePanel from 'company/pages/Repass/SidePanel'
 
-const RepassDetailList = ({ parent, entity: { pages: entityPages } }) => {
-  const onSidePanelChange = useCallback(() => {
-  }, [])
-
+const RepassDetai = ({ children }) => {
   return (
     <Fragment>
-      <RepassSidePanel
-        pages={ entityPages.REPASS }
-        routes={ parent.routes }
-        onChange={ onSidePanelChange }
-      />
-      <ColumnWrapper>
-        <ColumnLeft>
-          <Title>Detalhamento</Title>
-        </ColumnLeft>
-      </ColumnWrapper>
-      <Container>
-        Detalhamento
-      </Container>
+      { children }
     </Fragment>
   )
 }
 
-RepassDetailList.propTypes = {
-  entity: PropTypes.object.isRequired,
-  parent: PropTypes.object.isRequired,
+RepassDetai.propTypes = {
+  children: PropTypes.node.isRequired,
 }
 
-export default RepassDetailList
+export default React.memo(RepassDetai)

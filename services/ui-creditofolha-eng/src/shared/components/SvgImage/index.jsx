@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import Images from 'assets/svg'
 
@@ -13,7 +13,7 @@ const AVAILABLE_IMAGES = {
   ...Images,
 }
 
-const SvgImage = ((props) => {
+const SvgImage = memo(((props) => {
   const { icon, className, maxHeight, maxWidth, isOverflowHideen } = props
   if (!icon || !icon.viewBox) {
     return null
@@ -40,7 +40,7 @@ const SvgImage = ((props) => {
       <use xlinkHref={ icon.url } />
     </svg>
   )
-})
+}))
 
 SvgImage.propTypes = {
   icon: SvgShape.isRequired,

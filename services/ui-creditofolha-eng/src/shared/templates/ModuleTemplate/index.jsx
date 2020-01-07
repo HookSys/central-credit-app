@@ -55,5 +55,5 @@ Layout.propTypes = {
 }
 
 export default {
-  Layout,
+  Layout: React.memo(Layout),
 }

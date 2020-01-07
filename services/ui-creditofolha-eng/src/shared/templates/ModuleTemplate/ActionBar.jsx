@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, memo } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
@@ -9,7 +9,7 @@ const ActionBarContext = React.createContext({
   toggleActionBar: () => {},
 })
 
-const ActionBarProvider = ({ children }) => {
+const ActionBarProvider = memo(({ children }) => {
   const [isActionBarVisible, toggleActionBar] = useState(false)
 
   return (
@@ -22,7 +22,7 @@ const ActionBarProvider = ({ children }) => {
       { children }
     </ActionBarContext.Provider>
   )
-}
+})
 
 ActionBarProvider.propTypes = {
   children: PropTypes.node.isRequired,
@@ -45,4 +45,4 @@ export {
   ActionBarProvider,
   ActionBarContext,
 }
-export default ActionBar
+export default memo(ActionBar)

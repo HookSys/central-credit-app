@@ -25,4 +25,4 @@ HeaderInfo.defaultProps = {
   className: '',
 }
 
-export default HeaderInfo
+export default React.memo(HeaderInfo)

@@ -23,4 +23,4 @@ SidePanelCardContent.defaultProps = {
   children: null,
 }
 
-export default SidePanelCardContent
+export default React.memo(SidePanelCardContent)

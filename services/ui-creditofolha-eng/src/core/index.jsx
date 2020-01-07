@@ -1,5 +1,5 @@
 // @flow
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 
 import type { Node, Context } from 'react'
 import type { History as THistory } from 'react-router-dom'
@@ -85,4 +85,4 @@ const Core = ({ children }: TCoreProps) => {
   return <AppLoader />
 }
 
-export default Core
+export default memo<TCoreProps>(Core)

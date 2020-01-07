@@ -40,8 +40,19 @@ export default class PaymentLot extends BaseRecord(defaultValues, PaymentLot) {
     return expectedValue - discountedValue
   }
 
-  getFormatedReferenceMonth(format = 'MM/YYYY') {
+  getReferenceMonth() {
     const referenceMonth = this.get('mes_referencia')
+    if (referenceMonth) {
+      const year = referenceMonth.substr(0, 4)
+      const month = referenceMonth.substr(4, 2)
+      return moment(`01/${ month }/${ year }`, 'DD/MM/YYYY')
+    }
+
+    return moment()
+  }
+
+  getFormatedReferenceMonth(format = 'MM/YYYY') {
+    const referenceMonth = this.getReferenceMonth()
     if (referenceMonth) {
       const year = referenceMonth.substr(0, 4)
       const month = referenceMonth.substr(4, 2)

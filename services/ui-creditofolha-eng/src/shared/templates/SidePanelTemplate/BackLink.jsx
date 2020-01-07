@@ -22,4 +22,4 @@ BackLink.propTypes = {
   route: PropTypes.string.isRequired,
 }
 
-export default BackLink
+export default React.memo(BackLink)

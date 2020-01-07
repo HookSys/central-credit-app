@@ -8,8 +8,10 @@ import bindPathParams from './bindPathParams'
 import getRouteStructure from './getRouteStructure'
 import parseCurrency from './parseCurrency'
 import capitalize from './capitalize'
+import isRouteSidePanelActive from './isRouteSidePanelActive'
 
 export {
   getFirstLetters, isRouteActive, normalizeAll, removeEmptyKeys, getPagesFromRoutes,
   getRoutesFromPathname, bindPathParams, getRouteStructure, parseCurrency, capitalize,
+  isRouteSidePanelActive,
 }

@@ -19,4 +19,4 @@ ColumnLeft.defaultProps = {
   className: '',
 }
 
-export default ColumnLeft
+export default React.memo(ColumnLeft)

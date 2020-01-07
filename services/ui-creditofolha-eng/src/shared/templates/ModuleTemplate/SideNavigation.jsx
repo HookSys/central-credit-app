@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, memo } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
@@ -9,7 +9,7 @@ const SideNavigationContext = React.createContext({
   toggleHasSidePanel: () => {},
 })
 
-const SideNavigationProvider = ({ children }) => {
+const SideNavigationProvider = memo(({ children }) => {
   const [isSideNavigationVisible, toggleSideNavigation] = useState(false)
   const [hasSidePanel, toggleHasSidePanel] = useState(false)
 
@@ -25,7 +25,7 @@ const SideNavigationProvider = ({ children }) => {
       { children }
     </SideNavigationContext.Provider>
   )
-}
+})
 
 const SideNavigation = ({ children }) => {
   const { isSideNavigationVisible } = useContext(SideNavigationContext)
@@ -52,4 +52,4 @@ export {
   SideNavigationProvider,
   SideNavigationContext,
 }
-export default SideNavigation
+export default memo(SideNavigation)

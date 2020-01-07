@@ -11,4 +11,4 @@ DefaultContainer.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default DefaultContainer
+export default React.memo(DefaultContainer)

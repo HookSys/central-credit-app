@@ -13,11 +13,10 @@ const RepassDiscountEmpty = ({ entity: { pages } }) => {
   const history = useHistory()
   const dispatch = useDispatch()
   const date = moment()
-  const currentMonth = date.format('YYYYMM')
 
   useEffect(() => {
     alertRef.current.show()
-    dispatch(paymentLotOpenAsyncRequest(repassDiscountLotQuery, currentMonth))
+    dispatch(paymentLotOpenAsyncRequest(repassDiscountLotQuery))
       .then((response) => {
         if (response) {
           history.push(pages.REPASS.INDEX.INFOS)

@@ -115,7 +115,6 @@ export function paymentLotOpenAsyncRequest(query) {
   return async (dispatch) => {
     try {
       const { results } = await dispatch(paymentLotsAsyncRequest(query, {
-        ordering: '-vencimento_em',
         limit: 1,
         offset: 0,
       }))

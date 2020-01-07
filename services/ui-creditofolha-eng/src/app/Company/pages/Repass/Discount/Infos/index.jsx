@@ -1,6 +1,5 @@
 import React, { Fragment, useCallback, useContext, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import moment from 'moment'
 import { useHistory, Redirect } from 'react-router-dom'
 import classNames from 'classnames'
 import { useSelector, useDispatch } from 'react-redux'
@@ -14,15 +13,13 @@ import BilletPayment from 'company/components/BilletPayment'
 import TedPayment from 'company/components/TedPayment'
 
 const RepassDiscountInfos = ({ entity: { pages } }) => {
-  const date = moment()
   const history = useHistory()
   const dispatch = useDispatch()
   const { showSuccessToast } = useContext(ToastContext)
   const paymentLot = useSelector(({ company }) => company.paymentLots.getIn(['options', 'selected']))
-  const currentMonth = date.format('YYYYMM')
 
   useEffect(() => {
-    dispatch(paymentLotOpenAsyncRequest(repassDiscountLotQuery, currentMonth))
+    dispatch(paymentLotOpenAsyncRequest(repassDiscountLotQuery))
       .then((response) => {
         if (!response) {
           history.push(pages.REPASS.INDEX.EMPTY)
@@ -46,6 +43,7 @@ const RepassDiscountInfos = ({ entity: { pages } }) => {
     )
   }
 
+  const date = paymentLot.getReferenceMonth()
   const payments = paymentLot.get('pagamento')
   return (
     <Fragment>

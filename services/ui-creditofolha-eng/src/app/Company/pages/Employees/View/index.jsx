@@ -1,5 +1,6 @@
-import React, { Fragment, useEffect, useContext } from 'react'
+import React, { Fragment, useEffect, useContext, useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
@@ -7,14 +8,22 @@ import { ColumnWrapper, ColumnLeft, ColumnRight, Container, HeaderInfo } from 't
 import ViewTable, { ViewTableRow, ViewTableCell } from 'components/ViewTable'
 import { ToastContext } from 'components/ToastProvider'
 import { newEmployeeQuery, employeesListQuery } from 'company/queries/employees'
-import { employeesAsyncRequest, employeeAsyncRequest, employeeResetSelected } from 'company/actions/employees'
+import { employeesAsyncRequest, employeeAsyncRequest, employeeResetSelected, employeeFireRequest } from 'company/actions/employees'
 import Avatar from 'components/Avatar'
 import Button from 'components/Button'
+import { bindPathParams } from 'helpers'
+import CreateGenericConfirmModal from 'components/GenericConfirmModal'
 
 import EmployeeViewSidePanel from './SidePanel'
 
+const ConfirmDemissionModal = CreateGenericConfirmModal({
+  confirmBtnClassName: 'btn-danger',
+  cancelOnClose: true,
+})
+
 const EmployeesView = ({ entity: { pages } }) => {
-  const { showErrorToast } = useContext(ToastContext)
+  const { showSuccessToast, showErrorToast } = useContext(ToastContext)
+  const [isDemissionModalOpen, toggleDemissionModal] = useState(false)
   const { employeeId } = useParams()
   const history = useHistory()
   const dispatch = useDispatch()
@@ -43,6 +52,44 @@ const EmployeesView = ({ entity: { pages } }) => {
       })
     }
   }, [employeeId])
+
+  const onDemissionConfirm = useCallback(async () => {
+    const firedDate = moment().format('DD/MM/YYYY')
+    toggleDemissionModal(false)
+    const response = await dispatch(employeeFireRequest(employee.get('id'), firedDate, 0))
+    if (response) {
+      showSuccessToast({
+        message: 'Funcionário demitido com sucesso!',
+      })
+      dispatch(employeeAsyncRequest(newEmployeeQuery, employeeId))
+    } else {
+      showErrorToast({
+        message: 'Ocorreu um problema, tente novamente mais tarde',
+      })
+    }
+  }, [employee, employeeId])
+
+  const onDemissionClose = useCallback(() => {
+    toggleDemissionModal(false)
+  }, [])
+
+  const onEmployeeFireClick = useCallback(() => {
+    if (employee.hasContracts()) {
+      const route = bindPathParams({
+        employeeId: employee.get('id'),
+      }, pages.EMPLOYEES.DEMISSION.INFORM)
+      history.push(route)
+    } else {
+      toggleDemissionModal(true)
+    }
+  }, [employee])
+
+  const onEmployeeEditClick = useCallback(() => {
+    const route = bindPathParams({
+      employeeId: employee.get('id'),
+    }, pages.EMPLOYEES.EDIT)
+    history.push(route)
+  }, [employee])
 
   if (!employee) {
     return null
@@ -77,10 +124,10 @@ const EmployeesView = ({ entity: { pages } }) => {
           </div>
         </ColumnLeft>
         <ColumnRight isActionBar={ true }>
-          <Button type='button' className='btn btn-link'>
+          <Button type='button' className='btn btn-link' onClick={ onEmployeeFireClick }>
             Demitir
           </Button>
-          <Button type='button' className='btn btn-default'>
+          <Button type='button' className='btn btn-default' onClick={ onEmployeeEditClick }>
             Editar
           </Button>
         </ColumnRight>
@@ -185,6 +232,15 @@ const EmployeesView = ({ entity: { pages } }) => {
           </ViewTableRow>
         </ViewTable>
       </Container>
+      <ConfirmDemissionModal
+        onConfirm={ onDemissionConfirm }
+        onCancel={ onDemissionClose }
+        isOpen={ isDemissionModalOpen }
+      >
+        <span>
+          Deseja confirmar a demissão de <strong>{ `${ fullname }` }</strong>?
+        </span>
+      </ConfirmDemissionModal>
     </Fragment>
   )
 }
@@ -193,4 +249,4 @@ EmployeesView.propTypes = {
   entity: PropTypes.object.isRequired,
 }
 
-export default EmployeesView
+export default React.memo(EmployeesView)

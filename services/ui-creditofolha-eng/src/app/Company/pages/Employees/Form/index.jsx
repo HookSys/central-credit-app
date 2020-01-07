@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useContext, useRef } from 'react'
+import React, { Fragment, useEffect, useContext, useRef, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { Field, Form, reduxForm, formValueSelector, FormSection } from 'redux-form/immutable'
 import { ColumnWrapper, ColumnLeft, ColumnRight, Container } from 'templates/PageTemplate'
@@ -7,8 +7,11 @@ import FormContent, { Row, Element } from 'company/components/FormContent'
 import { civilState, ufs, documentTypes, banks, accountType } from 'constants/general'
 import { useSelector, useDispatch } from 'react-redux'
 import { useServices } from 'hooks'
-import { useHistory } from 'react-router-dom'
-import { employeeCreateRequest } from 'company/actions/employees'
+import { useHistory, useParams } from 'react-router-dom'
+import { employeeCreateRequest, employeeAsyncRequest, employeeResetSelected,
+  employeeEditRequest } from 'company/actions/employees'
+import { editEmployeeQuery } from 'company/queries/employees'
+import { Map } from 'immutable'
 
 import { ToastContext } from 'components/ToastProvider'
 import Button from 'components/Button'
@@ -24,8 +27,14 @@ import EmployeeNewSidePanel from './SidePanel'
 export const formName = 'newEditEmployeeForm'
 const selector = formValueSelector(formName)
 
-const EmployeesNew = ({ handleSubmit, change, submit }) => {
+const EmployeesForm = (
+  { handleSubmit, change, submit, pristine, invalid, initialize, entity: { pages } }
+) => {
+  const [isEditMode, toggleEditMode] = useState(false)
   const { showErrorToast, showSuccessToast } = useContext(ToastContext)
+  const { employeeId } = useParams()
+  const employee = useSelector(({ company }) => company.employees.getIn(['options', 'selected']))
+
   const cep = useSelector(state => selector(state, 'endereco.cep'))
   const services = useServices()
   const history = useHistory()
@@ -37,6 +46,22 @@ const EmployeesNew = ({ handleSubmit, change, submit }) => {
   const addressRef = useRef()
   const contactRef = useRef()
   const referenceContactRef = useRef()
+
+  const employeeNotFound = useCallback(() => {
+    showErrorToast({
+      message: 'Funcionário não encontrado!',
+    })
+    history.push(pages.EMPLOYEES.INDEX)
+  }, [])
+
+  useEffect(() => () => {
+    toggleEditMode(false)
+    dispatch(employeeResetSelected())
+  }, [])
+
+  const onCancel = useCallback(() => {
+    history.goBack()
+  }, [])
 
   useEffect(() => {
     if (typeof cep === 'string' && cep.length >= 9) {
@@ -60,19 +85,94 @@ const EmployeesNew = ({ handleSubmit, change, submit }) => {
     }
   }, [cep])
 
-  const onSubmit = async (values) => {
-    const request = EmployeeFactory.createRequest(values)
-    const response = await dispatch(employeeCreateRequest(request))
-    if (response) {
-      showSuccessToast({
-        message: 'Funcionário criado com sucesso!',
-      })
+  useEffect(() => {
+    if (employeeId) {
+      if (!employee) {
+        dispatch(employeeAsyncRequest(editEmployeeQuery, employeeId)).then((response) => {
+          if (!response) {
+            employeeNotFound()
+            return
+          }
+          toggleEditMode(true)
+        })
+      } else {
+        toggleEditMode(true)
+      }
     } else {
-      showErrorToast({
-        message: 'Favor corrigir os itens abaixo.',
+      toggleEditMode(false)
+    }
+  }, [employeeId])
+
+  useEffect(() => {
+    if (isEditMode && employee) {
+      initialize(new Map({
+        nome: employee.get('nome'),
+        sobrenome: employee.get('sobrenome'),
+        nascimento: employee.getFormatedDate('nascimento'),
+        sexo: employee.get('sexo'),
+        dependentes: employee.get('dependentes'),
+        cpf: employee.get('cpf'),
+        nome_mae: employee.get('nome_mae'),
+        estado_civil: employee.get('estado_civil'),
+        documento: new Map(employee.get('documento')),
+
+        cargo: employee.get('cargo'),
+        admitido_em: employee.getFormatedDate('admitido_em'),
+        salario: employee.get('salario'),
+        inss: employee.get('inss'),
+        irrf: employee.get('irrf'),
+        valor_emprestado_outros_bancos: employee.get('valor_emprestado_outros_bancos'),
+        matricula: employee.get('matricula'),
+
+        pagamento: new Map(employee.get('pagamento')),
+
+        endereco: new Map(employee.get('endereco')),
+
+        telefone_celular: employee.getFormatedPhone('telefone_celular'),
+
+        referencia_nome: employee.get('referencia_nome'),
+        referencia_telefone: employee.getFormatedPhone('referencia_telefone'),
+        referencia_parentesco: employee.get('referencia_parentesco'),
+
+        // email: employee.get('email'),
+      }))
+      setTimeout(() => {
+        const { current: personalData } = personalDataRef
+        const input = personalData.querySelector('input')
+        if (input) {
+          input.focus()
+        }
       })
     }
-  }
+  }, [isEditMode, employee])
+
+  const onSubmit = useCallback(async (values) => {
+    if (!employeeId) {
+      const request = EmployeeFactory.createRequest(values)
+      const response = await dispatch(employeeCreateRequest(request))
+      if (response) {
+        showSuccessToast({
+          message: 'Funcionário criado com sucesso!',
+        })
+      } else {
+        showErrorToast({
+          message: 'Favor corrigir os itens abaixo.',
+        })
+      }
+    } else {
+      const request = EmployeeFactory.editRequest(values)
+      const response = await dispatch(employeeEditRequest(employeeId, request))
+      if (response) {
+        showSuccessToast({
+          message: 'Funcionário alterado com sucesso!',
+        })
+      } else {
+        showErrorToast({
+          message: 'Favor corrigir os itens abaixo.',
+        })
+      }
+    }
+  }, [employeeId])
 
   return (
     <Fragment>
@@ -88,19 +188,26 @@ const EmployeesNew = ({ handleSubmit, change, submit }) => {
         <ColumnLeft>
           <div className='d-flex align-items-center'>
             <Avatar
-              title='Novo Funcionário'
+              title={ isEditMode ? employee.getFullName() : 'Novo Funcionário' }
               className='text-dark border-dark'
             />
-            <div className='d-flex flex-column justify-content-center ml-2'>
-              <span className='d-block font-size-xl mb-n1'>Novo Funcionário</span>
-            </div>
+            { !isEditMode ? (
+              <div className='d-flex flex-column justify-content-center ml-2'>
+                <span className='d-block font-size-xl mb-n1'>Novo Funcionário</span>
+              </div>
+            ) : (
+              <div className='d-flex flex-column justify-content-center ml-2'>
+                <span className='d-block font-size-xl mb-n1'>{ employee.getFullName() }</span>
+                <span className='d-block text-low-dark'>{ `CPF: ${ employee.get('cpf') }` }</span>
+              </div>
+            ) }
           </div>
         </ColumnLeft>
         <ColumnRight isActionBar={ true }>
-          <Button className='btn btn-default mr-3' onClick={ () => history.goBack() }>
+          <Button className='btn btn-default mr-3' onClick={ onCancel }>
             Cancelar
           </Button>
-          <Button onClick={ () => submit() }>
+          <Button onClick={ () => submit() } disabled={ invalid || (isEditMode && pristine) }>
             Salvar
           </Button>
         </ColumnRight>
@@ -240,6 +347,7 @@ const EmployeesNew = ({ handleSubmit, change, submit }) => {
                     id='emissor'
                     placeholder='Orgão emissor'
                     component={ ReduxFormInput }
+                    validate={ [required] }
                   />
                 </Element>
               </Row>
@@ -539,12 +647,16 @@ const EmployeesNew = ({ handleSubmit, change, submit }) => {
   )
 }
 
-EmployeesNew.propTypes = {
+EmployeesForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   change: PropTypes.func.isRequired,
   submit: PropTypes.func.isRequired,
+  initialize: PropTypes.func.isRequired,
+  entity: PropTypes.object.isRequired,
+  pristine: PropTypes.bool.isRequired,
+  invalid: PropTypes.bool.isRequired,
 }
 
 export default reduxForm({
   form: formName,
-})(EmployeesNew)
+})(EmployeesForm)

@@ -23,4 +23,4 @@ EmployeeCard.propTypes = {
   cpf: PropTypes.string.isRequired,
 }
 
-export default EmployeeCard
+export default React.memo(EmployeeCard)

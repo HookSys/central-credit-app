@@ -20,6 +20,50 @@ export const demissionEmployeeQuery = createQuery([
   'saldo_devedor',
 ])
 
+export const editEmployeeQuery = createQuery([
+  'id',
+  'nome',
+  'sobrenome',
+  'nascimento',
+  'sexo',
+  'dependentes',
+  'cpf',
+  'nome_mae',
+  'estado_civil',
+
+  'documento__tipo',
+  'documento__numero',
+  'documento__emissor',
+
+  'cargo',
+  'admitido_em',
+  'salario',
+  'inss',
+  'irrf',
+  'valor_emprestado_outros_bancos',
+  'matricula',
+
+  'pagamento__banco',
+  'pagamento__agencia',
+  'pagamento__agencia_dac',
+  'pagamento__conta',
+  'pagamento__conta_dac',
+  'pagamento__tipo',
+
+  'endereco__cep',
+  'endereco__cidade',
+  'endereco__uf',
+  'endereco__bairro',
+  'endereco__numero',
+  'endereco__complemento',
+  'endereco__logradouro',
+  'endereco__pais',
+
+  'referencia_nome',
+  'referencia_telefone',
+  'referencia_parentesco',
+])
+
 export const newEmployeeQuery = createQuery([
   'id',
   'nome',

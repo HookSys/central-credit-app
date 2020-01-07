@@ -58,7 +58,6 @@ const EmployeesDemissionInform = (
     history.push(pages.EMPLOYEES.DEMISSION.INDEX)
   }
 
-
   const balanceDue = employee ? employee.get('saldo_devedor') : 0
   const maxDiscountAmount = useCallback(maxLength(
     balanceDue,
@@ -91,11 +90,11 @@ const EmployeesDemissionInform = (
     }
   }, [employee])
 
-  const onSubmit = (values) => {
+  const onSubmit = useCallback((values) => {
     setDemission(values)
-  }
+  }, [])
 
-  const onDemissionConfirm = async () => {
+  const onDemissionConfirm = useCallback(async () => {
     const response = await dispatch(employeeFireRequest(
       employee.get('id'),
       demission.get('demissao_em'),
@@ -114,11 +113,11 @@ const EmployeesDemissionInform = (
         message: 'Verifique os avisos e tente novamente',
       })
     }
-  }
+  }, [])
 
-  const onDemissionClose = () => {
+  const onDemissionClose = useCallback(() => {
     setDemission(null)
-  }
+  }, [])
 
   if (!employee) {
     return null

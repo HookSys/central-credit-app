@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory, useLocation, Redirect } from 'react-router-dom'
 import Button from 'components/Button'
@@ -16,7 +16,7 @@ const EmployeesDemissionSuccess = ({ entity: { pages } }) => {
 
   const history = useHistory()
   const { state: { value } } = location
-  const onBack = () => history.push(pages.EMPLOYEES.DEMISSION.INDEX)
+  const onBack = useCallback(() => history.push(pages.EMPLOYEES.DEMISSION.INDEX), [])
   return (
     <Layout>
       <Header>
@@ -38,4 +38,4 @@ EmployeesDemissionSuccess.propTypes = {
   entity: PropTypes.object.isRequired,
 }
 
-export default EmployeesDemissionSuccess
+export default React.memo(EmployeesDemissionSuccess)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useStructure } from 'hooks'
 import { useParams, useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -19,12 +19,14 @@ const EmployeeViewSidePanel = () => {
   // const pages = useSelector(({ company }) => company.employees.getTotalPages())
   // const selectedPage = options.get('currentPageIndex')
 
-  const onEmployeeCardClick = (employee) => () => {
+  const onEmployeeCardClick = useCallback((employee) => () => {
     const route = bindPathParams({
       employeeId: employee.get('id'),
     }, pages.EMPLOYEES.VIEW)
     history.push(route)
-  }
+  }, [])
+
+  const onActionClick = useCallback(() => history.push(pages.EMPLOYEES.NEW), [])
 
   return (
     <SidePanelRender>
@@ -36,7 +38,7 @@ const EmployeeViewSidePanel = () => {
           <Title>
             Funcionários
           </Title>
-          <Action onClick={ () => history.push(pages.EMPLOYEES.NEW) }>
+          <Action onClick={ onActionClick }>
             +
           </Action>
         </Header>
@@ -64,4 +66,4 @@ const EmployeeViewSidePanel = () => {
   )
 }
 
-export default EmployeeViewSidePanel
+export default React.memo(EmployeeViewSidePanel)

@@ -43,11 +43,11 @@ const EmployeesDemissionList = ({ entity: { pages: entityPages } }) => {
     requestEmployeesList()
   }, [selectedPage])
 
-  const onPageChange = (page) => async () => {
+  const onPageChange = useCallback((page) => async () => {
     dispatch(employeesUpdatePage(page))
-  }
+  }, [])
 
-  const onEmployeeClick = (employee) => () => {
+  const onEmployeeClick = useCallback((employee) => () => {
     if (!employee.hasContracts()) {
       setEmployeeToFire(employee)
     } else {
@@ -56,9 +56,9 @@ const EmployeesDemissionList = ({ entity: { pages: entityPages } }) => {
       }, entityPages.EMPLOYEES.DEMISSION.INFORM)
       history.push(route)
     }
-  }
+  }, [])
 
-  const onDemissionConfirm = async () => {
+  const onDemissionConfirm = useCallback(async () => {
     const firedDate = moment().format('DD/MM/YYYY')
     const response = await dispatch(employeeFireRequest(employeeToFire.get('id'), firedDate, 0))
     setEmployeeToFire(null)
@@ -72,11 +72,11 @@ const EmployeesDemissionList = ({ entity: { pages: entityPages } }) => {
         message: 'Ocorreu um problema ao processar a requisição, tente novamente!',
       })
     }
-  }
+  }, [])
 
-  const onDemissionClose = () => {
+  const onDemissionClose = useCallback(() => {
     setEmployeeToFire(null)
-  }
+  }, [])
 
   return (
     <Fragment>
@@ -152,4 +152,4 @@ EmployeesDemissionList.propTypes = {
   entity: PropTypes.object.isRequired,
 }
 
-export default EmployeesDemissionList
+export default React.memo(EmployeesDemissionList)

@@ -14,4 +14,4 @@ Employees.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default Employees
+export default React.memo(Employees)

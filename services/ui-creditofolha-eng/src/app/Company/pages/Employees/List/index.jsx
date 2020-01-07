@@ -32,16 +32,16 @@ const EmployeesList = ({ parent, entity: { pages: entityPages } }) => {
     requestEmployeesList()
   }, [selectedPage])
 
-  const onPageChange = (page) => async () => {
+  const onPageChange = useCallback((page) => async () => {
     dispatch(employeesUpdatePage(page))
-  }
+  }, [])
 
-  const onEmployeeClick = (employee) => () => {
+  const onEmployeeClick = useCallback((employee) => () => {
     const route = bindPathParams({
       employeeId: employee.get('id'),
     }, entityPages.EMPLOYEES.VIEW)
     history.push(route)
-  }
+  }, [])
 
   return (
     <Fragment>
@@ -110,4 +110,4 @@ EmployeesList.propTypes = {
   parent: PropTypes.object.isRequired,
 }
 
-export default EmployeesList
+export default React.memo(EmployeesList)

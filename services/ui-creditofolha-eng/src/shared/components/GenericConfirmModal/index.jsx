@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { Modal, ModalHeader, ModalFooter, ModalBody } from 'components/Modal'
 import classNames from 'classnames'
@@ -19,7 +19,7 @@ const CreateGenericConfirmModal = (configs) => {
 
   const cancelClassName = classNames('btn', cancelBtnClassName)
   const confirmClassName = classNames('btn', confirmBtnClassName)
-  const GenericConfirmModal = ({ isOpen, onClose, children, onConfirm, onCancel }) => {
+  const GenericConfirmModal = memo(({ isOpen, onClose, children, onConfirm, onCancel }) => {
     const onCloseAction = cancelOnClose ? onCancel : onClose
     return (
       <Modal isOpen={ isOpen } toggle={ onCloseAction } centered={ true } size='md'>
@@ -35,7 +35,7 @@ const CreateGenericConfirmModal = (configs) => {
         </ModalFooter>
       </Modal>
     )
-  }
+  })
 
   GenericConfirmModal.propTypes = {
     isOpen: PropTypes.bool.isRequired,

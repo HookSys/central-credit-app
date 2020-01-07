@@ -29,4 +29,4 @@ EmployeesDemission.propTypes = {
   parent: PropTypes.object.isRequired,
 }
 
-export default EmployeesDemission
+export default React.memo(EmployeesDemission)

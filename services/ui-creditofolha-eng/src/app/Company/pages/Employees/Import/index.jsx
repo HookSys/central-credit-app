@@ -77,4 +77,4 @@ EmployeesImport.propTypes = {
   parent: PropTypes.object.isRequired,
 }
 
-export default EmployeesImport
+export default React.memo(EmployeesImport)

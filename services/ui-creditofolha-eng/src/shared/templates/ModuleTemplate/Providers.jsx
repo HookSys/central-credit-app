@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { SideBarProvider } from './SideBar'
 import { SideNavigationProvider } from './SideNavigation'
 import { ActionBarProvider } from './ActionBar'
+import { ContentProvider } from './Content'
 
 const Providers = ({ children }) => {
   return (
@@ -11,7 +12,9 @@ const Providers = ({ children }) => {
       <SideNavigationProvider>
         <SideBarProvider>
           <ActionBarProvider>
-            { children }
+            <ContentProvider>
+              { children }
+            </ContentProvider>
           </ActionBarProvider>
         </SideBarProvider>
       </SideNavigationProvider>

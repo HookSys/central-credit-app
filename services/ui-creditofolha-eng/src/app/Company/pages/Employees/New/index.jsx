@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useContext } from 'react'
+import React, { Fragment, useEffect, useContext, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Field, Form, reduxForm, formValueSelector, FormSection } from 'redux-form/immutable'
 import { ColumnWrapper, ColumnLeft, ColumnRight, Container } from 'templates/PageTemplate'
@@ -30,6 +30,13 @@ const EmployeesNew = ({ handleSubmit, change, submit }) => {
   const services = useServices()
   const history = useHistory()
   const dispatch = useDispatch()
+
+  const personalDataRef = useRef()
+  const employeeDetailsRef = useRef()
+  const paymentDataRef = useRef()
+  const addressRef = useRef()
+  const contactRef = useRef()
+  const referenceContactRef = useRef()
 
   useEffect(() => {
     if (typeof cep === 'string' && cep.length >= 9) {
@@ -69,7 +76,14 @@ const EmployeesNew = ({ handleSubmit, change, submit }) => {
 
   return (
     <Fragment>
-      <EmployeeNewSidePanel />
+      <EmployeeNewSidePanel
+        personalDataRef={ personalDataRef }
+        employeeDetailsRef={ employeeDetailsRef }
+        paymentDataRef={ paymentDataRef }
+        addressRef={ addressRef }
+        contactRef={ contactRef }
+        referenceContactRef={ referenceContactRef }
+      />
       <ColumnWrapper>
         <ColumnLeft>
           <div className='d-flex align-items-center'>
@@ -91,9 +105,9 @@ const EmployeesNew = ({ handleSubmit, change, submit }) => {
           </Button>
         </ColumnRight>
       </ColumnWrapper>
-      <Container isWhiteBackground={ true }>
+      <Container isWhiteBackground={ true } autofocus={ true }>
         <Form onSubmit={ handleSubmit(onSubmit) }>
-          <FormContent title='Dados pessoais'>
+          <FormContent title='Dados pessoais' ref={ personalDataRef }>
             <Row>
               <Element lg='6'>
                 <Field
@@ -231,7 +245,7 @@ const EmployeesNew = ({ handleSubmit, change, submit }) => {
               </Row>
             </FormSection>
           </FormContent>
-          <FormContent title='Detalhes do funcionário'>
+          <FormContent title='Detalhes do funcionário' ref={ employeeDetailsRef }>
             <Row>
               <Element lg='4'>
                 <Field
@@ -321,7 +335,7 @@ const EmployeesNew = ({ handleSubmit, change, submit }) => {
               </Element>
             </Row>
           </FormContent>
-          <FormContent title='Dados para pagamento (opcional)' name='pagamento'>
+          <FormContent title='Dados para pagamento (opcional)' ref={ paymentDataRef } name='pagamento'>
             <Row>
               <Element lg='6'>
                 <Field
@@ -389,7 +403,7 @@ const EmployeesNew = ({ handleSubmit, change, submit }) => {
               </Element>
             </Row>
           </FormContent>
-          <FormContent title='Endereço' name='endereco'>
+          <FormContent title='Endereço' name='endereco' ref={ addressRef }>
             <Row>
               <Element lg='5'>
                 <Field
@@ -469,7 +483,7 @@ const EmployeesNew = ({ handleSubmit, change, submit }) => {
               </Element>
             </Row>
           </FormContent>
-          <FormContent title='Contato'>
+          <FormContent title='Contato' ref={ contactRef }>
             <Row>
               <Element lg='3'>
                 <Field
@@ -484,7 +498,7 @@ const EmployeesNew = ({ handleSubmit, change, submit }) => {
               </Element>
             </Row>
           </FormContent>
-          <FormContent title='Contato para referência'>
+          <FormContent title='Contato para referência' ref={ referenceContactRef }>
             <Row>
               <Element lg='6'>
                 <Field

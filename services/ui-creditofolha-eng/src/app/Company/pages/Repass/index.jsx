@@ -1,20 +1,19 @@
-import React, { Fragment, useCallback, useRef } from 'react'
+import React, { Fragment, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import Layout from 'templates/PageTemplate'
 import RepassSidePanel from 'company/pages/Repass/SidePanel'
 import { paymentLotsResetSelected } from 'company/actions/paymentLots'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Repass = ({ children, parent: { routes }, entity: { pages } }) => {
-  const lastRoute = useRef()
   const dispatch = useDispatch()
+  const paymentLot = useSelector(({ company }) => company.paymentLots.getIn(['options', 'selected']))
 
-  const onSidePanelChange = useCallback((route) => () => {
-    if (lastRoute.current !== route) {
-      lastRoute.current = route
+  const onSidePanelChange = useCallback(() => () => {
+    if (paymentLot) {
       dispatch(paymentLotsResetSelected())
     }
-  }, [lastRoute])
+  }, [paymentLot])
 
   return (
     <Fragment>

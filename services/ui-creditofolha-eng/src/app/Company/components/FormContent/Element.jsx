@@ -32,4 +32,4 @@ FormContentElement.defaultProps = {
   xxl: '',
 }
 
-export default FormContentElement
+export default React.memo(FormContentElement)

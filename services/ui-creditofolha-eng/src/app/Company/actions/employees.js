@@ -153,16 +153,10 @@ export function employeeCreateRequest(employee) {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
 
-    const user = getState().user.get('data')
-    const entity = user.getSelectedEntity()
-
     try {
-      const response = await service.apiV2({
-        path: '/empresas/:entity/funcionarios/',
+      const response = await service.apiV3({
+        path: '/cep/funcionarios/',
         method: 'POST',
-        pathParams: {
-          entity: entity.get('entidade_id'),
-        },
         body: employee,
       })
 

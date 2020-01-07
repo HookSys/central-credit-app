@@ -13,4 +13,4 @@ FormContentArea.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default FormContentArea
+export default React.memo(FormContentArea)

@@ -13,4 +13,4 @@ FormContentRow.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default FormContentRow
+export default React.memo(FormContentRow)

@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from 'react'
+import React, { useRef, useContext, memo, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { useRightSwipe, useLeftSwipe } from 'hooks'
@@ -6,9 +6,34 @@ import { useRightSwipe, useLeftSwipe } from 'hooks'
 import { SideNavigationContext } from './SideNavigation'
 import { ActionBarContext } from './ActionBar'
 
+const ContentContext = React.createContext({
+  contentRef: null,
+  updateContentRef: () => {},
+})
+
+const ContentProvider = memo(({ children }) => {
+  const [contentRef, updateContentRef] = useState(false)
+
+  return (
+    <ContentContext.Provider
+      value={ {
+        contentRef,
+        updateContentRef,
+      } }
+    >
+      { children }
+    </ContentContext.Provider>
+  )
+})
+
+ContentProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
 const Content = ({ children }) => {
   const contentRef = useRef()
   const { isActionBarVisible } = useContext(ActionBarContext)
+  const { updateContentRef } = useContext(ContentContext)
   const { toggleSideNavigation, isSideNavigationVisible } = useContext(SideNavigationContext)
 
   useRightSwipe(() => {
@@ -18,6 +43,10 @@ const Content = ({ children }) => {
   useLeftSwipe(() => {
     toggleSideNavigation(false)
   }, contentRef)
+
+  useEffect(() => {
+    updateContentRef(contentRef)
+  }, [])
 
   return (
     <div
@@ -41,4 +70,9 @@ Content.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default React.memo(Content)
+export {
+  ContentProvider,
+  ContentContext,
+}
+
+export default memo(Content)

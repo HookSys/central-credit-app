@@ -32,7 +32,7 @@ const EmployeesDemissionSuccess = ({ entity: { pages } }) => {
     })
   }, [showSuccessToast])
 
-  const onDetail = () => history.push(pages.REPASS.DETAIL)
+  const onDetail = () => history.push(pages.REPASS.DETAIL.INDEX)
   const payments = paymentLot.get('pagamento')
   return (
     <Layout>

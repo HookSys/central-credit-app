@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import React, { forwardRef, useCallback, useRef, useState } from 'react'
+import React, { forwardRef, useCallback, useRef, useState, memo, useMemo } from 'react'
 // import PropTypes from 'prop-types'
 import ReactDataGrid from 'react-data-grid'
 import { Editors } from 'react-data-grid-addons'
@@ -86,37 +86,35 @@ const GridBuilder = () => {
         }, {})
       })
 
-      const GridBuilt = forwardRef(() => {
+      const GridBuilt = memo(forwardRef(() => {
         const gridRef = useRef()
-        const columns = getColumns(gridRef)
-        const [data, updateData] = useState(getInitialRows(columns))
+        const columns = useMemo(() => getColumns(gridRef), [])
+        const initialRows = useMemo(() => getInitialRows(columns), [])
+        const [data, updateData] = useState(initialRows)
 
         const onGridRowsUpdated = useCallback(({ fromRow, toRow, updated }) => {
           const rows = data.slice()
           for (let i = fromRow; i <= toRow; i++) {
             rows[i] = { ...rows[i], ...updated }
           }
-          console.log(rows)
           updateData(rows)
           return { rows }
         }, [data])
 
         return (
-          <div className='w-100'>
-            <ReactDataGrid
-              ref={ gridRef }
-              columns={ columns }
-              rowGetter={ i => data[i] }
-              rowsCount={ data.length }
-              rowScrollTimeout={ null }
-              enableCellSelect={ true }
-              resizable={ true }
-              minHeight={ 600 }
-              onGridRowsUpdated={ onGridRowsUpdated }
-            />
-          </div>
+          <ReactDataGrid
+            ref={ gridRef }
+            columns={ columns }
+            rowGetter={ i => data[i] }
+            rowsCount={ data.length }
+            rowScrollTimeout={ null }
+            enableCellSelect={ true }
+            resizable={ true }
+            minHeight={ 600 }
+            onGridRowsUpdated={ onGridRowsUpdated }
+          />
         )
-      })
+      }))
 
       GridBuilt.displayName = 'GridBuilt'
       return GridBuilt

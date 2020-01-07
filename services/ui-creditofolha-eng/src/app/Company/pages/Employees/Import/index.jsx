@@ -49,12 +49,12 @@ const EmployeesImport = ({ parent, entity: { pages: entityPages } }) => {
           <Title>Importação de funcionários</Title>
         </ColumnLeft>
         <ColumnRight isActionBar={ true }>
-          <Button className='btn btn-light bg-white mr-3'>
+          <Button className='btn btn-default mr-3'>
             Limpar
           </Button>
           <FileSearch
             className='mr-3'
-            btnClassName='btn-light bg-white'
+            btnClassName='btn-secondary'
             onChange={ onImportFile }
             accept='.csv,.xlsx'
           >
@@ -65,8 +65,10 @@ const EmployeesImport = ({ parent, entity: { pages: entityPages } }) => {
           </Button>
         </ColumnRight>
       </ColumnWrapper>
-      <Container isWhiteBackground={ true }>
-        <EmployeesGrid />
+      <Container isWhiteBackground={ true } className=''>
+        <div className='w-100 py-3'>
+          <EmployeesGrid />
+        </div>
       </Container>
     </Fragment>
   )

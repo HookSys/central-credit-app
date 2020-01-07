@@ -185,7 +185,7 @@ export function paymentLotAsyncRequest(query, lotId) {
     dispatch(appLoadSpinner())
     try {
       const response = await service.apiV3({
-        path: 'cep/lotes/:lotId',
+        path: 'cep/lotes/:lotId/',
         method: 'GET',
         queryParams: {
           fields: query,

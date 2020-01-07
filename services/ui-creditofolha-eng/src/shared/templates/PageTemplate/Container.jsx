@@ -19,7 +19,7 @@ const Container = ({ children, className, isWhiteBackground, autofocus }) => {
 
   return (
     <div className='row' ref={ containerRef }>
-      <div className={ classNames('border border-gray col-12', className, {
+      <div className={ classNames('border border-gray col-sm-12', className, {
         'bg-container': !isWhiteBackground,
         'bg-white': isWhiteBackground,
       }) }

@@ -1,27 +1,14 @@
 import React, { Fragment, useRef, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import moment from 'moment'
 import { Container } from 'templates/PageTemplate'
-import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { repassDiscountLotQuery } from 'company/queries/paymentLots'
-import { paymentLotOpenAsyncRequest } from 'company/actions/paymentLots'
 import Alert from 'components/Alert'
 
-const RepassDiscountEmpty = ({ entity: { pages } }) => {
+const RepassDiscountEmpty = () => {
   const alertRef = useRef()
-  const history = useHistory()
-  const dispatch = useDispatch()
   const date = moment()
 
   useEffect(() => {
     alertRef.current.show()
-    dispatch(paymentLotOpenAsyncRequest(repassDiscountLotQuery))
-      .then((response) => {
-        if (response) {
-          history.push(pages.REPASS.INDEX.INFOS)
-        }
-      })
   }, [])
 
   return (
@@ -48,7 +35,6 @@ const RepassDiscountEmpty = ({ entity: { pages } }) => {
 }
 
 RepassDiscountEmpty.propTypes = {
-  entity: PropTypes.object.isRequired,
 }
 
 export default React.memo(RepassDiscountEmpty)

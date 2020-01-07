@@ -1,31 +1,16 @@
-import React, { Fragment, useCallback, useContext, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { useHistory, Redirect } from 'react-router-dom'
+import React, { Fragment, useCallback, useContext } from 'react'
 import classNames from 'classnames'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { ColumnWrapper, ColumnLeft, Title, Container } from 'templates/PageTemplate'
-import { PAYMENT_TYPES, PAYMENT_LOT_STATUS } from 'constants/paymentLot'
+import { PAYMENT_TYPES } from 'constants/paymentLot'
 import { ToastContext } from 'components/ToastProvider'
 import { TableDefault, TableHead, TableHeader } from 'components/Table'
-import { repassDiscountLotQuery } from 'company/queries/paymentLots'
-import { paymentLotOpenAsyncRequest } from 'company/actions/paymentLots'
 import BilletPayment from 'company/components/BilletPayment'
 import TedPayment from 'company/components/TedPayment'
 
-const RepassDiscountInfos = ({ entity: { pages } }) => {
-  const history = useHistory()
-  const dispatch = useDispatch()
+const RepassDiscountInfos = () => {
   const { showSuccessToast } = useContext(ToastContext)
   const paymentLot = useSelector(({ company }) => company.paymentLots.getIn(['options', 'selected']))
-
-  useEffect(() => {
-    dispatch(paymentLotOpenAsyncRequest(repassDiscountLotQuery))
-      .then((response) => {
-        if (!response) {
-          history.push(pages.REPASS.INDEX.EMPTY)
-        }
-      })
-  }, [])
 
   const onCopyToClipboard = useCallback(() => {
     showSuccessToast({
@@ -35,12 +20,6 @@ const RepassDiscountInfos = ({ entity: { pages } }) => {
 
   if (!paymentLot) {
     return null
-  }
-
-  if (paymentLot.get('status').includes(PAYMENT_LOT_STATUS.PENDING)) {
-    return (
-      <Redirect to={ pages.REPASS.INDEX.INDEX } />
-    )
   }
 
   const date = paymentLot.getReferenceMonth()
@@ -99,7 +78,6 @@ const RepassDiscountInfos = ({ entity: { pages } }) => {
 }
 
 RepassDiscountInfos.propTypes = {
-  entity: PropTypes.object.isRequired,
 }
 
 export default React.memo(RepassDiscountInfos)

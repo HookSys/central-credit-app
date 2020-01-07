@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useCallback, useContext } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import { useHistory, Redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Map } from 'immutable'
 import { useSelector, useDispatch } from 'react-redux'
 import { FieldArray, Form, reduxForm } from 'redux-form/immutable'
@@ -11,10 +11,8 @@ import CircularProgressbar from 'components/CircularProgressBar'
 import { capitalize } from 'helpers'
 import { CalendarToday } from '@material-ui/icons'
 import { Table, TableHead, TableHeader, TableBody } from 'components/Table'
-import { repassDiscountLotQuery } from 'company/queries/paymentLots'
-import { PAYMENT_LOT_STATUS } from 'constants/paymentLot'
 import { paymentLotByMonthSaveRequest,
-  paymentLotByMonthSendRequest, paymentLotOpenAsyncRequest } from 'company/actions/paymentLots'
+  paymentLotByMonthSendRequest } from 'company/actions/paymentLots'
 import { ToastContext } from 'components/ToastProvider'
 import EmployeeFieldArray from './FieldArray'
 
@@ -73,15 +71,6 @@ const RepassDiscountList = (
   }, [paymentLot])
 
   useEffect(() => {
-    dispatch(paymentLotOpenAsyncRequest(repassDiscountLotQuery))
-      .then((response) => {
-        if (!response) {
-          history.push(pages.REPASS.INDEX.EMPTY)
-        }
-      })
-  }, [])
-
-  useEffect(() => {
     if (paymentLot) {
       initialize(new Map({
         descontos_por_funcionario: paymentLot.get('descontos_por_funcionario'),
@@ -91,12 +80,6 @@ const RepassDiscountList = (
 
   if (!paymentLot) {
     return null
-  }
-
-  if (!paymentLot.get('status').includes(PAYMENT_LOT_STATUS.PENDING)) {
-    return (
-      <Redirect to={ pages.REPASS.INDEX.INFOS } />
-    )
   }
 
   const date = paymentLot.getReferenceMonth()

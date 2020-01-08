@@ -7,5 +7,17 @@
         .#{$abbrev}#{$infix}-#{$size} { #{$prop}: $length !important; }
       }
     }
+
+    @each $prop, $abbrev in (min-width: mw, min-height: mh) {
+      @each $size, $length in $sizes {
+        .#{$abbrev}#{$infix}-#{$size} { #{$prop}: $length !important; }
+      }
+    }
+
+    @each $prop, $abbrev in (max-width: mxw, max-height: mxh) {
+      @each $size, $length in $sizes {
+        .#{$abbrev}#{$infix}-#{$size} { #{$prop}: $length !important; }
+      }
+    }
   }
 }

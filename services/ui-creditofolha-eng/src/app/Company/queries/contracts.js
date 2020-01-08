@@ -7,15 +7,25 @@ export const dashboardContractQuery = createQuery([
 ])
 
 export const pendingAverbationQuery = createQuery([
-  'identificador',
-  'averbacao',
-  'averbacao_ate',
-  'valor_comprometido',
-  'valor_comprometido_pos_aprovacao',
-  'valor_recebivel',
-  'status',
-  'cliente',
-  'percentual_comprometido',
-  'emprego',
+  'id',
+  'funcionario__nome',
+  'funcionario__sobrenome',
+  'funcionario__cpf',
+  'funcionario__valor_emprestado',
+  'funcionario__valor_emprestado_outros_bancos',
+  'funcionario__salario',
+  'funcionario__inss',
+  'funcionario__irrf',
+  'funcionario__matricula',
+  'funcionario__margem_disponivel',
+  'funcionario__salario_margem',
+
+  'cliente_info_no_contrato',
+
   'num_parcelas',
+  'valor_recebivel',
+  'data_solicitacao',
+  'status_averbacao',
+  'valor_financiado',
+  'origem',
 ])

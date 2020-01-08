@@ -1,13 +1,13 @@
 import React from 'react'
 
-const ContractsIndex = () => {
+const ContractsDenied = () => {
   return (
     <div className='row'>
       <div className='col-12'>
-        Contracts Test
+        Contracts List
       </div>
     </div>
   )
 }
 
-export default ContractsIndex
+export default ContractsDenied

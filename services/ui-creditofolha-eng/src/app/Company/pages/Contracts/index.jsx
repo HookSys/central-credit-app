@@ -1,16 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Layout from 'templates/PageTemplate'
 
 import ContractsSidePanel from './SidePanel'
 
 const Contracts = ({ entity: { pages }, parent, children }) => {
   return (
-    <div className='row'>
-      <div className='col-5'>
-        { children }
-        <ContractsSidePanel pages={ pages.CONTRACTS } routes={ parent.routes } />
-      </div>
-    </div>
+    <Layout>
+      <ContractsSidePanel pages={ pages.CONTRACTS } routes={ parent.routes } />
+      { children }
+    </Layout>
   )
 }
 
@@ -20,4 +19,4 @@ Contracts.propTypes = {
   parent: PropTypes.object.isRequired,
 }
 
-export default Contracts
+export default React.memo(Contracts)

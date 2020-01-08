@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ContractsList = () => {
+const ContractsApproved = () => {
   return (
     <div className='row'>
       <div className='col-12'>
@@ -10,4 +10,4 @@ const ContractsList = () => {
   )
 }
 
-export default ContractsList
+export default ContractsApproved

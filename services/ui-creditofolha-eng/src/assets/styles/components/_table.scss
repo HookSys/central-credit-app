@@ -111,6 +111,11 @@
       box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
       height: 60px;
 
+      &.disabled {
+        background-color: $white-2;
+        box-shadow: unset;
+      }
+
       &.is-spacer {
         background-color: transparent;
         box-shadow: none;

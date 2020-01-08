@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { EEntityKeys } from 'constants/entity'
 
 import { dashboardContractQuery } from 'company/queries/contracts'
-import { contractsAsyncRequest } from 'company/actions/contracts'
+import { contractsAsyncRequest, contractsResetResults } from 'company/actions/contracts'
 import { getDashboardContracts } from 'company/selectors/contractsSelectors'
 
 import { alertsAsyncRequest } from 'core/actions/alerts'
@@ -45,6 +45,10 @@ const Dashboard = () => {
       relacionado_a_id: selectedEntity.get('entidade_id'),
       lidos: false,
     }))
+
+    return () => {
+      dispatch(contractsResetResults())
+    }
   }, [])
 
   return (

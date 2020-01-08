@@ -38,6 +38,24 @@ export default function BaseList<O: Object>(
         return item.get(field) !== value
       }))
     }
+
+    isAllSelected(): boolean {
+      const results = this.get('results')
+      const selected = this.get('selected')
+      return results.size > 0 && results.size === selected.size
+    }
+
+    deselectItem(value: O, field: string = 'id'): this {
+      const selected = this.get('selected')
+      return this.set('selected', selected.filter((item) => {
+        return item.get(field) !== value.get(field)
+      }))
+    }
+
+    selectItem(value: O): this {
+      const selected = this.get('selected')
+      return this.set('selected', selected.push(value))
+    }
   }
 
   return new CBaseList(defaultValues)

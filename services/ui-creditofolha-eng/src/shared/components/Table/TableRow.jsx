@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { TableSpacer } from './TableSpacer'
 
 export const TableRow = ((props) => {
-  const { children, className, onClick, hasChild, isChildOpen, noSpacer } = props
+  const { children, className, onClick, hasChild, isChildOpen, noSpacer, disabled } = props
   return (
     <Fragment>
       { !noSpacer && (<TableSpacer hasChild={ hasChild } />) }
@@ -13,6 +13,7 @@ export const TableRow = ((props) => {
         className={ classNames(className, {
           'clickable': onClick !== null,
           'has-child-open': hasChild && isChildOpen,
+          'disabled': disabled,
         }) }
         onClick={ onClick }
         role='presentation'
@@ -30,6 +31,7 @@ TableRow.propTypes = {
   isChildOpen: PropTypes.bool,
   onClick: PropTypes.func,
   noSpacer: PropTypes.bool,
+  disabled: PropTypes.bool,
 }
 
 TableRow.defaultProps = {
@@ -38,4 +40,5 @@ TableRow.defaultProps = {
   hasChild: false,
   isChildOpen: false,
   noSpacer: false,
+  disabled: false,
 }

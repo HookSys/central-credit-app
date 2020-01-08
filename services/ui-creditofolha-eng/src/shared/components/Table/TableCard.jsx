@@ -6,7 +6,7 @@ import { TableRow } from './TableRow'
 import { TableCell } from './TableCell'
 
 export const TableCard = ((props) => {
-  const { children, className, hasChild, isChildOpen, isInvalid } = props
+  const { children, className, hasChild, isChildOpen, onClick, isInvalid } = props
   return (
     <TableRow
       className={ classNames('d-lg-none', className) }
@@ -17,6 +17,7 @@ export const TableCard = ((props) => {
         className={ classNames('px-2', {
           'border border-danger': isInvalid,
         }) }
+        onClick={ onClick }
       >
         { children }
       </TableCell>
@@ -30,6 +31,7 @@ TableCard.propTypes = {
   hasChild: PropTypes.bool,
   isChildOpen: PropTypes.bool,
   isInvalid: PropTypes.bool,
+  onClick: PropTypes.func,
 }
 
 TableCard.defaultProps = {
@@ -37,4 +39,5 @@ TableCard.defaultProps = {
   hasChild: false,
   isChildOpen: false,
   isInvalid: false,
+  onClick: undefined,
 }

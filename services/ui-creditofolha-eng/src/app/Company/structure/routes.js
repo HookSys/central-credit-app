@@ -17,8 +17,9 @@ const EmployeesViewPage = LazyLoading(() => import('company/pages/Employees/View
 const EmployeesFormPage = LazyLoading(() => import('company/pages/Employees/Form'))
 
 const ContractsPage = LazyLoading(() => import('company/pages/Contracts'))
-const ContractsIndexPage = LazyLoading(() => import('company/pages/Contracts/Contracts'))
-const ContractsListPage = LazyLoading(() => import('company/pages/Contracts/List'))
+const ContractsPendingPage = LazyLoading(() => import('company/pages/Contracts/Pending'))
+const ContractsDeniedPage = LazyLoading(() => import('company/pages/Contracts/Denied'))
+const ContractsApprovedPage = LazyLoading(() => import('company/pages/Contracts/Approved'))
 
 const RepassPage = LazyLoading(() => import('company/pages/Repass'))
 const RepassDiscountPage = LazyLoading(() => import('company/pages/Repass/Discount'))
@@ -184,13 +185,18 @@ const CompanyRoutes = {
     routes: {
       INDEX: {
         route: '',
-        name: 'Index',
-        component: ContractsIndexPage,
+        name: 'Pendente de averbação',
+        component: ContractsPendingPage,
       },
-      LIST: {
-        route: '/list',
-        name: 'List',
-        component: ContractsListPage,
+      DENIED: {
+        route: '/denied',
+        name: 'Averbação negada',
+        component: ContractsDeniedPage,
+      },
+      APPROVED: {
+        route: '/approved',
+        name: 'Aprovados',
+        component: ContractsApprovedPage,
       },
     },
   },

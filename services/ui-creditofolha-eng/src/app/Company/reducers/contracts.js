@@ -6,6 +6,9 @@ import {
   CONTRACTS_ASYNC_SUCCESS,
   CONTRACTS_ASYNC_FAIL,
   CONTRACTS_UPDATE_PAGE,
+  CONTRACTS_RESET_RESULTS,
+  CONTRACTS_CHANGE_SELECT_ALL,
+  CONTRACTS_CHANGE_SELECTED,
 } from 'company/actions/contracts'
 
 const ContractOptions = new Record({
@@ -18,6 +21,7 @@ const initialState = new BaseList({
   errorMessage: '',
   count: 0,
   results: toEntityList([], Contract),
+  selected: toEntityList([], Contract),
   options: ContractOptions(),
 })
 
@@ -31,6 +35,25 @@ const actionsMap = {
       results: toEntityList(results, Contract),
     })
   },
+  [CONTRACTS_RESET_RESULTS]: (state) => {
+    return state.merge({
+      count: initialState.get('count'),
+      next: initialState.get('next'),
+      previous: initialState.get('previous'),
+      results: initialState.get('results'),
+    })
+  },
+  [CONTRACTS_CHANGE_SELECT_ALL]: (state, action) => {
+    const { payload: isAllSelected } = action
+    const results = state.get('results')
+    return state.merge({
+      selected: isAllSelected ? results : initialState.get('selected'),
+    })
+  },
+  [CONTRACTS_CHANGE_SELECTED]: (state, action) => {
+    const { isSelected, contract } = action.payload
+    return isSelected ? state.deselectItem(contract) : state.selectItem(contract)
+  },
   [CONTRACTS_ASYNC_FAIL]: (state, action) => {
     const { errorMessage } = action
     return state.merge({
@@ -38,7 +61,7 @@ const actionsMap = {
     })
   },
   [CONTRACTS_UPDATE_PAGE]: (state, action) => {
-    const { page } = action
+    const { payload: page } = action
     const options = state.get('options')
     return state.merge({
       options: options.set('currentPageIndex', page),

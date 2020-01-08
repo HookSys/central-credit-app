@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 export const TableCardItem = ((props) => {
-  const { children, className, onClick, noBorder } = props
+  const { children, className, onClick, noBorder, noPadding } = props
   return (
     <div
       className={ classNames('row no-gutters', {
@@ -16,7 +16,9 @@ export const TableCardItem = ((props) => {
         role='presentation'
       >
         <div
-          className={ classNames('p-2', className) }
+          className={ classNames(className, {
+            'p-2': !noPadding,
+          }) }
         >
           { children }
         </div>
@@ -30,10 +32,12 @@ TableCardItem.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
   noBorder: PropTypes.bool,
+  noPadding: PropTypes.bool,
 }
 
 TableCardItem.defaultProps = {
   className: '',
   onClick: null,
   noBorder: false,
+  noPadding: false,
 }

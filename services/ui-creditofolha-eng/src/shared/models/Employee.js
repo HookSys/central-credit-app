@@ -65,6 +65,13 @@ export default class Employee extends BaseRecord(defaultValues, Employee) {
     return this.getFormatedPercent(amountCompromised, false)
   }
 
+  getCompromised() {
+    const amountCep = this.get('valor_emprestado')
+    const amountOthers = this.get('valor_emprestado_outros_bancos')
+
+    return amountCep + amountOthers
+  }
+
   hasContracts() {
     return this.get('valor_emprestado') > 0
   }

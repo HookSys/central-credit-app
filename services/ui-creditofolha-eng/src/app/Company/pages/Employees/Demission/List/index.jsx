@@ -35,8 +35,13 @@ const EmployeesDemissionList = ({ entity: { pages: entityPages } }) => {
   const pages = useSelector(({ company }) => company.employees.getTotalPages())
   const selectedPage = options.get('currentPageIndex')
 
-  const requestEmployeesList = useCallback(() => {
-    dispatch(employeesAsyncRequest(employeesListQuery, EmployeeStatus.ACTIVE, employeesOrdering))
+  const requestEmployeesList = useCallback((force = false) => {
+    dispatch(employeesAsyncRequest(
+      employeesListQuery,
+      EmployeeStatus.ACTIVE,
+      employeesOrdering,
+      force
+    ))
   }, [])
 
   useEffect(() => {
@@ -66,13 +71,13 @@ const EmployeesDemissionList = ({ entity: { pages: entityPages } }) => {
       showSuccessToast({
         message: 'Funcionário demitido com sucesso!',
       })
-      requestEmployeesList()
+      requestEmployeesList(true)
     } else {
       showErrorToast({
         message: 'Ocorreu um problema ao processar a requisição, tente novamente!',
       })
     }
-  }, [])
+  }, [employeeToFire])
 
   const onDemissionClose = useCallback(() => {
     setEmployeeToFire(null)

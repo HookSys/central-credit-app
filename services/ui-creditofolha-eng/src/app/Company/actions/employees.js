@@ -7,6 +7,7 @@ export const EMPLOYEES_ASYNC_FAIL = 'COMPANY/EMPLOYEES_ASYNC_FAIL'
 export const EMPLOYEES_UPDATE_PAGE = 'COMPANY/EMPLOYEES_UPDATE_PAGE'
 export const EMPLOYEES_UPDATE_FILTERS = 'COMPANY/EMPLOYEES_UPDATE_FILTERS'
 export const EMPLOYEE_CREATE_SUCCESS = 'COMPANY/EMPLOYEE_CREATE_SUCCESS'
+export const EMPLOYEE_FIRED_SUCCESS = 'COMPANY/EMPLOYEE_FIRED_SUCCESS'
 
 function employeesAsyncSuccess(employees) {
   return {
@@ -36,6 +37,12 @@ function employeeCreateSuccess(employee) {
   }
 }
 
+function employeeFiredSuccess() {
+  return {
+    type: EMPLOYEE_FIRED_SUCCESS,
+  }
+}
+
 export function employeeResetSelected() {
   return {
     type: EMPLOYEE_RESET_SELECTED,
@@ -58,7 +65,7 @@ export function employeesUpdateFilters(search) {
   }
 }
 
-export function employeesAsyncRequest(query, status, ordering) {
+export function employeesAsyncRequest(query, status, ordering, force = false) {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
 
@@ -71,6 +78,7 @@ export function employeesAsyncRequest(query, status, ordering) {
       const response = await service.apiV3({
         path: '/cep/funcionarios/',
         method: 'GET',
+        force,
         queryParams: {
           limit: options.get('limit'),
           fields: query,
@@ -213,6 +221,7 @@ export function employeeFireRequest(employeeId, firedDate, amountCep) {
         },
       })
 
+      await dispatch(employeeFiredSuccess())
       await dispatch(employeeResetSelected())
       return response
     } catch (errorMessage) {

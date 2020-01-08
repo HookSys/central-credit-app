@@ -15,6 +15,7 @@ export type TRequestPayload<T> = {|
   body?: T,
   cType?: ContentType,
   rType?: ResponseType,
+  force?: boolean,
 |}
 
 export type TService = <T, R>(payload: TRequestPayload<T>) => Promise<R>

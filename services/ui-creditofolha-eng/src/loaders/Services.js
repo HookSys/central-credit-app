@@ -81,6 +81,7 @@ function Services(): TLoader<TServicesLoader> {
         body,
         cType,
         rType,
+        force,
       } = payload
 
       const headers: Object = {}
@@ -97,16 +98,36 @@ function Services(): TLoader<TServicesLoader> {
 
       return new Promise(async (resolve, reject) => {
         try {
-          const response: $AxiosXHR<T, R> = await instance<T, R>({
-            method,
-            url: `${ bindedPath }${ bindedQuery }`,
-            data: body,
-            responseType,
-            headers,
-          })
+          const { Cache }: TCore = AppCore
+          const endpoint = `${ bindedPath }${ bindedQuery }`
 
-          const { data } = response
-          resolve(data)
+          const cache = method === 'GET' && !force && Cache.getCache({
+            endpoint,
+            responseType,
+          })
+          if (!cache) {
+            const response: $AxiosXHR<T, R> = await instance<T, R>({
+              method,
+              url: endpoint,
+              data: body,
+              responseType,
+              headers,
+            })
+
+            const { data } = response
+            if (method === 'GET') {
+              Cache.saveCache({
+                endpoint,
+                responseType,
+                data,
+              })
+            } else {
+              Cache.clear()
+            }
+            resolve(data)
+          } else {
+            resolve(cache.data)
+          }
         } catch (error) {
           if (handlingError && error && error.response) {
             const { response }: $AxiosError<T, R> = error

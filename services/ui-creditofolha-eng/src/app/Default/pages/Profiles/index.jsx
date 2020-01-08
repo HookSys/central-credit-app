@@ -7,7 +7,7 @@ import Avatar from 'components/Avatar'
 import Button from 'components/Button'
 import CleanTemplate from 'templates/CleanTemplate'
 import { userLogout, userSelectEntity } from 'core/actions/user'
-import { useEntity } from 'hooks'
+import { useEntity, useCache } from 'hooks'
 
 const { Layout, List, ListContainer, ListItem, ListHeader } = CleanTemplate
 
@@ -16,8 +16,10 @@ const Profiles = ({ entity: { pages } }) => {
   const history = useHistory()
   const user = useSelector(state => state.user.get('data'))
   const modules = useEntity()
+  const cache = useCache()
 
   const onSelectProfile = (entity, entityStructure) => async () => {
+    cache.clear()
     await dispatch(userSelectEntity(entity.get('identificador')))
     setTimeout(() => history.push(entityStructure.route))
   }

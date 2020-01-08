@@ -23,4 +23,7 @@ export const PersistConfig = {
   whitelist: ['auth', 'user'],
 }
 
+// Minutes to keep cache
+export const CacheMinutes = 15
+
 export const ReduxBaseActions: string = '@@creditofolha'

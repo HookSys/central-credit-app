@@ -31,11 +31,8 @@ const ContractsPending = () => {
     }))
   }, [])
 
-  useEffect(() => {
-    requestContractsList()
-    return () => {
-      dispatch(contractsResetResults())
-    }
+  useEffect(() => () => {
+    dispatch(contractsResetResults())
   }, [])
 
   useEffect(() => {

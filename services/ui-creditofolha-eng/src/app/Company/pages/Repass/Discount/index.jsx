@@ -5,9 +5,8 @@ import { repassDiscountLotQuery } from 'company/queries/paymentLots'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { PAYMENT_LOT_STATUS } from 'constants/paymentLot'
-import RepassSidePanel from 'company/pages/Repass/SidePanel'
 
-const RepassDiscount = ({ children, parent: { parent }, entity: { pages } }) => {
+const RepassDiscount = ({ children, entity: { pages } }) => {
   const history = useHistory()
   const dispatch = useDispatch()
 
@@ -15,25 +14,21 @@ const RepassDiscount = ({ children, parent: { parent }, entity: { pages } }) => 
     dispatch(paymentLotOpenAsyncRequest(repassDiscountLotQuery))
       .then((paymentLot) => {
         if (!paymentLot) {
-          history.push(pages.REPASS.INDEX.EMPTY)
+          history.replace(pages.REPASS.INDEX.EMPTY)
           return
         }
 
         if (paymentLot.get('status').includes(PAYMENT_LOT_STATUS.PENDING)) {
-          history.push(pages.REPASS.INDEX.INDEX)
+          history.replace(pages.REPASS.INDEX.INDEX)
           return
         }
 
-        history.push(pages.REPASS.INDEX.INFOS)
+        history.replace(pages.REPASS.INDEX.INFOS)
       })
   }, [])
 
   return (
     <Fragment>
-      <RepassSidePanel
-        pages={ pages.REPASS }
-        routes={ parent.routes }
-      />
       { children }
     </Fragment>
   )
@@ -41,7 +36,6 @@ const RepassDiscount = ({ children, parent: { parent }, entity: { pages } }) => 
 
 RepassDiscount.propTypes = {
   children: PropTypes.node.isRequired,
-  parent: PropTypes.object.isRequired,
   entity: PropTypes.object.isRequired,
 }
 

@@ -9,9 +9,8 @@ import { repassDetailingLotQuery } from 'company/queries/paymentLots'
 import { getPaymentLotsGroupByYear } from 'company/selectors/paymentLotsSelectors'
 import { bindPathParams } from 'helpers'
 import { PAYMENT_LOT_STATUS_COLOR, PAYMENT_LOT_STATUS_DESCRIPTION } from 'constants/paymentLot'
-import RepassSidePanel from 'company/pages/Repass/SidePanel'
 
-const RepassDetailList = ({ parent: { parent }, entity: { pages: entityPages } }) => {
+const RepassDetailList = ({ entity: { pages: entityPages } }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const paymentLotsByYear = useSelector((state) => getPaymentLotsGroupByYear(state))
@@ -30,10 +29,6 @@ const RepassDetailList = ({ parent: { parent }, entity: { pages: entityPages } }
 
   return (
     <Fragment>
-      <RepassSidePanel
-        pages={ entityPages.REPASS }
-        routes={ parent.routes }
-      />
       <ColumnWrapper>
         <ColumnLeft>
           <Title>Detalhamento</Title>
@@ -89,7 +84,6 @@ const RepassDetailList = ({ parent: { parent }, entity: { pages: entityPages } }
 
 RepassDetailList.propTypes = {
   entity: PropTypes.object.isRequired,
-  parent: PropTypes.object.isRequired,
 }
 
 export default React.memo(RepassDetailList)

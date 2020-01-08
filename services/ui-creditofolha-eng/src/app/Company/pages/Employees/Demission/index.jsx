@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import EmployeesSidePanel from 'company/pages/Employees/SidePanel'
 import { employeesUpdateFilters } from 'company/actions/employees'
 
-const EmployeesDemission = ({ children, parent: { parent }, entity: { pages } }) => {
+const EmployeesDemission = ({ children, parent: { routes }, entity: { pages } }) => {
   const dispatch = useDispatch()
 
   const onChange = useCallback(() => {
@@ -15,7 +15,7 @@ const EmployeesDemission = ({ children, parent: { parent }, entity: { pages } })
     <Fragment>
       <EmployeesSidePanel
         pages={ pages.EMPLOYEES }
-        routes={ parent.routes }
+        routes={ routes }
         onChange={ onChange }
       />
       { children }

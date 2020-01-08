@@ -4,10 +4,10 @@ import Layout from 'templates/PageTemplate'
 
 import ContractsSidePanel from './SidePanel'
 
-const Contracts = ({ entity: { pages }, parent, children }) => {
+const Contracts = ({ entity: { pages }, route, children }) => {
   return (
     <Layout>
-      <ContractsSidePanel pages={ pages.CONTRACTS } routes={ parent.routes } />
+      <ContractsSidePanel pages={ pages.CONTRACTS } routes={ route.routes } />
       { children }
     </Layout>
   )
@@ -16,7 +16,7 @@ const Contracts = ({ entity: { pages }, parent, children }) => {
 Contracts.propTypes = {
   children: PropTypes.node.isRequired,
   entity: PropTypes.object.isRequired,
-  parent: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 }
 
 export default React.memo(Contracts)

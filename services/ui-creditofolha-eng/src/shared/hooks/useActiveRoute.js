@@ -15,6 +15,37 @@ function getPathKeysOf(pages, pathname, parent = '') {
         return pathsub
       }
     }
+
+    const route = pages[key]
+    if (typeof route === 'string' && route.includes('/:')) {
+      const routeSplit = route.split('/')
+      const pathSplit = pathname.split('/')
+      if (routeSplit.length === pathSplit.length) {
+        const params = routeSplit.reduce((p, r, i) => {
+          if (p === null || p !== false) {
+            const isParam = r.charAt(0) === ':'
+            if (isParam) {
+              return {
+                ...p,
+                [r.slice(1)]: pathSplit[i],
+              }
+            }
+            if (r !== pathSplit[i]) {
+              return false
+            }
+          }
+
+          return p
+        }, null)
+        if (params) {
+          return {
+            params,
+            pathFull,
+          }
+        }
+      }
+    }
+
     if (pages[key] === pathname) {
       return pathFull
     }
@@ -34,9 +65,16 @@ function useActiveRoute() {
   if (pathname !== lastPathname.current) {
     lastPathname.current = pathname
     const { pages, routes } = structure
-    const activePath = getPathKeysOf(pages, pathname)
+    const retn = getPathKeysOf(pages, pathname)
+    const activePath = typeof retn === 'object' ? retn.pathFull : retn
     const routeObj = get(routes, activePath)
-    lastActiveRoute.current = routeObj
+    const page = get(pages, activePath.split('.routes').join(''))
+    lastActiveRoute.current = {
+      ...routeObj,
+      path: activePath,
+      page,
+      params: typeof retn === 'object' ? retn.params : null,
+    }
   }
 
   return lastActiveRoute.current

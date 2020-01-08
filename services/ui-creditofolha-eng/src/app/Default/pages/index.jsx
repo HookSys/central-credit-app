@@ -22,4 +22,4 @@ const DefaultContainer: TEntityComponent<TDefaultEntity> = ({
   return <Fragment>{children}</Fragment>
 }
 
-export default DefaultContainer
+export default React.memo<TDefaultContainerProps>(DefaultContainer)

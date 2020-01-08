@@ -19,8 +19,7 @@ type TRoutesBuilderProps = {
   id: string,
 }
 function RoutesBuilder({ rootPath, routes, parent, entity, id }: TRoutesBuilderProps) {
-  const { name, component } = parent
-  const Container = component || DefaultContainer
+  const { name } = parent
 
   if (!routes) {
     return null
@@ -33,6 +32,8 @@ function RoutesBuilder({ rootPath, routes, parent, entity, id }: TRoutesBuilderP
 
     if (route.routes && typeof route.routes === 'object') {
       const cId = `${ id }>${ key }`
+      const Container = route.component || DefaultContainer
+
       return (
         <Route path={ path } key={ cId }>
           <Permissions permissions={ route.permissions }>
@@ -82,21 +83,15 @@ function RoutesBuilder({ rootPath, routes, parent, entity, id }: TRoutesBuilderP
       return (
         <Route exact path={ path } key={ rootPath + key }>
           <Permissions permissions={ route.permissions }>
-            <Container
+            <MetaTags
+              metaTitle={ route.name }
+              metaTitleSuffix={ name }
+            />
+            <Page
               route={ route }
               parent={ parent }
               entity={ entity }
-            >
-              <MetaTags
-                metaTitle={ route.name }
-                metaTitleSuffix={ name }
-              />
-              <Page
-                route={ route }
-                parent={ parent }
-                entity={ entity }
-              />
-            </Container>
+            />
           </Permissions>
         </Route>
       )

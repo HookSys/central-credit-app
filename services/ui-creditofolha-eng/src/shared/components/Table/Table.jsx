@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useLayoutEffect, forwardRef, useImperativeHandle } from 'react'
+import React, { memo, useRef, useState, useEffect, useLayoutEffect, forwardRef, useImperativeHandle } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { useSelector } from 'react-redux'
@@ -19,7 +19,7 @@ const createTableScrollObservable = (element, container, cb) => {
   obs.observe(element)
 }
 
-export const Table = forwardRef((props, ref) => {
+export const Table = memo(forwardRef((props, ref) => {
   const { children, className, showToast, backgroundColor, disableAction,
     containerRef, tableRef, onUpdateActionColumn } = props
   const size = useWindowSize()
@@ -105,7 +105,7 @@ export const Table = forwardRef((props, ref) => {
       </div>
     </div>
   )
-})
+}))
 
 Table.propTypes = {
   children: PropTypes.node.isRequired,

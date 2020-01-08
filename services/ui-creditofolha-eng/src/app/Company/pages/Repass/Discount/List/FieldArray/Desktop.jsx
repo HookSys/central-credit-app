@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { Field } from 'redux-form/immutable'
 import { discountReasons } from 'constants/general'
 import { TableRow, TableCell } from 'components/Table'
-import Avatar from 'components/Avatar'
+import UserInfo from 'components/UserInfo'
 
 import { required } from 'form/validators'
 import { currencyMask } from 'form/normalizers'
@@ -37,16 +37,14 @@ const EmployeeDesktopFieldArray = ({ fields, discounts, errors }) => {
             ) }
             <TableRow noSpacer={ hasError.size > 0 }>
               <TableCell>
-                <div className='d-flex align-items-center'>
-                  <Avatar
-                    title={ fullname }
-                    className='text-primary border-primary'
-                  />
-                  <div className='d-flex flex-column justify-content-center ml-2'>
-                    <span className='d-block text-primary mb-n1'>{ fullname }</span>
-                    <span className='d-block font-size-sm font-weight-lighter text-low-dark'>{ `CPF: ${ employee.get('cpf') }` }</span>
-                  </div>
-                </div>
+                <UserInfo
+                  className='text-primary'
+                  avatarClassName='text-primary border-primary'
+                  infoClassName='font-weight-lighter text-low-dark'
+                  fullName={ fullname }
+                >
+                  { `CPF: ${ employee.get('cpf') }` }
+                </UserInfo>
               </TableCell>
               <TableCell>
                 { employee.get('matricula') }

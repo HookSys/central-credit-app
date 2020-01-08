@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react'
+import React, { memo, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 import { TableSpacer } from './TableSpacer'
 
-export const TableRowChild = ((props) => {
+export const TableRowChild = memo(((props) => {
   const { children, className, onClick, isChildOpen } = props
   return (
     <Fragment>
@@ -21,7 +21,7 @@ export const TableRowChild = ((props) => {
       </tr>
     </Fragment>
   )
-})
+}))
 
 TableRowChild.propTypes = {
   children: PropTypes.node.isRequired,

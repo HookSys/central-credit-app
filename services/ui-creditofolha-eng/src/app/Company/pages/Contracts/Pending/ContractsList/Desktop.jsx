@@ -1,12 +1,13 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
 import { RemoveRedEyeRounded, Block } from '@material-ui/icons'
 import { ContractTypeDescription } from 'constants/contracts'
-import { TableBody, TableRow, TableCell } from 'components/Table'
-import Input from 'components/Input'
+import { TableBody, TableRow, TableCell, TableBoxInfo } from 'components/Table'
+import Checkbox from 'components/Checkbox'
 import Button from 'components/Button'
+import Badge from 'components/Badge'
+import UserInfo from 'components/UserInfo'
 
 const ContractsPendingListDesktop = ({ contracts, selected, onDetailsClick, onSelectedChange }) => {
   const currentDate = moment()
@@ -18,6 +19,7 @@ const ContractsPendingListDesktop = ({ contracts, selected, onDetailsClick, onSe
         const employee = contract.get('funcionario')
         const fullname = employee.getFullName()
         const compromised = employee.getCompromised()
+        const compromisedAfterContract = contract.getCompromisedAfterContract()
         const requestDate = contract.getAsMoment('data_solicitacao')
         const isExpired = contract.isExpired()
         const isSelected = selected.findIndex((item) => item.get('id') === contractId) >= 0
@@ -26,16 +28,12 @@ const ContractsPendingListDesktop = ({ contracts, selected, onDetailsClick, onSe
           <TableRow key={ contractId } disabled={ isExpired }>
             <TableCell>
               { !isExpired ? (
-                <div className='form-check'>
-                  <Input
-                    type='checkbox'
-                    checked={ isSelected }
-                    id={ `contract-${ contractId }` }
-                    name={ `contract-${ contractId }` }
-                    onChange={ onSelectedChange(contract, isSelected) }
-                    className='form-check-input position-static'
-                  />
-                </div>
+                <Checkbox
+                  id={ `contract-${ contractId }` }
+                  name={ `contract-${ contractId }` }
+                  checked={ isSelected }
+                  onChange={ onSelectedChange(contract, isSelected) }
+                />
               ) : (
                 <div>
                   <Block className='text-danger' />
@@ -43,61 +41,43 @@ const ContractsPendingListDesktop = ({ contracts, selected, onDetailsClick, onSe
               ) }
             </TableCell>
             <TableCell>
-              <span
-                className={ classNames('p-2 border font-weight-bold rounded text-uppercase text-truncate', {
-                  'border-dark text-dark': !isSelected,
-                  'border-primary text-primary': !isExpired && isSelected,
-                }) }
-              >
+              <Badge type={ !isExpired && isSelected ? 'primary' : 'default' }>
                 { ContractTypeDescription[contract.get('origem')]}
-              </span>
+              </Badge>
             </TableCell>
             <TableCell>
-              <div className='d-flex align-items-center'>
-                <div className='d-flex flex-column justify-content-center ml-2'>
-                  <span
-                    className={ classNames('d-block mb-n1 text-truncate', {
-                      'text-primary': !isExpired && isSelected,
-                    }) }
-                  >
-                    { fullname }
-                  </span>
-                  <span className='d-block font-size-sm font-weight-lighter text-low-dark'>{ `CPF: ${ employee.get('cpf') }` }</span>
-                </div>
-              </div>
+              <UserInfo
+                className={ !isExpired && isSelected ? 'text-primary' : '' }
+                hideAvatar={ true }
+                infoClassName='font-weight-lighter text-low-dark'
+                fullName={ fullname }
+              >
+                { `CPF: ${ employee.get('cpf') }` }
+              </UserInfo>
             </TableCell>
             <TableCell>
               { employee.get('matricula') }
             </TableCell>
             <TableCell>
-              <span className='d-block'>
-                { contract.getFormatedCurrency('valor_recebivel') }
-              </span>
-              <span className='d-block small text-low-dark mn-t-3'>
+              <TableBoxInfo title={ contract.getFormatedCurrency('valor_recebivel') }>
                 { `em ${ contract.get('num_parcelas') } vezes` }
-              </span>
+              </TableBoxInfo>
             </TableCell>
             <TableCell>
-              <span className='d-block'>
-                { contract.getFormatedCurrency(compromised) }
-              </span>
-              <span className='d-block small text-low-dark mn-t-3'>
+              <TableBoxInfo title={ contract.getFormatedCurrency(compromised) }>
                 { `${ employee.getCompromisedPercent() } - atual` }
-              </span>
+              </TableBoxInfo>
             </TableCell>
-            <TableCell className='text-center'>
-              { contract.getCompromisedAfterContractPercent() }
+            <TableCell>
+              <TableBoxInfo title={ contract.getFormatedCurrency(compromisedAfterContract) }>
+                { `${ contract.getCompromisedAfterContractPercent() } - após averbação` }
+              </TableBoxInfo>
             </TableCell>
             <TableCell>
               { !isExpired ? (
-                <Fragment>
-                  <span className='d-block'>
-                    { `${ requestDate ? requestDate.diff(currentDate, 'days') : 0 } dias` }
-                  </span>
-                  <span className='d-block small text-low-dark mn-t-3'>
-                    { contract.getFormatedDate('data_solicitacao') }
-                  </span>
-                </Fragment>
+                <TableBoxInfo title={ `${ requestDate ? requestDate.diff(currentDate, 'days') : 0 } dias` }>
+                  { contract.getFormatedDate('data_solicitacao') }
+                </TableBoxInfo>
               ) : (
                 <span className='d-block text-danger'>
                   Expirado

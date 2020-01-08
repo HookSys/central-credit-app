@@ -57,13 +57,14 @@ const RepassDiscountList = (
         showErrorToast({
           message: 'Ocorreu um problema ao processar a requisição, tente novamente mais tarde.',
         })
-        setTimeout(() => history.push(pages.REPASS.INDEX.SUCCESS))
         return false
       }
 
       showSuccessToast({
         message: 'Lotes enviados com sucesso!',
       })
+      setTimeout(() => history.push(pages.REPASS.INDEX.SUCCESS))
+
       return true
     }
 

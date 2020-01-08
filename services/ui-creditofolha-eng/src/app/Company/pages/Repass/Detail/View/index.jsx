@@ -8,7 +8,7 @@ import { repassDetailingLotQuery } from 'company/queries/paymentLots'
 import { ToastContext } from 'components/ToastProvider'
 import { PAYMENT_LOT_REASONS_DESCRIPTION } from 'constants/paymentLot'
 import { Table, TableHead, TableHeader, TableBody, TableRow, TableCell } from 'components/Table'
-import Avatar from 'components/Avatar'
+import UserInfo from 'components/UserInfo'
 
 import RepassDetailViewSidePanel from './SidePanel'
 
@@ -94,16 +94,14 @@ const RepassDetailView = ({ entity: { pages } }) => {
               return (
                 <TableRow key={ cpf }>
                   <TableCell>
-                    <div className='d-flex align-items-center'>
-                      <Avatar
-                        title={ fullname }
-                        className='text-primary border-primary'
-                      />
-                      <div className='d-flex flex-column justify-content-center ml-2'>
-                        <span className='d-block text-primary mb-n1'>{ fullname }</span>
-                        <span className='d-block font-size-sm font-weight-lighter text-low-dark'>{ `CPF: ${ cpf }` }</span>
-                      </div>
-                    </div>
+                    <UserInfo
+                      className='text-primary'
+                      avatarClassName='text-primary border-primary'
+                      infoClassName='font-weight-lighter text-low-dark'
+                      fullName={ fullname }
+                    >
+                      { `CPF: ${ cpf }` }
+                    </UserInfo>
                   </TableCell>
                   <TableCell>
                     { discount.getFormatedCurrency('valor_previsto') }

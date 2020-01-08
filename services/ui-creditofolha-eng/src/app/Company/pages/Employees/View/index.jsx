@@ -9,7 +9,7 @@ import ViewTable, { ViewTableRow, ViewTableCell } from 'components/ViewTable'
 import { ToastContext } from 'components/ToastProvider'
 import { newEmployeeQuery, employeesListQuery } from 'company/queries/employees'
 import { employeesAsyncRequest, employeeAsyncRequest, employeeResetSelected, employeeFireRequest } from 'company/actions/employees'
-import Avatar from 'components/Avatar'
+import UserInfo from 'components/UserInfo'
 import Button from 'components/Button'
 import { bindPathParams } from 'helpers'
 import CreateGenericConfirmModal from 'components/GenericConfirmModal'
@@ -135,16 +135,14 @@ const EmployeesView = ({ entity: { pages } }) => {
 
       <ColumnWrapper className='mt-0 mb-4 d-flex flex-column flex-md-row'>
         <ColumnLeft>
-          <div className='d-flex align-items-center'>
-            <Avatar
-              title={ fullname }
-              className='text-dark border-dark'
-            />
-            <div className='d-flex flex-column justify-content-center ml-2'>
-              <span className='d-block font-size-xl mb-n1'>{ fullname }</span>
-              <span className='d-block text-low-dark'>{ `CPF: ${ employee.get('cpf') }` }</span>
-            </div>
-          </div>
+          <UserInfo
+            className='font-size-xl'
+            avatarClassName='text-dark border-dark'
+            infoClassName='text-low-dark'
+            fullName={ fullname }
+          >
+            { `CPF: ${ employee.get('cpf') }` }
+          </UserInfo>
         </ColumnLeft>
         <ColumnRight>
           <div className='d-flex justify-content-between justify-content-md-end flex-wrap'>

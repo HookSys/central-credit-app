@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Field } from 'redux-form/immutable'
 import { discountReasons } from 'constants/general'
-import { TableCard, TableCardItem } from 'components/Table'
-import Avatar from 'components/Avatar'
+import { TableCard, TableCardItem, TableCardInfo, TableBoxInfo } from 'components/Table'
+import UserInfo from 'components/UserInfo'
 
 import { required } from 'form/validators'
 import { currencyMask } from 'form/normalizers'
@@ -34,26 +34,34 @@ const EmployeeMobileFieldArray = ({ fields, discounts, errors }) => {
               </TableCardItem>
             ) }
             <TableCardItem>
-              <div className='d-flex align-items-center'>
-                <Avatar
-                  title={ fullname }
-                  className='text-primary border-primary'
-                />
-                <div className='d-flex flex-column justify-content-center ml-2'>
-                  <span className='d-block text-primary mb-n1'>{ fullname }</span>
-                  <span className='d-block font-size-sm font-weight-lighter text-low-dark'>{ `CPF: ${ employee.get('cpf') }` }</span>
-                </div>
-              </div>
+              <UserInfo
+                className='text-primary'
+                avatarClassName='text-primary border-primary'
+                infoClassName='font-weight-lighter text-low-dark'
+                fullName={ fullname }
+              >
+                { `CPF: ${ employee.get('cpf') }` }
+              </UserInfo>
             </TableCardItem>
-            <TableCardItem className='d-flex justify-content-between'>
-              <div className='border-right border-gray w-50'>
-                <span className='font-size-sm text-low-dark'>Matrícula</span>
-                <span className='d-block'>{ employee.get('matricula') }</span>
-              </div>
-              <div>
-                <span className='font-size-sm text-low-dark'>Parcela</span>
-                <span className='d-block'>{ paymentLot.getFormatedCurrency('valor_previsto') }</span>
-              </div>
+            <TableCardItem isTableCardInfo={ true }>
+              <TableCardInfo size='50'>
+                <TableBoxInfo
+                  title='Matrícula'
+                  className='font-size-sm text-low-dark'
+                  valueClassName='d-block'
+                >
+                  { employee.get('matricula') }
+                </TableBoxInfo>
+              </TableCardInfo>
+              <TableCardInfo noBorder={ true }>
+                <TableBoxInfo
+                  title='Parcela'
+                  className='font-size-sm text-low-dark'
+                  valueClassName='d-block'
+                >
+                  { paymentLot.getFormatedCurrency('valor_previsto') }
+                </TableBoxInfo>
+              </TableCardInfo>
             </TableCardItem>
             <TableCardItem>
               <Field

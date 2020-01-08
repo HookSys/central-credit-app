@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-export const TableSpacer = ((props) => {
+export const TableSpacer = memo(((props) => {
   const { hasChild, isChild, isChildOpen, className } = props
   return (
     <tr
@@ -14,7 +14,7 @@ export const TableSpacer = ((props) => {
       }, className) }
     />
   )
-})
+}))
 
 TableSpacer.propTypes = {
   hasChild: PropTypes.bool,

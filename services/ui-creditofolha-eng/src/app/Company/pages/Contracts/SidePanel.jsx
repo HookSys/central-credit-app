@@ -37,4 +37,4 @@ ContractsSidePanel.propTypes = {
   pages: PropTypes.object.isRequired,
 }
 
-export default ContractsSidePanel
+export default React.memo(ContractsSidePanel)

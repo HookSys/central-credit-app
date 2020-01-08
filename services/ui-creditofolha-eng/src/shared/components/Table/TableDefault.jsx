@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-export const TableDefault = ((props) => {
+export const TableDefault = memo(((props) => {
   const { children, className } = props
   return (
     <div className='w-100 pb-2 overflow-auto'>
@@ -11,7 +11,7 @@ export const TableDefault = ((props) => {
       </table>
     </div>
   )
-})
+}))
 
 TableDefault.propTypes = {
   children: PropTypes.node.isRequired,

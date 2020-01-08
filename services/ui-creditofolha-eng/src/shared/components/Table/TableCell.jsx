@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-export const TableCell = ((props) => {
+export const TableCell = memo(((props) => {
   const { children, className, onClick, width, colSpan, disableAction, isHide } = props
   if (isHide) {
     return null
@@ -21,7 +21,7 @@ export const TableCell = ((props) => {
       { children }
     </td>
   )
-})
+}))
 
 TableCell.propTypes = {
   children: PropTypes.node,

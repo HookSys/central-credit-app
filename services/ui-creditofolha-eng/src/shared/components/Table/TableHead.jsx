@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 
-export const TableHead = ((props) => {
+export const TableHead = memo(((props) => {
   const { children, className } = props
   return (
     <thead>
@@ -10,7 +10,7 @@ export const TableHead = ((props) => {
       </tr>
     </thead>
   )
-})
+}))
 
 TableHead.propTypes = {
   children: PropTypes.node.isRequired,

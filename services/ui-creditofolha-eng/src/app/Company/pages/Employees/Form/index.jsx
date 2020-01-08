@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useContext, useRef, useState, useCallback }
 import PropTypes from 'prop-types'
 import { Field, Form, reduxForm, formValueSelector, FormSection } from 'redux-form/immutable'
 import { ColumnWrapper, ColumnLeft, ColumnRight, Container } from 'templates/PageTemplate'
-import Avatar from 'components/Avatar'
+import UserInfo from 'components/UserInfo'
 import FormContent, { Row, Element } from 'company/components/FormContent'
 import { civilState, ufs, documentTypes, banks, accountType } from 'constants/general'
 import { useSelector, useDispatch } from 'react-redux'
@@ -186,22 +186,14 @@ const EmployeesForm = (
       />
       <ColumnWrapper>
         <ColumnLeft>
-          <div className='d-flex align-items-center'>
-            <Avatar
-              title={ isEditMode ? employee.getFullName() : 'Novo Funcionário' }
-              className='text-dark border-dark'
-            />
-            { !isEditMode ? (
-              <div className='d-flex flex-column justify-content-center ml-2'>
-                <span className='d-block font-size-xl mb-n1'>Novo Funcionário</span>
-              </div>
-            ) : (
-              <div className='d-flex flex-column justify-content-center ml-2'>
-                <span className='d-block font-size-xl mb-n1'>{ employee.getFullName() }</span>
-                <span className='d-block text-low-dark'>{ `CPF: ${ employee.get('cpf') }` }</span>
-              </div>
-            ) }
-          </div>
+          <UserInfo
+            className='font-size-xl'
+            avatarClassName='text-dark border-dark'
+            infoClassName='font-weight-lighter text-low-dark'
+            fullName={ isEditMode ? employee.getFullName() : 'Novo Funcionário' }
+          >
+            { isEditMode && (`CPF: ${ employee.get('cpf') }`) }
+          </UserInfo>
         </ColumnLeft>
         <ColumnRight isActionBar={ true }>
           <Button className='btn btn-default mr-3' onClick={ onCancel }>

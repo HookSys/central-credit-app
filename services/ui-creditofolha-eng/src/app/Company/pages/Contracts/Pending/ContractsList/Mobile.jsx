@@ -3,8 +3,8 @@ import moment from 'moment'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { Block } from '@material-ui/icons'
-import { TableBody, TableCard, TableCardItem } from 'components/Table'
-import Input from 'components/Input'
+import { TableBody, TableCard, TableCardItem, TableCardInfo, TableBoxInfo } from 'components/Table'
+import Checkbox from 'components/Checkbox'
 import Avatar from 'components/Avatar'
 import Button from 'components/Button'
 
@@ -32,17 +32,13 @@ const ContractsPendingListMobile = ({ contracts, selected, onDetailsClick, onSel
               <div className='d-flex align-items-center'>
                 <div className='d-flex align-items-center w-90'>
                   { !isExpired ? (
-                    <div className='w-10 w-xm-auto mr-sm-3'>
-                      <div className='form-check pl-3'>
-                        <Input
-                          type='checkbox'
-                          checked={ isSelected }
-                          id={ `contract-${ contractId }` }
-                          name={ `contract-${ contractId }` }
-                          onChange={ onSelectedChange(contract, isSelected) }
-                          className='form-check-input position-static'
-                        />
-                      </div>
+                    <div className='w-15 w-xm-10 w-sm-auto mr-sm-5'>
+                      <Checkbox
+                        id={ `contract-${ contractId }` }
+                        name={ `contract-${ contractId }` }
+                        checked={ isSelected }
+                        onChange={ onSelectedChange(contract, isSelected) }
+                      />
                     </div>
                   ) : (
                     <div className='w-10 w-xm-auto mr-sm-3'>
@@ -88,32 +84,52 @@ const ContractsPendingListMobile = ({ contracts, selected, onDetailsClick, onSel
                 </div>
               </div>
             </TableCardItem>
-            <TableCardItem className='d-flex justify-content-between'>
-              <div className='border-right border-gray w-50'>
-                <span className='font-size-sm text-low-dark'>Valor da Parcela</span>
-                <span className='d-block'>
-                  { contract.getFormatedCurrency('valor_recebivel') }
-                </span>
-                <span className='d-block small text-low-dark mt-n1'>
+            <TableCardItem isTableCardInfo={ true }>
+              <TableCardInfo size='50'>
+                <TableBoxInfo
+                  title='Valor da Parcela'
+                  className='font-size-sm text-low-dark'
+                  valueClassName='d-none'
+                />
+                <TableBoxInfo
+                  title={ contract.getFormatedCurrency('valor_recebivel') }
+                  className='d-block'
+                  valueClassName='d-block small text-low-dark mt-n1'
+                >
                   { `em ${ contract.get('num_parcelas') } vezes` }
-                </span>
-              </div>
-              <div>
-                <span className='font-size-sm text-low-dark'>Comprometido</span>
-                <span className='d-block'>{ contract.getFormatedCurrency(compromised) }</span>
-                <span className='d-block small text-low-dark mt-n1'>
+                </TableBoxInfo>
+              </TableCardInfo>
+
+              <TableCardInfo noBorder={ true }>
+                <TableBoxInfo
+                  title='Comprometido'
+                  className='font-size-sm text-low-dark'
+                  valueClassName='d-none'
+                />
+                <TableBoxInfo
+                  title={ contract.getFormatedCurrency(compromised) }
+                  className='d-block'
+                  valueClassName='d-block small text-low-dark mt-n1'
+                >
                   { `${ employee.getCompromisedPercent() } - atual` }
-                </span>
-              </div>
+                </TableBoxInfo>
+              </TableCardInfo>
             </TableCardItem>
             <TableCardItem>
-              <span className='font-size-sm text-low-dark'>Comprometimento após averbação</span>
-              <span className='d-block'>
-                <strong>{ contract.getFormatedCurrency(compromisedAfterContract) }</strong>
-              </span>
-              <span className='d-block small text-low-dark mt-n1'>
-                { `${ contract.getCompromisedAfterContractPercent() } - após averbação` }
-              </span>
+              <TableCardInfo noBorder={ true }>
+                <TableBoxInfo
+                  title='Comprometimento após averbação'
+                  className='font-size-sm text-low-dark'
+                  valueClassName='d-none'
+                />
+                <TableBoxInfo
+                  title={ contract.getFormatedCurrency(compromisedAfterContract) }
+                  className='d-block font-weight-bold'
+                  valueClassName='d-block small text-low-dark mt-n1'
+                >
+                  { `${ contract.getCompromisedAfterContractPercent() } - após averbação` }
+                </TableBoxInfo>
+              </TableCardInfo>
             </TableCardItem>
             <TableCardItem noBorder={ true }>
               <Button className='btn btn-link w-100' onClick={ onDetailsClick(contract) }>

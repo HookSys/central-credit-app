@@ -32,10 +32,10 @@ function useActiveRoute() {
   const { pathname } = location
 
   if (pathname !== lastPathname.current) {
+    lastPathname.current = pathname
     const { pages, routes } = structure
     const activePath = getPathKeysOf(pages, pathname)
     const routeObj = get(routes, activePath)
-    lastPathname.current = pathname
     lastActiveRoute.current = routeObj
   }
 

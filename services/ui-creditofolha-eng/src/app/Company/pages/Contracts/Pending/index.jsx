@@ -3,7 +3,7 @@ import moment from 'moment'
 import { ColumnWrapper, ColumnLeft, ColumnRight, Title, Container } from 'templates/PageTemplate'
 import { useSelector, useDispatch } from 'react-redux'
 import Button from 'components/Button'
-import Input from 'components/Input'
+import Checkbox from 'components/Checkbox'
 import { Table, TableHead, TableHeader } from 'components/Table'
 import { contractsAsyncRequest, contractsResetResults,
   contractsChangeSelectAll, contractsChangeSelected,
@@ -77,16 +77,12 @@ const ContractsPending = () => {
         <Table className='min-width-lg-only mt-4 mt-lg-0'>
           <TableHead className='d-none d-lg-table-row'>
             <TableHeader width={ 30 }>
-              <div className='form-check'>
-                <Input
-                  type='checkbox'
-                  id='selectall'
-                  name='selectall'
-                  checked={ isAllSelected }
-                  onChange={ onSelectAllChange }
-                  className='form-check-input position-static'
-                />
-              </div>
+              <Checkbox
+                id='selectall'
+                name='selectall'
+                checked={ isAllSelected }
+                onChange={ onSelectAllChange }
+              />
             </TableHeader>
             <TableHeader>
               Tipo
@@ -103,7 +99,7 @@ const ContractsPending = () => {
             <TableHeader>
               Comprometido
             </TableHeader>
-            <TableHeader className='text-center'>
+            <TableHeader>
               Comprometido <br />após averbação
             </TableHeader>
             <TableHeader>

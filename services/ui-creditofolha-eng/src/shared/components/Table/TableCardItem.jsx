@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-export const TableCardItem = ((props) => {
-  const { children, className, onClick, noBorder, noPadding } = props
+export const TableCardItem = memo(((props) => {
+  const { children, className, onClick, noBorder, noPadding, isTableCardInfo } = props
   return (
     <div
       className={ classNames('row no-gutters', {
@@ -18,6 +18,7 @@ export const TableCardItem = ((props) => {
         <div
           className={ classNames(className, {
             'p-2': !noPadding,
+            'd-flex justify-content-between': isTableCardInfo,
           }) }
         >
           { children }
@@ -25,7 +26,7 @@ export const TableCardItem = ((props) => {
       </div>
     </div>
   )
-})
+}))
 
 TableCardItem.propTypes = {
   children: PropTypes.node.isRequired,
@@ -33,6 +34,7 @@ TableCardItem.propTypes = {
   onClick: PropTypes.func,
   noBorder: PropTypes.bool,
   noPadding: PropTypes.bool,
+  isTableCardInfo: PropTypes.bool,
 }
 
 TableCardItem.defaultProps = {
@@ -40,4 +42,5 @@ TableCardItem.defaultProps = {
   onClick: null,
   noBorder: false,
   noPadding: false,
+  isTableCardInfo: false,
 }

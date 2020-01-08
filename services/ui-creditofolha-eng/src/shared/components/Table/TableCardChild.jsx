@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 
 import { TableRowChild } from './TableRowChild'
 import { TableCell } from './TableCell'
 
-export const TableCardChild = ((props) => {
+export const TableCardChild = memo(((props) => {
   const { children, className, isChildOpen } = props
   return (
     <TableRowChild
@@ -16,7 +16,7 @@ export const TableCardChild = ((props) => {
       </TableCell>
     </TableRowChild>
   )
-})
+}))
 
 TableCardChild.propTypes = {
   children: PropTypes.node.isRequired,

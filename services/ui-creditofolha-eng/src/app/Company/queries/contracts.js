@@ -6,6 +6,28 @@ export const dashboardContractQuery = createQuery([
   'ultimo_vencimento',
 ])
 
+export const deniedAverbationQuery = createQuery([
+  'id',
+
+  'funcionario__nome',
+  'funcionario__sobrenome',
+  'funcionario__cpf',
+  'funcionario__valor_emprestado',
+  'funcionario__valor_emprestado_outros_bancos',
+  'funcionario__salario',
+  'funcionario__matricula',
+  'funcionario__margem_disponivel',
+  'funcionario__salario_margem',
+  'funcionario__descontos',
+
+  'num_parcelas',
+  'valor_recebivel',
+  'status_averbacao',
+  'valor_financiado',
+  'origem',
+])
+
+
 export const pendingAverbationQuery = createQuery([
   'id',
   'funcionario__nome',

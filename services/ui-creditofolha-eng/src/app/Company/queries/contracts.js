@@ -19,8 +19,9 @@ export const pendingAverbationQuery = createQuery([
   'funcionario__matricula',
   'funcionario__margem_disponivel',
   'funcionario__salario_margem',
+  'funcionario__descontos',
 
-  'cliente_info_no_contrato',
+  'cliente_info_no_contrato__salario_liquido',
 
   'num_parcelas',
   'valor_recebivel',

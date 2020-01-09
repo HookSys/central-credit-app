@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useCallback } from 'react'
+import React, { Fragment, useEffect, useCallback, useState } from 'react'
 import moment from 'moment'
 import { ColumnWrapper, ColumnLeft, ColumnRight, Title, Container } from 'templates/PageTemplate'
 import { useSelector, useDispatch } from 'react-redux'
@@ -10,11 +10,32 @@ import { contractsAsyncRequest, contractsResetResults,
   contractsUpdatePage } from 'company/actions/contracts'
 import { pendingAverbationQuery } from 'company/queries/contracts'
 import Pagination from 'components/Pagination'
+import ContractDetailModal from 'company/components/ContractDetailModal'
+import CreateGenericConfirmModal from 'components/GenericConfirmModal'
 
 import ContractsPendingList from './ContractsList'
 
+const ConfirmModal = CreateGenericConfirmModal({
+  title: 'Aprovar averbação',
+  confirmBtnClassName: 'btn-primary',
+  confirmBtnLabel: 'Aprovar',
+  cancelOnClose: true,
+})
+
+const DenyModal = CreateGenericConfirmModal({
+  title: 'Negar averbação',
+  confirmBtnClassName: 'btn-danger',
+  confirmBtnLabel: 'Negar',
+  cancelOnClose: true,
+})
+
+const CONFIRM_MODAL = 'confirm_modal'
+const DENY_MODAL = 'deny_modal'
+
 const ContractsPending = () => {
   const dispatch = useDispatch()
+  const [modalOpened, changeModalOpened] = useState(null)
+  const [contractToDetail, changeContractToDetail] = useState(null)
   const selected = useSelector(({ company }) => company.contracts.get('selected'))
   const isAllSelected = useSelector(({ company }) => company.contracts.isAllSelected())
   const options = useSelector(({ company }) => company.contracts.get('options'))
@@ -27,7 +48,7 @@ const ContractsPending = () => {
       data_solicitacao_antes_de: moment().format('YYYY-MM-DD'),
       status: 'ativo,cancelado',
       status_averbacao: 'aguardando,expirado',
-      ordering: 'status_averbacao',
+      ordering: '-status_averbacao',
     }))
   }, [])
 
@@ -39,12 +60,12 @@ const ContractsPending = () => {
     requestContractsList()
   }, [selectedPage])
 
-
   const onPageChange = useCallback((page) => async () => {
     dispatch(contractsUpdatePage(page))
   }, [])
 
-  const onDetailsClick = useCallback(() => () => {
+  const onDetailsClick = useCallback((contract) => () => {
+    changeContractToDetail(contract)
   }, [])
 
   const onSelectAllChange = useCallback(() => {
@@ -55,6 +76,28 @@ const ContractsPending = () => {
     dispatch(contractsChangeSelected(contract, isSelected))
   }, [])
 
+  const onCloseContractDetail = useCallback(() => {
+    changeContractToDetail(null)
+  }, [])
+
+  const onDenyContractClick = useCallback(() => {
+    changeModalOpened(DENY_MODAL)
+  }, [])
+
+  const onConfirmContractClick = useCallback(() => {
+    changeModalOpened(CONFIRM_MODAL)
+  }, [])
+
+  const onCloseModal = useCallback(() => {
+    changeModalOpened(null)
+  }, [])
+
+  const onApproveContracts = useCallback(() => {
+  }, [selected])
+
+  const onDenyContracts = useCallback(() => {
+  }, [selected])
+
   return (
     <Fragment>
       <ColumnWrapper>
@@ -62,10 +105,17 @@ const ContractsPending = () => {
           <Title>Contratos pendentes de averbação</Title>
         </ColumnLeft>
         <ColumnRight isActionBar={ true }>
-          <Button className='btn btn-default mr-3' disabled={ selected.size === 0 }>
+          <Button
+            className='btn btn-default mr-3'
+            disabled={ selected.size === 0 }
+            onClick={ onDenyContractClick }
+          >
             Negar
           </Button>
-          <Button disabled={ selected.size === 0 }>
+          <Button
+            disabled={ selected.size === 0 }
+            onClick={ onConfirmContractClick }
+          >
             Averbar
           </Button>
         </ColumnRight>
@@ -94,7 +144,7 @@ const ContractsPending = () => {
               Parcela
             </TableHeader>
             <TableHeader>
-              Comprometido
+              Comprometido <br />atual
             </TableHeader>
             <TableHeader>
               Comprometido <br />após averbação
@@ -119,6 +169,25 @@ const ContractsPending = () => {
           />
         </ColumnLeft>
       </ColumnWrapper>
+      <ContractDetailModal
+        isOpen={ contractToDetail !== null }
+        onClose={ onCloseContractDetail }
+        contract={ contractToDetail }
+      />
+      <ConfirmModal
+        onConfirm={ onApproveContracts }
+        onCancel={ onCloseModal }
+        isOpen={ modalOpened === CONFIRM_MODAL }
+      >
+        Deseja aprovar a averbação dos itens selecionados?
+      </ConfirmModal>
+      <DenyModal
+        onConfirm={ onDenyContracts }
+        onCancel={ onCloseModal }
+        isOpen={ modalOpened === DENY_MODAL }
+      >
+        Deseja negar a averbação dos itens selecionados?
+      </DenyModal>
     </Fragment>
   )
 }

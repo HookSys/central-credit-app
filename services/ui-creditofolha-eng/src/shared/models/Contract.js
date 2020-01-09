@@ -94,6 +94,13 @@ export default class Contract extends BaseRecord(defaultValues, Contract) {
     return commitedAfterEnsurement
   }
 
+  getLiquidSalaryAfterContract() {
+    const salary = this.getIn(['cliente_info_no_contrato', 'salario_liquido'])
+    const compromised = this.getCompromisedAfterContract()
+
+    return salary - compromised
+  }
+
   getYearlyContractFee() {
     const monthlyFee = this.get('taxa_contrato')
     return this.getFormatedPercent((monthlyFee * 12), false, true)

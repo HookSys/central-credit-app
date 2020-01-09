@@ -4,6 +4,7 @@ import type { BaseRecordOf, BaseRecordFactory } from './BaseRecord'
 
 type TBaseListValues<O> = {|
   count: number,
+  skip: number,
   next: string | null,
   previous: string | null,
   results: List<BaseRecordOf<O>>,
@@ -42,7 +43,9 @@ export default function BaseList<O: Object>(
     isAllSelected(): boolean {
       const results = this.get('results')
       const selected = this.get('selected')
-      return results.size > 0 && results.size === selected.size
+      const skip = this.get('skip')
+      const resultsSize = (results.size - skip)
+      return resultsSize > 0 && resultsSize === selected.size
     }
 
     deselectItem(value: O, field: string = 'id'): this {

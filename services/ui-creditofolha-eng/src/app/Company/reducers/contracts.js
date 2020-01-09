@@ -20,6 +20,7 @@ const ContractOptions = new Record({
 const initialState = new BaseList({
   errorMessage: '',
   count: 0,
+  skip: 0,
   results: toEntityList([], Contract),
   selected: toEntityList([], Contract),
   options: ContractOptions(),
@@ -28,16 +29,22 @@ const initialState = new BaseList({
 const actionsMap = {
   [CONTRACTS_ASYNC_SUCCESS]: (state, action) => {
     const { results, count, next, previous } = action.payload
+
+    const contractsList = toEntityList(results, Contract)
+    const skip = contractsList.filter((contract) => contract.isExpired()).size
+
     return state.merge({
       count,
       next,
+      skip,
       previous,
-      results: toEntityList(results, Contract),
+      results: contractsList,
     })
   },
   [CONTRACTS_RESET_RESULTS]: (state) => {
     return state.merge({
       count: initialState.get('count'),
+      skip: initialState.get('skip'),
       next: initialState.get('next'),
       previous: initialState.get('previous'),
       results: initialState.get('results'),
@@ -45,7 +52,7 @@ const actionsMap = {
   },
   [CONTRACTS_CHANGE_SELECT_ALL]: (state, action) => {
     const { payload: isAllSelected } = action
-    const results = state.get('results')
+    const results = state.get('results').filter((contract) => !contract.isExpired())
     return state.merge({
       selected: isAllSelected ? results : initialState.get('selected'),
     })

@@ -53,6 +53,12 @@ export default class Employee extends BaseRecord(defaultValues, Employee) {
     })
   }
 
+  getDiscountsInssIrrf() {
+    const inss = this.get('inss')
+    const irrf = this.get('irrf')
+    return Number(inss + irrf)
+  }
+
   getCompromisedPercent() {
     const amountCep = this.get('valor_emprestado')
     const amountOthers = this.get('valor_emprestado_outros_bancos')

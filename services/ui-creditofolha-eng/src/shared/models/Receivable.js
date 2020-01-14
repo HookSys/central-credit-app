@@ -6,7 +6,7 @@ const defaultValues = {
   id: null,
   contrato: null,
   vencimento_em: null,
-  valor: null,
+  valor_parcela: null,
   principal: null,
   juros: null,
   seguro: null,

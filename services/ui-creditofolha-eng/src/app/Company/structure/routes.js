@@ -20,6 +20,8 @@ const ContractsPage = LazyLoading(() => import('company/pages/Contracts'))
 const ContractsPendingPage = LazyLoading(() => import('company/pages/Contracts/Pending'))
 const ContractsDeniedPage = LazyLoading(() => import('company/pages/Contracts/Denied'))
 const ContractsApprovedPage = LazyLoading(() => import('company/pages/Contracts/Approved'))
+const ContractsApprovedListPage = LazyLoading(() => import('company/pages/Contracts/Approved/List'))
+const ContractsApprovedViewPage = LazyLoading(() => import('company/pages/Contracts/Approved/View'))
 
 const RepassPage = LazyLoading(() => import('company/pages/Repass'))
 const RepassDiscountPage = LazyLoading(() => import('company/pages/Repass/Discount'))
@@ -197,6 +199,20 @@ const CompanyRoutes = {
         route: '/approved',
         name: 'Aprovados',
         component: ContractsApprovedPage,
+        routes: {
+          INDEX: {
+            route: '',
+            name: 'Lista',
+            component: ContractsApprovedListPage,
+            hideMenu: true,
+          },
+          VIEW: {
+            route: '/:contractId',
+            name: 'Lista',
+            component: ContractsApprovedViewPage,
+            hideMenu: true,
+          },
+        },
       },
     },
   },

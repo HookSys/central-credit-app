@@ -9,6 +9,8 @@ import {
   CONTRACTS_RESET_RESULTS,
   CONTRACTS_CHANGE_SELECT_ALL,
   CONTRACTS_CHANGE_SELECTED,
+  CONTRACT_ASYNC_SUCCESS,
+  CONTRACT_RESET_SELECTED,
 } from 'company/actions/contracts'
 
 const ContractOptions = new Record({
@@ -48,6 +50,19 @@ const actionsMap = {
       next: initialState.get('next'),
       previous: initialState.get('previous'),
       results: initialState.get('results'),
+    })
+  },
+  [CONTRACT_ASYNC_SUCCESS]: (state, action) => {
+    const { payload: employee } = action
+    const options = state.get('options')
+    return state.merge({
+      options: options.set('selected', new Contract(employee)),
+    })
+  },
+  [CONTRACT_RESET_SELECTED]: (state) => {
+    const options = state.get('options')
+    return state.merge({
+      options: options.set('selected', null),
     })
   },
   [CONTRACTS_CHANGE_SELECT_ALL]: (state, action) => {

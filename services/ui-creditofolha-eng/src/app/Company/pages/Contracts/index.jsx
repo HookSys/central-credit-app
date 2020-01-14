@@ -1,13 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Layout from 'templates/PageTemplate'
-
+import { useActiveRoute } from 'hooks'
 import ContractsSidePanel from './SidePanel'
 
 const Contracts = ({ entity: { pages }, route, children }) => {
+  const activeRoute = useActiveRoute()
   return (
     <Layout>
-      <ContractsSidePanel pages={ pages.CONTRACTS } routes={ route.routes } />
+      { activeRoute.page !== pages.CONTRACTS.APPROVED.VIEW && (
+        <ContractsSidePanel pages={ pages.CONTRACTS } routes={ route.routes } />
+      ) }
       { children }
     </Layout>
   )

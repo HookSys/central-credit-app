@@ -1,10 +1,8 @@
 import BaseRecord from 'base/BaseRecord'
-import moment from 'moment'
-import { get } from 'lodash'
 
 const defaultValues = {
   id: '',
-  pago_em: moment(),
+  pago_em: null,
   total_calculado: 0,
   desconto_antecipacao_calculado: 0,
   juros_calculado: 0,
@@ -19,17 +17,14 @@ const defaultValues = {
   desconto_antecipacao_concedido: 0,
   desconto_concedido: 0,
   diferenca: 0,
-  estornado_em: moment(),
-  processado_em: moment(),
+  estornado_em: null,
+  processado_em: null,
 }
 
 export default class ReceivablePayment extends BaseRecord(defaultValues, ReceivablePayment) {
   constructor(values) {
     super({
       ...values,
-      pago_em: get(values, 'pago_em') ? moment(values.pago_em) : defaultValues.pago_em,
-      estornado_em: get(values, 'estornado_em') ? moment(values.estornado_em) : defaultValues.estornado_em,
-      processado_em: get(values, 'processado_em') ? moment(values.processado_em) : defaultValues.processado_em,
     })
   }
 }

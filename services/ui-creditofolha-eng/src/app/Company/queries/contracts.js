@@ -6,6 +6,32 @@ export const dashboardContractQuery = createQuery([
   'ultimo_vencimento',
 ])
 
+export const viewApprovedQuery = createQuery([
+  'id',
+
+  'funcionario__nome',
+  'funcionario__sobrenome',
+
+  'primeiro_vencimento',
+  'ultimo_vencimento',
+  'num_parcelas',
+  'valor_recebivel',
+  'status_averbacao',
+  'valor_financiado',
+  'valor_seguro',
+  'data_solicitacao',
+  'valor_iof',
+  'valor_seguro',
+  'status',
+  'taxa_iof_complementar',
+  'taxa_cet_mes',
+  'valor_tarifas',
+  'taxa_multa',
+  'valor_total_devido',
+  'valor_liberado',
+  'origem',
+])
+
 export const approvedAverbationQuery = createQuery([
   'id',
 

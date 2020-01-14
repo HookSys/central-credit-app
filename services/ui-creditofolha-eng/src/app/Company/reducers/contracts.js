@@ -13,7 +13,7 @@ import {
 
 const ContractOptions = new Record({
   currentPageIndex: 0,
-  limit: 15,
+  limit: 16,
   selected: null,
 })
 

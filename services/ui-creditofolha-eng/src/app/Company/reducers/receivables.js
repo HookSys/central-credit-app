@@ -29,22 +29,13 @@ const actionsMap = {
   },
   [RECEIVABLES_ASYNC_SUCCESS]: (state, action) => {
     const { results, count } = action.payload
-    const resultsEntity = toEntityList(results, Receivable).filter((r) => !r.get('gerado_por'))
-    const total = resultsEntity.size
-    const totalPaid = resultsEntity.reduce((totalPaidIn, item) => {
-      if (!item.get('isOpened')) {
-        return totalPaidIn + 1
-      }
-      return totalPaidIn
-    }, 0)
-
+    const resultsObj = toEntityList(results, Receivable)
+    const totalPaid = resultsObj.filter((r) => r.isPaid()).size
+    const options = state.get('options')
     return state.merge({
-      results: resultsEntity,
+      results: resultsObj,
+      options: options.set('total', resultsObj.size).set('totalPaid', totalPaid),
       count,
-      options: ReceivablesOptions({
-        total,
-        totalPaid,
-      }),
     })
   },
   [RECEIVABLES_ASYNC_FAIL]: (state, action) => {

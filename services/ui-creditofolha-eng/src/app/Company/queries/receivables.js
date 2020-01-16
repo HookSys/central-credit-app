@@ -11,6 +11,7 @@ export const approvedContractReceivableQuery = createQuery([
   'pagamentos__pago_em',
   'pagamentos__total_pago',
   'pagamentos__diferenca',
+  'pagamentos__estornado_em',
 
   'valor_presente',
 ])

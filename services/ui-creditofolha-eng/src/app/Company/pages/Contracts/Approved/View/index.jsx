@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { Fragment, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
@@ -26,6 +27,8 @@ const ContractView = ({ entity: { pages } }) => {
   const dispatch = useDispatch()
   const contract = useSelector(({ company }) => company.contracts.getIn(['options', 'selected']))
   const contracts = useSelector(({ company }) => company.contracts.get('results'))
+  const receivables = useSelector(({ company }) => company.receivables.get('results'))
+  const options = useSelector(({ company }) => company.receivables.get('options'))
 
   const employeeNotFound = () => {
     showErrorToast({
@@ -120,15 +123,29 @@ const ContractView = ({ entity: { pages } }) => {
       </Container>
 
       <Container isWhiteBackground={ true } className='p-4 mt-3'>
-        <ViewTable title='Parcelas (0/2)'>
-          <ViewTableRow>
-            <ViewTableCell noBorderLeft={ true } noFullWidth={ true } className='w-50' value='1ª Parcela (07/02/2020)' />
-            <ViewTableCell noFullWidth={ true } className='w-50' value='R$ 1.525,84' />
-          </ViewTableRow>
-          <ViewTableRow>
-            <ViewTableCell noBorderLeft={ true } noFullWidth={ true } className='w-50' value='2ª Parcela (07/02/2020)' />
-            <ViewTableCell noFullWidth={ true } className='w-50' value='R$ 1.525,84' />
-          </ViewTableRow>
+        <ViewTable title={ `Parcelas (${ options.get('totalPaid') }/${ options.get('total') })` }>
+          { receivables.map((receivable, inx) => {
+            const status = receivable.getStatusLabelAndColor()
+            return (
+              <ViewTableRow key={ receivable.get('id') }>
+                <ViewTableCell
+                  noBorderLeft={ true }
+                  noFullWidth={ true }
+                  className='w-50'
+                  valueClassName={ receivable.isFuture() && !receivable.isPending() ? 'text-low-dark' : '' }
+                  value={ `${ inx + 1 }ª Parcela (${ receivable.getFormatedDate('vencimento_em') })` }
+                />
+                <ViewTableCell
+                  noFullWidth={ true }
+                  className='w-50'
+                  valueClassName={ `d-md-flex align-items-center ${ receivable.isFuture() && !receivable.isPending() ? 'text-low-dark' : '' }` }
+                  value={ receivable.getFormatedCurrency('valor_parcela') }
+                >
+                  <span className={ `d-block ml-auto ${ status.className }` }>{ status.label }</span>
+                </ViewTableCell>
+              </ViewTableRow>
+            )
+          }) }
         </ViewTable>
       </Container>
     </Fragment>

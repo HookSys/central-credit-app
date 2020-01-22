@@ -4,7 +4,8 @@ import React, { useEffect, useState, memo } from 'react'
 import type { Node, Context } from 'react'
 import type { History as THistory } from 'react-router-dom'
 import type { TCore, TServicesLoader, TReduxLoader, TThemesLoader,
-  TEntityLoader, TPermissionsLoader, TLoader, TImporterLoader, TCacheLoader } from 'types'
+  TEntityLoader, TPermissionsLoader, TLoader, TImporterLoader, TCacheLoader,
+  TExporterLoader } from 'types'
 
 import AppLoader from 'components/AppLoader'
 import ThemesLoader from 'loaders/Themes'
@@ -15,6 +16,7 @@ import PermissionsLoader from 'loaders/Permissions'
 import EntityLoader from 'loaders/Entity'
 import ImporterLoader from 'loaders/Importer'
 import CacheLoader from 'loaders/Cache'
+import ExporterLoader from 'loaders/Exporter'
 
 const InitialCore: TCore = {
   Services: ({}: TServicesLoader),
@@ -24,6 +26,7 @@ const InitialCore: TCore = {
   Themes: {},
   Entity: ({}: TEntityLoader),
   Importer: ({}: TImporterLoader),
+  Exporter: ({}: TExporterLoader),
   Cache: ({}: TCacheLoader),
 }
 
@@ -53,6 +56,7 @@ const Loader = (): Promise<TCore> => {
     const permissions = Load<TPermissionsLoader>(PermissionsLoader)()
     const entity = Load<TEntityLoader>(EntityLoader)()
     const importer = Load<TImporterLoader>(ImporterLoader)()
+    const exporter = Load<TExporterLoader>(ExporterLoader)()
 
     LoaderData.Cache = await cache.load()
     LoaderData.History = await history.load()
@@ -62,6 +66,7 @@ const Loader = (): Promise<TCore> => {
     LoaderData.Permissions = await permissions.load()
     LoaderData.Entity = await entity.load()
     LoaderData.Importer = await importer.load()
+    LoaderData.Exporter = await exporter.load()
 
     resolve(LoaderData)
   })

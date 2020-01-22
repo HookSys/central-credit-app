@@ -1,11 +1,16 @@
 /* eslint-disable no-param-reassign */
-import React, { forwardRef, useCallback, useRef, useState, memo, useMemo } from 'react'
+import React, { forwardRef, useCallback, useRef, useState, memo, useImperativeHandle, useMemo } from 'react'
 // import PropTypes from 'prop-types'
 import ReactDataGrid from 'react-data-grid'
-import { Editors } from 'react-data-grid-addons'
+import { useExporter } from 'hooks'
+import { Editors, Formatters } from 'react-data-grid-addons'
 
+import DateEditor from './editors/DateEditor'
 import CurrencyEditor from './editors/CurrencyEditor'
 import CheckboxEditor from './editors/CheckboxEditor'
+import CpfEditor from './editors/CpfEditor'
+
+import DateFormatter from './formatters/DateFormatter'
 import CurrencyFormatter from './formatters/CurrencyFormatter'
 import CheckboxFormatter from './formatters/CheckboxFormatter'
 
@@ -14,9 +19,11 @@ export const COLUMN_TYPE = {
   CURRENCY: 'numeric',
   DROPDOWN: 'dropdown',
   DATE: 'date',
+  CPF: 'cpf',
 }
 
 const { DropDownEditor } = Editors
+const { DropDownFormatter } = Formatters
 
 const GridBuilder = () => {
   const _columns = []
@@ -51,12 +58,18 @@ const GridBuilder = () => {
           let formatter
           if (type === COLUMN_TYPE.DROPDOWN) {
             editor = <DropDownEditor options={ domain } />
+            formatter = <DropDownFormatter options={ domain } />
           } else if (type === COLUMN_TYPE.CURRENCY) {
             editor = <CurrencyEditor />
             formatter = <CurrencyFormatter />
+          } else if (type === COLUMN_TYPE.DATE) {
+            editor = <DateEditor />
+            formatter = <DateFormatter />
           } else if (type === COLUMN_TYPE.CHECKBOX) {
             editor = <CheckboxEditor />
             formatter = <CheckboxFormatter />
+          } else if (type === COLUMN_TYPE.CPF) {
+            editor = <CpfEditor />
           }
 
           return {
@@ -66,6 +79,7 @@ const GridBuilder = () => {
             editable,
             resizable: true,
             editor,
+            type,
             formatter,
             events: {
               onClick(ev, args) {
@@ -86,11 +100,18 @@ const GridBuilder = () => {
         }, {})
       })
 
-      const GridBuilt = memo(forwardRef(() => {
+      const GridBuilt = memo(forwardRef((props, ref) => {
         const gridRef = useRef()
         const columns = useMemo(() => getColumns(gridRef), [])
+        // const columnsExport = useMemo(() => columns.reduce((obj, col) => {
+        //   return {
+        //     ...obj,
+        //     [col.key]: col.name,
+        //   }
+        // }, {}), [columns])
         const initialRows = useMemo(() => getInitialRows(columns), [])
         const [data, updateData] = useState(initialRows)
+        const exporter = useExporter()
 
         const onGridRowsUpdated = useCallback(({ fromRow, toRow, updated }) => {
           const rows = data.slice()
@@ -101,11 +122,24 @@ const GridBuilder = () => {
           return { rows }
         }, [data])
 
+        const rowGetter = useCallback((inx) => data[inx], [data])
+
+        useImperativeHandle(ref, () => ({
+          exportTemplate(filename, title) {
+            exporter.put(
+              filename,
+              title,
+              columns,
+              data
+            )
+          },
+        }))
+
         return (
           <ReactDataGrid
             ref={ gridRef }
             columns={ columns }
-            rowGetter={ i => data[i] }
+            rowGetter={ rowGetter }
             rowsCount={ data.length }
             rowScrollTimeout={ null }
             enableCellSelect={ true }

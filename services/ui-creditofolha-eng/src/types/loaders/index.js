@@ -6,6 +6,7 @@ export type * from './Entity'
 export type * from './Permission'
 export type * from './Importer'
 export type * from './Cache'
+export type * from './Exporter'
 
 export type TLoader<T> = {
   setup?: () => TLoader<T>,

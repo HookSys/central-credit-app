@@ -1,7 +1,8 @@
 // @flow
 import type { History } from 'react-router-dom'
 import type { TServicesLoader, TReduxLoader, TThemesLoader,
-  TEntityLoader, TPermissionsLoader, TImporterLoader, TCacheLoader } from './loaders'
+  TEntityLoader, TPermissionsLoader, TImporterLoader, TCacheLoader,
+  TExporterLoader } from './loaders'
 
 export type TCore = {|
   Services: TServicesLoader,
@@ -11,6 +12,7 @@ export type TCore = {|
   Entity: TEntityLoader,
   Permissions: TPermissionsLoader,
   Importer: TImporterLoader,
+  Exporter: TExporterLoader,
   Cache: TCacheLoader,
 |}
 

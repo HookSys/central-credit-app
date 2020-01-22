@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect } from 'react'
+import React, { Fragment, useRef, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { ColumnWrapper, ColumnLeft, Title, Container, ColumnRight } from 'templates/PageTemplate'
 import Button from 'components/Button'
@@ -14,7 +14,7 @@ const EmployeesGrid = GridBuilder()
   .addColumn('sexo', 'Sexo', 'cliente.sexo', COLUMN_TYPE.DROPDOWN, ['Masculino', 'Feminino'])
   .addColumn('nascimento', 'Data de Nascimento', 'cliente.nascimento', COLUMN_TYPE.DATE, [], 200)
   .addColumn('matricula', 'Matrícula', 'matricula')
-  .addColumn('cpf', 'CPF', 'cliente.pessoa.cpf')
+  .addColumn('cpf', 'CPF', 'cliente.pessoa.cpf', COLUMN_TYPE.CPF)
   .addColumn('nome_mae', 'Nome da Mãe', 'cliente.nome_mae')
   .addColumn('admitido_em', 'Admissão', 'admitido_em', COLUMN_TYPE.DATE)
   .addColumn('salario_bruto', 'Salário Bruto Mensal', 'salario_bruto', COLUMN_TYPE.CURRENCY, [], 240)
@@ -29,6 +29,7 @@ const EmployeesGrid = GridBuilder()
 
 const EmployeesImport = ({ parent, entity: { pages: entityPages } }) => {
   const importer = useImporter()
+  const gridRef = useRef()
 
   useEffect(() => {
   }, [])
@@ -36,6 +37,12 @@ const EmployeesImport = ({ parent, entity: { pages: entityPages } }) => {
   const onImportFile = useCallback(({ currentTarget: { files } }) => {
     importer.get(files[0]).then(() => {
     })
+  }, [])
+
+  const onExportTemplate = useCallback(() => {
+    if (gridRef && gridRef.current) {
+      gridRef.current.exportTemplate('Funcionarios Template.xlsx', 'Funcionarios')
+    }
   }, [])
 
   return (
@@ -60,14 +67,14 @@ const EmployeesImport = ({ parent, entity: { pages: entityPages } }) => {
           >
             Importar
           </FileSearch>
-          <Button>
+          <Button onClick={ onExportTemplate }>
             Salvar
           </Button>
         </ColumnRight>
       </ColumnWrapper>
       <Container isWhiteBackground={ true } className=''>
         <div className='w-100 py-3'>
-          <EmployeesGrid />
+          <EmployeesGrid ref={ gridRef } />
         </div>
       </Container>
     </Fragment>

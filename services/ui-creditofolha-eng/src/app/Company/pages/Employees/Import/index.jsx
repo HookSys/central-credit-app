@@ -1,47 +1,69 @@
-import React, { Fragment, useRef, useCallback, useEffect } from 'react'
+import React, { Fragment, useRef, useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import { ColumnWrapper, ColumnLeft, Title, Container, ColumnRight } from 'templates/PageTemplate'
 import Button from 'components/Button'
+import { useDispatch } from 'react-redux'
 import FileSearch from 'components/FileSearch'
 import EmployeesSidePanel from 'company/pages/Employees/SidePanel'
 import GridBuilder, { COLUMN_TYPE } from 'builders/GridBuilder'
-import useImporter from 'hooks/useImporter'
+import { genre } from 'constants/general'
+import { employeeCreateBulkRequest } from 'company/actions/employees'
 
 const EmployeesGrid = GridBuilder()
-  .addColumn('errors', 'Erros', '')
-  .addColumn('nome', 'Nome', 'cliente.pessoa.nome')
-  .addColumn('sobrenome', 'Sobrenome', 'cliente.pessoa.sobrenome')
-  .addColumn('sexo', 'Sexo', 'cliente.sexo', COLUMN_TYPE.DROPDOWN, ['Masculino', 'Feminino'])
-  .addColumn('nascimento', 'Data de Nascimento', 'cliente.nascimento', COLUMN_TYPE.DATE, [], 200)
+  .addColumn('nome', 'Nome', 'nome')
+  .addColumn('sobrenome', 'Sobrenome', 'sobrenome')
+  .addColumn('sexo', 'Sexo', 'sexo', COLUMN_TYPE.DROPDOWN, genre)
+  .addColumn('nascimento', 'Data de Nascimento', 'nascimento', COLUMN_TYPE.DATE, [], 200)
   .addColumn('matricula', 'Matrícula', 'matricula')
-  .addColumn('cpf', 'CPF', 'cliente.pessoa.cpf', COLUMN_TYPE.CPF)
-  .addColumn('nome_mae', 'Nome da Mãe', 'cliente.nome_mae')
+  .addColumn('cpf', 'CPF', 'cpf', COLUMN_TYPE.CPF, [], 200)
+  .addColumn('nome_mae', 'Nome da Mãe', 'nome_mae')
   .addColumn('admitido_em', 'Admissão', 'admitido_em', COLUMN_TYPE.DATE)
-  .addColumn('salario_bruto', 'Salário Bruto Mensal', 'salario_bruto', COLUMN_TYPE.CURRENCY, [], 240)
+  .addColumn('salario', 'Salário Bruto Mensal', 'salario', COLUMN_TYPE.CURRENCY, [], 220)
   .addColumn('inss', 'INSS', 'inss', COLUMN_TYPE.CURRENCY)
   .addColumn('irrf', 'IRRF', 'irrf', COLUMN_TYPE.CURRENCY)
-  .addColumn('descontos', 'Descontos Diversos', 'descontos', COLUMN_TYPE.CURRENCY)
+  .addColumn('descontos', 'Descontos Diversos', 'descontos', COLUMN_TYPE.CURRENCY, [], 220)
   .addColumn('cargo', 'Cargo', 'cargo')
   .addColumn('comprometimento_outros', 'Empréstimo outros Bancos', 'comprometimento_outros', COLUMN_TYPE.CURRENCY)
   .addColumn('bloqueado', 'Bloqueado', 'bloqueado', COLUMN_TYPE.CHECKBOX)
+  .primaryKey('matricula')
+  .parentKey('funcionarios')
   .initialRows(50)
   .build()
 
 const EmployeesImport = ({ parent, entity: { pages: entityPages } }) => {
-  const importer = useImporter()
   const gridRef = useRef()
-
-  useEffect(() => {
-  }, [])
+  const dispatch = useDispatch()
+  const [wasChanged, toggleWasChanged] = useState()
 
   const onImportFile = useCallback(({ currentTarget: { files } }) => {
-    importer.get(files[0]).then(() => {
-    })
+    if (gridRef && gridRef.current) {
+      gridRef.current.import(files[0], 'Funcionários')
+    }
   }, [])
 
   const onExportTemplate = useCallback(() => {
     if (gridRef && gridRef.current) {
-      gridRef.current.exportTemplate('Funcionarios Template.xlsx', 'Funcionarios')
+      gridRef.current.exportTemplate('Funcionários_Template.xlsx', 'Funcionários')
+    }
+  }, [])
+
+  const onSave = useCallback(() => {
+    if (gridRef && gridRef.current) {
+      const employees = gridRef.current.getData()
+      dispatch(employeeCreateBulkRequest(employees.filter((employee) => !employee.bloqueado)))
+    }
+  }, [])
+
+  const onGridChange = useCallback(() => {
+    if (!wasChanged) {
+      toggleWasChanged(true)
+    }
+  }, [wasChanged])
+
+  const onCleanClick = useCallback(() => {
+    if (gridRef && gridRef.current) {
+      gridRef.current.clean()
+      toggleWasChanged(false)
     }
   }, [])
 
@@ -56,25 +78,31 @@ const EmployeesImport = ({ parent, entity: { pages: entityPages } }) => {
           <Title>Importação de funcionários</Title>
         </ColumnLeft>
         <ColumnRight isActionBar={ true }>
-          <Button className='btn btn-default mr-3'>
-            Limpar
+          <Button onClick={ onExportTemplate } className='btn btn-link mr-3'>
+            Exportar Modelo
           </Button>
-          <FileSearch
-            className='mr-3'
-            btnClassName='btn-secondary'
-            onChange={ onImportFile }
-            accept='.csv,.xlsx'
-          >
-            Importar
-          </FileSearch>
-          <Button onClick={ onExportTemplate }>
+          { wasChanged ? (
+            <Button className='btn btn-default mr-3' onClick={ onCleanClick }>
+              Limpar
+            </Button>
+          ) : (
+            <FileSearch
+              className='mr-3'
+              btnClassName='btn-secondary'
+              onChange={ onImportFile }
+              accept='.csv,.xlsx'
+            >
+              Importar
+            </FileSearch>
+          )}
+          <Button onClick={ onSave }>
             Salvar
           </Button>
         </ColumnRight>
       </ColumnWrapper>
       <Container isWhiteBackground={ true } className=''>
         <div className='w-100 py-3'>
-          <EmployeesGrid ref={ gridRef } />
+          <EmployeesGrid ref={ gridRef } onRowsChange={ onGridChange } />
         </div>
       </Container>
     </Fragment>

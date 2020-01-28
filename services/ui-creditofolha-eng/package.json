@@ -87,8 +87,8 @@
     "react-app-polyfill": "^1.0.4",
     "react-chartjs-2": "^2.8.0",
     "react-circular-progressbar": "^2.0.3",
-    "react-data-grid": "5.0.1",
-    "react-data-grid-addons": "5.0.1",
+    "react-data-grid": "5.0.5",
+    "react-data-grid-addons": "5.0.5",
     "react-dates-onidata": "https://github.com/onidata/react-dates.git#package",
     "react-dev-utils": "^9.1.0",
     "react-dom": "next",
@@ -204,6 +204,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/register": "^7.7.0"
+    "@babel/register": "^7.7.0",
+    "exceljs": "^3.6.1"
   }
 }

@@ -179,6 +179,30 @@ export function employeeCreateRequest(employee) {
   }
 }
 
+export function employeeCreateBulkRequest(employees) {
+  return async (dispatch, getState, service) => {
+    dispatch(appLoadSpinner())
+
+    try {
+      const response = await service.apiV3({
+        path: '/cep/funcionarios/bulk/',
+        method: 'POST',
+        body: {
+          funcionarios: employees,
+        },
+      })
+
+      await dispatch(employeeCreateSuccess(response))
+      return response
+    } catch (errorMessage) {
+      dispatch(employeesAsyncFail(errorMessage))
+      return null
+    } finally {
+      dispatch(appUnloadSpinner())
+    }
+  }
+}
+
 export function employeeEditRequest(employeeId, employee) {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())

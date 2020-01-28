@@ -9,9 +9,10 @@ import getRouteStructure from './getRouteStructure'
 import parseCurrency from './parseCurrency'
 import capitalize from './capitalize'
 import isRouteSidePanelActive from './isRouteSidePanelActive'
+import createObject from './createObject'
 
 export {
   getFirstLetters, isRouteActive, normalizeAll, removeEmptyKeys, getPagesFromRoutes,
   getRoutesFromPathname, bindPathParams, getRouteStructure, parseCurrency, capitalize,
-  isRouteSidePanelActive,
+  isRouteSidePanelActive, createObject,
 }

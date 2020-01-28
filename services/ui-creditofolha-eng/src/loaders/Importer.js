@@ -1,28 +1,34 @@
 /* eslint-disable no-unused-expressions */
 // @flow
-import * as XLSX from 'xlsx'
-
-import type { TLoader, TImporterLoader } from 'types'
+import Excel, { Workbook as TWorkbook } from 'exceljs'
+import type { TLoader, TImporterLoader, TExcelColumn, TImporterExcelReturn } from 'types'
 
 function Importer(): TLoader<TImporterLoader> {
-  function readExcelFile(file: any): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
+  function load(file: File): Promise<TWorkbook> {
+    return new Promise<TWorkbook>((resolve, reject) => {
       if (!file) {
         return reject(new Error('Não foi possível localizar um arquivo.'))
       }
 
-      const reader = new FileReader()
       const { name } = file
+      const wb = new Excel.Workbook()
+      const reader = new FileReader()
 
       reader.onload = () => {
-        if (name.endsWith('.xlsx')) {
-          const { Sheets, SheetNames } = XLSX.read(reader.result, { type: 'binary' })
-          const ws = Sheets[SheetNames[0]]
-          const data = XLSX.utils.sheet_to_csv(ws, { header: 1 })
+        const { result: buffer } = reader
 
-          return resolve(data)
+        if (name.endsWith('.xlsx')) {
+          return wb.xlsx.load(buffer).then((workbook: TWorkbook) => {
+            resolve(workbook)
+          })
         }
-        return resolve(reader.result)
+        if (name.endsWith('.csv')) {
+          return wb.csv.read(buffer).then((workbook: TWorkbook) => {
+            resolve(workbook)
+          })
+        }
+
+        return null
       }
 
       reader.onprogress = (ev) => {
@@ -30,34 +36,55 @@ function Importer(): TLoader<TImporterLoader> {
       }
 
       if (name.endsWith('.xlsx')) {
-        return reader.readAsBinaryString(file)
+        return reader.readAsArrayBuffer(file)
+      }
+      if (name.endsWith('.csv')) {
+        return reader.readAsText(file)
       }
 
-      return reader.readAsText(file)
+      return null
     })
   }
 
-  function serializeExcelFile(file: any): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      readExcelFile(file).then((data) => {
-        const serialized = data.split(/\n/)
-          .filter(line => line !== '')
-          .map(line => line.split(/;/))
-          .map(line => {
-            if (line.length === 1) {
-              return line[0].split(',')
-            }
-            return line
-          })
-        resolve(serialized)
-      }).catch((e) => reject(e))
+  function serialize<T>(
+    workbook: TWorkbook, sheetname: string, columns: Array<TExcelColumn>
+  ): Array<T> {
+    const [, cols, ...rows] = workbook.getWorksheet(sheetname).getSheetValues()
+    return rows.map((row) => {
+      return row.reduce((obj, value, jnx) => {
+        const col = columns[jnx - 1]
+        if (col && cols[jnx] === col.name) {
+          return {
+            ...obj,
+            [col.key]: value,
+          }
+        }
+        return obj
+      }, {})
     })
   }
+
+  function excel<T>(
+    file: File,
+    sheetname: string,
+    columns: Array<TExcelColumn>
+  ): Promise<TImporterExcelReturn<T>> {
+    return new Promise<TImporterExcelReturn<T>>((resolve, reject) => {
+      load(file).then((wb) => {
+        const values = serialize<T>(wb, sheetname, columns)
+        resolve({
+          values,
+          workbook: wb,
+        })
+      }).catch(reject)
+    })
+  }
+
 
   return {
     load: async () => {
       return {
-        get: serializeExcelFile,
+        excel,
       }
     },
   }

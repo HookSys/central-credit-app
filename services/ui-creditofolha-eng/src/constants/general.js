@@ -1127,3 +1127,8 @@ export const discountReasons = [
     value: 'outros',
   },
 ]
+
+export const genre = [
+  { label: 'Masculino', value: 'M' },
+  { label: 'Feminino', value: 'F' },
+]

@@ -1,0 +1,21 @@
+{
+  "name": "Serasa",
+  "connector": "rest",
+  "options": {
+    "headers": {
+      "content-type": "application/x-www-form-urlencoded"
+    }
+  },
+  "operations": [
+    {
+      "template": {
+        "method": "POST",
+        "url": "https://mqlinuxext.serasa.com.br/Homologa/consultahttps",
+        "body": "{param:string}"
+      },
+      "functions": {
+        "getReport": ["param"]
+      }
+    }
+  ]
+}

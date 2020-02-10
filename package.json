@@ -1,0 +1,13 @@
+{
+  "name": "central-credit",
+  "version": "1.0.0",
+  "description": "Central Credit",
+  "scripts": {
+    "postinstall": "lerna bootstrap"
+  },
+  "author": "Daniel Franco <dafrannco@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@lerna/project": "^3.18.0"
+  }
+}

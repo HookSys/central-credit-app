@@ -1,0 +1,17 @@
+{
+  "prettier.ignorePath": "",
+  "prettier.requireConfig": true,
+  "prettier.useEditorConfig": false,
+  "eslint.alwaysShowStatus": true,
+  "eslint.format.enable": true
+} // {
+//   "prettier.requireConfig": true,
+//   "prettier.useEditorConfig": false,
+//   "prettier.singleQuote": true,
+//   "prettier.semi": false,
+//   "editor.formatOnSave": true,
+//   "editor.defaultFormatter": "esbenp.prettier-vscode",
+//   "eslint.alwaysShowStatus": true,
+//   "eslint.format.enable": true,
+//   "prettier.prettierPath": "node_modules/.bin/lb-prettier"
+// }

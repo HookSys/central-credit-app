@@ -1,6 +1,6 @@
 {
   "name": "@central-credit/serasa",
-  "version": "0.0.3",
+  "version": "0.0.0",
   "description": "Serasa Service",
   "keywords": [
     "Serasa",
@@ -25,11 +25,12 @@
     "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
     "posttest": "npm run lint",
     "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
-    "docker:build": "docker-compose build -t central-credit-engine .",
+    "docker:build": "docker build -t dcfranco/cc.service.serasa:$npm_package_version .",
     "docker:run": "docker-compose up --force-recreate --build",
     "migrate": "node ./dist/migrate",
     "prestart": "npm run build",
     "start": "node -r source-map-support/register .",
+    "debug": "tilt up",
     "prepublishOnly": "npm run test"
   },
   "repository": {

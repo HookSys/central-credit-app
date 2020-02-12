@@ -5,9 +5,9 @@ FROM node:10-slim
 USER node
 
 # Create app directory (with user `node`)
-RUN mkdir -p /home/node/app
+RUN mkdir -p /home/node/serasa
 
-WORKDIR /home/node/app
+WORKDIR /home/node/serasa
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied

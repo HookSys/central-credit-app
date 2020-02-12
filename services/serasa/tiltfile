@@ -1,0 +1,7 @@
+docker_compose('./docker-compose.yml')
+k8s_yaml(['debug/mongo.yaml'])
+k8s_yaml(['debug/serasa.yaml'])
+
+# k8s_resource('mongo')
+k8s_resource('serasa', port_forwards=3000)
+

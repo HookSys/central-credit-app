@@ -1,7 +1,7 @@
 {
-  "name": "central-credit",
+  "name": "central-credit-app",
   "version": "1.0.0",
-  "description": "Central Credit",
+  "description": "Central Credit Application",
   "scripts": {
     "postinstall": "lerna bootstrap"
   },

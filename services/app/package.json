@@ -2,6 +2,7 @@
   "name": "@central-credit/app",
   "version": "0.0.5",
   "description": "App Service",
+  "private": true,
   "keywords": [
     "App",
     "Service"

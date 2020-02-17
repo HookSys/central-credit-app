@@ -2,6 +2,7 @@
   "name": "@central-credit/serasa",
   "version": "0.0.5",
   "description": "Serasa Service",
+  "private": true,
   "keywords": [
     "Serasa",
     "Service"

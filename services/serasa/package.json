@@ -34,6 +34,10 @@
     "debug": "tilt up",
     "prepublishOnly": "npm run test"
   },
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
   "repository": {
     "type": "git"
   },

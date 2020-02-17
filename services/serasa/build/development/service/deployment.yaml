@@ -35,7 +35,7 @@ spec:
               protocol: TCP
           env:
             - name: MONGODB_SERVICE_HOST
-              value: serasa-db-pod
+              value: 'serasa-db-pod'
             - name: MONGODB_SERVICE_HOST
               value: '27017'
           resources: {}

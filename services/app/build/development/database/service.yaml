@@ -8,7 +8,7 @@ metadata:
 spec:
   externalTrafficPolicy: Cluster
   ports:
-    - port: 27017
+    - port: 27018
       protocol: TCP
       targetPort: 27017
   selector:

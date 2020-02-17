@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: serasa-app
+spec:
+  type: NodePort
+  selector:
+    run: serasa
+  ports:
+    - name: serasa-app
+      port: 3000
+      protocol: TCP
+      targetPort: serasa-app
+    - name: serasa-db
+      port: 27017
+      nodePort: 32760
+      targetPort: serasa-db

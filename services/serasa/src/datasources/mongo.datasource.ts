@@ -12,10 +12,10 @@ import { NAMESPACES } from '../debug-config.js'
 const debug = debugFactory(NAMESPACES.MONGO)
 
 function updateConfig(dsConfig: AnyObject) {
-  // if (process.env.MONGODB_SERVICE_HOST) {
-  //   dsConfig.host = process.env.MONGODB_SERVICE_HOST
-  //   dsConfig.port = +process.env.MONGODB_SERVICE_PORT!
-  // }
+  if (process.env.MONGODB_SERVICE_HOST) {
+    dsConfig.host = process.env.MONGODB_SERVICE_HOST
+    dsConfig.port = +process.env.MONGODB_SERVICE_PORT!
+  }
   return dsConfig
 }
 

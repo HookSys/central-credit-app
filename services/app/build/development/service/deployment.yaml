@@ -35,9 +35,9 @@ spec:
               protocol: TCP
           env:
             - name: MONGODB_SERVICE_HOST
-              value: 'app-db-pod'
-            - name: MONGODB_SERVICE_HOST
-              value: '27018'
+              value: '0.0.0.0'
+            - name: MONGODB_SERVICE_PORT
+              value: app-db-pod
           resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File

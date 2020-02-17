@@ -1,0 +1,23 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+metadata:
+  name: centralcreditfinal
+build:
+  artifacts:
+    - image: dcfranco/cc.service.app
+      context: services/app
+    - image: dcfranco/cc.service.serasa
+      context: services/serasa
+    - image: mongo
+      context: mongo
+deploy:
+  kubectl:
+    manifests:
+      - services/app/build/development/database/deployment .yaml
+      - services/app/build/development/database/service.yaml
+      - services/app/build/development/service/deployment.yaml
+      - services/app/build/development/service/service.yaml
+      - services/serasa/build/development/database/deployment .yaml
+      - services/serasa/build/development/database/service.yaml
+      - services/serasa/build/development/service/deployment.yaml
+      - services/serasa/build/development/service/service.yaml

@@ -1,0 +1,47 @@
+apiVersion: v1
+items:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: app-db-pvc
+      labels:
+        app: app
+        role: database
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 2Gi
+  - apiVersion: v1
+    kind: ReplicationController
+    metadata:
+      name: app-db-rc
+      labels:
+        app: app
+        role: database
+    spec:
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: app
+            role: database
+        spec:
+          containers:
+            - image: mongo
+              name: app-db-pod
+              ports:
+                - containerPort: 27017
+                  hostPort: 27017
+              volumeMounts:
+                - name: mongo-persistent-storage
+                  mountPath: /data/db
+          volumes:
+            - name: mongo-persistent-storage
+              persistentVolumeClaim:
+                claimName: app-db-pvc
+kind: List
+metadata:
+  resourceVersion: ''
+  selfLink: ''

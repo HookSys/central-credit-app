@@ -2,7 +2,6 @@
 ARG node_version=node:10-slim
 FROM $node_version
 
-RUN npm install -g nodemon
 # Set to a non-root built-in user `node`
 USER node
 
@@ -24,7 +23,7 @@ COPY --chown=node . .
 RUN npm run build
 
 # Bind to all network interfaces so that it can be mapped to the host OS
-ENV HOST=0.0.0.0 PORT=3000
+ENV HOST=0.0.0.0 PORT=4000
 
 EXPOSE ${PORT}
 CMD [ "node", "."]

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-app-svc
+  labels:
+    app: app
+    role: service
+spec:
+  type: NodePort
+  externalTrafficPolicy: Cluster
+  selector:
+    app: app
+    role: service
+  ports:
+    - port: 3000
+      protocol: TCP
+      targetPort: 3000
+status:
+  loadBalancer: {}

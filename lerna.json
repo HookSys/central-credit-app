@@ -4,11 +4,8 @@
       "ignoreChanges": ["ignored-file", "*.md"],
       "message": "chore(release): publish",
       "registry": "https://npm.pkg.github.com"
-    },
-    "bootstrap": {
-      "ignore": "component-*"
     }
   },
   "packages": ["services/*"],
-  "version": "0.0.3"
+  "version": "0.0.4"
 }

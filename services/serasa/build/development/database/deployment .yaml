@@ -1,0 +1,47 @@
+apiVersion: v1
+items:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: serasa-db-pvc
+      labels:
+        app: serasa
+        role: database
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 2Gi
+  - apiVersion: v1
+    kind: ReplicationController
+    metadata:
+      name: serasa-db-rc
+      labels:
+        app: serasa
+        role: database
+    spec:
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: serasa
+            role: database
+        spec:
+          containers:
+            - image: mongo
+              name: serasa-db-pod
+              ports:
+                - containerPort: 27017
+                  hostPort: 27017
+              volumeMounts:
+                - name: mongo-persistent-storage
+                  mountPath: /data/db
+          volumes:
+            - name: mongo-persistent-storage
+              persistentVolumeClaim:
+                claimName: serasa-db-pvc
+kind: List
+metadata:
+  resourceVersion: ''
+  selfLink: ''

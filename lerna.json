@@ -1,9 +1,6 @@
 {
   "command": {
-    "build": {
-      "graphType": "all"
-    },
-    "run": {
+    "docker:build": {
       "graphType": "all"
     },
     "publish": {

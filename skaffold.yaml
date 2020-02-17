@@ -8,7 +8,6 @@ build:
       context: services/app
     - image: dcfranco/cc.service.serasa
       context: services/serasa
-    - image: mongo
 deploy:
   kubectl:
     manifests:

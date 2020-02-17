@@ -1,11 +1,16 @@
 {
   "command": {
     "publish": {
-      "ignoreChanges": ["ignored-file", "*.md"],
+      "ignoreChanges": [
+        "ignored-file",
+        "*.md"
+      ],
       "message": "chore(release): publish",
       "registry": "https://npm.pkg.github.com"
     }
   },
-  "packages": ["services/*"],
-  "version": "0.0.4"
+  "packages": [
+    "services/*"
+  ],
+  "version": "0.0.5"
 }

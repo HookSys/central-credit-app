@@ -4,17 +4,12 @@
       "graphType": "all"
     },
     "publish": {
-      "ignoreChanges": [
-        "ignored-file",
-        "*.md"
-      ],
+      "ignoreChanges": ["ignored-file", "*.md"],
       "message": "chore(release): publish",
       "registry": "https://npm.pkg.github.com"
     }
   },
-  "packages": [
-    "services/*"
-  ],
+  "packages": ["services/*"],
   "stream": true,
   "version": "2.0.0"
 }

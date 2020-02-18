@@ -1,0 +1,27 @@
+k8s_yaml([
+  'services/app/build/development/database.yaml',
+  'services/app/build/development/deployment.yaml',
+  'services/app/build/development/service.yaml',
+  'services/app/build/development/storage.yaml',
+  'services/serasa/build/development/database.yaml',
+  'services/serasa/build/development/deployment.yaml',
+  'services/serasa/build/development/service.yaml',
+  'services/serasa/build/development/storage.yaml'
+])
+
+docker_build('dcfranco/cc.service.app', 'services/app',
+  live_update=[
+    fall_back_on(['package.json', 'package-lock.json']),
+    sync('.', '/services/app/src'),
+  ]
+)
+
+docker_build('dcfranco/cc.service.serasa', 'services/serasa',
+  live_update=[
+    fall_back_on(['package.json', 'package-lock.json']),
+    sync('.', '/services/serasa/src'),
+  ]
+)
+
+k8s_resource('app', port_forwards=4000)
+k8s_resource('serasa-app', port_forwards=4001)

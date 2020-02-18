@@ -11,11 +11,16 @@ build:
 deploy:
   kubectl:
     manifests:
-      - services/app/build/development/database/deployment .yaml
-      - services/app/build/development/database/service.yaml
-      - services/app/build/development/service/deployment.yaml
-      - services/app/build/development/service/service.yaml
-      - services/serasa/build/development/database/deployment .yaml
-      - services/serasa/build/development/database/service.yaml
-      - services/serasa/build/development/service/deployment.yaml
-      - services/serasa/build/development/service/service.yaml
+      - services/app/build/development/development/database.yaml
+      - services/app/build/development/development/deployment.yaml
+      - services/app/build/development/development/service.yaml
+      - services/app/build/development/development/storage.yaml
+      - services/serasa/build/development/database.yaml
+      - services/serasa/build/development/deployment.yaml
+      - services/serasa/build/development/service.yaml
+      - services/serasa/build/development/storage.yaml
+profiles:
+  - name: travis-ci
+    build:
+      local:
+        push: false

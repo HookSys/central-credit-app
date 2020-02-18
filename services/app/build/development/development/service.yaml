@@ -8,10 +8,9 @@ spec:
     run: app
   ports:
     - name: app
-      port: 3000
+      port: 4000
       protocol: TCP
       targetPort: app
     - name: app-db
       port: 27017
-      nodePort: 32760
       targetPort: app-db

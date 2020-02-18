@@ -15,7 +15,7 @@ spec:
       volumes:
         - name: mongo-storage
           persistentVolumeClaim:
-            claimName: storage-db
+            claimName: serasa-storage
       containers:
         - image: mongo
           name: serasa-db

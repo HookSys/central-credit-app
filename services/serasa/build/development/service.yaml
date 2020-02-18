@@ -8,10 +8,9 @@ spec:
     run: serasa
   ports:
     - name: serasa-app
-      port: 3001
+      port: 4001
       protocol: TCP
       targetPort: serasa-app
     - name: serasa-db
       port: 27017
-      nodePort: 32760
       targetPort: serasa-db

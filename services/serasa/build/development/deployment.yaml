@@ -27,7 +27,7 @@ spec:
           name: serasa-app
           ports:
             - name: serasa-app
-              containerPort: 3001
+              containerPort: 4001
               protocol: TCP
           env:
             - name: MONGODB_SERVICE_HOST

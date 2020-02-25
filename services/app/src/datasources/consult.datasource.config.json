@@ -1,0 +1,24 @@
+{
+  "name": "Consult",
+  "connector": "rest",
+  "options": {
+    "headers": {
+      "content-type": "application/json"
+    }
+  },
+  "operations": [
+    {
+      "template": {
+        "method": "POST",
+        "url": "http://relato-consult:6002/email/send",
+        "body": {
+          "database": "{database:string}",
+          "only_payments": "{onlyPayments:string}"
+        }
+      },
+      "functions": {
+        "generate": ["database", "onlyPayments"]
+      }
+    }
+  ]
+}

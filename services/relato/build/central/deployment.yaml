@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: relato-central
+  labels:
+    run: relato-central
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      run: relato-central
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: relato-central
+    spec:
+      volumes:
+        - name: central-storage
+          persistentVolumeClaim:
+            claimName: storage-db
+      containers:
+        - image: dcfranco/cc.service.relato.central:0.0.0
+          imagePullPolicy: IfNotPresent
+          name: relato-central
+          ports:
+            - name: relato-central
+              containerPort: 6000
+              protocol: TCP
+          volumeMounts:
+            - name: central-storage
+              mountPath: /home/node/relato/central/files_relato
+            - name: central-storage
+              mountPath: /home/node/relato/central/files_upload
+          resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

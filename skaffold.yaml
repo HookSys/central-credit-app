@@ -6,21 +6,45 @@ build:
   artifacts:
     - image: dcfranco/cc.service.app
       context: services/app
-    - image: dcfranco/cc.service.serasa
-      context: services/serasa
+      sync:
+        infer:
+          - '**/*.js'
+
+    - image: dcfranco/cc.service.relato.gold
+      context: services/relato
+      docker:
+        dockerfile: Gold.Dockerfile
+      sync:
+        infer:
+          - '**/*.js'
+
+    - image: dcfranco/cc.service.relato.central
+      context: services/relato
+      docker:
+        dockerfile: Central.Dockerfile
+      sync:
+        infer:
+          - '**/*.js'
+
+    - image: dcfranco/cc.service.relato.consult
+      context: services/relato
+      docker:
+        dockerfile: Consult.Dockerfile
+      sync:
+        infer:
+          - '**/*.js'
 deploy:
   kubectl:
     manifests:
-      - services/app/build/development/database.yaml
-      - services/app/build/development/deployment.yaml
-      - services/app/build/development/service.yaml
       - services/app/build/development/storage.yaml
-      - services/serasa/build/development/database.yaml
-      - services/serasa/build/development/deployment.yaml
-      - services/serasa/build/development/service.yaml
-      - services/serasa/build/development/storage.yaml
-profiles:
-  - name: travis-ci
-    build:
-      local:
-        push: false
+      - services/app/build/development/database.yaml
+      - services/app/build/development/service.yaml
+      - services/app/build/development/deployment.yaml
+
+      - services/relato/build/gold/service.yaml
+      - services/relato/build/central/service.yaml
+      - services/relato/build/consult/service.yaml
+
+      - services/relato/build/gold/deployment.yaml
+      - services/relato/build/central/deployment.yaml
+      - services/relato/build/consult/deployment.yaml

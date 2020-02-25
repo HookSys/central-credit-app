@@ -1,0 +1,24 @@
+{
+  "name": "Gold",
+  "connector": "rest",
+  "options": {
+    "headers": {
+      "content-type": "application/json"
+    }
+  },
+  "operations": [
+    {
+      "template": {
+        "method": "POST",
+        "url": "http://relato-gold:6001/email/send",
+        "body": {
+          "database": "{database:string}",
+          "only_payments": "{onlyPayments:string}"
+        }
+      },
+      "functions": {
+        "generate": ["database", "onlyPayments"]
+      }
+    }
+  ]
+}

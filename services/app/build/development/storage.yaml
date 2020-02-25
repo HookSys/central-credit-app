@@ -4,6 +4,9 @@ metadata:
   name: storage-db
   labels:
     run: app
+    run: relato-central
+    run: relato-consult
+    run: relato-gold
 spec:
   accessModes:
     - ReadWriteOnce

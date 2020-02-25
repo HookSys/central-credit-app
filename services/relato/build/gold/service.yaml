@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: relato-gold
+spec:
+  type: NodePort
+  selector:
+    run: relato-gold
+  ports:
+    - name: relato-gold
+      port: 6001
+      protocol: TCP
+      targetPort: relato-gold

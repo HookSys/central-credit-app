@@ -7,7 +7,13 @@ import { EEntityKeys } from 'constants/entity'
 import { bindPathParams } from 'helpers'
 
 import type { ResponseType, $AxiosXHR, Axios, $AxiosError } from 'axios'
-import type { TLoader, TServicesLoader, TRequestPayload, TService, TCore } from 'types'
+import type {
+  TLoader,
+  TServicesLoader,
+  TRequestPayload,
+  TService,
+  TCore
+} from 'types'
 import type { ContentType } from 'constants/service'
 
 import { ApiUrl } from 'configs'
@@ -17,12 +23,14 @@ import { userLogout } from 'core/actions/user'
 function Services(): TLoader<TServicesLoader> {
   const AppCore: TCore = this
 
-  function bindQueryParams<R: Object>(
-    queryParams: ?R
-  ) {
-    const getQueryString = (key: $Keys<R>, params: R, isFirst: boolean): string | boolean => {
+  function bindQueryParams<R: Object>(queryParams: ?R) {
+    const getQueryString = (
+      key: $Keys<R>,
+      params: R,
+      isFirst: boolean
+    ): string | boolean => {
       if (params[key]) {
-        return `${ isFirst ? '?' : '&' }${ key }=${ params[key] }`
+        return `${isFirst ? '?' : '&'}${key}=${params[key]}`
       }
       return ''
     }
@@ -32,12 +40,18 @@ function Services(): TLoader<TServicesLoader> {
     }
     return Object.keys(queryParams).reduce<string>((result, key) => {
       const param = getQueryString(key, queryParams, !result)
-      return typeof param === 'string' ? `${ result }${ param }` : result
+      return typeof param === 'string' ? `${result}${param}` : result
     }, '')
   }
 
   function onError<T, R>(response: $AxiosXHR<T, R>, params: T) {
-    const { Redux: { store: { getState, dispatch } }, History, Entity }: TCore = AppCore
+    const {
+      Redux: {
+        store: { getState, dispatch }
+      },
+      History,
+      Entity
+    }: TCore = AppCore
     const { status, data }: any = response
 
     const connectionErrors = [502, 503, 504]
@@ -56,7 +70,9 @@ function Services(): TLoader<TServicesLoader> {
     if (status === 401) {
       const isAuthenticated = getState().auth.get('authenticated')
       if (isAuthenticated) {
-        const { entity: { pages } } = Entity[EEntityKeys.DEFAULT]
+        const {
+          entity: { pages }
+        } = Entity[EEntityKeys.DEFAULT]
         return dispatch(userLogout()).then(() => History.push(pages.LOGIN))
       }
 
@@ -71,8 +87,11 @@ function Services(): TLoader<TServicesLoader> {
     return dispatch(create(500, null, fromJS(params), true))
   }
 
-  const createService = (instance: Axios, handlingError: boolean = false): TService => {
-    return function<T, R> (payload: TRequestPayload<T>): Promise<any> {
+  const createService = (
+    instance: Axios,
+    handlingError: boolean = false
+  ): TService => {
+    return function<T, R>(payload: TRequestPayload<T>): Promise<any> {
       const {
         path,
         pathParams,
@@ -81,7 +100,7 @@ function Services(): TLoader<TServicesLoader> {
         body,
         cType,
         rType,
-        force,
+        force
       } = payload
 
       const headers: Object = {}
@@ -89,7 +108,7 @@ function Services(): TLoader<TServicesLoader> {
       const responseType: ResponseType = rType || RESPONSE_TYPE.JSON
 
       if (contentType !== CONTENT_TYPE.MULTIPART) {
-        headers['Content-Type'] = `${ contentType }`
+        headers['Content-Type'] = `${contentType}`
       }
 
       const bindedQuery = bindQueryParams<R>(queryParams)
@@ -99,19 +118,22 @@ function Services(): TLoader<TServicesLoader> {
       return new Promise(async (resolve, reject) => {
         try {
           const { Cache }: TCore = AppCore
-          const endpoint = `${ bindedPath }${ bindedQuery }`
+          const endpoint = `${bindedPath}${bindedQuery}`
 
-          const cache = method === 'GET' && !force && Cache.getCache({
-            endpoint,
-            responseType,
-          })
+          const cache =
+            method === 'GET' &&
+            !force &&
+            Cache.getCache({
+              endpoint,
+              responseType
+            })
           if (!cache) {
             const response: $AxiosXHR<T, R> = await instance<T, R>({
               method,
               url: endpoint,
               data: body,
               responseType,
-              headers,
+              headers
             })
 
             const { data } = response
@@ -119,7 +141,7 @@ function Services(): TLoader<TServicesLoader> {
               Cache.saveCache({
                 endpoint,
                 responseType,
-                data,
+                data
               })
             } else {
               Cache.clear()
@@ -146,48 +168,31 @@ function Services(): TLoader<TServicesLoader> {
         throw new Error('[SERVICES]: ApiURL not defined')
       }
 
-      const apiV2 = await axios.create({
-        baseURL: `${ ApiUrl }/v2`,
-        transformRequest: [(data, headers) => {
-          const { Redux: { store: { getState } } }: TCore = this
-          const access: ?string = getState().auth.get('access')
-          if (access && headers) {
-            // eslint-disable-next-line no-param-reassign
-            headers['Authorization'] = `Bearer ${ access }`
+      const api = await axios.create({
+        baseURL: `${ApiUrl}`,
+        transformRequest: [
+          (data, headers) => {
+            const {
+              Redux: {
+                store: { getState }
+              }
+            }: TCore = this
+            const access: ?string = getState().auth.get('access')
+            if (access && headers) {
+              // eslint-disable-next-line no-param-reassign
+              headers['Authorization'] = `Bearer ${access}`
+            }
+
+            return JSON.stringify(data)
           }
-
-          return JSON.stringify(data)
-        }],
-      })
-
-      const apiV3 = await axios.create({
-        baseURL: `${ ApiUrl }/v3`,
-        transformRequest: [(data, headers) => {
-          const { Redux: { store: { getState } } }: TCore = this
-          const access: ?string = getState().auth.get('access')
-
-          if (access && headers) {
-            // eslint-disable-next-line no-param-reassign
-            headers['Authorization'] = `Bearer ${ access }`
-          }
-
-          const entity: ?Object = getState().user.get('data').getSelectedEntity()
-          const userFunction: ?string = !entity ? null : entity.get('identificador')
-          if (headers) {
-            // eslint-disable-next-line no-param-reassign
-            headers['User-Funcao'] = userFunction
-          }
-
-          return JSON.stringify(data)
-        }],
+        ]
       })
 
       return {
         external: createService(axios.create()),
-        apiV2: createService(apiV2, true),
-        apiV3: createService(apiV3, true),
+        api: createService(api, true)
       }
-    },
+    }
   }
 }
 

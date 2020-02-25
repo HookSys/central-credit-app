@@ -1,6 +1,6 @@
 {
-  "name": "onidata-creditofolha",
-  "version": "0.2.0",
+  "name": "@central/client",
+  "version": "0.0.0",
   "private": true,
   "engines": {
     "node": "=10.16.0"

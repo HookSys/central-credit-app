@@ -1,11 +1,14 @@
 import { fromJS } from 'immutable'
-import { APP_LOAD_SPINNER, APP_UNLOAD_SPINNER } from 'core/constants/actionsType'
+import {
+  APP_LOAD_SPINNER,
+  APP_UNLOAD_SPINNER
+} from 'core/constants/actionsType'
 
 const initialState = fromJS({
   actions: 0,
   spinner: false,
   prevRoute: null,
-  route: null,
+  route: null
 })
 
 const actionsMap = {
@@ -14,7 +17,7 @@ const actionsMap = {
 
     return state.merge({
       actions: actions + 1,
-      spinner: true,
+      spinner: true
     })
   },
   [APP_UNLOAD_SPINNER]: state => {
@@ -23,9 +26,9 @@ const actionsMap = {
 
     return state.merge({
       actions: currentActions,
-      spinner: currentActions > 0,
+      spinner: currentActions > 0
     })
-  },
+  }
 }
 
 export default function app(state = initialState, action = {}) {

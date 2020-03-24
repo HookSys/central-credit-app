@@ -38,41 +38,43 @@ const Profiles = ({ entity: { pages } }) => {
     <Layout className='profiles'>
       <ListContainer>
         <List>
-          <ListHeader>
-            Escolha um perfil de acesso:
-          </ListHeader>
-          {entities.size > 0 ? entities.map((entity) => {
-            const structure = modules[entity.get('entidade_tipo')]
-            if (!structure) {
-              return false
-            }
+          <ListHeader>Escolha um perfil de acesso:</ListHeader>
+          {entities.size > 0 ? (
+            entities
+              .map(entity => {
+                const structure = modules[entity.get('entidade_tipo')]
+                if (!structure) {
+                  return false
+                }
 
-            const { entity: entityStructure } = structure
-            return (
-              <ListItem
-                key={ entity.get('identificador') }
-                onClick={ onSelectProfile(entity, entityStructure) }
-                className='d-flex flex-row align-items-center py-2'
-              >
-                <Avatar
-                  title={ entity.get('entidade_nome') }
-                  icon={ entityStructure.logo.svg }
-                  className={ entityStructure.logo.className }
-                />
-                <div className='ml-3'>
-                  <h6 className='pb-0 mb-n1'>{entity.get('entidade_nome')}</h6>
-                  <small>{ entityStructure.name }</small>
-                </div>
-              </ListItem>
-            )
-          }).filter(Boolean) : (
-            <ListItem>
-              Você não possui perfis liberados.
-            </ListItem>
-          ) }
+                const { entity: entityStructure } = structure
+                return (
+                  <ListItem
+                    key={entity.get('identificador')}
+                    onClick={onSelectProfile(entity, entityStructure)}
+                    className='d-flex flex-row align-items-center py-2'
+                  >
+                    <Avatar
+                      title={entity.get('entidade_nome')}
+                      icon={entityStructure.logo.svg}
+                      className={entityStructure.logo.className}
+                    />
+                    <div className='ml-3'>
+                      <h6 className='pb-0 mb-n1'>
+                        {entity.get('entidade_nome')}
+                      </h6>
+                      <small>{entityStructure.name}</small>
+                    </div>
+                  </ListItem>
+                )
+              })
+              .filter(Boolean)
+          ) : (
+            <ListItem>Você não possui perfis liberados.</ListItem>
+          )}
         </List>
         <Button
-          onClick={ onLogout }
+          onClick={onLogout}
           className='btn btn-link text-danger d-block ml-auto'
         >
           Sair
@@ -84,7 +86,7 @@ const Profiles = ({ entity: { pages } }) => {
 }
 
 Profiles.propTypes = {
-  entity: PropTypes.object.isRequired,
+  entity: PropTypes.object.isRequired
 }
 
 export default Profiles

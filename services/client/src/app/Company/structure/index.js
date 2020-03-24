@@ -1,6 +1,6 @@
 // @flow
 import { EEntityTypes } from 'constants/entity'
-import { AUTH_REQUIRED, SELECTED_ENTITY } from 'constants/permission'
+import { AUTH_REQUIRED } from 'constants/permission'
 import SvgImage from 'components/SvgImage'
 
 import CompanyEntityContainer from 'company/pages'
@@ -17,19 +17,16 @@ const CompanyEntity = {
   type: EEntityTypes.MODULE,
   logo: {
     svg: AVAILABLE_IMAGES.LOGO_WHITE_FULL,
-    className: 'bg-primary',
+    className: 'bg-primary'
   },
   small: {
     svg: AVAILABLE_IMAGES.LOGO_WHITE_FULL,
-    className: 'bg-primary',
+    className: 'bg-primary'
   },
-  permissions: [
-    AUTH_REQUIRED,
-    SELECTED_ENTITY,
-  ],
+  permissions: [AUTH_REQUIRED],
   component: CompanyEntityContainer,
   pages: getPagesFromRoutes(CompanyRoutes, '/company'),
-  routes: CompanyRoutes,
+  routes: CompanyRoutes
 }
 
 export type TCompanyEntity = typeof CompanyEntity

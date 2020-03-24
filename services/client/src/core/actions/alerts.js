@@ -7,28 +7,27 @@ export const ALERTS_UPDATE_PAGE = 'CORE/ALERTS_UPDATE_PAGE'
 function alertsAsyncSuccess(alerts) {
   return {
     type: ALERTS_ASYNC_SUCCESS,
-    payload: alerts,
+    payload: alerts
   }
 }
 
 function alertsAsyncFail(error) {
   return {
     type: ALERTS_ASYNC_FAIL,
-    payload: error,
+    payload: error
   }
 }
 
 export function alertsUpdatePage(page) {
   return {
     type: ALERTS_UPDATE_PAGE,
-    payload: page,
+    payload: page
   }
 }
 
 export function alertsAsyncRequest(params) {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
-
 
     const { alerts } = getState()
     const options = alerts.get('options')
@@ -41,9 +40,9 @@ export function alertsAsyncRequest(params) {
         queryParams: {
           limit: options.get('limit'),
           offset,
-          ...params,
+          ...params
         },
-        body: null,
+        body: null
       })
 
       await dispatch(alertsAsyncSuccess(response))

@@ -6,7 +6,7 @@ export const IsEnvProduction: boolean = process.env.NODE_ENV === 'production'
 export const BaseUrl: string = 'http://centralcredit.com'
 
 // Endpoint Backend
-export const ApiUrl: string | void = process.env.REACT_APP_CREDITOR_BASE_URL
+export const ApiUrl: string | void = 'http://192.168.64.15:31267' //process.env.REACT_APP_CREDITOR_BASE_URL
 
 // Time left to resfresh token, 15 minutes
 export const RefreshThreshold: number = 15

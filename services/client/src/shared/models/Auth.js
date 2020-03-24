@@ -5,14 +5,15 @@ import type { TAuthValues } from 'core/types'
 
 const defaultValues: TAuthValues = {
   authenticated: false,
-  access: '',
-  refresh: '',
+  token: '',
   refreshTokenPromise: null,
-  errors: null,
-  userFunction: 0,
+  errors: null
 }
 
-export default class Auth extends BaseRecord<TAuthValues>(defaultValues, 'Auth') {
+export default class Auth extends BaseRecord<TAuthValues>(
+  defaultValues,
+  'Auth'
+) {
   constructor(values: TAuthValues) {
     super(values)
   }

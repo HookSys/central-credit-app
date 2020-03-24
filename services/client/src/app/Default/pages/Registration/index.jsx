@@ -1,10 +1,10 @@
 /* eslint-disable no-restricted-syntax */
 // @flow
 import React from 'react'
-import SvgImage from 'components/SvgImage'
+import Image from 'components/Image'
 import { CleanTemplate } from 'templates'
 
-const { AVAILABLE_IMAGES } = SvgImage
+const { AVAILABLE_IMAGES } = Image
 const { Layout, Container, HeaderLogo } = CleanTemplate
 
 type TRegistrationProps = {
@@ -15,7 +15,7 @@ const Registration = ({ children }: TRegistrationProps) => {
     <Layout className='registration'>
       <Container size='col-12 col-md-5'>
         <HeaderLogo>
-          <SvgImage icon={ AVAILABLE_IMAGES.LOGO_WHITE_FULL } maxWidth='155px' maxHeight='40px' />
+          <Image src={AVAILABLE_IMAGES.LOGO_WHITE} maxWidth='170px' />
         </HeaderLogo>
         { children }
       </Container>

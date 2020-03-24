@@ -27,7 +27,7 @@ const coreState = combineReducers<any, any>({
   auth,
   alerts,
 
-  form: formReducer,
+  form: formReducer
 })
 
 export default coreState

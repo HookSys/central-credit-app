@@ -1,5 +1,9 @@
 // @flow
-import { AUTH_REQUIRED, NOAUTH_REQUIRED, AUTO_SELECT_PROFILE } from 'constants/permission'
+import {
+  AUTH_REQUIRED,
+  NOAUTH_REQUIRED,
+  AUTO_SELECT_PROFILE
+} from 'constants/permission'
 import LazyLoading from 'components/LazyLoading'
 
 // Pages
@@ -8,36 +12,47 @@ const ProfilesPage = LazyLoading(() => import('default/pages/Profiles'))
 const UseTermsPage = LazyLoading(() => import('default/pages/UseTerms'))
 
 const RegistrationPage = LazyLoading(() => import('default/pages/Registration'))
-const RegistrationMenuPage = LazyLoading(() => import('default/pages/Registration/Menu'))
-const RegistrationRegisterPage = LazyLoading(() => import('default/pages/Registration/Register'))
-const RegistrationFeedbackPage = LazyLoading(() => import('default/pages/Registration/Feedback'))
+const RegistrationMenuPage = LazyLoading(() =>
+  import('default/pages/Registration/Menu')
+)
+const RegistrationRegisterPage = LazyLoading(() =>
+  import('default/pages/Registration/Register')
+)
+const RegistrationFeedbackPage = LazyLoading(() =>
+  import('default/pages/Registration/Feedback')
+)
 
-const ResetPasswordPage = LazyLoading(() => import('default/pages/ResetPassword'))
-const ResetPasswordFormPage = LazyLoading(() => import('default/pages/ResetPassword/Form'))
-const ResetPasswordTokenPage = LazyLoading(() => import('default/pages/ResetPassword/Token'))
-const ResetPasswordPasswordPage = LazyLoading(() => import('default/pages/ResetPassword/Password'))
+const ResetPasswordPage = LazyLoading(() =>
+  import('default/pages/ResetPassword')
+)
+const ResetPasswordFormPage = LazyLoading(() =>
+  import('default/pages/ResetPassword/Form')
+)
+const ResetPasswordTokenPage = LazyLoading(() =>
+  import('default/pages/ResetPassword/Token')
+)
+const ResetPasswordPasswordPage = LazyLoading(() =>
+  import('default/pages/ResetPassword/Password')
+)
 
 export const DefaultRoutes = {
   LOGIN: {
     route: '/login',
     name: 'Login',
     component: LoginPage,
-    permissions: [NOAUTH_REQUIRED],
+    permissions: [NOAUTH_REQUIRED]
   },
   PROFILES: {
     route: '/profiles',
     name: 'Perfil',
     component: ProfilesPage,
-    permissions: [
-      AUTH_REQUIRED,
-      AUTO_SELECT_PROFILE,
-    ],
+    permissions: [AUTH_REQUIRED, AUTO_SELECT_PROFILE]
   },
   USE_TERMS: {
     route: '/use-terms',
     name: 'Termos de Uso',
     component: UseTermsPage,
-    permissions: [AUTH_REQUIRED],
+    permissions: [AUTH_REQUIRED]
   },
   REGISTRATION: {
     route: '/registration',
@@ -48,20 +63,20 @@ export const DefaultRoutes = {
       INDEX: {
         route: '',
         name: 'Quero me Cadastrar',
-        component: RegistrationMenuPage,
+        component: RegistrationMenuPage
       },
       REGISTER: {
         route: '/register',
         name: 'Cadastro de Conta',
-        component: RegistrationRegisterPage,
+        component: RegistrationRegisterPage
       },
       SUCCESS: {
         route: '/success',
         name: 'Cadastrado com Sucesso',
         component: RegistrationFeedbackPage,
-        isFeedback: true,
-      },
-    },
+        isFeedback: true
+      }
+    }
   },
   RESET_PASSWORD: {
     route: '/reset-password',
@@ -72,21 +87,21 @@ export const DefaultRoutes = {
       INDEX: {
         route: '',
         name: '',
-        component: ResetPasswordFormPage,
+        component: ResetPasswordFormPage
       },
       TOKEN: {
         route: '/token',
         name: 'Token',
         component: ResetPasswordTokenPage,
-        isFeedback: true,
+        isFeedback: true
       },
       PASSWORD: {
         route: '/password',
         name: 'Nova Senha',
-        component: ResetPasswordPasswordPage,
-      },
-    },
-  },
+        component: ResetPasswordPasswordPage
+      }
+    }
+  }
 }
 export type TDefaultRoutes = typeof DefaultRoutes
 

@@ -42,13 +42,13 @@ rules:
   no-plusplus: 0
   no-return-assign: 0
   quote-props: 0
-  template-curly-spacing: [2, "always"]
+  template-curly-spacing: [2, "never"]
   dot-notation: 0
   comma-dangle: ["error", {
-    "arrays": "always-multiline",
-    "objects": "always-multiline",
-    "imports": "always-multiline",
-    "exports": "always-multiline",
+    "arrays": "never",
+    "objects": "never",
+    "imports": "never",
+    "exports": "never",
     "functions": "never"
   }]
   object-curly-newline: ["error", {
@@ -61,7 +61,7 @@ rules:
   react/jsx-filename-extension: 0
   react/jsx-boolean-value: 0
   react/prefer-stateless-function: 0
-  react/jsx-curly-spacing: [2, "always"]
+  react/jsx-curly-spacing: [2, "never"]
   react/no-unused-prop-types: 2
   react/no-did-mount-set-state: 0
   react/no-did-update-set-state: 0
@@ -82,3 +82,5 @@ rules:
   no-extra-boolean-cast: 0
   react/button-has-type: 0
   no-underscore-dangle: 0
+  implicit-arrow-linebreak: 0
+  function-paren-newline: 0

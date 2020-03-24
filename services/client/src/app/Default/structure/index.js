@@ -7,13 +7,13 @@ import DefaultRoutes from 'default/structure/routes'
 import { getPagesFromRoutes } from 'helpers'
 
 const DefaultEntity = {
-  name: 'Crédito Folha',
+  name: 'Central Credit',
   route: '/',
   theme: 'Default',
   type: EEntityTypes.DEFAULT,
   component: DefaultEntityContainer,
   routes: DefaultRoutes,
-  pages: getPagesFromRoutes(DefaultRoutes),
+  pages: getPagesFromRoutes(DefaultRoutes)
 }
 
 export type TDefaultEntity = typeof DefaultEntity

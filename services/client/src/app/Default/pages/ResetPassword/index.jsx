@@ -2,14 +2,14 @@
 // @flow
 import React, { useRef } from 'react'
 import { useHistory } from 'react-router-dom'
-import SvgImage from 'components/SvgImage'
+import Image from 'components/Image'
 import { CleanTemplate } from 'templates'
 import Alert from 'components/Alert'
 import Button from 'components/Button'
 
 import type { TResetPasswordProps as TMainResetPasswordProps } from 'default/types'
 
-const { AVAILABLE_IMAGES } = SvgImage
+const { AVAILABLE_IMAGES } = Image
 const { Layout, Container, HeaderLogo } = CleanTemplate
 
 type TResetPasswordProps = {
@@ -21,7 +21,7 @@ const ResetPassword = ({ children, entity: { pages } }: TResetPasswordProps) => 
   const history = useHistory()
   return (
     <Layout className='reset-password'>
-      <Alert ref={ alertRef } className='alert warning'>
+      <Alert ref={alertRef} className='alert warning'>
         <div className='d-flex flex-column'>
           <p className='pr-4'>
             <strong>Ops!</strong> Essa é 3 vezes que você tenta o envio: <br />
@@ -31,7 +31,7 @@ const ResetPassword = ({ children, entity: { pages } }: TResetPasswordProps) => 
           </p>
           <Button
             className='btn btn-light btn-sm bg-white ml-auto'
-            onClick={ () => history.push(pages.REGISTRATION.INDEX) }
+            onClick={() => history.push(pages.REGISTRATION.INDEX)}
           >
             Novo cadastro
           </Button>
@@ -39,7 +39,7 @@ const ResetPassword = ({ children, entity: { pages } }: TResetPasswordProps) => 
       </Alert>
       <Container size='col-12 col-md-5'>
         <HeaderLogo>
-          <SvgImage icon={ AVAILABLE_IMAGES.LOGO_WHITE_FULL } maxWidth='155px' maxHeight='40px' />
+          <Image src={AVAILABLE_IMAGES.LOGO_WHITE} maxWidth='170px' />
         </HeaderLogo>
         { children }
       </Container>

@@ -13,46 +13,46 @@ export const USER_VALIDATION_SUCCESS = 'CORE/USER_ACCEPT_TERMS_SUCCESS'
 function userAsyncSuccess(user) {
   return {
     type: USER_ASYNC_SUCCESS,
-    user,
+    user
   }
 }
 
 function userValidationSuccess(user) {
   return {
     type: USER_VALIDATION_SUCCESS,
-    user,
+    user
   }
 }
 
 function userAsyncFail(errorMessage) {
   return {
     type: USER_ASYNC_SUCCESS,
-    errorMessage,
+    errorMessage
   }
 }
 
 function userAcceptTermsSuccess(response) {
   return {
     type: USER_ACCEPT_TERMS_SUCCESS,
-    response,
+    response
   }
 }
 
 function userLogoutRequest() {
   return {
-    type: USER_LOGOUT,
+    type: USER_LOGOUT
   }
 }
 
 export function userSetRecentlyCreated(wasRecentlyCreated) {
   return {
     type: USER_SET_RECENTLY_CREATED,
-    wasRecentlyCreated,
+    wasRecentlyCreated
   }
 }
 
 export function userLogout() {
-  return async (dispatch) => {
+  return async dispatch => {
     await dispatch(userLogoutRequest())
     await dispatch(authLogout())
   }
@@ -61,7 +61,7 @@ export function userLogout() {
 export function userSelectEntity(entityId) {
   return {
     type: USER_SELECT_ENTITY,
-    entityId,
+    entityId
   }
 }
 
@@ -73,7 +73,7 @@ export function userAsyncRequest() {
       const response = await service.apiV2({
         path: 'me/',
         method: 'GET',
-        body: null,
+        body: null
       })
 
       await dispatch(userAsyncSuccess(response))
@@ -94,8 +94,8 @@ export function userFunctionAsyncRequest() {
 
     try {
       const response = await request({
-        path: `financeiras/${ selectedEntityId }`,
-        method: 'GET',
+        path: `financeiras/${selectedEntityId}`,
+        method: 'GET'
       })
 
       await dispatch(userAsyncSuccess(response))
@@ -116,7 +116,7 @@ export function userAcceptTermsRequest() {
       const response = await service.apiV2({
         path: 'funcionario-termo-de-uso/',
         method: 'POST',
-        body: null,
+        body: null
       })
 
       await dispatch(userAcceptTermsSuccess(response))
@@ -131,7 +131,13 @@ export function userAcceptTermsRequest() {
   }
 }
 
-export function userUpdateInformations(email, token, password, newPassword, phone) {
+export function userUpdateInformations(
+  email,
+  token,
+  password,
+  newPassword,
+  phone
+) {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
     const body = removeEmptyKeys({
@@ -139,14 +145,14 @@ export function userUpdateInformations(email, token, password, newPassword, phon
       token,
       password_atual: password,
       password_novo: newPassword,
-      telefone_celular: phone,
+      telefone_celular: phone
     })
 
     try {
       const response = await await service.apiV2({
         path: 'me/',
         method: 'POST',
-        body,
+        body
       })
       dispatch(userValidationSuccess(response))
       return response

@@ -5,38 +5,55 @@ import UserTerms from 'models/UserTerms'
 
 const defaultValues = {
   cpf: '',
-  nome: '',
+  nome: 'd',
   sobrenome: '',
-  email: '',
+  email: 'd',
   last_login: null,
-  funcoes: toEntityList([], UserEntity),
+  funcoes: toEntityList(
+    [
+      {
+        entidade_tipo: 'empresa',
+        entidade_id: 1,
+        entidade_nome: 'Central',
+        identificador: '1'
+      }
+    ],
+    UserEntity
+  ),
   termos_de_uso: toEntityList([], UserTerms),
   telefone_celular: '',
   email_verificado: null,
   telefone_celular_verificado: null,
-  selectedEntityId: null,
+  selectedEntityId: 1,
   wasRecentlyCreated: false,
   useTermsAccepted: false,
-  fullName: '',
+  fullName: ''
 }
 
 export default class User extends BaseRecord(defaultValues, User) {
   constructor(values) {
     super({
       ...values,
-      funcoes: values && values.funcoes
-        ? toEntityList(values.funcoes, UserEntity) : defaultValues.funcoes,
-      termos_de_uso: values && values.termos_de_uso
-        ? toEntityList(values.termos_de_uso, UserTerms) : defaultValues.termos_de_uso,
-      fullName: values ? `${ values.nome } ${ values.sobrenome }` : defaultValues.fullName,
-      useTermsAccepted: values && values.termos_de_uso && values.termos_de_uso.length > 0,
+      funcoes:
+        values && values.funcoes
+          ? toEntityList(values.funcoes, UserEntity)
+          : defaultValues.funcoes,
+      termos_de_uso:
+        values && values.termos_de_uso
+          ? toEntityList(values.termos_de_uso, UserTerms)
+          : defaultValues.termos_de_uso,
+      fullName: values
+        ? `${values.nome} ${values.sobrenome}`
+        : defaultValues.fullName,
+      useTermsAccepted:
+        values && values.termos_de_uso && values.termos_de_uso.length > 0
     })
   }
 
   getHiddenEmail() {
     const email = this.get('email')
     const [first, last] = email.split('@')
-    return `${ first.charAt(0) }***${ last }`
+    return `${first.charAt(0)}***${last}`
   }
 
   isLoaded() {
@@ -47,7 +64,9 @@ export default class User extends BaseRecord(defaultValues, User) {
     const entities = this.get('funcoes')
     const selectedEntityId = this.get('selectedEntityId')
     if (selectedEntityId && entities.size > 0) {
-      const entitieInx = entities.findIndex((entity) => entity.get('identificador') === selectedEntityId)
+      const entitieInx = entities.findIndex(
+        entity => entity.get('identificador') === selectedEntityId
+      )
       if (entitieInx >= 0) {
         return entities.get(entitieInx)
       }

@@ -17,13 +17,13 @@ export function create(
       data,
       request,
       critical,
-      sentry,
-    },
+      sentry
+    }
   }
 }
 
 export function clear(): TExceptionClearAction {
   return {
-    type: EXCEPTION_CLEAR,
+    type: EXCEPTION_CLEAR
   }
 }

@@ -6,8 +6,13 @@ const Banner = ({ children, className }) => {
   return (
     <div className='row'>
       <div className='col-12 px-0'>
-        <div className={ classNames('d-flex justify-content-center px-3 px-md-4 mt-4', className) }>
-          { children }
+        <div
+          className={classNames(
+            'd-flex justify-content-center px-3 px-md-4 mt-4',
+            className
+          )}
+        >
+          {children}
         </div>
       </div>
     </div>
@@ -16,11 +21,11 @@ const Banner = ({ children, className }) => {
 
 Banner.propTypes = {
   children: PropTypes.node.isRequired,
-  className: PropTypes.string,
+  className: PropTypes.string
 }
 
 Banner.defaultProps = {
-  className: '',
+  className: ''
 }
 
 export default Banner

@@ -1,28 +1,22 @@
 import Auth from 'models/Auth'
 
-import {
-  AUTH_LOGOUT,
-  AUTH_SUCCESS,
-} from 'core/constants/actionsType'
+import { AUTH_LOGOUT, AUTH_SUCCESS } from 'core/constants/actionsType'
 
 const REHYDRATE = 'persist/REHYDRATE'
 
 const initialState = new Auth({
   authenticated: false,
-  access: null,
-  refresh: null,
+  token: null,
   refreshTokenPromise: null,
-  errors: null,
-  userFunction: 0,
+  errors: null
 })
 
 const actionsMap = {
   [AUTH_SUCCESS]: (state, action) => {
-    const { access, refresh } = action.payload
+    const { token } = action.payload
     return state.merge({
       authenticated: true,
-      access,
-      refresh,
+      token
     })
   },
   [AUTH_LOGOUT]: () => {
@@ -34,11 +28,11 @@ const actionsMap = {
     if (authPayload) {
       return new Auth({
         ...authPayload,
-        refreshTokenPromise: null,
+        refreshTokenPromise: null
       })
     }
     return initialState
-  },
+  }
 }
 
 export default function auth(state = initialState, action = {}) {

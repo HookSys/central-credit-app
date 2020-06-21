@@ -264,7 +264,7 @@ ConfigSchema.statics.getHeaderRelato = function(
     const date_end = new Date(periodo_fim).setDate(new_day_end)
 
     // + 1 Para adicionar um dia ao arquivo.
-    const new_day_ini = new Date(periodo_inicio).getDate() + 1
+    const new_day_ini = new Date(periodo_inicio).getDate()
     const date_ini = new Date(periodo_inicio).setDate(new_day_ini)
     cb({
       S_IDENTIFICACAO: '00',

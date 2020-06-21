@@ -3,4 +3,7 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-export * from './jwt-service'
+export * from './jwt-service';
+export * from './central.service';
+export * from './gold.service';
+export * from './consult.service';

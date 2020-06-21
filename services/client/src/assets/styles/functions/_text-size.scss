@@ -1,3 +1,0 @@
-@function text-size($key: "sm") {
-  @return map-get($text-sizes, $key);
-}

@@ -1,5 +1,6 @@
-import { Entity, model, property, hasOne } from '@loopback/repository'
-import { UserCredentials } from './user-credentials.model'
+import { Entity, model, property, hasOne, hasMany } from '@loopback/repository';
+import { UserCredentials } from './user-credentials.model';
+import { Company } from './company.model';
 
 @model({
   settings: {
@@ -17,31 +18,32 @@ import { UserCredentials } from './user-credentials.model'
 })
 export class User extends Entity {
   @property({
-    type: 'string',
     id: true
   })
-  id: string
+  id: string;
 
-  @property({
-    type: 'string',
-    required: true
-  })
-  email: string
+  @property()
+  email: string;
 
-  @property({
-    type: 'string'
-  })
-  firstName?: string
+  @property()
+  cpf: string;
 
-  @property({
-    type: 'string'
-  })
-  lastName?: string
+  @property()
+  firstName?: string;
+
+  @property()
+  lastName?: string;
+
+  @property()
+  isSuperAdmin: boolean;
 
   @hasOne(() => UserCredentials)
-  userCredentials: UserCredentials
+  userCredentials: UserCredentials;
+
+  @property.array(Company)
+  companies: Company[];
 
   constructor(data?: Partial<User>) {
-    super(data)
+    super(data);
   }
 }

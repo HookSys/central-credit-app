@@ -1,9 +1,13 @@
-import { getService } from '@loopback/service-proxy'
-import { inject, Provider } from '@loopback/core'
-import { ConsultDataSource } from '../datasources'
+import { getService } from '@loopback/service-proxy';
+import { inject, Provider } from '@loopback/core';
+import { ConsultDataSource } from '../datasources';
 
 export interface Consult {
-  generate(dataSource: string, onlyPayments: string): Promise<object>
+  generate(dataSource: string, onlyPayments: string): Promise<object>;
+  saveTitles(titles: string): Promise<object>;
+  find: {
+    <T>(type: string): Promise<T>;
+  };
 }
 
 export class ConsultProvider implements Provider<Consult> {
@@ -13,6 +17,6 @@ export class ConsultProvider implements Provider<Consult> {
   ) {}
 
   value(): Promise<Consult> {
-    return getService(this.dataSource)
+    return getService(this.dataSource);
   }
 }

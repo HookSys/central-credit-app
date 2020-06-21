@@ -1,6 +1,7 @@
-import { Filter, repository } from '@loopback/repository'
+import { Filter, repository } from '@loopback/repository';
 import {
   post,
+  del,
   param,
   get,
   getFilterSchemaFor,
@@ -8,13 +9,13 @@ import {
   patch,
   put,
   requestBody
-} from '@loopback/rest'
-import { User } from '../models'
-import { UserRepository, Credentials } from '../repositories'
-import { UserCredentialsRequestDto } from '../models/dtos/user-credentials.dto'
-import { TokenServiceBindings, UserServiceBindings } from '../keys'
-import { TokenService, UserService } from '@loopback/authentication'
-import { inject } from '@loopback/core'
+} from '@loopback/rest';
+import { User } from '../models';
+import { UserRepository, Credentials } from '../repositories';
+import { TokenServiceBindings, UserServiceBindings } from '../keys';
+import { TokenService, UserService } from '@loopback/authentication';
+import { inject } from '@loopback/core';
+import { UserCredentialsRequestDto } from '../specs/user-credentials.specs';
 
 export class UserController {
   constructor(
@@ -47,11 +48,31 @@ export class UserController {
     })
     user: Omit<User, 'id'>
   ): Promise<User> {
-    const newUser = await this.userRepository.create(user)
+    const newUser = await this.userRepository.create(user);
     await this.userRepository
       .userCredentials(newUser.id)
-      .create({ password: 'daniel234 ' })
-    return newUser
+      .create({ password: 'Trocar123' });
+    return newUser;
+  }
+
+  @post('/setup', {
+    responses: {
+      '200': {
+        description: 'User setup registration',
+        content: { 'application/json': { schema: getModelSchemaRef(User) } }
+      }
+    }
+  })
+  async setup(): Promise<User> {
+    const newUser = await this.userRepository.create({
+      email: 'admin@admin.com',
+      cpf: '00',
+      isSuperAdmin: true
+    });
+    await this.userRepository
+      .userCredentials(newUser.id)
+      .create({ password: 'admin' });
+    return newUser;
   }
 
   @get('/users/{id}', {
@@ -71,7 +92,29 @@ export class UserController {
     @param.query.object('filter', getFilterSchemaFor(User))
     filter?: Filter<User>
   ): Promise<User> {
-    return this.userRepository.findById(id, filter)
+    return this.userRepository.findById(id, filter);
+  }
+
+  @get('/users', {
+    responses: {
+      '200': {
+        description: 'Users model instance',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(User, { includeRelations: true })
+            }
+          }
+        }
+      }
+    }
+  })
+  async find(
+    @param.query.object('filter', getFilterSchemaFor(User))
+    filter?: Filter<User>
+  ): Promise<User[]> {
+    return this.userRepository.find(filter);
   }
 
   @patch('/users/{id}', {
@@ -91,8 +134,9 @@ export class UserController {
       }
     })
     user: User
-  ): Promise<void> {
-    await this.userRepository.updateById(id, user)
+  ): Promise<User> {
+    await this.userRepository.updateById(id, user);
+    return this.userRepository.findById(id);
   }
 
   @put('/users/{id}', {
@@ -105,8 +149,20 @@ export class UserController {
   async replaceById(
     @param.path.string('id') id: string,
     @requestBody() user: User
-  ): Promise<void> {
-    await this.userRepository.replaceById(id, user)
+  ): Promise<User> {
+    await this.userRepository.replaceById(id, user);
+    return this.userRepository.findById(id);
+  }
+
+  @del('/users/{id}', {
+    responses: {
+      '204': {
+        description: 'Users DELETE success'
+      }
+    }
+  })
+  async deleteById(@param.path.string('id') id: string): Promise<void> {
+    await this.userRepository.deleteById(id);
   }
 
   @post('/users/login', {
@@ -130,16 +186,16 @@ export class UserController {
   })
   async login(
     @requestBody(UserCredentialsRequestDto) credentials: Credentials
-  ): Promise<{ token: string }> {
+  ): Promise<{ user: User; token: string }> {
     // ensure the user exists, and the password is correct
-    const user = await this.userService.verifyCredentials(credentials)
+    const user = await this.userService.verifyCredentials(credentials);
 
     // convert a User object into a UserProfile object (reduced set of properties)
-    const userProfile = this.userService.convertToUserProfile(user)
+    const userProfile = this.userService.convertToUserProfile(user);
 
     // create a JSON Web Token based on the user profile
-    const token = await this.jwtService.generateToken(userProfile)
+    const token = await this.jwtService.generateToken(userProfile);
 
-    return { token }
+    return { user, token };
   }
 }

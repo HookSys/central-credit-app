@@ -1,9 +1,13 @@
-import { getService } from '@loopback/service-proxy'
-import { inject, Provider } from '@loopback/core'
-import { CentralDataSource } from '../datasources'
+import { getService } from '@loopback/service-proxy';
+import { inject, Provider } from '@loopback/core';
+import { CentralDataSource } from '../datasources';
 
 export interface Central {
-  generate(dataSource: string, onlyPayments: string): Promise<object>
+  generate(dataSource: string, onlyPayments: string): Promise<object>;
+  saveTitles(titles: string): Promise<object>;
+  find: {
+    <T>(type: string): Promise<T>;
+  };
 }
 
 export class CentralProvider implements Provider<Central> {
@@ -13,6 +17,6 @@ export class CentralProvider implements Provider<Central> {
   ) {}
 
   value(): Promise<Central> {
-    return getService(this.dataSource)
+    return getService(this.dataSource);
   }
 }

@@ -19,6 +19,28 @@
       "functions": {
         "generate": ["database", "onlyPayments"]
       }
+    },
+    {
+      "template": {
+        "method": "GET",
+        "url": "http://relato-central:6000/consulta/{type:string}"
+      },
+      "functions": {
+        "find": ["type"]
+      }
+    },
+    {
+      "template": {
+        "headers": {
+          "content-type": "text/plain"
+        },
+        "method": "POST",
+        "url": "http://relato-central:6000/relato/saveTitles",
+        "body": "{body:string}"
+      },
+      "functions": {
+        "saveTitles": ["body"]
+      }
     }
   ]
 }

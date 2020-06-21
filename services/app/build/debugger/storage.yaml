@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: storage-db
+  labels:
+    run: app
+    run: relato-central
+    run: relato-consult
+    run: relato-gold
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

@@ -19,6 +19,28 @@
       "functions": {
         "generate": ["database", "onlyPayments"]
       }
+    },
+    {
+      "template": {
+        "method": "GET",
+        "url": "http://relato-gold:6001/consulta/{type:string}"
+      },
+      "functions": {
+        "find": ["type"]
+      }
+    },
+    {
+      "template": {
+        "headers": {
+          "content-type": "text/plain"
+        },
+        "method": "POST",
+        "url": "http://relato-gold:6001/relato/saveTitles",
+        "body": "{body:string}"
+      },
+      "functions": {
+        "saveTitles": ["body"]
+      }
     }
   ]
 }

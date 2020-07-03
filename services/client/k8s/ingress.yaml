@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app-client-external
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  tls:
+    - secretName: app-tls
+      hosts:
+        - centralcreditapp.com.br
+  backend:
+    serviceName: app-client
+    servicePort: 80

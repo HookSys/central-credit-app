@@ -1,21 +1,14 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: relato-consult
   labels:
     run: relato-consult
 spec:
-  progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 2
   selector:
     matchLabels:
       run: relato-consult
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -24,7 +17,7 @@ spec:
       volumes:
         - name: consult-storage
           persistentVolumeClaim:
-            claimName: storage-db
+            claimName: consult-storage
       containers:
         - image: dcfranco/cc.service.relato.consult:0.0.0
           imagePullPolicy: IfNotPresent
@@ -39,8 +32,4 @@ spec:
             - name: consult-storage
               mountPath: /home/node/relato/consult/files_upload
           resources: {}
-      dnsPolicy: ClusterFirst
       restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30

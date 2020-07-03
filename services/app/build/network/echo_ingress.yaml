@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: echo-ingress
+  annotations:
+    kubernetes.io/ingress.class: 'nginx'
+    cert-manager.io/cluster-issuer: 'letsencrypt-staging'
+spec:
+  tls:
+    - hosts:
+        - http.centralcredit.com.br
+        - https.centralcredit.com.br
+      secretName: echo-tls
+  rules:
+    - host: http.centralcredit.com.br
+      http:
+        paths:
+          - backend:
+              serviceName: echo1
+              servicePort: 80
+    - host: https.centralcredit.com.br
+      http:
+        paths:
+          - backend:
+              serviceName: echo2
+              servicePort: 80

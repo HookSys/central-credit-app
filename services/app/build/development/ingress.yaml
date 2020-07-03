@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app-external
+spec:
+  tls:
+    - secretName: app-tls
+      hosts:
+        - centralcreditapp.com.br
+        - server.centralcreditapp.com.br
+  rules:
+    - host: server.centralcreditapp.com.br
+      http:
+        paths:
+          - backend:
+              serviceName: app
+              servicePort: 60000
+    - host: centralcredit.com.br
+      http:
+        paths:
+          - backend:
+              serviceName: app-client
+              servicePort: 80

@@ -4,6 +4,9 @@ metadata:
   name: centralcreditfinal
 build:
   artifacts:
+    - image: dcfranco/cc.service.client
+      context: services/client
+
     - image: dcfranco/cc.service.app
       context: services/app
       sync:
@@ -36,10 +39,15 @@ build:
 deploy:
   kubectl:
     manifests:
+      - services/app/build/development/secret.yaml
+      - services/app/build/development/service.yaml
       - services/app/build/development/storage.yaml
       - services/app/build/development/database.yaml
-      - services/app/build/development/service.yaml
       - services/app/build/development/deployment.yaml
+
+      - services/relato/build/gold/storage.yaml
+      - services/relato/build/central/storage.yaml
+      - services/relato/build/consult/storage.yaml
 
       - services/relato/build/gold/service.yaml
       - services/relato/build/central/service.yaml
@@ -48,3 +56,10 @@ deploy:
       - services/relato/build/gold/deployment.yaml
       - services/relato/build/central/deployment.yaml
       - services/relato/build/consult/deployment.yaml
+
+      - services/client/k8s/config.yaml
+      - services/client/k8s/service.yaml
+      - services/client/k8s/deployment.yaml
+      # - services/client/k8s/ingress.yaml
+
+      - services/app/build/development/ingress.yaml

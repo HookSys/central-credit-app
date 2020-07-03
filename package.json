@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "postinstall": "lerna bootstrap",
-    "start": "skaffold dev --port-forward=true"
+    "start": "skaffold dev"
   },
   "author": "Daniel Franco <dafrannco@gmail.com>",
   "license": "MIT",

@@ -3,10 +3,10 @@
 export const IsEnvProduction: boolean = process.env.NODE_ENV === 'production'
 
 // Base URL for Helmet
-export const BaseUrl: string = 'http://127.0.0.1:4000'
+export const BaseUrl: string = 'https://centralcreditapp.com.br'
 
 // Endpoint Backend
-export const ApiUrl: string | void = 'http://127.0.0.1:4000' // process.env.REACT_APP_CREDITOR_BASE_URL
+export const ApiUrl: string | void = 'https://server.centralcreditapp.com.br' // process.env.REACT_APP_CREDITOR_BASE_URL
 
 // Time left to resfresh token, 15 minutes
 export const RefreshThreshold: number = 15

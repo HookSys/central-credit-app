@@ -3,13 +3,10 @@ kind: PersistentVolumeClaim
 metadata:
   name: storage-db
   labels:
-    run: app
-    run: relato-central
-    run: relato-consult
-    run: relato-gold
+    run: app-cc
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
+      storage: 1Gi

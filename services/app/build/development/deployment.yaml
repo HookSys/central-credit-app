@@ -1,25 +1,22 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app
   labels:
-    run: app
+    cc.service.app/instance: app
+    cc.service.app/name: app
+    cc.service.app/part-of: app
 spec:
-  progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 2
   selector:
     matchLabels:
-      run: app
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
+      cc.service.app/instance: app
+      cc.service.app/name: app
   template:
     metadata:
       labels:
-        run: app
+        cc.service.app/instance: app
+        cc.service.app/name: app
     spec:
       containers:
         - image: dcfranco/cc.service.app:0.0.0
@@ -28,17 +25,30 @@ spec:
           ports:
             - name: app
               containerPort: 4000
-              protocol: TCP
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: app
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: app
+            initialDelaySeconds: 10
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: app
+            initialDelaySeconds: 10
+            failureThreshold: 30
+            periodSeconds: 10
           env:
             - name: MONGODB_SERVICE_HOST
-              value: 'app'
+              value: app-database
             - name: MONGODB_SERVICE_PORT
-              value: app-db
+              value: ''
           resources: {}
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
-      dnsPolicy: ClusterFirst
       restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30

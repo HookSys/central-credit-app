@@ -1,16 +1,19 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: app-db
+  name: app-database
+  labels:
+    cc.service.app/instance: app
+    cc.service.app/name: app-database
+    cc.service.app/part-of: app
 spec:
   replicas: 1
-  selector:
-    run: app
   template:
     metadata:
-      name: app-db
+      name: app-database
       labels:
-        run: app
+        cc.service.app/instance: app
+        cc.service.app/name: app-database
     spec:
       volumes:
         - name: mongo-storage
@@ -18,9 +21,9 @@ spec:
             claimName: storage-db
       containers:
         - image: mongo
-          name: app-db
+          name: db
           ports:
-            - name: app-db
+            - name: mongo
               containerPort: 27017
           volumeMounts:
             - name: mongo-storage

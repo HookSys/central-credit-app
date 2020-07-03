@@ -21,6 +21,7 @@ import {
 import { JWTService } from './services';
 import { JWTAuthenticationStrategy } from './auth/jwt-strategy';
 import { SECURITY_SCHEME_SPEC } from './auth';
+import { HealthBindings, HealthComponent } from '@loopback/extension-health';
 
 export interface PackageInfo {
   name: string;
@@ -45,7 +46,14 @@ export class OracleCreditApplication extends BootMixin(
       servers: [{ url: '/' }]
     });
 
+    this.configure(HealthBindings.COMPONENT).to({
+      healthPath: '/health',
+      livePath: '/healthz',
+      readyPath: '/healthz'
+    });
+
     this.doBinds();
+    this.component(HealthComponent);
     this.component(AuthenticationComponent);
     registerAuthenticationStrategy(this, JWTAuthenticationStrategy);
 

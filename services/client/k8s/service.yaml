@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    cc.service.app/component: service
+    cc.service.app/instance: app
+    cc.service.app/name: app-client
+    cc.service.app/part-of: client
+  name: app-client
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    cc.service.app/instance: app
+    cc.service.app/name: app-client
+  type: NodePort

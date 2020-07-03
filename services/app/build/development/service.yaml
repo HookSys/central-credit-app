@@ -2,15 +2,34 @@ apiVersion: v1
 kind: Service
 metadata:
   name: app
+  labels:
+    cc.service.app/component: service
+    cc.service.app/instance: app
+    cc.service.app/name: app
+    cc.service.app/part-of: app
 spec:
   type: NodePort
   selector:
-    run: app
+    cc.service.app/instance: app
+    cc.service.app/name: app
   ports:
-    - name: app
-      port: 4000
-      protocol: TCP
-      targetPort: app
-    - name: app-db
+    - protocol: TCP
+      port: 60000
+      targetPort: 4000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-database
+  labels:
+    cc.service.app/component: service
+    cc.service.app/instance: app
+    cc.service.app/name: app-database
+    cc.service.app/part-of: app
+spec:
+  selector:
+    cc.service.app/instance: app
+    cc.service.app/name: app-database
+  ports:
+    - name: mongo
       port: 27017
-      targetPort: app-db

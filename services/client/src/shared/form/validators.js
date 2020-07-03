@@ -1,10 +1,10 @@
 import moment from 'moment'
 
-export const required = ((value) => {
+export const required = value => {
   return value || value === 0 ? undefined : 'Este campo é obrigatório'
-})
+}
 
-export const dateRequired = ((value) => {
+export const dateRequired = value => {
   if (typeof value === 'string' && value.length >= 10) {
     const momentValue = moment(value, 'DD/MM/YYYY')
     if (moment.isMoment(momentValue)) {
@@ -18,7 +18,7 @@ export const dateRequired = ((value) => {
   }
 
   return 'Informe uma data correta'
-})
+}
 
 export const cpfValidator = (value = '') => {
   const cpf = value.replace(/[^\d]+/g, '')
@@ -26,17 +26,19 @@ export const cpfValidator = (value = '') => {
   if (cpf === '') {
     return undefined
   }
-  if (cpf.length !== 11
-    || cpf === '00000000000'
-    || cpf === '11111111111'
-    || cpf === '22222222222'
-    || cpf === '33333333333'
-    || cpf === '44444444444'
-    || cpf === '55555555555'
-    || cpf === '66666666666'
-    || cpf === '77777777777'
-    || cpf === '88888888888'
-    || cpf === '99999999999') {
+  if (
+    cpf.length !== 11 ||
+    cpf === '00000000000' ||
+    cpf === '11111111111' ||
+    cpf === '22222222222' ||
+    cpf === '33333333333' ||
+    cpf === '44444444444' ||
+    cpf === '55555555555' ||
+    cpf === '66666666666' ||
+    cpf === '77777777777' ||
+    cpf === '88888888888' ||
+    cpf === '99999999999'
+  ) {
     return 'Informe um CPF correto!'
   }
 
@@ -69,6 +71,10 @@ export const cpfValidator = (value = '') => {
 }
 
 export const cnpjValidator = (value = '') => {
+  if (!value) {
+    return
+  }
+
   const cnpj = value.replace(/[^\d]+/g, '')
 
   if (cnpj === '') {
@@ -103,33 +109,41 @@ export const cnpjValidator = (value = '') => {
     r = 11 - (s % 11)
     return r > 9 ? 0 : r
   }
-  return calc(t) === d1 && calc(t + 1) === d2 ? undefined : 'Informe um CNPJ correto!'
+  return calc(t) === d1 && calc(t + 1) === d2
+    ? undefined
+    : 'Informe um CNPJ correto!'
 }
 
-export const weakPassword = (score) => () => {
+export const weakPassword = score => () => {
   if (!score || score <= 30) {
     return 'A senha é muito fraca'
   }
   return undefined
 }
 
-export const maxLength = (max, message = 'Valor máximo ultrapassado!') => (value) => {
+export const maxLength = (
+  max,
+  message = 'Valor máximo ultrapassado!'
+) => value => {
   if (value && value > max) {
     return message
   }
   return undefined
 }
 
-export const passwordsMatch = ((value, allValues) => {
-  return value !== allValues.get('password') ? 'As duas senhas não conferem' : undefined
-})
+export const passwordsMatch = (value, allValues) => {
+  return value !== allValues.get('password')
+    ? 'As duas senhas não conferem'
+    : undefined
+}
 
-export const email = ((value) => {
+export const email = value => {
   return value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-    ? 'E-mail inválido' : undefined
-})
+    ? 'E-mail inválido'
+    : undefined
+}
 
-export const cpfOrEmailValidator = (value) => {
+export const cpfOrEmailValidator = value => {
   if (value) {
     // eslint-disable-next-line no-restricted-globals
     if (!isNaN(value[0])) {

@@ -4,7 +4,8 @@
   "prettier.useEditorConfig": false,
   "eslint.alwaysShowStatus": true,
   "eslint.format.enable": true,
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "cloudcode.awsExplorerVisible": true
 } // {
 //   "prettier.requireConfig": true,
 //   "prettier.useEditorConfig": false,

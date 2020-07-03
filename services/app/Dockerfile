@@ -25,4 +25,4 @@ RUN npm run build
 ENV HOST=0.0.0.0 PORT=4000 DEBUG=app:*
 
 EXPOSE ${PORT}
-CMD [ "node", "--inspect-brk", "."]
+CMD [ "node", "."]

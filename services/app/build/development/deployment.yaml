@@ -19,7 +19,7 @@ spec:
         cc.service.app/name: app
     spec:
       containers:
-        - image: dcfranco/cc.service.app:0.0.0
+        - image: cc.service.app
           imagePullPolicy: IfNotPresent
           name: app
           ports:
@@ -51,4 +51,6 @@ spec:
             - name: MONGODB_SERVICE_PORT
               value: ''
           resources: {}
+      imagePullSecrets:
+        - name: cc-credentials
       restartPolicy: Always

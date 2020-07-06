@@ -27,7 +27,7 @@ spec:
             name: nginxconfigmap
       containers:
         - name: app-client
-          image: dcfranco/cc.service.client:0.0.0
+          image: cc.service.client
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
@@ -36,3 +36,6 @@ spec:
               name: secret-volume
             - mountPath: /etc/nginx/conf.d
               name: configmap-volume
+          resources: {}
+      imagePullSecrets:
+        - name: cc-credentials

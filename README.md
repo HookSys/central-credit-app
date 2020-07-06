@@ -30,4 +30,4 @@ lerna run start
 lerna run build
 lerna run docker:build
 
-docker run -d --restart=always -e TAG=1.0.0 --name cc.service.relato.gold -p 6001:6001 dcfranco/cc.service.relato.gold:1.0.0
+docker run -d --restart=always -e TAG=1.0.0 --name cc.service.relato.gold -p 6001:6001 cc.service.relato.gold:1.0.0

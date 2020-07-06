@@ -4,16 +4,16 @@ metadata:
   name: centralcreditfinal
 build:
   artifacts:
-    - image: dcfranco/cc.service.client
+    - image: cc.service.client
       context: services/client
 
-    - image: dcfranco/cc.service.app
+    - image: cc.service.app
       context: services/app
       sync:
         infer:
           - '**/*.js'
 
-    - image: dcfranco/cc.service.relato.gold
+    - image: cc.service.relato.gold
       context: services/relato
       docker:
         dockerfile: Gold.Dockerfile
@@ -21,7 +21,7 @@ build:
         infer:
           - '**/*.js'
 
-    - image: dcfranco/cc.service.relato.central
+    - image: cc.service.relato.central
       context: services/relato
       docker:
         dockerfile: Central.Dockerfile
@@ -29,7 +29,7 @@ build:
         infer:
           - '**/*.js'
 
-    - image: dcfranco/cc.service.relato.consult
+    - image: cc.service.relato.consult
       context: services/relato
       docker:
         dockerfile: Consult.Dockerfile

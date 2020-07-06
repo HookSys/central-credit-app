@@ -4,12 +4,13 @@
   "description": "Francos Experian",
   "main": "app.js",
   "scripts": {
-    "gold": "node app.js GOLD",
-    "central": "node app.js CENTRAL",
-    "consult": "node app.js CONSULT",
-    "gold:build": "docker build -f Gold.Dockerfile -t dcfranco/cc.service.relato.gold:$npm_package_version .",
-    "consult:build": "docker build -f Consult.Dockerfile -t dcfranco/cc.service.relato.consult:$npm_package_version .",
-    "central:build": "docker build -f Central.Dockerfile -t dcfranco/cc.service.relato.central:$npm_package_version ."
+    "gold": "node --inspect app.js GOLD",
+    "central": "node --inspect app.js CENTRAL",
+    "consult": "node --inspect app.js CONSULT",
+    "docker:build": "npm run gold:build && npm run consult:build && npm run central:build",
+    "gold:build": "docker build -f Gold.Dockerfile -t ccapp.azurecr.io/cc.service.relato.gold:$npm_package_version .",
+    "consult:build": "docker build -f Consult.Dockerfile -t ccapp.azurecr.io/cc.service.relato.consult:$npm_package_version .",
+    "central:build": "docker build -f Central.Dockerfile -t ccapp.azurecr.io/cc.service.relato.central:$npm_package_version ."
   },
   "keywords": [
     "node",

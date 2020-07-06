@@ -19,17 +19,20 @@ spec:
           persistentVolumeClaim:
             claimName: central-storage
       containers:
-        - image: dcfranco/cc.service.relato.central:0.0.0
+        - image: cc.service.relato.central
           imagePullPolicy: IfNotPresent
           name: relato-central
           ports:
             - name: relato-central
               containerPort: 6000
               protocol: TCP
+            - name: relato-dbg
+              containerPort: 9229
+              protocol: TCP
           volumeMounts:
             - name: central-storage
               mountPath: /home/node/relato/central/files_relato
-            - name: central-storage
-              mountPath: /home/node/relato/central/files_upload
           resources: {}
+      imagePullSecrets:
+        - name: cc-credentials
       restartPolicy: Always

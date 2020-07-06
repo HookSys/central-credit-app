@@ -19,7 +19,7 @@ spec:
           persistentVolumeClaim:
             claimName: gold-storage
       containers:
-        - image: dcfranco/cc.service.relato.gold:0.0.0
+        - image: cc.service.relato.gold
           imagePullPolicy: IfNotPresent
           name: relato-gold
           ports:
@@ -29,7 +29,7 @@ spec:
           volumeMounts:
             - name: gold-storage
               mountPath: /home/node/relato/gold/files_relato
-            - name: gold-storage
-              mountPath: /home/node/relato/gold/files_upload
           resources: {}
+      imagePullSecrets:
+        - name: cc-credentials
       restartPolicy: Always

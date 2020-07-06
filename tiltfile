@@ -9,14 +9,14 @@ k8s_yaml([
   'services/serasa/build/development/storage.yaml'
 ])
 
-docker_build('dcfranco/cc.service.app', 'services/app',
+docker_build('cc.service.app', 'services/app',
   live_update=[
     fall_back_on(['package.json', 'package-lock.json']),
     sync('.', '/services/app/src'),
   ]
 )
 
-docker_build('dcfranco/cc.service.serasa', 'services/serasa',
+docker_build('cc.service.serasa', 'services/serasa',
   live_update=[
     fall_back_on(['package.json', 'package-lock.json']),
     sync('.', '/services/serasa/src'),

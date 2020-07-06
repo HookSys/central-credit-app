@@ -26,7 +26,7 @@
     "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
     "posttest": "npm run lint",
     "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
-    "docker:build": "docker build -t dcfranco/cc.service.app:$npm_package_version .",
+    "docker:build": "docker build -t ccapp.azurecr.io/cc.service.app:$npm_package_version .",
     "docker:run": "docker-compose up --force-recreate --build",
     "migrate": "node ./dist/migrate",
     "prestart": "npm run build",

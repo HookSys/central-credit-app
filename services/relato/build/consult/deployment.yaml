@@ -19,7 +19,7 @@ spec:
           persistentVolumeClaim:
             claimName: consult-storage
       containers:
-        - image: dcfranco/cc.service.relato.consult:0.0.0
+        - image: cc.service.relato.consult
           imagePullPolicy: IfNotPresent
           name: relato-consult
           ports:
@@ -29,7 +29,7 @@ spec:
           volumeMounts:
             - name: consult-storage
               mountPath: /home/node/relato/consult/files_relato
-            - name: consult-storage
-              mountPath: /home/node/relato/consult/files_upload
           resources: {}
+      imagePullSecrets:
+        - name: cc-credentials
       restartPolicy: Always

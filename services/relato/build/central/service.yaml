@@ -11,3 +11,7 @@ spec:
       port: 6000
       protocol: TCP
       targetPort: relato-central
+    - name: relato-dbg
+      port: 9229
+      protocol: TCP
+      targetPort: relato-dbg

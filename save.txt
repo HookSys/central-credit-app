@@ -1,0 +1,5 @@
+kubectl create secret docker-registry cc-credentials \
+  --namespace default \
+  --docker-server=https://ccapp.azurecr.io \
+  --docker-username=f47e8594-dc4e-4d9d-bd93-6fe8c9b64587 \
+  --docker-password=fkGb_M_S3AjD0u_yD77yNx.rUg-zQF4SzA

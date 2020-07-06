@@ -83,7 +83,7 @@ app.post('/authenticate', async function(req, res) {
 })
 
 var checkdirs = function() {
-  let dirs = ['/files_upload', '/files_relato']
+  let dirs = ['/files_relato']
   dirs.map(dir => {
     if (!fs.existsSync(__dirname + dir)) {
       fs.mkdirSync(__dirname + dir)

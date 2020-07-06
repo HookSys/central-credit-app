@@ -6,6 +6,8 @@ USER node
 
 # Create app directory (with user `node`)
 RUN mkdir -p /home/node/relato/gold
+RUN mkdir -p /home/node/relato/gold/files_relato
+RUN chmod -R 755 /home/node/relato/gold/files_relato
 
 WORKDIR /home/node/relato/gold
 

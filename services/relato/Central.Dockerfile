@@ -6,6 +6,8 @@ USER node
 
 # Create app directory (with user `node`)
 RUN mkdir -p /home/node/relato/central
+RUN mkdir -p /home/node/relato/central/files_relato
+RUN chmod -R 755 /home/node/relato/central/files_relato
 
 WORKDIR /home/node/relato/central
 
@@ -23,4 +25,5 @@ COPY --chown=node . .
 ENV HOST=0.0.0.0 PORT=6000
 
 EXPOSE ${PORT}
+EXPOSE 9229
 CMD [ "npm", "run", "central"]

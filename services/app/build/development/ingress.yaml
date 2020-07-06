@@ -15,7 +15,7 @@ spec:
           - backend:
               serviceName: app
               servicePort: 60000
-    - host: centralcredit.com.br
+    - host: centralcreditapp.com.br
       http:
         paths:
           - backend:
